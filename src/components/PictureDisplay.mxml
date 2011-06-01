@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="PictureDisplay">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			[Bindable]
+			private var _source:String = "";
+			
+			
+			
+
+			public function get source():String
+			{
+				return _source;
+			}
+
+			public function set source(value:String):void
+			{
+				_source = value;
+			}
+			
+			private function placePicture():void
+			{
+				itemPicture.rotation = -12;
+				pictureBG.rotation = -12;
+				itemPicture.y = itemPicture.y + 50;
+				paperclip.right = 0;
+				paperclip.y = pictureBG.y + 100;
+				
+			}
+
+			protected function init(event:FlexEvent):void
+			{
+				placePicture();
+				this.width = parent.width;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	
+	<s:Rect id="pictureBG" x="{itemPicture.x -5}" y="{itemPicture.y-5}" width="{itemPicture.width +10}" height="{itemPicture.height + 10}">
+		<s:stroke>
+			<s:SolidColorStroke color="0xFFFFFF" weight="5" />
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" />
+		</s:fill>
+	</s:Rect>
+	<s:Image id="itemPicture"  horizontalCenter="0" source="{_source}" />
+	<s:Image id="paperclip" source="@Embed('/assets/icons/paperclip.png')"/>
+	
+	
+</s:View>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 width="100%" height="199" creationComplete="init(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.supportClasses.StyleableTextField;
+			
+			[Bindable]
+			private var _currentItem:String = "";
+			
+			[Embed(source='/assets/icons/detailBannerLeft.png')]
+			private static var detailLeft:Class;
+			
+			[Embed(source='/assets/icons/detailBannerRight.png')]
+			private static var detailRight:Class;
+			
+			[Embed(source='/assets/icons/detailBannerLeftActive.png')]
+			private static var detailLeftActive:Class;
+			
+			[Embed(source='/assets/icons/detailBannerRightActive.png')]
+			private static var detailRightActive:Class;
+			
+			//protected var itemLabel:StyleableTextField = new StyleableTextField();
+
+			public function get currentItem():String
+			{
+				return _currentItem;
+			}
+
+			public function set currentItem(value:String):void
+			{
+				_currentItem = value;
+			}
+
+			protected function init(event:FlexEvent):void
+			{
+				/* itemLabel.text = _currentItem;
+				itemLabel.setStyle("textAlign","center");
+				itemLabel.setStyle("fontFamily", "Lions Den");
+				itemLabel.setStyle("fontSize", 40);
+				
+				
+				itemLabel.x = (banner.x + banner.width/2) - itemLabel.width/2;
+				itemLabel.y = banner.y + (banner.height/2);
+				addElement(itemLabel) */
+				
+			}
+			
+			protected function leftBtn_mouseDownHandler(event:MouseEvent):void
+			{
+				leftBtn.source = detailLeftActive;
+				
+			}
+			
+			protected function leftBtn_mouseUpHandler(event:MouseEvent):void
+			{
+				leftBtn.source = detailLeft;
+				
+			}
+			
+			protected function rightBtn_mouseDownHandler(event:MouseEvent):void
+			{
+				rightBtn.source = detailRightActive;
+				
+			}
+			
+			protected function rightBtn_mouseUpHandler(event:MouseEvent):void
+			{
+				rightBtn.source = detailRight;
+
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<s:Image id="leftBtn" horizontalCenter="-220" mouseDown="leftBtn_mouseDownHandler(event)" mouseUp="leftBtn_mouseUpHandler(event)"
+			 source="@Embed('/assets/icons/detailBannerLeft.png')" verticalCenter="13"/>
+	<s:Image id="rightBtn" horizontalCenter="220" mouseDown="rightBtn_mouseDownHandler(event)" mouseUp="rightBtn_mouseUpHandler(event)"
+			 source="@Embed('/assets/icons/detailBannerRight.png')" verticalCenter="13"/>
+	
+	<s:Image id="banner" y="0" horizontalCenter="-0" source="@Embed('/assets/bg/detailBanner.png')"/>
+	<s:Label id="itemLabel" horizontalCenter="0"  text="{_currentItem}"
+			 textAlign="center" verticalAlign="middle" verticalCenter="24"/>
+</s:Group>

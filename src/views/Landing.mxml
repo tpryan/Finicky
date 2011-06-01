@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  
+		xmlns:s="library://ns.adobe.com/flex/spark" title="" actionBarVisible="false" xmlns:components="components.*" xmlns:renderers="renderers.*">
+	
+	<fx:Script>
+		<![CDATA[
+			protected var currentCity:int = 0;
+			
+			protected function location1_locationChangedHandler(event:Event):void
+			{
+				currentCity = currentCity + 1;
+				
+				if (currentCity >= cities.length){
+					currentCity = 0;
+				}
+				
+				locationInterface.location = cities.getItemAt(currentCity).name;
+			}
+			
+			protected function itemList_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView(Detail, itemList.selectedItem);
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:ArrayCollection id="cities">
+			<fx:Object name="Philadelphia" />
+			<fx:Object name="New York" />
+			<fx:Object name="Los Angeles" />
+			<fx:Object name="San Francisco" />
+		</s:ArrayCollection>
+		
+		<s:ArrayCollection id="items">
+			<fx:Object name="Cloves" location="Avril 50" />
+			<fx:Object name="Coke Zero" location="7/Eleven" />
+			<fx:Object name="Indian Buffet" location="Sitar India" />
+			<fx:Object name="Sushi" location="Aoi" />
+			<fx:Object name="Ben &amp; Jerry's Mudslide" location="Whole Foods" />
+			<fx:Object name="Yuengling Lager" location="McCrossens" />
+			<fx:Object name="Stoudt's Double Bock" location="Philly Pub and Grub" />
+			<fx:Object name="Mexican Coke" location="Philly Flavors" />
+			<fx:Object name="Soft Serve" location="Philly Flavors" />
+			<fx:Object name="BLT's with Avacodo" location="RyBread" />
+		</s:ArrayCollection>
+		
+	</fx:Declarations>
+	
+	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{items}" contentBackgroundAlpha="0"
+		 click="itemList_clickHandler(event)"	>
+		<s:itemRenderer>
+			<fx:Component>
+				<renderers:NoBackGround creationComplete="init()" render="placeItems()" height="173" 
+										styleName="itemName" messageStyleName="locationName" labelField="name"
+										decorator="@Embed('/assets/icons/itemListButtonUp.png') "
+										messageFunction="upperLocation" 
+										mouseUp="mouseUponButton(event)" mouseDown="mouseDownonButton(event)">
+					<fx:Script>
+						<![CDATA[
+							
+							[Embed(source='/assets/icons/itemListButtonDown.png')]
+							private static var itemDown:Class;
+							
+							[Embed(source='/assets/icons/itemListButtonUp.png')]
+							private static var itemUp:Class;
+							
+							protected function upperLocation(obj:Object):String{
+								return obj.location.toUpperCase()
+								
+							}
+							
+							protected function placeItems():void{
+							}
+							
+							
+							protected function init():void
+							{
+								placeItems()
+								
+								var line:Sprite = new Sprite();
+								line.graphics.lineStyle(2, 0x000000, .75);
+								line.graphics.lineTo(width, 0);
+								
+								this.addChild(line);
+								
+							}
+							
+							protected function mouseDownonButton(event:MouseEvent):void
+							{
+								decoratorDisplay.source = itemDown;
+								placeItems()
+								
+							}
+							
+							protected function mouseUponButton(event:MouseEvent):void
+							{
+								decoratorDisplay.source = itemUp;
+								placeItems()
+							}
+							
+						]]>
+					</fx:Script>
+					
+				</renderers:NoBackGround>
+			</fx:Component>
+			
+		</s:itemRenderer>
+	</s:List>
+	
+	<components:Location id="locationInterface" location="{cities.getItemAt(currentCity).name}" locationChanged="location1_locationChangedHandler(event)" />
+
+	
+</s:View>

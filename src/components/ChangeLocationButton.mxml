@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" height="100" width="100"
+		 xmlns:s="library://ns.adobe.com/flex/spark" click="clickHandler()" mouseDown="down(event)" mouseUp="up(event)" >
+	
+	<fx:Metadata>
+		[Event(name="clicked", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+		
+
+			protected function clickHandler():void
+			{
+				dispatchEvent(new Event("clicked"));
+			}
+			
+			
+			protected function down(event:MouseEvent):void
+			{
+				icon.source = "assets/icons/changelocationdown.png";
+				
+			}
+			
+			protected function up(event:MouseEvent):void
+			{
+				icon.source = "assets/icons/changelocationup.png";
+				
+			}
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Image id="icon" horizontalCenter="0" verticalCenter="0" source="assets/icons/changelocationup.png" />
+</s:Group>

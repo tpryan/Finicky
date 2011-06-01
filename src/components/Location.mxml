@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" creationComplete="init(event)" xmlns:components="components.*">
+	
+	<fx:Metadata>
+		[Event(name="locationChanged", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.filters.DropShadowFilter;
+			
+			import mx.events.FlexEvent;
+			
+			import spark.components.supportClasses.StyleableTextField;
+			
+			
+			private var _location:String = "";
+			
+			
+			protected var locationLabel:StyleableTextField = new StyleableTextField();
+			
+			public function get location():String
+			{
+				return _location;
+			}
+
+			public function set location(value:String):void
+			{
+				_location = value;
+				locationLabel.text = value;
+			}
+
+			protected function init(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+				var dropshadow:flash.filters.DropShadowFilter = new flash.filters.DropShadowFilter();
+				dropshadow.alpha = .9;
+				dropshadow.color = 0x000000;
+				dropshadow.angle = 120;
+				dropshadow.distance = 1;
+				
+				locationLabel.text = _location;
+				locationLabel.x = 40;
+				locationLabel.y = 105;
+				locationLabel.setStyle("fontFamily", "Spoleto");
+				locationLabel.setStyle("fontSize", 60);
+				locationLabel.setStyle("color", 0xFFFFFF);
+				locationLabel.rotation = -11.5;
+				locationLabel.filters = [dropshadow];
+				addElement(locationLabel);
+				
+			}
+			
+			protected function changeLocationBtn_clickedHandler(event:Event):void
+			{
+				dispatchEvent(new Event("locationChanged"));
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:Image source="@Embed('/assets/bg/bg_location.png')" />
+	
+	<components:ChangeLocationButton id="changeLocationBtn" top="0" right="130" clicked="changeLocationBtn_clickedHandler(event)" />	
+	
+</s:Group>

@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
-							xmlns:s="library://ns.adobe.com/flex/spark" firstView="views.FinickyPhoneLandingView">
+							xmlns:s="library://ns.adobe.com/flex/spark" 
+							splashScreenImage="@Embed('assets/splash/splash.jpg')"
+							splashScreenScaleMode="none" skinClass="skins.AppSkin" 
+							creationComplete="init(event)"
+							firstView="views.Landing">
+	
+	<fx:Style source="main.css" />
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.fonts.Liberator;
+			import com.terrenceryan.finicky.fonts.LiberatorTLF;
+			import com.terrenceryan.finicky.fonts.LionsDen;
+			import com.terrenceryan.finicky.fonts.LionsDenTLF;
+			import com.terrenceryan.finicky.fonts.Spoleto;
+			import com.terrenceryan.finicky.fonts.tradegothic;
+			import com.terrenceryan.finicky.fonts.tradegothicbold;
+			import com.terrenceryan.finicky.fonts.tradegothictlf;
+			import com.terrenceryan.finicky.fonts.tradegothictlfbold;
+			
+			import mx.events.FlexEvent;
+			
+			protected function init(event:FlexEvent):void
+			{
+				getFonts();
+				
+			}
+			
+			private function getFonts():void
+			{
+				var myFont1:Font = new Spoleto as Font;
+				var myFont2:Font = new LionsDen as Font;
+				var myFont3:Font = new tradegothic as Font;
+				var myFont4:Font = new LionsDenTLF as Font;
+				var myFont5:Font = new tradegothictlf as Font;
+				var myFont6:Font = new tradegothicbold as Font;
+				var myFont7:Font = new tradegothictlfbold as Font;
+				var myFont8:Font = new Liberator as Font;
+				var myFont9:Font = new LiberatorTLF as Font;
+				
+				var fonts:Array = Font.enumerateFonts();
+				for each (var key:Font in fonts)
+				{
+					trace(key.fontName + " - " + key.fontStyle + " - " + key.fontType);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

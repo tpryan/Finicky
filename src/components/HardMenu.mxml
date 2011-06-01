@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" height="150" 
+		xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="components.*">
+	
+	
+	<fx:Script>
+		<![CDATA[
+			public var active:Boolean = false;
+		]]>
+	</fx:Script>
+	
+	
+	<s:Image id="bg" horizontalCenter="0"  source="@Embed('/assets/bg/bg_menu.png')"/>
+	<s:Button id="addButton" label="ADD" skinClass="skins.MenuButtonSkin"  horizontalCenter="-90" verticalCenter="-28"/>
+	
+	<s:Button id="editButton" label="EDIT" skinClass="skins.MenuButtonSkin" horizontalCenter="90" verticalCenter="-28"/>
+	<s:Button id="saveButton" label="SAVE" skinClass="skins.MenuButtonSkin" horizontalCenter="-90" verticalCenter="42" enabled="false"/>
+	<s:Button id="mapButton" label="MAP" skinClass="skins.MenuButtonSkin" horizontalCenter="90" verticalCenter="42"/>
+	
+	
+</s:Group>

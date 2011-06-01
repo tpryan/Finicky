@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" keyDown="keyPress(event)" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Detail" xmlns:components="components.*" creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			
+			import spark.components.supportClasses.StyleableTextField;
+			
+			protected function init(event:FlexEvent):void
+			{
+				item.store = store;
+				setStoreAddress();
+				
+				
+				
+				
+			}
+			
+			private function setStoreAddress():void
+			{
+				storeAddress.text = store.address + '\n' + store.city + ', ' + store.state;				
+
+				
+			}
+			
+			protected function keyPress(event:KeyboardEvent):void
+			{
+				trace(event.keyCode);
+				
+				
+				if (event.keyCode == Keyboard.BACK){
+					
+					if (hardmenu.active){
+						event.preventDefault();
+						exitEffect.end();
+						exitEffect.play();
+						hardmenu.active = false;
+					}
+				}
+				
+				
+				if (event.keyCode == Keyboard.MENU){
+					
+					if (!hardmenu.active){
+						enterEffect.end();
+						enterEffect.play();
+						hardmenu.active = true;
+					}
+					else{
+						exitEffect.end();
+						exitEffect.play();
+						hardmenu.active = false;
+					}
+				}
+				
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:Move id="enterEffect" yFrom="{stage.stageHeight + hardmenu.height}" yTo="{stage.stageHeight- hardmenu.height}" target="{hardmenu}" />
+		<s:Move id="exitEffect" yTo="{stage.stageHeight + hardmenu.height}" yFrom="{stage.stageHeight- hardmenu.height}" target="{hardmenu}" />
+		
+		<fx:Object id="store" name="Holt's" address="1522 Walnut Street" city="Philadelphia" state="PA" 
+				   description="This store pretty much has anything you would ever want. " />
+		<fx:Object id="item" name="Cloves" />
+			
+	</fx:Declarations>
+	
+	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" />
+		
+		
+		<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
+			<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" />
+			<s:Label id="storeName" width="440" horizontalCenter="0" text="{store.name}"/>
+			<s:Label id="storeAddress"  width="440" horizontalCenter="0" text=""/>
+			
+			<components:PictureDisplay source="/assets/items/clovepicture.jpg" />
+			<s:Label id="storeDescription" width="100%" text="{store.description}"/>
+		</s:VGroup>
+	
+	<components:HardMenu id="hardmenu" y="{stage.stageHeight + hardmenu.height}" left="0" right="0" horizontalCenter="0" />
+	
+</s:View>

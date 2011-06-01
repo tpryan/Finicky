@@ -1,0 +1,54 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+
+
+s|View{
+	backgroundAlpha: 0;
+}
+
+s|IconItemRenderer{
+	backgroundAlpha: 0;
+}
+
+.itemName{
+	fontFamily: "Lions Den";
+	fontSize: 40;
+	paddingLeft:58;
+	paddingTop: 43;
+	
+}
+
+#itemLabel {
+	fontFamily: "Lions Den";
+	fontSize: 40;
+	
+	
+}
+
+.locationName{
+	fontFamily: "Trade Gothic LT Std";
+	fontSize: 24;
+	paddingLeft:58;
+}
+
+#storeName{
+	fontFamily: "Trade Gothic LT Std Bold";
+	fontSize: 30;
+	color: #383539;
+	paddingLeft:50;
+}
+
+#storeAddress{
+	fontFamily: "Trade Gothic LT Std";
+	fontSize: 30;
+	color: #383539;
+	paddingLeft:50;
+}
+
+#storeDescription{
+	fontFamily: "Lions Den";
+	fontSize: 35;
+	paddingLeft:50;
+	paddingRight:20;
+}
+

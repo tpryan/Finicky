@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" mouseDown="mouseDown(event)" mouseUp="mouseUp(event)"
+		 xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="init(event)"
+		 width="155" height="60" click="clickHandler(event)" currentState="Normal">
+	
+	<fx:Metadata>
+		[Event(name="clicked", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			[Bindable]
+			public var label:String = "Label";
+			public var active:Boolean = true;
+			
+			protected function clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent( new Event("clicked"));
+				
+			}
+			
+			protected function init(event:FlexEvent):void
+			{
+				toggleActive();
+				
+			}
+			private function toggleActive():void{
+				if (active == false){
+					currentState = "Deactivated";
+					labelLabel.setStyle("color", 0x555555);
+					icon.visible = false;
+				}
+			}
+			
+			protected function mouseDown(event:MouseEvent):void
+			{
+				//icon.x = icon.x + 2;
+				icon.y = icon.y + 2;
+				labelLabel.x = labelLabel.x + 2;
+				labelLabel.y = labelLabel.y + 2;
+				
+			}
+			
+			protected function mouseUp(event:MouseEvent):void
+			{
+				//icon.x = icon.x - 2;
+				icon.y = icon.y - 2;
+				labelLabel.x = labelLabel.x - 2;
+				labelLabel.y = labelLabel.y - 2;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		#labelLabel{
+			fontFamily: "Liberator";
+			fontSize: 40;
+			color: #71491D;
+		}
+		
+		
+	</fx:Style>
+	
+	<s:states>
+		<s:State name="Normal"/>
+		<s:State name="Selected"/>
+		<s:State name="Deactivated"/>
+	</s:states>
+	
+	<s:Image id="icon" source="@Embed('/assets/icons/addbtn.png')"
+			 y.Deactivated="8"
+			 verticalCenter.Normal="0"
+			 verticalCenter.Selected="0"/>
+	<s:Label id="labelLabel" kerning="on" text="{label}"
+			 x.Deactivated="57" y.Deactivated="10"
+			 left.Normal="57" verticalCenter.Normal="0"
+			 left.Selected="57" verticalCenter.Selected="0"/>
+	
+	
+	
+</s:Group>
