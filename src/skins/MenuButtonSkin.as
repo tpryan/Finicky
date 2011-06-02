@@ -67,21 +67,6 @@ package skins
 			
 		}
 		
-		/*override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
-		{
-			super.layoutContents(unscaledWidth, unscaledHeight);
-			
-			
-			
-			setIcon(addicon);
-			var iconDisplay:DisplayObject = getIconDisplay();
-			
-		
-			
-			if (iconDisplay != null){
-				setElementPosition(iconDisplay, 25, 15);
-			}
-		}	*/
 		
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 		{

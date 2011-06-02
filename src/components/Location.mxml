@@ -4,6 +4,7 @@
 	
 	<fx:Metadata>
 		[Event(name="locationChanged", type="flash.events.Event")]
+		[Event(name="filterClicked", type="flash.events.Event")]
 	</fx:Metadata>
 	
 	<fx:Script>
@@ -44,6 +45,8 @@
 				locationLabel.text = _location;
 				locationLabel.x = 40;
 				locationLabel.y = 105;
+				locationLabel.width = 700;
+				locationLabel.editable = false;
 				locationLabel.setStyle("fontFamily", "Spoleto");
 				locationLabel.setStyle("fontSize", 60);
 				locationLabel.setStyle("color", 0xFFFFFF);
@@ -59,12 +62,22 @@
 				
 			}
 			
+			protected function filterBtn_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent( new Event("filterClicked"));
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
+	<s:Image y="89" horizontalCenter="88" source="@Embed('/assets/bg/bg_location_filter.png')"/>
+	<s:Image top="0" horizontalCenter="0" source="@Embed('/assets/bg/bg_location.png')"/>
+	<s:Button id="filterBtn" label="Filter" horizontalCenter="92" skinClass="skins.FilterButtonSkin"
+			  verticalCenter="65" click="filterBtn_clickHandler(event)"/>
 	
-	<s:Image source="@Embed('/assets/bg/bg_location.png')" />
-	
-	<components:ChangeLocationButton id="changeLocationBtn" top="0" right="130" clicked="changeLocationBtn_clickedHandler(event)" />	
+	<components:ChangeLocationButton id="changeLocationBtn" top="1"
+									 clicked="changeLocationBtn_clickedHandler(event)"
+									 horizontalCenter="87"/>	
 	
 </s:Group>

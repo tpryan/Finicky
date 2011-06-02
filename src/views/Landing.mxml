@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" keyDown="keyPress(event)"  
 		xmlns:s="library://ns.adobe.com/flex/spark" title="" actionBarVisible="false" xmlns:components="components.*" xmlns:renderers="renderers.*">
 	
 	<fx:Script>
@@ -20,6 +20,42 @@
 			protected function itemList_clickHandler(event:MouseEvent):void
 			{
 				navigator.pushView(Detail, itemList.selectedItem);
+				
+			}
+			
+			protected function keyPress(event:KeyboardEvent):void
+			{
+				trace(event.keyCode);
+				
+				
+				if (event.keyCode == Keyboard.BACK){
+					
+					if (filterModal.active){
+						event.preventDefault();
+						filterModal.active = false;
+						filterModal.visible = false;
+					}
+				}
+				
+				
+				if (event.keyCode == Keyboard.MENU){
+					
+					if (!filterModal.active){
+						filterModal.active = true;
+						filterModal.visible = true;
+					}
+					else{
+						filterModal.active = false;
+						filterModal.visible = false;
+					}
+				}
+				
+			}
+			
+			protected function locationInterface_filterClickedHandler(event:Event):void
+			{
+				filterModal.active = true;
+				filterModal.visible = true;
 				
 			}
 			
@@ -50,16 +86,20 @@
 	</fx:Declarations>
 	
 	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{items}" contentBackgroundAlpha="0"
-		 click="itemList_clickHandler(event)"	>
+			click="itemList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
-				<renderers:NoBackGround creationComplete="init()" render="placeItems()" height="173" 
+				<renderers:NoBackGround creationComplete="init()"  height="173" 
 										styleName="itemName" messageStyleName="locationName" labelField="name"
 										decorator="@Embed('/assets/icons/itemListButtonUp.png') "
-										messageFunction="upperLocation" 
-										mouseUp="mouseUponButton(event)" mouseDown="mouseDownonButton(event)">
+										messageFunction="upperLocation" click="clickHandler(event)" 
+										>
+					
 					<fx:Script>
 						<![CDATA[
+							import mx.states.AddChild;
+							
+							import spark.components.Image;
 							
 							[Embed(source='/assets/icons/itemListButtonDown.png')]
 							private static var itemDown:Class;
@@ -67,18 +107,18 @@
 							[Embed(source='/assets/icons/itemListButtonUp.png')]
 							private static var itemUp:Class;
 							
+							
+							public var selectedDecorator:Image = new Image();
+							
 							protected function upperLocation(obj:Object):String{
 								return obj.location.toUpperCase()
 								
 							}
 							
-							protected function placeItems():void{
-							}
 							
 							
 							protected function init():void
 							{
-								placeItems()
 								
 								var line:Sprite = new Sprite();
 								line.graphics.lineStyle(2, 0x000000, .75);
@@ -88,17 +128,21 @@
 								
 							}
 							
-							protected function mouseDownonButton(event:MouseEvent):void
+							
+							
+							protected function clickHandler(event:MouseEvent):void
 							{
 								decoratorDisplay.source = itemDown;
-								placeItems()
+								bg.z = 0;
+								bgVisible = true;
 								
-							}
-							
-							protected function mouseUponButton(event:MouseEvent):void
-							{
-								decoratorDisplay.source = itemUp;
-								placeItems()
+								selectedDecorator.source = itemDown;
+								selectedDecorator.width = decoratorDisplay.width;
+								selectedDecorator.height = decoratorDisplay.height;
+								selectedDecorator.y = decoratorDisplay.y;
+								selectedDecorator.x = decoratorDisplay.x;
+								addChildAt(selectedDecorator, 1);
+								
 							}
 							
 						]]>
@@ -110,7 +154,8 @@
 		</s:itemRenderer>
 	</s:List>
 	
-	<components:Location id="locationInterface" location="{cities.getItemAt(currentCity).name}" locationChanged="location1_locationChangedHandler(event)" />
+	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{cities.getItemAt(currentCity).name}" locationChanged="location1_locationChangedHandler(event)" />
 
+	<components:FilterModal id="filterModal" visible="false" />	
 	
 </s:View>

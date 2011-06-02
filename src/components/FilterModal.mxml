@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" creationComplete="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			private var _filterType:String = "item";
+
+			public var active:Boolean = true;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/modalCheckOff.png")]
+			private var off:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/modalCheckOn.png")]
+			private var on:Class;
+			
+			
+			public function get filterType():String
+			{
+				return _filterType;
+			}
+
+			public function set filterType(value:String):void
+			{
+				_filterType = value;
+			}
+			
+			private function toggleFilter():void{
+				if (_filterType == "item"){
+					_filterType = "place";
+				}
+				else{
+					_filterType = "item";
+				}
+				
+				setIcon();
+			}
+
+			protected function init(event:FlexEvent):void
+			{
+				setIcon();
+				
+			}
+			
+			private function setIcon():void{
+				if (_filterType == "item"){
+					modalItemIcon.source = on;
+					modalPlaceIcon.source = off;
+				}
+				else{
+					modalItemIcon.source = off;
+					modalPlaceIcon.source = on;
+				}
+				
+				
+			}
+			
+			protected function clickHandler(event:MouseEvent):void
+			{
+				toggleFilter();
+			}
+			
+			protected function closeButton_clickHandler(event:MouseEvent):void
+			{
+				active = false;
+				visible = false;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		#modalPlaceLabel, #modalItemLabel{
+			fontFamily: "Liberator";
+			fontSize: 54;
+			color: #383539;
+		}
+		
+	</fx:Style>
+	
+	<s:Rect width="100%" height="100%" alpha=".8">
+		<s:fill>
+			<s:SolidColor color="0x000000" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Image id="bg" horizontalCenter="0" source="@Embed('/assets/bg/bg_modal.png')" verticalCenter="0"/>
+	<s:Label id="modalItemLabel" horizontalCenter="-140" text="ITEM" verticalCenter="-50"/>
+	<s:Label id="modalPlaceLabel" horizontalCenter="140" text="PLACE" verticalCenter="-50"/>
+	
+	<s:Image id="closeButton" horizontalCenter="235" source="@Embed('/assets/icons/closebutton.png')"
+			 verticalCenter="-126" click="closeButton_clickHandler(event)"/>
+	
+	<s:Image id="modalItemIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="clickHandler(event)"/>
+	<s:Image id="modalPlaceIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="clickHandler(event)" />
+	
+	
+</s:Group>
