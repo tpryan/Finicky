@@ -42,17 +42,21 @@
 				dropshadow.angle = 120;
 				dropshadow.distance = 1;
 				
+			
+				locationLabel.autoSize = TextFieldAutoSize.LEFT;
 				locationLabel.text = _location;
-				locationLabel.x = 40;
-				locationLabel.y = 105;
+				locationLabel.x = 10;
+				locationLabel.y = 108;
 				locationLabel.width = 700;
+				locationLabel.selectable = false;
 				locationLabel.editable = false;
 				locationLabel.setStyle("fontFamily", "Spoleto");
 				locationLabel.setStyle("fontSize", 60);
 				locationLabel.setStyle("color", 0xFFFFFF);
-				locationLabel.rotation = -11.5;
+				locationLabel.rotation = -14;
 				locationLabel.filters = [dropshadow];
 				addElement(locationLabel);
+				
 				
 			}
 			
@@ -71,13 +75,13 @@
 		]]>
 	</fx:Script>
 	
-	<s:Image y="89" horizontalCenter="88" source="@Embed('/assets/bg/bg_location_filter.png')"/>
-	<s:Image top="0" horizontalCenter="0" source="@Embed('/assets/bg/bg_location.png')"/>
-	<s:Button id="filterBtn" label="Filter" horizontalCenter="92" skinClass="skins.FilterButtonSkin"
+	<s:Image y="89" right="0" source="@Embed('/assets/bg/bg_location_filter.png')"/>
+	<s:Image top="0" horizontalCenter="0" source="@Embed('/assets/bg/bg_location.png')" width="100%" scaleMode="stretch" />
+	<s:Button id="filterBtn" label="Filter" right="10" skinClass="skins.FilterButtonSkin"
 			  verticalCenter="65" click="filterBtn_clickHandler(event)"/>
 	
-	<components:ChangeLocationButton id="changeLocationBtn" top="1"
+	<components:ChangeLocationButton id="changeLocationBtn" top="0" right="10" z="5"
 									 clicked="changeLocationBtn_clickedHandler(event)"
-									 horizontalCenter="87"/>	
+									 />	
 	
 </s:Group>

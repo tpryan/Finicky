@@ -20,7 +20,7 @@ package skins
 		{
 			super();
 			bg.source = bgClass;
-			
+			bg.horizontalCenter = 0;
 			bg.width = 680;
 			bg.height = 960;
 			addChild(bg);

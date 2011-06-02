@@ -64,10 +64,10 @@
 	
 	<fx:Declarations>
 		<s:ArrayCollection id="cities">
-			<fx:Object name="Philadelphia" />
-			<fx:Object name="New York" />
-			<fx:Object name="Los Angeles" />
-			<fx:Object name="San Francisco" />
+			<fx:Object name="Philadelphia, PA" />
+			<fx:Object name="New York, NY" />
+			<fx:Object name="Los Angeles, CA" />
+			<fx:Object name="San Francisco, CA	" />
 		</s:ArrayCollection>
 		
 		<s:ArrayCollection id="items">
