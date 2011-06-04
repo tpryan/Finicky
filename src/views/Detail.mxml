@@ -5,7 +5,6 @@
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
-			
 			import spark.components.supportClasses.StyleableTextField;
 			
 			protected function init(event:FlexEvent):void
@@ -58,6 +57,12 @@
 			}
 			
 			
+			protected function hardmenu_editClickedHandler(event:Event):void
+			{
+				navigator.pushView(Edit,item);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -70,7 +75,7 @@
 			
 	</fx:Declarations>
 	
-	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" />
+	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 		
 		
 		<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
@@ -82,6 +87,8 @@
 			<s:Label id="storeDescription" width="100%" text="{store.description}"/>
 		</s:VGroup>
 	
-	<components:HardMenu id="hardmenu" y="{stage.stageHeight + hardmenu.height}" left="0" right="0" horizontalCenter="0" />
+	<components:HardMenu id="hardmenu" y="{stage.stageHeight + hardmenu.height}" 
+						 editClicked="hardmenu_editClickedHandler(event)"
+						 left="0" right="0" horizontalCenter="0" />
 	
 </s:View>

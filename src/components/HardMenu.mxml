@@ -2,20 +2,50 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" height="150" 
 		xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="components.*">
 	
+	<fx:Metadata>
+		[Event(name="addClicked", type="flash.events.Event")]
+		[Event(name="editClicked", type="flash.events.Event")]
+		[Event(name="saveClicked", type="flash.events.Event")]
+		[Event(name="mapClicked", type="flash.events.Event")]
+	</fx:Metadata>
 	
 	<fx:Script>
 		<![CDATA[
 			public var active:Boolean = false;
+			
+			protected function addButton_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+			protected function editButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent( new Event("editClicked"));
+				
+			}
+			
+			protected function saveButton_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+			protected function mapButton_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
 	
 	<s:Image id="bg" horizontalCenter="0"  source="@Embed('/assets/bg/bg_menu.png')"/>
-	<s:Button id="addButton" label="ADD" skinClass="skins.MenuButtonSkin"  horizontalCenter="-90" verticalCenter="-28"/>
-	
-	<s:Button id="editButton" label="EDIT" skinClass="skins.MenuButtonSkin" horizontalCenter="90" verticalCenter="-28"/>
-	<s:Button id="saveButton" label="SAVE" skinClass="skins.MenuButtonSkin" horizontalCenter="-90" verticalCenter="42" enabled="false"/>
-	<s:Button id="mapButton" label="MAP" skinClass="skins.MenuButtonSkin" horizontalCenter="90" verticalCenter="42"/>
+	<s:Button id="addButton" label="ADD" click="addButton_clickHandler(event)" skinClass="skins.MenuButtonSkin"  horizontalCenter="-90" verticalCenter="-28"/>
+	<s:Button id="editButton" label="EDIT" click="editButton_clickHandler(event)" skinClass="skins.MenuButtonSkin" horizontalCenter="90" verticalCenter="-28"/>
+	<s:Button id="saveButton" label="SAVE" click="saveButton_clickHandler(event)" skinClass="skins.MenuButtonSkin" horizontalCenter="-90" verticalCenter="42" enabled="false"/>
+	<s:Button id="mapButton" label="MAP" click="mapButton_clickHandler(event)" skinClass="skins.MenuButtonSkin" horizontalCenter="90" verticalCenter="42"/>
 	
 	
 </s:Group>
