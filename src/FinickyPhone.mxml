@@ -4,11 +4,12 @@
 							splashScreenImage="@Embed('assets/splash/splash.jpg')"
 							splashScreenScaleMode="none" skinClass="skins.AppSkin" 
 							creationComplete="init(event)"
-							firstView="views.Landing">
+							>
 	
 	<fx:Style source="main.css" />
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.fonts.Liberator;
 			import com.terrenceryan.finicky.fonts.LiberatorTLF;
 			import com.terrenceryan.finicky.fonts.LionsDen;
@@ -21,10 +22,39 @@
 			
 			import mx.events.FlexEvent;
 			
+			import views.Landing;
+			
+			public var dbManager:DBManager = null;
+			public var dataToPush:Object = new Object();
+			
 			protected function init(event:FlexEvent):void
 			{
 				getFonts();
+				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
+				dbManager = new DBManager(dbFile);
 				
+				onLoaded();
+			}
+			
+			protected function onLoaded():void
+			{
+				dataToPush.dbManager = dbManager;	
+				dataToPush.os = Capabilities.os;
+				
+				
+				if (dataToPush.os.indexOf("iPhone") >= 0){
+					dataToPush.softControls = true;
+				}
+				else if (dataToPush.os.indexOf("QNX") >= 0){
+					dataToPush.softControls = true;
+				}
+				else{
+					dataToPush.softControls = false;
+				}
+				
+				
+				
+				navigator.pushView(views.Landing, dataToPush);
 			}
 			
 			private function getFonts():void
