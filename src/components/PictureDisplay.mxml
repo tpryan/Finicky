@@ -25,7 +25,7 @@
 			{
 				itemPicture.rotation = -12;
 				pictureBG.rotation = -12;
-				itemPicture.y = itemPicture.y + 50;
+				itemPicture.y = itemPicture.y + 70;
 				paperclip.right = 0;
 				paperclip.y = pictureBG.y + 100;
 				
@@ -49,6 +49,9 @@
 		<s:fill>
 			<s:SolidColor color="0xFFFFFF" />
 		</s:fill>
+		<s:filters>
+			<s:DropShadowFilter color="0x000000" angle="125" distance="9" alpha=".8" />
+		</s:filters>
 	</s:Rect>
 	<s:Image id="itemPicture"  horizontalCenter="0" source="{_source}" />
 	<s:Image id="paperclip" source="@Embed('/assets/icons/paperclip.png')"/>

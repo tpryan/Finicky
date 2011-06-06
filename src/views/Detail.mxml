@@ -78,14 +78,15 @@
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 		
 		
-		<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
-			<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" />
-			<s:Label id="storeName" width="440" horizontalCenter="0" text="{store.name}"/>
-			<s:Label id="storeAddress"  width="440" horizontalCenter="0" text=""/>
-			
-			<components:PictureDisplay source="/assets/items/clovepicture.jpg" />
-			<s:Label id="storeDescription" width="100%" text="{store.description}"/>
-		</s:VGroup>
+	<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
+		<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" />
+		<s:Label id="storeName" width="440" horizontalCenter="0" text="{store.name}"/>
+		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text=""/>
+		
+		<components:PictureDisplay source="/assets/items/clovepicture.jpg" />
+		<s:Image id="rule" source="/assets/bg/rule.png" horizontalCenter="0" />
+		<s:Label id="storeDescription" width="100%" text="{store.description}"/>
+	</s:VGroup>
 	
 	<components:HardMenu id="hardmenu" y="{stage.stageHeight + hardmenu.height}" 
 						 editClicked="hardmenu_editClickedHandler(event)"
