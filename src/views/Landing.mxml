@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" keyDown="keyPress(event)"  
-		xmlns:s="library://ns.adobe.com/flex/spark" title="" actionBarVisible="false" xmlns:components="components.*" xmlns:renderers="renderers.*">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" keyDown="keyPress(event)" creationComplete="init(event)"   
+		xmlns:s="library://ns.adobe.com/flex/spark" title="" actionBarVisible="false" 
+		xmlns:components="components.*" xmlns:renderers="renderers.*">
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
 			protected var currentCity:int = 0;
+			protected var dataToPush:Object;
 			
 			protected function location1_locationChangedHandler(event:Event):void
 			{
@@ -19,7 +22,9 @@
 			
 			protected function itemList_clickHandler(event:MouseEvent):void
 			{
-				navigator.pushView(Detail, itemList.selectedItem);
+				dataToPush.selectedIndex = itemList.selectedIndex;
+				dataToPush.items = items;
+				navigator.pushView(Detail, dataToPush);
 				
 			}
 			
@@ -56,6 +61,12 @@
 			{
 				filterModal.active = true;
 				filterModal.visible = true;
+				
+			}
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data;
 				
 			}
 			

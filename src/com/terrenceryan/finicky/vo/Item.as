@@ -4,8 +4,9 @@ package com.terrenceryan.finicky.vo
 	{
 		
 		private var _itemid:int = 0;
-		private var _name:String = null;
-		private var _description:String = null;
+		[Bindable]
+		private var _name:String = "";
+		private var _description:String = "";
 		
 		public function Item()
 		{
@@ -21,6 +22,7 @@ package com.terrenceryan.finicky.vo
 			_description = value;
 		}
 
+		[Bindable]	
 		public function get name():String
 		{
 			return _name;

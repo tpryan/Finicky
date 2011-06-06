@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" keyDown="keyPress(event)" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Detail" xmlns:components="components.*" creationComplete="init(event)">
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Detail" xmlns:components="components.*" creationComplete="init(event)" xmlns:vo="com.terrenceryan.finicky.vo.*">
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.vo.Item;
+			
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
 			import spark.components.supportClasses.StyleableTextField;
+			import spark.transitions.SlideViewTransition;
+			
+			protected var dataToPush:Object;
+			[Bindable]
+			protected var item:Item = new Item();
 			
 			protected function init(event:FlexEvent):void
 			{
-				item.store = store;
-				setStoreAddress();
+				dataToPush = data;
 				
+				if (data.navigating == null){
+					dataToPush.navigating = "none";
+				}
+				var items:ArrayCollection = data.items;
+				var itemTemp:Object = items.getItemAt(data.selectedIndex);
+				item.name = itemTemp.name;
 				
-				
-				
+				toggleBannerControls();
 			}
 			
-			private function setStoreAddress():void
-			{
-				storeAddress.text = store.address + '\n' + store.city + ', ' + store.state;				
-
-				
-			}
 			
 			protected function keyPress(event:KeyboardEvent):void
 			{
@@ -36,6 +42,17 @@
 						exitEffect.end();
 						exitEffect.play();
 						hardmenu.active = false;
+					}
+					if (data.navigating == "left"){
+						event.preventDefault();
+						dataToPush.selectedIndex++;
+						navigator.popView();
+					}
+					
+					if (data.navigating == "right"){
+						event.preventDefault();
+						dataToPush.selectedIndex--;
+						navigator.popView();
 					}
 				}
 				
@@ -63,15 +80,64 @@
 				
 			}
 			
+			protected function itemNav_clickLeftHandler(event:Event):void
+			{
+				
+				
+				if (data.navigating == "right"){
+					dataToPush.selectedIndex--;
+					navigator.popView();
+				}
+				else{
+					var trans:SlideViewTransition = new SlideViewTransition();
+					trans.direction = "right";
+					
+					dataToPush.selectedIndex = data.selectedIndex-1;
+					dataToPush.navigating = "left";
+					navigator.pushView(Detail, dataToPush, null, trans);
+				}
+				
+			}
+			
+			protected function itemNav_clickRightHandler(event:Event):void
+			{
+				
+				if (data.navigating == "left"){
+					dataToPush.selectedIndex++;
+					navigator.popView();
+				}
+				else{
+					dataToPush.selectedIndex = data.selectedIndex+1;
+					dataToPush.navigating = "right";
+					navigator.pushView(Detail, dataToPush);
+				}
+			}
+			
+			private function toggleBannerControls():void
+			{
+				if (data.selectedIndex == 0){
+					itemNav.visibleLeft = false;
+				}
+				else{
+					itemNav.visibleLeft = true;
+				}
+				if (data.selectedIndex == data.items.length -1){
+					itemNav.visibleRight = false;
+				}
+				else{
+					itemNav.visibleRight = true;
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<s:Move id="enterEffect" yFrom="{stage.stageHeight + hardmenu.height}" yTo="{stage.stageHeight- hardmenu.height}" target="{hardmenu}" />
 		<s:Move id="exitEffect" yTo="{stage.stageHeight + hardmenu.height}" yFrom="{stage.stageHeight- hardmenu.height}" target="{hardmenu}" />
 		
-		<fx:Object id="store" name="Holt's" address="1522 Walnut Street" city="Philadelphia" state="PA" 
-				   description="This store pretty much has anything you would ever want. " />
-		<fx:Object id="item" name="Cloves" />
+		<vo:Store id="store" name="Holt's" address="1522 Walnut Street" city="Philadelphia" state="PA" 
+				   notes="This store pretty much has anything you would ever want. " />
 			
 	</fx:Declarations>
 	
@@ -79,13 +145,13 @@
 		
 		
 	<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
-		<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" />
+		<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
 		<s:Label id="storeName" width="440" horizontalCenter="0" text="{store.name}"/>
-		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text=""/>
+		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{store.toAddressString()}"/>
 		
-		<components:PictureDisplay source="/assets/items/clovepicture.jpg" />
+		<components:PictureDisplay source="/assets/items/{data.selectedIndex}.jpg" rotationSeed="{data.items.getItemAt(data.selectedIndex).name}" />
 		<s:Image id="rule" source="/assets/bg/rule.png" horizontalCenter="0" />
-		<s:Label id="storeDescription" width="100%" text="{store.description}"/>
+		<s:Label id="storeDescription" width="100%" text="{store.notes}"/>
 	</s:VGroup>
 	
 	<components:HardMenu id="hardmenu" y="{stage.stageHeight + hardmenu.height}" 

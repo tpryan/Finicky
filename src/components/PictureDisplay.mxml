@@ -7,9 +7,20 @@
 			import mx.events.FlexEvent;
 			[Bindable]
 			private var _source:String = "";
+			[Bindable]
+			private var _rotationSeed:String = "Rotation Seed";
 			
+
+			[Bindable]
+			public function get rotationSeed():String
+			{
+				return _rotationSeed;
+			}
 			
-			
+			public function set rotationSeed(value:String):void
+			{
+				_rotationSeed = value;
+			}
 
 			public function get source():String
 			{
@@ -23,14 +34,33 @@
 			
 			private function placePicture():void
 			{
-				itemPicture.rotation = -12;
-				pictureBG.rotation = -12;
+				itemPicture.rotation = calculateRotation();
+				pictureBG.rotation = calculateRotation();
 				itemPicture.y = itemPicture.y + 70;
 				paperclip.right = 0;
 				paperclip.y = pictureBG.y + 100;
 				
 			}
 
+			private function calculateRotation():Number{
+				var rotation:Number = -14;
+				
+				var offset:Number = _rotationSeed.length;
+				rotation = rotation + offset;
+				
+				
+				if (rotation >= 0){
+					rotation = rotation - offset;
+				}
+				
+				if (rotation <= -15){
+					rotation = -14;
+				}
+				
+				trace("Rotation seed " + _rotationSeed + " yields " + rotation);
+				return rotation;
+			}
+			
 			protected function init(event:FlexEvent):void
 			{
 				placePicture();
@@ -42,7 +72,7 @@
 	
 	
 	
-	<s:Rect id="pictureBG" x="{itemPicture.x -5}" y="{itemPicture.y-5}" width="{itemPicture.width +10}" height="{itemPicture.height + 10}">
+	<s:Rect id="pictureBG" x="{itemPicture.x -5}" y="{itemPicture.y-5}" width="460" height="310">
 		<s:stroke>
 			<s:SolidColorStroke color="0xFFFFFF" weight="5" />
 		</s:stroke>
@@ -50,10 +80,10 @@
 			<s:SolidColor color="0xFFFFFF" />
 		</s:fill>
 		<s:filters>
-			<s:DropShadowFilter color="0x000000" angle="125" distance="9" alpha=".8" />
+			<s:DropShadowFilter color="0x000000" angle="125" distance="6" alpha=".8" />
 		</s:filters>
 	</s:Rect>
-	<s:Image id="itemPicture"  horizontalCenter="0" source="{_source}" />
+	<s:Image id="itemPicture" preliminaryWidth="450" preliminaryHeight="300" smooth="true"  maxWidth="450" maxHeight="300" scaleMode="letterbox"  horizontalCenter="0" source="{_source}" />
 	<s:Image id="paperclip" source="@Embed('/assets/icons/paperclip.png')"/>
 	
 	

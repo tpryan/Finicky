@@ -18,7 +18,7 @@ package com.terrenceryan.finicky.vo
 		public function Store()
 		{
 		}
-
+		[Bindable]
 		public function get notes():String
 		{
 			return _notes;
@@ -99,6 +99,7 @@ package com.terrenceryan.finicky.vo
 			_address = value;
 		}
 
+		[Bindable]
 		public function get name():String
 		{
 			return _name;
