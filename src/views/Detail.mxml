@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" keyDown="keyPress(event)" gestureSwipe="onSwipte(event)" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Detail" xmlns:components="components.*" creationComplete="init(event)" xmlns:vo="com.terrenceryan.finicky.vo.*">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" 
+		keyDown="keyPress(event)" gestureSwipe="onSwipte(event)" creationComplete="init(event)" 
+		title="Detail" cacheAsBitmap="true" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:components="components.*" 
+		xmlns:vo="com.terrenceryan.finicky.vo.*">
+	
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.vo.Item;

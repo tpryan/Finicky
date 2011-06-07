@@ -8,6 +8,7 @@
 			import mx.events.FlexEvent;
 			protected var currentCity:int = 0;
 			protected var dataToPush:Object;
+			public var i:int = 0;
 			
 			protected function location1_locationChangedHandler(event:Event):void
 			{
@@ -100,7 +101,7 @@
 			click="itemList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
-				<renderers:NoBackGround creationComplete="init()"  height="173" 
+				<renderers:NoBackGround creationComplete="init()" height="173" 
 										styleName="itemName" messageStyleName="locationName" labelField="name"
 										decorator="@Embed('/assets/icons/itemListButtonUp.png') "
 										messageFunction="upperLocation" click="clickHandler(event)" 
@@ -118,6 +119,15 @@
 							[Embed(source='/assets/icons/itemListButtonUp.png')]
 							private static var itemUp:Class;
 							
+							[Embed(source='/assets/bg/rule.png')]
+							private static var rule:Class;
+							
+							[Embed(source='/assets/bg/rule2.png')]
+							private static var rule2:Class;
+							
+							[Embed(source='/assets/bg/rule3.png')]
+							private static var rule3:Class;
+							
 							
 							public var selectedDecorator:Image = new Image();
 							
@@ -131,11 +141,27 @@
 							protected function init():void
 							{
 								
-								var line:Sprite = new Sprite();
-								line.graphics.lineStyle(2, 0x000000, .75);
-								line.graphics.lineTo(width, 0);
+								var image:Image = new Image();
 								
-								this.addChild(line);
+								image.height = 2;
+								image.width = width;
+								image.y = 0;
+								image.horizontalCenter = 0;
+								
+								
+								if (outerDocument.i % 3 == 0){
+									image.source = rule3;
+								}else if (outerDocument.i % 2 == 0){
+									image.source = rule2;
+								}else{
+									image.source = rule;
+								}
+								
+								outerDocument.i++;
+								trace(outerDocument.i + ' ' + outerDocument.i % 2);
+								
+								this.addChild(image)
+								
 								
 							}
 							
