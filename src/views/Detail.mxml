@@ -10,6 +10,8 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.vo.Item;
 			
+			import flash.net.navigateToURL;
+			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
@@ -32,6 +34,8 @@
 				item.name = itemTemp.name;
 				
 				toggleBannerControls();
+				
+				directionsBtn.y = itemNav.y + itemNav.height + 20;
 			}
 			
 			
@@ -146,6 +150,18 @@
 				
 			}
 			
+			protected function directionsBtn_clickHandler(event:MouseEvent):void
+			{
+				var url:String = "http://maps.google.com/maps?f=d";
+				var source:String = "&source=s_d";
+				var dest:String = "&daddr=" + store.toAddressString();
+				var start:String = "&saddr=" + data.home.toAddressString();
+				
+				//http://maps.google.com/maps?f=d&source=s_d&saddr=1522+Walnut+Street,+Philadelphia,+PA&daddr=1923+Hamilton+St,+Philadelphia,+PA+19130
+				var urlReq:URLRequest = new URLRequest();
+				navigateToURL(new URLRequest(url + source + start + dest));
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -159,7 +175,8 @@
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 		
-		
+	<s:Button id="directionsBtn" label="DIRECTIONS" z="0" right="30" y="{itemNav.y + itemNav.height + 20}" skinClass="skins.DirectionsButtonSkin" click="directionsBtn_clickHandler(event)" />	
+	
 	<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
 		<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
 		<s:Label id="storeName" width="440" horizontalCenter="0" text="{store.name}"/>
@@ -169,6 +186,8 @@
 		<s:Image id="rule" source="/assets/bg/rule.png" horizontalCenter="0" />
 		<s:Label id="storeDescription" width="100%" text="{store.notes}"/>
 	</s:VGroup>
+	
+	
 	
 	<components:HardMenu id="hardmenu" y="{stage.stageHeight + hardmenu.height}" 
 						 editClicked="hardmenu_editClickedHandler(event)"

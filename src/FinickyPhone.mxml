@@ -19,6 +19,7 @@
 			import com.terrenceryan.finicky.fonts.tradegothicbold;
 			import com.terrenceryan.finicky.fonts.tradegothictlf;
 			import com.terrenceryan.finicky.fonts.tradegothictlfbold;
+			import com.terrenceryan.finicky.vo.Store;
 			
 			import mx.events.FlexEvent;
 			
@@ -32,8 +33,20 @@
 				getFonts();
 				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);
-				
+				getLocation();
 				onLoaded();
+			}
+			
+			protected function getLocation():void{
+				var home:Store = new Store();
+				home.address = "1923 Hamilton Street";
+				home.city = "Philadelphia";
+				home.state = "PA";
+				home.mailingCode = "19130";
+				home.country = "USA";
+				
+				dataToPush.home = home;
+				
 			}
 			
 			protected function onLoaded():void
