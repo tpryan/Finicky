@@ -22,7 +22,7 @@ package skins
 		{
 			super();
 			borderClass = borderClassTemp;
-			width = 552;
+			//width = 552;
 			height = 120;
 			
 			
@@ -40,8 +40,8 @@ package skins
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
 			whiteBG.source = whitebrush;
-			whiteBG.width = 552;
-			whiteBG.height = 120;
+			whiteBG.percentWidth = 100;
+			whiteBG.preliminaryHeight = 100;
 			addChildAt(whiteBG,0);
 			setElementPosition(whiteBG, 0, 0);
 			

@@ -14,7 +14,7 @@ package com.terrenceryan.finicky.db
 		
 		private var _conn:SQLConnection = new SQLConnection();
 		private var _itemDAO:ItemDAO = null;
-		private var _storeDAO:StoreDAO = null;
+		private var _storeDAO:PlaceDAO = null;
 		
 		
 		[Event(name="loaded", type="flash.events.Event")]
@@ -27,7 +27,7 @@ package com.terrenceryan.finicky.db
 			{
 				_conn.open(dbFile);
 				_itemDAO = new ItemDAO(_conn);
-				_storeDAO = new StoreDAO(_conn);
+				_storeDAO = new PlaceDAO(_conn);
 				onLoadComplete();
 				
 				
@@ -44,12 +44,12 @@ package com.terrenceryan.finicky.db
 			
 		}
 		
-		public function get storeDAO():StoreDAO
+		public function get storeDAO():PlaceDAO
 		{
 			return _storeDAO;
 		}
 		
-		public function set storeDAO(value:StoreDAO):void
+		public function set storeDAO(value:PlaceDAO):void
 		{
 			_storeDAO = value;
 		}

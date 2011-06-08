@@ -15,11 +15,13 @@
 			import com.terrenceryan.finicky.fonts.LionsDen;
 			import com.terrenceryan.finicky.fonts.LionsDenTLF;
 			import com.terrenceryan.finicky.fonts.Spoleto;
+			import com.terrenceryan.finicky.fonts.TradeGothicLTBC;
+			import com.terrenceryan.finicky.fonts.TradeGothicLTBCTLF;
 			import com.terrenceryan.finicky.fonts.tradegothic;
 			import com.terrenceryan.finicky.fonts.tradegothicbold;
 			import com.terrenceryan.finicky.fonts.tradegothictlf;
 			import com.terrenceryan.finicky.fonts.tradegothictlfbold;
-			import com.terrenceryan.finicky.vo.Store;
+			import com.terrenceryan.finicky.vo.Place;
 			
 			import mx.events.FlexEvent;
 			
@@ -38,7 +40,7 @@
 			}
 			
 			protected function getLocation():void{
-				var home:Store = new Store();
+				var home:Place = new Place();
 				home.address = "1923 Hamilton Street";
 				home.city = "Philadelphia";
 				home.state = "PA";
@@ -81,6 +83,9 @@
 				var myFont7:Font = new tradegothictlfbold as Font;
 				var myFont8:Font = new Liberator as Font;
 				var myFont9:Font = new LiberatorTLF as Font;
+				var myFont10:Font = new TradeGothicLTBC as Font;
+				var myFont11:Font = new TradeGothicLTBCTLF as Font;
+				
 				
 				var fonts:Array = Font.enumerateFonts();
 				for each (var key:Font in fonts)
