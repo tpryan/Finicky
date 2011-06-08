@@ -32,15 +32,16 @@ s|IconItemRenderer{
 }
 
 #storeName{
-	fontFamily: "Trade Gothic LT Std Bold";
-	fontSize: 30;
+	fontFamily: "Trade Gothic LT Std Cn";
+	fontSize: 25;
 	color: #383539;
 	paddingLeft:50;
+	fontWeight: bold;
 }
 
-#storeAddress{
+#storeAddress, #storeCityStateZip{
 	fontFamily: "Trade Gothic LT Std";
-	fontSize: 30;
+	fontSize: 25;
 	color: #383539;
 	paddingLeft:50;
 }
@@ -51,5 +52,9 @@ s|IconItemRenderer{
 	paddingLeft:50;
 	paddingRight:20;
 	color: #383539;
+}
+
+s|ViewMenu{
+	skinClass: ClassReference("skins.DetailViewMenuSkin");
 }
 

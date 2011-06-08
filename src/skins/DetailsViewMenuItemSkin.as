@@ -1,17 +1,12 @@
 package skins
 {
-	import flash.desktop.Icon;
 	import flash.display.DisplayObject;
 	
 	import mx.events.FlexEvent;
 	
-	import spark.components.Image;
-	import spark.primitives.BitmapImage;
-	import spark.skins.mobile.ButtonSkin;
+	import spark.skins.mobile.ViewMenuItemSkin;
 	
-	
-	
-	public class MenuButtonSkin extends ButtonSkin
+	public class DetailsViewMenuItemSkin extends ViewMenuItemSkin
 	{
 		
 		[Bindable]
@@ -26,70 +21,15 @@ package skins
 		[Embed(source="/assets/icons/addbtn.png")]
 		private var addicon:Class;
 		
-		private var _border:DisplayObject;
 		
-		private var changeFXGSkin:Boolean = false;
-		
-		private var borderClass:Class;
-		
-		
-		public function MenuButtonSkin()
+		public function DetailsViewMenuItemSkin()
 		{
 			super();
-			this.width = 180;			
-			
-			
-				
 		}
 		
-		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void{
-			
-		}
-		
-		/**
-		 *  @private 
-		 */
-		override protected function labelDisplay_valueCommitHandler(event:FlexEvent):void 
+		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
 		{
-			super.labelDisplay_valueCommitHandler(event);
-			labelDisplayShadow.text = labelDisplay.text;
-			
-			labelDisplay.setStyle("fontFamily","Liberator");
-			labelDisplay.setStyle("fontSize",40);
-			labelDisplay.setStyle("fontWeight","normal");
-			labelDisplay.setStyle("color",0x71491D);
-			labelDisplayShadow.setStyle("fontFamily","Liberator");
-			labelDisplayShadow.setStyle("fontSize",40);
-			labelDisplayShadow.setStyle("fontWeight","normal");
-			
-			
-			
-			
 		}
-		
-		
-		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
-		{
-			super.layoutContents(unscaledWidth, unscaledHeight);
-			
-			
-			setIcon(addicon);
-			var iconDisplay:DisplayObject = getIconDisplay();
-			
-			
-			
-			if (iconDisplay != null){
-				setElementPosition(iconDisplay, 25, 15);
-			}
-			
-		}
-		
-		private function layoutBorder(unscaledWidth:Number, unscaledHeight:Number):void
-		{
-			setElementSize(border, unscaledWidth, unscaledHeight);
-			setElementPosition(border, 0, 0);
-		}
-		
 		
 		override protected function getBorderClassForCurrentState():Class
 		{
@@ -101,10 +41,41 @@ package skins
 			}	
 		}
 		
+		override protected function labelDisplay_valueCommitHandler(event:FlexEvent):void 
+		{
+			super.labelDisplay_valueCommitHandler(event);
+			labelDisplayShadow.text = labelDisplay.text;
+			
+			
+			
+			labelDisplay.setStyle("fontFamily","Liberator");
+			labelDisplay.setStyle("fontSize",40);
+			labelDisplay.setStyle("fontWeight","normal");
+			labelDisplay.setStyle("color",0x71491D);
+			labelDisplayShadow.setStyle("fontFamily","Liberator");
+			labelDisplayShadow.setStyle("fontSize",40);
+			labelDisplayShadow.setStyle("fontWeight","normal");
+			
+		}
 		
-		
+		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+			
+			super.layoutContents(unscaledWidth, unscaledHeight);
+			labelDisplay.y = labelDisplay.y + 15; 
+			labelDisplayShadow.y = labelDisplayShadow.y + 15;
+			border.y = border.y + 15;
+			
+			/*setIcon(addicon);
+			var iconDisplay:DisplayObject = getIconDisplay();*/
+			
+			
+			
+			/*if (iconDisplay != null){
+				setElementPosition(iconDisplay, 25, 15);
+			}*/
+			
+		}
 		
 	}
-	
-	
 }

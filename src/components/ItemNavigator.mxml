@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 width="100%" height="199" creationComplete="init(event)">
+		 width="100%" height="199" creationComplete="init(event)" >
 	
 	<fx:Metadata>
 		[Event(name="clickLeft", type="flash.events.Event")]
@@ -61,6 +61,7 @@
 	
 	<s:Button id="leftBtn" visible="{visibleLeft}" horizontalCenter="-220" verticalCenter="13" skinClass="skins.BannerButtonSkin" click="leftBtn_clickHandler(event)" />
 	<s:Button id="rightBtn" visible="{visibleRight}" horizontalCenter="220" verticalCenter="13" skinClass="skins.BannerButtonSkin" click="rightBtn_clickHandler(event)" />
+	
 	<s:Image id="banner" y="0" horizontalCenter="-0" source="@Embed('/assets/bg/detailBanner.png')"/>
 	<s:Label id="itemLabel" horizontalCenter="0"  text="{_currentItem}" width="380"
 			 textAlign="center" verticalAlign="middle" verticalCenter="24"/>

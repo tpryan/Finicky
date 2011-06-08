@@ -4,7 +4,15 @@
 		title="Detail" cacheAsBitmap="true" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
 		xmlns:components="components.*" 
-		xmlns:vo="com.terrenceryan.finicky.vo.*">
+		xmlns:vo="com.terrenceryan.finicky.vo.*" >
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		#currentViewMenu {
+			skinClass: ClassReference("skins.DetailViewMenuSkin");
+		}
+		
+	</fx:Style>
 	
 	<fx:Script>
 		<![CDATA[
@@ -24,6 +32,8 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				
+				
 				dataToPush = data;
 				
 				if (data.navigating == null){
@@ -46,12 +56,6 @@
 				
 				if (event.keyCode == Keyboard.BACK){
 					
-					if (hardmenu.active){
-						event.preventDefault();
-						exitEffect.end();
-						exitEffect.play();
-						hardmenu.active = false;
-					}
 					if (data.navigating == "left"){
 						event.preventDefault();
 						dataToPush.selectedIndex++;
@@ -66,19 +70,6 @@
 				}
 				
 				
-				if (event.keyCode == Keyboard.MENU){
-					
-					if (!hardmenu.active){
-						enterEffect.end();
-						enterEffect.play();
-						hardmenu.active = true;
-					}
-					else{
-						exitEffect.end();
-						exitEffect.play();
-						hardmenu.active = false;
-					}
-				}
 				
 			}
 			
@@ -157,20 +148,17 @@
 				var dest:String = "&daddr=" + store.toAddressString();
 				var start:String = "&saddr=" + data.home.toAddressString();
 				
-				//http://maps.google.com/maps?f=d&source=s_d&saddr=1522+Walnut+Street,+Philadelphia,+PA&daddr=1923+Hamilton+St,+Philadelphia,+PA+19130
 				var urlReq:URLRequest = new URLRequest();
 				navigateToURL(new URLRequest(url + source + start + dest));
 			}
 			
 		]]>
 	</fx:Script>
+	
 	<fx:Declarations>
-		<s:Move id="enterEffect" yFrom="{stage.stageHeight + hardmenu.height}" yTo="{stage.stageHeight- hardmenu.height}" target="{hardmenu}" />
-		<s:Move id="exitEffect" yTo="{stage.stageHeight + hardmenu.height}" yFrom="{stage.stageHeight- hardmenu.height}" target="{hardmenu}" />
 		
-		<vo:Store id="store" name="Holt's" address="1522 Walnut Street" city="Philadelphia" state="PA" 
+		<vo:Place id="store" name="Holt's" address="1522 Walnut Street" city="Philadelphia" state="PA" 
 				   notes="This store pretty much has anything you would ever want. " />
-			
 	</fx:Declarations>
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
@@ -180,7 +168,8 @@
 	<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
 		<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
 		<s:Label id="storeName" width="440" horizontalCenter="0" text="{store.name}"/>
-		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{store.toAddressString()}"/>
+		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{store.address}"/>
+		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{store.toCityStateZipString()}"/>
 		
 		<components:PictureDisplay source="/assets/items/{data.selectedIndex}.jpg" rotationSeed="{data.items.getItemAt(data.selectedIndex).name}" />
 		<s:Image id="rule" source="/assets/bg/rule.png" horizontalCenter="0" />
@@ -188,9 +177,11 @@
 	</s:VGroup>
 	
 	
-	
-	<components:HardMenu id="hardmenu" y="{stage.stageHeight + hardmenu.height}" 
-						 editClicked="hardmenu_editClickedHandler(event)"
-						 left="0" right="0" horizontalCenter="0" />
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin"  />
+		<s:ViewMenuItem id="editButton" label="EDIT" skinClass="skins.DetailsViewMenuItemSkin" click="hardmenu_editClickedHandler(event)" />
+		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" />
+		<s:ViewMenuItem id="mapButton" label="MAP" skinClass="skins.DetailsViewMenuItemSkin" />
+	</s:viewMenuItems>
 	
 </s:View>
