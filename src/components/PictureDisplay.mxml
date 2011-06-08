@@ -9,6 +9,8 @@
 			private var _source:String = "";
 			[Bindable]
 			private var _rotationSeed:String = "Rotation Seed";
+			private var actualRotation:Number = 0;
+			private var actualTopPadding:int = 0;
 			
 
 			[Bindable]
@@ -34,15 +36,33 @@
 			
 			private function placePicture():void
 			{
-				itemPicture.rotation = calculateRotation();
-				pictureBG.rotation = calculateRotation();
-				itemPicture.y = itemPicture.y + 70;
+				calculateRotation();
+				calculateTopPadding();
+				
+				itemPicture.rotation = actualRotation;
+				pictureBG.rotation = actualRotation;
+				itemPicture.y = itemPicture.y + actualTopPadding;
 				paperclip.right = 0;
 				paperclip.y = pictureBG.y + 100;
 				
 			}
-
-			private function calculateRotation():Number{
+			
+			private function calculateTopPadding():void{
+				var topPadding:int = 0;
+				var holder:Number = 0;
+				holder = (actualRotation * 6) ;
+				
+				if (holder < 0){
+					holder = 0 - holder; 
+				}
+				
+				topPadding = holder + 70;
+				
+				actualTopPadding = topPadding;
+			}		
+			
+			
+			private function calculateRotation():void{
 				var rotation:Number = -14;
 				 
 				var offset:Number = _rotationSeed.length;
@@ -58,7 +78,7 @@
 				} 
 				
 				trace("Rotation seed " + _rotationSeed + " yields " + rotation);
-				return rotation;
+				actualRotation = rotation;
 			}
 			
 			protected function init(event:FlexEvent):void
