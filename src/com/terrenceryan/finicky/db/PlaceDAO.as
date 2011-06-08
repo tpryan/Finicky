@@ -1,17 +1,17 @@
 package com.terrenceryan.finicky.db
 {
-	import com.terrenceryan.finicky.vo.Store;
+	import com.terrenceryan.finicky.vo.Place;
 	
 	import flash.data.SQLConnection;
 	import flash.data.SQLStatement;
 	import flash.errors.SQLError;
 	
-	public class StoreDAO
+	public class PlaceDAO
 	{
 		
 		private var _conn:SQLConnection = new SQLConnection();
 		
-		public function StoreDAO(conn:SQLConnection)
+		public function PlaceDAO(conn:SQLConnection)
 		{
 			_conn = conn;
 			createTable();
@@ -51,7 +51,7 @@ package com.terrenceryan.finicky.db
 			}
 		}
 		
-		public function save(store:Store):void{
+		public function save(store:Place):void{
 			var query:String = "INSERT INTO store (" + 
 				"name," +
 				"address," +

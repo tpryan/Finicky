@@ -1,6 +1,6 @@
 package com.terrenceryan.finicky.vo
 {
-	public class Store
+	public class Place
 	{
 		
 		private var _storeid:int = 0;
@@ -15,7 +15,7 @@ package com.terrenceryan.finicky.vo
 		private var _notes:String = "";
 		
 		
-		public function Store()
+		public function Place()
 		{
 		}
 		[Bindable]
@@ -123,6 +123,13 @@ package com.terrenceryan.finicky.vo
 		public function toAddressString():String
 		{
 			var result:String = _address + " " + _city + " " + _state + " " + _mailingCode + " " + _country;
+			trace(result);
+			return result;
+		}
+		
+		public function toCityStateZipString():String
+		{
+			var result:String = _city + " " + _state + " " + _mailingCode + " " + _country;
 			trace(result);
 			return result;
 		}
