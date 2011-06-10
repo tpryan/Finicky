@@ -7,7 +7,7 @@ package renderers
 	import spark.components.IconItemRenderer;
 	import spark.components.Image;
 	
-	public class NoBackGround extends IconItemRenderer
+	public class ItemListRenderer extends IconItemRenderer
 	{
 		
 		private var _bgVisible:Boolean = false;
@@ -31,7 +31,7 @@ package renderers
 		public var decoratorCover:Image = new Image();
 		public var ruleImg:Image = new Image();
 		
-		public function NoBackGround()
+		public function ItemListRenderer()
 		{
 			super();
 			

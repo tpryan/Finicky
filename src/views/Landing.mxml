@@ -100,7 +100,7 @@
 	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{items}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
-				<renderers:NoBackGround  styleName="itemName" messageStyleName="locationName" labelField="name"
+				<renderers:ItemListRenderer  styleName="itemName" messageStyleName="locationName" labelField="name"
 										decorator="@Embed('/assets/icons/itemListButtonUp.png') "
 										messageFunction="upperLocation" 
 										>
@@ -113,7 +113,7 @@
 						]]>
 					</fx:Script>
 					
-				</renderers:NoBackGround>
+				</renderers:ItemListRenderer>
 			</fx:Component>
 			
 		</s:itemRenderer>
