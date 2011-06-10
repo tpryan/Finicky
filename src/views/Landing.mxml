@@ -97,91 +97,19 @@
 		
 	</fx:Declarations>
 	
-	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{items}" contentBackgroundAlpha="0"
-			click="itemList_clickHandler(event)">
+	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{items}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
-				<renderers:NoBackGround creationComplete="init()" height="173" 
-										styleName="itemName" messageStyleName="locationName" labelField="name"
+				<renderers:NoBackGround  styleName="itemName" messageStyleName="locationName" labelField="name"
 										decorator="@Embed('/assets/icons/itemListButtonUp.png') "
-										messageFunction="upperLocation" click="clickHandler(event)" 
+										messageFunction="upperLocation" 
 										>
-					
 					<fx:Script>
 						<![CDATA[
-							import mx.states.AddChild;
-							
-							import spark.components.Image;
-							
-							[Embed(source='/assets/icons/itemListButtonDown.png')]
-							private static var itemDown:Class;
-							
-							[Embed(source='/assets/icons/itemListButtonUp.png')]
-							private static var itemUp:Class;
-							
-							[Embed(source='/assets/bg/rule.png')]
-							private static var rule:Class;
-							
-							[Embed(source='/assets/bg/rule2.png')]
-							private static var rule2:Class;
-							
-							[Embed(source='/assets/bg/rule3.png')]
-							private static var rule3:Class;
-							
-							
-							public var selectedDecorator:Image = new Image();
-							
 							protected function upperLocation(obj:Object):String{
 								return obj.location.toUpperCase()
 								
 							}
-							
-							
-							
-							protected function init():void
-							{
-								
-								var image:Image = new Image();
-								
-								image.height = 2;
-								image.width = width;
-								image.y = 0;
-								image.horizontalCenter = 0;
-								
-								
-								if (outerDocument.i % 3 == 0){
-									image.source = rule3;
-								}else if (outerDocument.i % 2 == 0){
-									image.source = rule2;
-								}else{
-									image.source = rule;
-								}
-								
-								outerDocument.i++;
-								trace(outerDocument.i + ' ' + outerDocument.i % 2);
-								
-								this.addChild(image)
-								
-								
-							}
-							
-							
-							
-							protected function clickHandler(event:MouseEvent):void
-							{
-								decoratorDisplay.source = itemDown;
-								bg.z = 0;
-								bgVisible = true;
-								
-								selectedDecorator.source = itemDown;
-								selectedDecorator.width = decoratorDisplay.width;
-								selectedDecorator.height = decoratorDisplay.height;
-								selectedDecorator.y = decoratorDisplay.y;
-								selectedDecorator.x = decoratorDisplay.x;
-								addChildAt(selectedDecorator, 1);
-								
-							}
-							
 						]]>
 					</fx:Script>
 					
