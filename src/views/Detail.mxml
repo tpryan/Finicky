@@ -76,7 +76,7 @@
 			
 			protected function hardmenu_editClickedHandler(event:Event):void
 			{
-				navigator.pushView(Edit,item);
+				navigator.pushView(Edit,dataToPush);
 				
 			}
 			

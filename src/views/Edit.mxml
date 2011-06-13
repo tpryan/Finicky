@@ -11,6 +11,8 @@
 			protected var dataToPush:Object = new Object;
 			
 			
+			
+			
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data;
@@ -60,7 +62,7 @@
 	<s:Button top="205" label="Current Location" horizontalCenter="-0"
 		  skinClass="skins.EditLocationButtonSkin"/>
 	
-	<components:PhotoButton top="355" horizontalCenter="-122" />
+	<components:PhotoButton top="355" horizontalCenter="-122" photo="/assets/items/{data.selectedIndex}.jpg"  />
 	<components:WriteButton id="writeButton" top="355" horizontalCenter="122" click="writeButton_clickHandler(event)" />
 		
 		

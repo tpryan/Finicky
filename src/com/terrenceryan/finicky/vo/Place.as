@@ -88,7 +88,8 @@ package com.terrenceryan.finicky.vo
 		{
 			_city = value;
 		}
-
+		
+		[Bindable]
 		public function get address():String
 		{
 			return _address;

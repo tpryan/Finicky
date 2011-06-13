@@ -7,7 +7,10 @@
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
-			public var photo:Image = null;
+			import spark.primitives.BitmapImage;
+			
+			[Bindable]
+			public var photo:String = "";
 			protected var loader:Loader;
 			
 			[Bindable]
@@ -22,8 +25,11 @@
 			[Embed(source="/assets/icons/cameraIcon.png")]
 			protected var camera:Class;
 			
+			
 			protected function init(event:FlexEvent):void
 			{
+				trace(photo)
+				bmimage.addEventListener(FlexEvent.READY, picLoaded);
 				bg.source = up;
 			}
 
@@ -36,10 +42,29 @@
 			{
 				bg.source = up;
 			}
+			
+			protected function picLoaded(event:Event):void
+			{
+				var bmpData:BitmapData = bmimage.bitmapData;
+				var matrix:Matrix = new Matrix();
+				
+				matrix.tx = (bmpData.width/2) + (98/2); 
+				matrix.ty = (bmpData.height/2) + (98/2);
+				
+				photoSprite.graphics.beginBitmapFill(bmpData,matrix);
+				photoSprite.graphics.drawCircle(98,98,90);
+				photoSprite.graphics.endFill();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
+	
+	<s:BitmapImage id="bmimage" source="{photo}" width="0" height="0" visible="false" />
 	<s:Image id="bg" source="{up}" />
 	<s:Image id="cameraIcon" source="{camera}" blendMode="multiply" x="8" y="21" />
+	<s:SpriteVisualElement id="photoSprite" x="0" y="0" height="200" width="200"  />
+	
 	
 </s:SkinnableContainer>
