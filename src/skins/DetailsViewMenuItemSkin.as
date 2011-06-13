@@ -10,7 +10,7 @@ package skins
 	{
 		
 		[Bindable]
-		[Embed(source="/assets/bg/bg_menuButton.png")]
+		[Embed(source="/assets/bg/bg_blank.png")]
 		private var bgClass:Class;
 		
 		[Bindable]

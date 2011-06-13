@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Edit">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" creationComplete="init(event)" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Edit" xmlns:components="components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.transitions.SlideViewTransition;
+			
+			protected var dataToPush:Object = new Object;
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data;
+				
+			}
+			
+			protected function writeButton_clickHandler(event:MouseEvent):void
+			{
+				var trans:SlideViewTransition = new SlideViewTransition();
+				trans.direction = "up";
+				
+				navigator.pushView(EditNote,dataToPush,null,trans);
+				
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -19,12 +49,23 @@
 	
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
+	<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="350" />
 	
+	<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0"
+		 text="WHAT DID YOU FIND?" textAlign="center"/>
+	<s:TextInput top="61" width="100%" horizontalCenter="0" skinClass="skins.EditTexInputSkin"
+			 textAlign="center" focusThickness="0" />
+	<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
+		 text="WHERE DID YOU FIND IT?" textAlign="center"/>
+	<s:Button top="205" label="Current Location" horizontalCenter="-0"
+		  skinClass="skins.EditLocationButtonSkin"/>
+	
+	<components:PhotoButton top="355" horizontalCenter="-122" />
+	<components:WriteButton id="writeButton" top="355" horizontalCenter="122" click="writeButton_clickHandler(event)" />
 		
-	<s:Label id="editItemLabel" y="35" horizontalCenter="0" text="WHAT DID YOU FIND?" textAlign="center"/>
-	<s:TextInput y="85" horizontalCenter="0" skinClass="skins.EditTexInputSkin"/>
-	<s:Label id="editLocationLabel" y="216" horizontalCenter="0" text="WHERE DID YOU FIND IT?" textAlign="center"/>
-	<s:Button y="274" label="Current Location" horizontalCenter="0" skinClass="skins.EditLocationButtonSkin"/>
+		
+	
+	
 		
 	
 </s:View>

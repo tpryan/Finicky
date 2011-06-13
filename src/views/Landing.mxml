@@ -36,8 +36,9 @@
 				
 				if (event.keyCode == Keyboard.BACK){
 					
+					event.preventDefault();
+					
 					if (filterModal.active){
-						event.preventDefault();
 						filterModal.active = false;
 						filterModal.visible = false;
 					}

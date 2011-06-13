@@ -1,6 +1,8 @@
 package skins
 {
 	
+	import flash.events.FocusEvent;
+	
 	import spark.components.Image;
 	import spark.skins.mobile.TextInputSkin;
 	
@@ -22,14 +24,14 @@ package skins
 		{
 			super();
 			borderClass = borderClassTemp;
-			//width = 552;
+			
 			height = 120;
 			
 			
-			
-			
-			
 		}
+		
+		
+		
 		
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void{
 			border.blendMode = "multiply";
@@ -40,10 +42,9 @@ package skins
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
 			whiteBG.source = whitebrush;
-			whiteBG.percentWidth = 100;
-			whiteBG.preliminaryHeight = 100;
 			addChildAt(whiteBG,0);
 			setElementPosition(whiteBG, 0, 0);
+			setElementSize(whiteBG, border.width,border.height);
 			
 			textDisplay.setStyle("fontFamily", "Lions Den");
 			textDisplay.setStyle("fontSize", 36);
@@ -51,7 +52,32 @@ package skins
 			textDisplay.setStyle("textAlign", "center");
 			
 			
+			textDisplay.addEventListener(FocusEvent.FOCUS_IN, drawBGRect);
+			textDisplay.addEventListener(FocusEvent.FOCUS_OUT, removeBGRect);
 			
 		}
+		
+		protected function drawBGRect(event:FocusEvent):void
+		{
+			var borderSize:uint = (border) ? layoutBorderSize : 0;
+			var borderWidth:uint = borderSize * 2;
+			
+			// Draw the contentBackgroundColor
+			graphics.beginFill(0xC3F4FC, getStyle("contentBackgroundAlpha"));
+			graphics.drawRoundRect(textDisplay.x+10, textDisplay.y-18, textDisplay.width-25, textDisplay.height+18, layoutCornerEllipseSize, layoutCornerEllipseSize);
+			graphics.endFill();
+			
+		}	
+		
+		protected function removeBGRect(event:FocusEvent):void
+		{
+			
+			// Draw the contentBackgroundColor
+			graphics.clear();
+			
+		}	
+		
+		
+		
 	}
 }

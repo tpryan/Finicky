@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" 
+					  skinClass="skins.EditButtonSkin" mouseDown="showDown()" mouseUp="showUp()" mouseOut="showUp()" 
+		 			xmlns:s="library://ns.adobe.com/flex/spark" >
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			public var photo:Image = null;
+			protected var loader:Loader;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/writeButtonUp.png")]
+			protected var up:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/writeButtonDown.png")]
+			protected var down:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/pencil.png")]
+			protected var pencil:Class;
+			
+			protected function init(event:FlexEvent):void
+			{
+				bg.source = up;
+			}
+
+			protected function showDown():void
+			{
+				bg.source = down;
+			}
+
+			protected function showUp():void
+			{
+				bg.source = up;
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Image id="bg" source="{up}" />
+	<s:Image id="cameraIcon" source="{pencil}" blendMode="multiply" x="23" y="21" />
+	
+</s:SkinnableContainer>

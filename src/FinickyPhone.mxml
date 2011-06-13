@@ -37,6 +37,7 @@
 				dbManager = new DBManager(dbFile);
 				getLocation();
 				onLoaded();
+				
 			}
 			
 			protected function getLocation():void{
