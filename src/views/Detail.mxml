@@ -180,7 +180,7 @@
 		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{store.address}"/>
 		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{store.toCityStateZipString()}"/>
 		
-		<components:PictureDisplay source="{itemAtPlace.picturepath}" rotationSeed="{data.items.getItemAt(data.selectedIndex).name}" />
+		<components:PictureDisplay source="{itemAtPlace.picturepath}" rotationSeed="{item.name}" />
 		<s:Image id="rule" source="@Embed('/assets/bg/rule.png')" horizontalCenter="0" />
 		<s:Label id="storeDescription" width="100%" text="{store.notes}"/>
 	</s:VGroup>

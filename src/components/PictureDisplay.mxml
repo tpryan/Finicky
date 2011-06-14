@@ -13,12 +13,12 @@
 			private var actualTopPadding:int = 0;
 			
 
-			[Bindable]
 			public function get rotationSeed():String
 			{
 				return _rotationSeed;
 			}
 			
+			[Bindable]
 			public function set rotationSeed(value:String):void
 			{
 				_rotationSeed = value;
