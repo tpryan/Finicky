@@ -47,6 +47,8 @@
 				home.state = "PA";
 				home.mailingCode = "19130";
 				home.country = "USA";
+				home.lat = 39.962199;
+				home.lon = -75.170639;
 				
 				dataToPush.home = home;
 				

@@ -21,7 +21,7 @@
 			{
 				dataToPush = data;
 				dbManager = data.dbManager;
-				itemAtPlaceList = dbManager.itemAtPlaceDAO.list();
+				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
 				
 				
 				
@@ -81,6 +81,17 @@
 				
 			}
 			
+			protected function filterModal_changedHandler(event:Event):void
+			{
+				if (filterModal.filterType == "place"){
+					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
+				}
+				else{
+					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name");
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -116,12 +127,16 @@
 										>
 					<fx:Script>
 						<![CDATA[
+							import com.terrenceryan.finicky.vo.Place;
 							protected function upperLocation(obj:Object):String{
 								return obj.place.name.toUpperCase();
 								
 							}
 							
 							protected function getItemName(obj:Object):String{
+								
+								
+								
 								return obj.item.name;
 								
 							}
@@ -136,7 +151,7 @@
 
 	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{cities.getItemAt(currentCity).name}" locationChanged="location1_locationChangedHandler(event)" />
 
-	<components:FilterModal id="filterModal" visible="false" width="100%" />
+	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />

@@ -101,6 +101,8 @@ package renderers
 			setElementPosition(decoratorCover, decoratorDisplay.x, decoratorDisplay.y);
 			setElementSize(ruleImg, width, 2);
 			setElementPosition(ruleImg, 0,0);
+			labelDisplay.wordWrap = true;
+			
 			
 			var ruleNumber:Number = labelDisplay.text.length % 3;
 			

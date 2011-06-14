@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="100%" creationComplete="init(event)">
+	<fx:Metadata>
+		[Event(name="changed", type="flash.events.Event")]
+	</fx:Metadata>
+	
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
-			private var _filterType:String = "item";
+			private var _filterType:String = "place";
 
 			public var active:Boolean = true;
 			
@@ -16,7 +20,7 @@
 			[Embed(source="/assets/icons/modalCheckOn.png")]
 			private var on:Class;
 			
-			
+			[Bindable]
 			public function get filterType():String
 			{
 				return _filterType;
@@ -34,6 +38,8 @@
 				else{
 					_filterType = "item";
 				}
+				
+				dispatchEvent(new Event("changed"));
 				
 				setIcon();
 			}
