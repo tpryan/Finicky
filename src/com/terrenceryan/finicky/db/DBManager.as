@@ -1,5 +1,7 @@
 package com.terrenceryan.finicky.db
 {
+	import com.terrenceryan.finicky.vo.ItemAtPlace;
+	
 	import flash.events.EventDispatcher;
 	
 	public class DBManager extends EventDispatcher
@@ -14,7 +16,8 @@ package com.terrenceryan.finicky.db
 		
 		private var _conn:SQLConnection = new SQLConnection();
 		private var _itemDAO:ItemDAO = null;
-		private var _storeDAO:PlaceDAO = null;
+		private var _placeDAO:PlaceDAO = null;
+		private var _itemAtPlaceDAO:ItemAtPlaceDAO = null;
 		
 		
 		[Event(name="loaded", type="flash.events.Event")]
@@ -27,7 +30,8 @@ package com.terrenceryan.finicky.db
 			{
 				_conn.open(dbFile);
 				_itemDAO = new ItemDAO(_conn);
-				_storeDAO = new PlaceDAO(_conn);
+				_placeDAO = new PlaceDAO(_conn);
+				_itemAtPlaceDAO = new ItemAtPlaceDAO(_conn,this);
 				onLoadComplete();
 				
 				
@@ -44,14 +48,24 @@ package com.terrenceryan.finicky.db
 			
 		}
 		
-		public function get storeDAO():PlaceDAO
+		public function get itemAtPlaceDAO():ItemAtPlaceDAO
 		{
-			return _storeDAO;
+			return _itemAtPlaceDAO;
+		}
+
+		public function set itemAtPlaceDAO(value:ItemAtPlaceDAO):void
+		{
+			_itemAtPlaceDAO = value;
+		}
+
+		public function get placeDAO():PlaceDAO
+		{
+			return _placeDAO;
 		}
 		
-		public function set storeDAO(value:PlaceDAO):void
+		public function set placeDAO(value:PlaceDAO):void
 		{
-			_storeDAO = value;
+			_placeDAO = value;
 		}
 		
 		public function get itemDAO():ItemDAO

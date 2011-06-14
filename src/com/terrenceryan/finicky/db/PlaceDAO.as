@@ -1,8 +1,10 @@
 package com.terrenceryan.finicky.db
 {
+	import com.terrenceryan.finicky.vo.Item;
 	import com.terrenceryan.finicky.vo.Place;
 	
 	import flash.data.SQLConnection;
+	import flash.data.SQLResult;
 	import flash.data.SQLStatement;
 	import flash.errors.SQLError;
 	
@@ -23,8 +25,8 @@ package com.terrenceryan.finicky.db
 			var createStmt:SQLStatement = new SQLStatement();
 			createStmt.sqlConnection = _conn;
 			var sql:String = "";
-			sql += "CREATE TABLE IF NOT EXISTS store (";
-			sql += "	storeid		INTEGER PRIMARY KEY,";
+			sql += "CREATE TABLE IF NOT EXISTS place (";
+			sql += "	placeid		INTEGER PRIMARY KEY,";
 			sql += "	name	TEXT,";
 			sql += "	address	TEXT,";
 			sql += "	city	TEXT,";
@@ -50,6 +52,41 @@ package com.terrenceryan.finicky.db
 				return;
 			}
 		}
+		
+		public function get(id:int):Place{
+			var query:String = "";
+			
+			query = "SELECT * " + 
+					"FROM  	place " + 
+					"WHERE 	placeid = :placeid";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			sqlSelect.parameters[":placeid"] = id;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			var place:Place = convertPlainObjectToPlace(result.data[0]);
+			
+			return place;
+		}
+		
+		private function convertPlainObjectToPlace(obj:Object):Place
+		{
+			var place:Place = new Place();
+			place.name = obj.name;
+			place.address = obj.address;
+			place.city = obj.city;
+			place.state = obj.state;
+			place.mailingCode = obj.mailingcode;
+			place.country = obj.country;
+			place.lat = obj.lat;
+			place.lon = obj.lon;
+			place.notes = obj.notes;
+			return place;
+		}		
 		
 		public function save(store:Place):void{
 			var query:String = "INSERT INTO store (" + 

@@ -17,6 +17,8 @@
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.vo.Item;
+			import com.terrenceryan.finicky.vo.ItemAtPlace;
+			import com.terrenceryan.finicky.vo.Place;
 			
 			import flash.net.navigateToURL;
 			
@@ -29,6 +31,12 @@
 			protected var dataToPush:Object;
 			[Bindable]
 			protected var item:Item = new Item();
+			[Bindable]
+			protected var itemAtPlace:ItemAtPlace = new ItemAtPlace();
+			
+			[Bindable]
+			protected var store:Place = new Place();
+			
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -39,13 +47,16 @@
 				if (data.navigating == null){
 					dataToPush.navigating = "none";
 				}
-				var items:ArrayCollection = data.items;
-				var itemTemp:Object = items.getItemAt(data.selectedIndex);
-				item.name = itemTemp.name;
+				var itemAtPlaceList:ArrayCollection = data.itemAtPlaceList;
+				itemAtPlace = itemAtPlaceList.getItemAt(data.selectedIndex) as ItemAtPlace;
+				
+				item = itemAtPlace.item;
+				store = itemAtPlace.place;
 				
 				toggleBannerControls();
 				
 				directionsBtn.y = itemNav.y + itemNav.height + 20;
+				
 			}
 			
 			
@@ -121,7 +132,7 @@
 				else{
 					itemNav.visibleLeft = true;
 				}
-				if (data.selectedIndex == data.items.length -1){
+				if (data.selectedIndex == data.itemAtPlaceList.length -1){
 					itemNav.visibleRight = false;
 				}
 				else{
@@ -157,8 +168,6 @@
 	
 	<fx:Declarations>
 		
-		<vo:Place id="store" name="Holt's" address="1522 Walnut Street" city="Philadelphia" state="PA" 
-				   notes="This store pretty much has anything you would ever want. " />
 	</fx:Declarations>
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
@@ -167,12 +176,12 @@
 	
 	<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
 		<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
-		<s:Label id="storeName" width="440" horizontalCenter="0" text="{store.name}"/>
+		<s:Label id="storeName" width="100%" horizontalCenter="0" text="{store.name}"/>
 		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{store.address}"/>
 		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{store.toCityStateZipString()}"/>
 		
-		<components:PictureDisplay source="/assets/items/{data.selectedIndex}.jpg" rotationSeed="{data.items.getItemAt(data.selectedIndex).name}" />
-		<s:Image id="rule" source="/assets/bg/rule.png" horizontalCenter="0" />
+		<components:PictureDisplay source="{itemAtPlace.picturepath}" rotationSeed="{data.items.getItemAt(data.selectedIndex).name}" />
+		<s:Image id="rule" source="@Embed('/assets/bg/rule.png')" horizontalCenter="0" />
 		<s:Label id="storeDescription" width="100%" text="{store.notes}"/>
 	</s:VGroup>
 	

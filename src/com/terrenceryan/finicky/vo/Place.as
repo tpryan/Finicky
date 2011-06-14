@@ -3,7 +3,7 @@ package com.terrenceryan.finicky.vo
 	public class Place
 	{
 		
-		private var _storeid:int = 0;
+		private var _placeid:int = 0;
 		private var _name:String = "";
 		private var _address:String = "";
 		private var _city:String = "";
@@ -111,14 +111,14 @@ package com.terrenceryan.finicky.vo
 			_name = value;
 		}
 
-		public function get storeid():int
+		public function get placeid():int
 		{
-			return _storeid;
+			return _placeid;
 		}
 
-		public function set storeid(value:int):void
+		public function set placeid(value:int):void
 		{
-			_storeid = value;
+			_placeid = value;
 		}
 
 		public function toAddressString():String
@@ -130,7 +130,7 @@ package com.terrenceryan.finicky.vo
 		
 		public function toCityStateZipString():String
 		{
-			var result:String = _city + " " + _state + " " + _mailingCode + " " + _country;
+			var result:String = _city + " " + _state + " " + _mailingCode;
 			trace(result);
 			return result;
 		}

@@ -5,10 +5,16 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
+			
 			import mx.events.FlexEvent;
 			protected var currentCity:int = 0;
 			protected var dataToPush:Object;
 			public var i:int = 0;
+			protected var dbManager:DBManager;
+			
+			[Bindable]
+			protected var itemAtPlaceList:ArrayCollection;
 			
 			protected function location1_locationChangedHandler(event:Event):void
 			{
@@ -24,7 +30,7 @@
 			protected function itemList_clickHandler(event:MouseEvent):void
 			{
 				dataToPush.selectedIndex = itemList.selectedIndex;
-				dataToPush.items = items;
+				dataToPush.itemAtPlaceList = itemAtPlaceList;
 				navigator.pushView(Detail, dataToPush);
 				
 			}
@@ -45,17 +51,6 @@
 				}
 				
 				
-				if (event.keyCode == Keyboard.MENU){
-					
-					if (!filterModal.active){
-						filterModal.active = true;
-						filterModal.visible = true;
-					}
-					else{
-						filterModal.active = false;
-						filterModal.visible = false;
-					}
-				}
 				
 			}
 			
@@ -69,6 +64,17 @@
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data;
+				dbManager = data.dbManager;
+				itemAtPlaceList = dbManager.itemAtPlaceDAO.list();
+				
+				
+				
+			}
+			
+			protected function addButton_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.selectedIndex = -1;
+				navigator.pushView(Edit, dataToPush);
 				
 			}
 			
@@ -98,17 +104,22 @@
 		
 	</fx:Declarations>
 	
-	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{items}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
+	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{itemAtPlaceList}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
-				<renderers:ItemListRenderer  styleName="itemName" messageStyleName="locationName" labelField="name"
+				<renderers:ItemListRenderer  styleName="itemName" messageStyleName="locationName" labelFunction="getItemName"
 										decorator="@Embed('/assets/icons/itemListButtonUp.png') "
 										messageFunction="upperLocation" 
 										>
 					<fx:Script>
 						<![CDATA[
 							protected function upperLocation(obj:Object):String{
-								return obj.location.toUpperCase()
+								return obj.place.name.toUpperCase();
+								
+							}
+							
+							protected function getItemName(obj:Object):String{
+								return obj.item.name;
 								
 							}
 						]]>
@@ -123,5 +134,11 @@
 	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{cities.getItemAt(currentCity).name}" locationChanged="location1_locationChangedHandler(event)" />
 
 	<components:FilterModal id="filterModal" visible="false" />	
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="editButton" label=" " skinClass="skins.DetailsViewMenuItemSkin" />
+	
+	</s:viewMenuItems>
 	
 </s:View>

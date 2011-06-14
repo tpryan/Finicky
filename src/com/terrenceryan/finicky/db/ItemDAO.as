@@ -30,7 +30,7 @@ package com.terrenceryan.finicky.db
 			createStmt.sqlConnection = _conn;
 			var sql:String = "";
 			sql += "CREATE TABLE IF NOT EXISTS item (";
-			sql += "	itmemid		INTEGER PRIMARY KEY,";
+			sql += "	itemid		INTEGER PRIMARY KEY,";
 			sql += "	name	TEXT,";
 			sql += "	description		TEXT";
 			sql += ")";
@@ -63,21 +63,47 @@ package com.terrenceryan.finicky.db
 			sqlSelect.execute();
 			var result:SQLResult =  sqlSelect.getResult();
 			
-			trace("yo");
 			
 			var ac:ArrayCollection = new ArrayCollection();
 			if (result.data != null){
 				for (var i:int = 0; i < result.data.length; i++){
-					var item:Item = new Item();
-					item.itemid = result.data[i].itemid;
-					item.name = result.data[i].name;
-					item.description = result.data[i].description;
+					var item:Item = convertPlainObjectToItem(result.data[i]);
 					ac.addItem(item);
 				}
 			}
 			return ac;
 			
 		}
+		
+		public function get(id:int):Item{
+			var query:String = "";
+			
+			query = "SELECT * " + 
+					"FROM  	item " + 
+					"WHERE 	itemid = :itemid";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			sqlSelect.parameters[":itemid"] = id;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			var item:Item = convertPlainObjectToItem(result.data[0]);
+			
+			return item;
+		}
+		
+		private function convertPlainObjectToItem(obj:Object):Item
+		{
+			var item:Item = new Item();
+			item.itemid = obj.itemid;
+			item.name = obj.name;
+			item.description = obj.description;
+			return item;
+		}		
+		
 		public function save(item:Item):void {
 			var query:String = "INSERT INTO item (" + 
 				"name," + 
