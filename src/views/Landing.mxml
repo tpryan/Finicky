@@ -16,6 +16,17 @@
 			[Bindable]
 			protected var itemAtPlaceList:ArrayCollection;
 			
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data;
+				dbManager = data.dbManager;
+				itemAtPlaceList = dbManager.itemAtPlaceDAO.list();
+				
+				
+				
+			}
+			
 			protected function location1_locationChangedHandler(event:Event):void
 			{
 				currentCity = currentCity + 1;
@@ -47,7 +58,7 @@
 					if (filterModal.active){
 						filterModal.active = false;
 						filterModal.visible = false;
-					}
+					} 
 				}
 				
 				
@@ -61,15 +72,7 @@
 				
 			}
 			
-			protected function init(event:FlexEvent):void
-			{
-				dataToPush = data;
-				dbManager = data.dbManager;
-				itemAtPlaceList = dbManager.itemAtPlaceDAO.list();
-				
-				
-				
-			}
+			
 			
 			protected function addButton_clickHandler(event:MouseEvent):void
 			{
@@ -130,10 +133,10 @@
 			
 		</s:itemRenderer>
 	</s:List>
-	
+
 	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{cities.getItemAt(currentCity).name}" locationChanged="location1_locationChangedHandler(event)" />
 
-	<components:FilterModal id="filterModal" visible="false" />	
+	<components:FilterModal id="filterModal" visible="false" width="100%" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />

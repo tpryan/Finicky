@@ -89,15 +89,18 @@
 		</s:fill>
 	</s:Rect>
 	
-	<s:Image id="bg" horizontalCenter="0" source="@Embed('/assets/bg/bg_modal.png')" verticalCenter="0"/>
-	<s:Label id="modalItemLabel" horizontalCenter="-140" text="ITEM" verticalCenter="-50"/>
-	<s:Label id="modalPlaceLabel" horizontalCenter="140" text="PLACE" verticalCenter="-50"/>
+	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
+		<s:Image id="bg" width="95%" maxWidth="554"  x="10" source="@Embed('/assets/bg/bg_modal.png')" verticalCenter="0"/>
+		<s:Label id="modalItemLabel" horizontalCenter="-140" text="ITEM" verticalCenter="-50"/>
+		<s:Label id="modalPlaceLabel" horizontalCenter="140" text="PLACE" verticalCenter="-50"/>
+		
+		<s:Image id="closeButton" right="5" top="5" click="closeButton_clickHandler(event)"
+				 source="@Embed('/assets/icons/closebutton.png')"/>
+		
+		<s:Image id="modalItemIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="clickHandler(event)"/>
+		<s:Image id="modalPlaceIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="clickHandler(event)" />
+	</s:Group>
 	
-	<s:Image id="closeButton" horizontalCenter="235" source="@Embed('/assets/icons/closebutton.png')"
-			 verticalCenter="-126" click="closeButton_clickHandler(event)"/>
-	
-	<s:Image id="modalItemIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="clickHandler(event)"/>
-	<s:Image id="modalPlaceIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="clickHandler(event)" />
 	
 	
 </s:Group>
