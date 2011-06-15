@@ -92,6 +92,14 @@
 				
 			}
 			
+			protected function mapButton_clickHandler(event:MouseEvent):void
+			{
+				
+				dataToPush.itemAtPlaceList = itemAtPlaceList;
+				navigator.pushView(MapView, dataToPush);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -155,7 +163,7 @@
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="editButton" label=" " skinClass="skins.DetailsViewMenuItemSkin" />
+		<s:ViewMenuItem id="mapButton" label="MAP" skinClass="skins.DetailsViewMenuItemSkin" click="mapButton_clickHandler(event)" />
 	
 	</s:viewMenuItems>
 	

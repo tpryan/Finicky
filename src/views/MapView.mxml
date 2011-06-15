@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  xmlns:esri="http://www.esri.com/2008/ags" creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Map" actionBarVisible="false" >
+	<fx:Script>
+		<![CDATA[
+			import com.esri.ags.Graphic;
+			import com.esri.ags.geometry.MapPoint;
+			import com.esri.ags.geometry.WebMercatorMapPoint;
+			import com.esri.ags.symbols.PictureMarkerSymbol;
+			import com.esri.ags.symbols.SimpleMarkerSymbol;
+			import com.esri.ags.symbols.TextSymbol;
+			import com.terrenceryan.finicky.vo.Place;
+			
+			import mx.controls.Text;
+			import mx.events.FlexEvent;
+			
+			protected var play:Number  = .01;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/mapMarker.png")]
+			private var mapMarker:Class;
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				
+				var homeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(data.home.lon,data.home.lat);
+				
+				var homeMarker:SimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_DIAMOND, 22, 0x009933);
+				var placeMaker:PictureMarkerSymbol = new PictureMarkerSymbol(mapMarker,281,96);
+				placeMaker.xoffset = 190;
+				placeMaker.yoffset = 48;
+				
+				var myGraphicMarker:Graphic = new Graphic(homeMapPoint,homeMarker);
+				myGraphicMarker.toolTip = "Home";
+				myGraphicsLayer.add(myGraphicMarker);
+				
+				var textFormat:TextFormat = new TextFormat();
+				textFormat.font = "Trade Gothic LT Std Cn";
+				textFormat.bold = true;
+				textFormat.size = 16;
+				
+				for (var i:int = 0; i < data.itemAtPlaceList.length; i++){
+					var place:Place = data.itemAtPlaceList.getItemAt(i).place;
+					var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
+					myGraphicMarker = new Graphic(placeMapPoint,placeMaker);
+					myGraphicMarker.toolTip = place.name;
+					myGraphicsLayer.add(myGraphicMarker);
+					
+					
+					var textMarker:TextSymbol = new TextSymbol();
+					textMarker.text = place.name;
+					textMarker.xoffset = placeMaker.xoffset;
+					textMarker.yoffset = placeMaker.yoffset;
+					textMarker.textFormat = textFormat;
+					
+					myGraphicMarker = new Graphic(placeMapPoint,textMarker);
+					myGraphicsLayer.add(myGraphicMarker);
+				}  
+				
+				
+		
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<esri:SpatialReference id="wgs" wkid="4326"/>
+
+	</fx:Declarations>
+	
+	<esri:Map id="mainMap" wrapAround180="true" top="0" left="0" right="0" bottom="">
+		<esri:extent>
+			<esri:WebMercatorExtent id="map" minlon="{data.home.lon-play}" minlat="{data.home.lat-play}" maxlon="{data.home.lon+play}" maxlat="{data.home.lat-play}"/>
+		</esri:extent>
+		
+		<esri:ArcGISTiledMapServiceLayer url="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
+		<esri:GraphicsLayer id="myGraphicsLayer">
+			
+			
+			
+			
+			
+		</esri:GraphicsLayer>
+	</esri:Map>
+	
+</s:View>
