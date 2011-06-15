@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" 
+		 xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.components.supportClasses.Skin;
+			import spark.events.TextOperationEvent;
+		
+			[Bindable]
+			public var text:String = "";
+			public var suggestionPool:ArrayCollection;
+			[Bindable]
+			private var suggestions:ArrayCollection;
+			
+			[Bindable]
+			public var textAlign:String = "left";
+			
+			[Bindable]
+			public var focusThickness:Number = 0;
+			
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				suggestions = suggestionPool;
+				
+			}
+			
+			protected function ti_changeHandler(event:TextOperationEvent):void
+			{
+				suggestionList.visible = true;
+				filter();
+				
+			}
+			
+			protected function ti_focusOutHandler(event:FocusEvent):void
+			{
+				if (!event.relatedObject || !event.relatedObject.name || event.relatedObject.name != "suggestionList"){
+					suggestionList.visible = false;
+				}
+			}
+			
+			private function filter():void {
+				suggestions = suggestionPool;
+				suggestions.filterFunction = filterSuggestions;
+				suggestions.refresh();
+			}
+			
+			private function filterSuggestions(item:Object):Boolean
+			{
+				var searchString:String = ti.text.toLowerCase();
+				var itemName:String = (item.name as String).toLowerCase();
+				return itemName.indexOf(searchString) > -1;
+				
+			}
+			
+			protected function suggesttionList_clickHandler(event:MouseEvent):void
+			{
+				if (suggestionList.selectedIndex > -1){
+					ti.text = suggestionList.selectedItem.name;
+					suggestionList.visible = false;
+				}
+				
+			}
+			
+			protected function ti_enterHandler(event:FlexEvent):void
+			{
+				if (suggestionList.visible){
+					ti.text = suggestions.getItemAt(0).name;
+					suggestionList.visible = false;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		#suggestionList{
+			fontFamily: "Lions Den";
+			fontSize: 36;
+		}
+	</fx:Style>
+	
+	<s:TextInput id="ti" skinClass="skins.EditTexInputSkin" enter="ti_enterHandler(event)"  width="100%" text="@{text}" textAlign="{textAlign}" focusThickness="{focusThickness}" change="ti_changeHandler(event)" focusOut="ti_focusOutHandler(event)"/>
+	<s:List id="suggestionList" name="suggestionList" 
+				visible="false" contentBackgroundAlpha="0"
+				width="100%" left="13" right="18" y="{ti.y + 90}"  
+				dataProvider="{suggestions}" labelField="name"
+				click="suggesttionList_clickHandler(event)" 
+				>
+		
+		
+	</s:List>
+	
+</s:Group>

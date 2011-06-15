@@ -73,15 +73,8 @@
 		<esri:extent>
 			<esri:WebMercatorExtent id="map" minlon="{data.home.lon-play}" minlat="{data.home.lat-play}" maxlon="{data.home.lon+play}" maxlat="{data.home.lat-play}"/>
 		</esri:extent>
-		
 		<esri:ArcGISTiledMapServiceLayer url="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
-		<esri:GraphicsLayer id="myGraphicsLayer">
-			
-			
-			
-			
-			
-		</esri:GraphicsLayer>
+		<esri:GraphicsLayer id="myGraphicsLayer" />
 	</esri:Map>
 	
 </s:View>

@@ -4,19 +4,29 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
+			
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
 			import spark.transitions.SlideViewTransition;
 			
 			protected var dataToPush:Object = new Object;
+			protected var dbManager:DBManager;
 			
 			protected var cameraUI:CameraUI = new CameraUI();
+			
+			[Bindable]
+			protected var itemList:ArrayCollection = new ArrayCollection();
 			
 			
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data;
+				dbManager = data.dbManager;
 				cameraUI.addEventListener(MediaEvent.COMPLETE, onCameraReturn);
+				itemList = dbManager.itemDAO.list();
+				
 				
 			}
 			
@@ -66,10 +76,13 @@
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 	<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="350" />
 	
-	<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0"
+	<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
 		 text="WHAT DID YOU FIND?" textAlign="center"/>
-	<s:TextInput top="61" width="100%" horizontalCenter="0" skinClass="skins.EditTexInputSkin"
-			 textAlign="center" focusThickness="0" />
+	<components:SuggestionTextBox id="itemTexInput" suggestionPool="{itemList}" depth="20"
+								  top="61" width="100%" horizontalCenter="0"
+								  textAlign="center" focusThickness="0"
+								  />
+	
 	<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
 		 text="WHERE DID YOU FIND IT?" textAlign="center"/>
 	<s:Button top="205" label="Current Location" horizontalCenter="-0"

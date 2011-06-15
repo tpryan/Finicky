@@ -138,15 +138,10 @@
 							import com.terrenceryan.finicky.vo.Place;
 							protected function upperLocation(obj:Object):String{
 								return obj.place.name.toUpperCase();
-								
 							}
 							
 							protected function getItemName(obj:Object):String{
-								
-								
-								
 								return obj.item.name;
-								
 							}
 						]]>
 					</fx:Script>
