@@ -21,14 +21,23 @@
 			import com.terrenceryan.finicky.fonts.tradegothicbold;
 			import com.terrenceryan.finicky.fonts.tradegothictlf;
 			import com.terrenceryan.finicky.fonts.tradegothictlfbold;
+			import com.terrenceryan.finicky.geo.GeoCode;
 			import com.terrenceryan.finicky.vo.Place;
+			
+			import events.GeoResultEvent;
+			
+			import flash.sensors.Geolocation;
 			
 			import mx.events.FlexEvent;
 			
+			import views.EditLocation;
 			import views.Landing;
 			
 			public var dbManager:DBManager = null;
+			public var geoCodeService:GeoCode = new GeoCode();
 			public var dataToPush:Object = new Object();
+			public var geo:Geolocation;
+			public var home:Place = new Place();
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -41,23 +50,38 @@
 			}
 			
 			protected function getLocation():void{
-				var home:Place = new Place();
-				home.name = "My House";
-				home.address = "1923 Hamilton Street";
-				home.city = "Philadelphia";
-				home.state = "PA";
-				home.mailingCode = "19130";
-				home.country = "USA";
-				home.lat = 39.962199;
-				home.lon = -75.170639;
+				
+				
+				
+				if (Geolocation.isSupported)
+				{
+					//Initialize the location sensor.
+					geo = new Geolocation();
+					if(! geo.muted){
+						geo.setRequestedUpdateInterval(60000);
+						//Register to receive location updates.
+						geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
+					}
+				}
+				else{
+					
+					home.lat = 39.962199;
+					home.lon = -75.170639;
+					geoCodeService.addEventListener("result", geoCodeResultHandler);
+					geoCodeService.fromLatLonToAddress(home.lat, home.lon);
+				}
 				
 				dataToPush.home = home;
+				
+				
+				
 				
 			}
 			
 			protected function onLoaded():void
 			{
-				dataToPush.dbManager = dbManager;	
+				dataToPush.dbManager = dbManager;
+				dataToPush.geoCodeService = geoCodeService;
 				dataToPush.os = Capabilities.os;
 				
 				
@@ -96,6 +120,25 @@
 				{
 					trace(key.fontName + " - " + key.fontStyle + " - " + key.fontType);
 				}
+			}
+			
+			protected function geolocationUpdateHandler(event:GeolocationEvent):void
+			{
+				home.lat = event.latitude;
+				home.lon = event.longitude;
+				geoCodeService.addEventListener("result", geoCodeResultHandler);
+				geoCodeService.fromLatLonToAddress(home.lat, home.lon);
+				
+			}
+			
+			protected function geoCodeResultHandler(event:GeoResultEvent):void
+			{
+				home.address = event.result.address;
+				home.city = event.result.city;
+				home.state = event.result.state;
+				home.mailingCode = event.result.mailingCode;
+				home.country = event.result.country;
+				dataToPush.home = home;
 			}
 			
 		]]>

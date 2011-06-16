@@ -25,7 +25,7 @@ package skins
 			super();
 			borderClass = borderClassTemp;
 			
-			height = 120;
+			height = 88;
 			
 			
 		}
@@ -49,7 +49,14 @@ package skins
 			textDisplay.setStyle("fontFamily", "Lions Den");
 			textDisplay.setStyle("fontSize", 36);
 			textDisplay.setStyle("color", 0x22221b);
-			textDisplay.setStyle("textAlign", "center");
+			
+			if (hostComponent.getStyle("textAlign")){
+				textDisplay.setStyle("textAlign", hostComponent.getStyle("textAlign"));
+			}
+			else{
+				textDisplay.setStyle("textAlign", "center");
+			}
+			
 			
 			
 			textDisplay.addEventListener(FocusEvent.FOCUS_IN, drawBGRect);

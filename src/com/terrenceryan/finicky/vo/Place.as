@@ -87,6 +87,7 @@ package com.terrenceryan.finicky.vo
 			_mailingCode = value;
 		}
 
+		[Bindable]	
 		public function get state():String
 		{
 			return _state;
@@ -97,6 +98,7 @@ package com.terrenceryan.finicky.vo
 			_state = value;
 		}
 
+		[Bindable]
 		public function get city():String
 		{
 			return _city;

@@ -152,7 +152,7 @@
 		</s:itemRenderer>
 	</s:List>
 
-	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{cities.getItemAt(currentCity).name}" locationChanged="location1_locationChangedHandler(event)" />
+	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.city}, {data.home.state}" locationChanged="location1_locationChangedHandler(event)" />
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
