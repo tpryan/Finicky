@@ -42,6 +42,7 @@
 			
 			protected function getLocation():void{
 				var home:Place = new Place();
+				home.name = "My House";
 				home.address = "1923 Hamilton Street";
 				home.city = "Philadelphia";
 				home.state = "PA";

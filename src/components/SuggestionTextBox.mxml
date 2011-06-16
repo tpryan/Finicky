@@ -4,6 +4,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
@@ -15,6 +16,7 @@
 			public var suggestionPool:ArrayCollection;
 			[Bindable]
 			private var suggestions:ArrayCollection;
+			
 			
 			[Bindable]
 			public var textAlign:String = "left";
@@ -74,6 +76,7 @@
 					suggestionList.visible = false;
 				}
 			}
+			
 			
 		]]>
 	</fx:Script>

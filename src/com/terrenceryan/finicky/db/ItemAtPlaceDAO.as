@@ -130,7 +130,50 @@ package com.terrenceryan.finicky.db
 			itemAtPlace.item = _dbmanager.itemDAO.get(obj.itemid); 
 			itemAtPlace.place = _dbmanager.placeDAO.get(obj.placeid); 
 			return itemAtPlace;
-		}		
+		}
+		
+		public function save(itemAtPlace:ItemAtPlace):void{
+			if (!itemAtPlace.item.itemid || itemAtPlace.item.itemid == 0){
+				_dbmanager.itemDAO.save(itemAtPlace.item);
+				itemAtPlace.item.itemid = _dbmanager.itemDAO.getLastRecordID(); 
+			}
+			
+			if (!itemAtPlace.place.placeid || itemAtPlace.place.placeid == 0){
+				_dbmanager.placeDAO.save(itemAtPlace.place);
+				itemAtPlace.place.placeid = _dbmanager.placeDAO.getLastRecordID(); 
+			}
+			
+			var query:String = "INSERT INTO itemAtPlace (" + 
+				"itemid, " + 
+				"placeid, " +
+				"notes, " +
+				"date, " + 
+				"picturepath) " + 
+				"VALUES ( " + 
+				":itemid, " + 
+				":placeid, " +
+				":notes, " +
+				":date, " + 
+				":picturepath) ";
+				
+				trace(query);
+				
+				var sqlInsert:SQLStatement = new SQLStatement();
+				sqlInsert.sqlConnection = _conn;
+				//sqlInsert.addEventListener( SQLEvent.RESULT, onSQLSave );
+				//sqlInsert.addEventListener( SQLErrorEvent.ERROR, onSQLError );				
+				
+				sqlInsert.text = query;
+				sqlInsert.parameters[":itemid"] = itemAtPlace.item.itemid;
+				sqlInsert.parameters[":placeid"] = itemAtPlace.place.placeid;
+				sqlInsert.parameters[":notes"] = itemAtPlace.notes;
+				sqlInsert.parameters[":date"] = dateUtil.dateFromAStoSQLite(itemAtPlace.date);
+				sqlInsert.parameters[":picturepath"] = itemAtPlace.picturepath;
+				
+				sqlInsert.execute();		
+				
+				
+		}
 		
 	}
 }

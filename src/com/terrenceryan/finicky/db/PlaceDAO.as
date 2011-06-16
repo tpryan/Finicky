@@ -88,8 +88,8 @@ package com.terrenceryan.finicky.db
 			return place;
 		}		
 		
-		public function save(store:Place):void{
-			var query:String = "INSERT INTO store (" + 
+		public function save(place:Place):void{
+			var query:String = "INSERT INTO place (" + 
 				"name," +
 				"address," +
 				"city," +
@@ -116,17 +116,34 @@ package com.terrenceryan.finicky.db
 			//sqlInsert.addEventListener( SQLErrorEvent.ERROR, onSQLError );				
 			
 			sqlInsert.text = query;
-			sqlInsert.parameters[":name"] = store.name;
-			sqlInsert.parameters[":address"] = store.address;
-			sqlInsert.parameters[":city"] = store.city;
-			sqlInsert.parameters[":state"] = store.state;
-			sqlInsert.parameters[":mailingCode"] = store.mailingCode;
-			sqlInsert.parameters[":country"] = store.country;
-			sqlInsert.parameters[":lat"] = store.lat;
-			sqlInsert.parameters[":lon"] = store.lon;
-			sqlInsert.parameters[":notes"] = store.notes;
+			sqlInsert.parameters[":name"] = place.name;
+			sqlInsert.parameters[":address"] = place.address;
+			sqlInsert.parameters[":city"] = place.city;
+			sqlInsert.parameters[":state"] = place.state;
+			sqlInsert.parameters[":mailingCode"] = place.mailingCode;
+			sqlInsert.parameters[":country"] = place.country;
+			sqlInsert.parameters[":lat"] = place.lat;
+			sqlInsert.parameters[":lon"] = place.lon;
+			sqlInsert.parameters[":notes"] = place.notes;
 			
 			sqlInsert.execute();	
+		}
+		
+		public function getLastRecordID():int{
+			var query:String = "";
+			
+			query = "SELECT last_insert_rowid() as id";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			var lastID:int = result.data[0].id;
+			
+			return lastID;
 		}
 		
 	}

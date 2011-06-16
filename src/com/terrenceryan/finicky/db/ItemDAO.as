@@ -11,6 +11,7 @@ package com.terrenceryan.finicky.db
 
 	public class ItemDAO
 	{
+		private var _table:String = "item";
 		
 		private var _conn:SQLConnection = new SQLConnection();
 		
@@ -95,6 +96,28 @@ package com.terrenceryan.finicky.db
 			return item;
 		}
 		
+		public function getItemByName(name:String):Item{
+			var query:String = "";
+			
+			query = "SELECT * " + 
+				"FROM  	item " + 
+				"WHERE name = :name";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			sqlSelect.parameters[":name"] = name;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			var item:Item = new Item();
+			if (result.data && result.data.length > 0){
+				item = convertPlainObjectToItem(result.data[0]);
+			}
+			return item;
+		}
+		
 		private function convertPlainObjectToItem(obj:Object):Item
 		{
 			var item:Item = new Item();
@@ -122,6 +145,23 @@ package com.terrenceryan.finicky.db
 			sqlInsert.parameters[":description"] = item.description; 
 			
 			sqlInsert.execute();	
+		}
+		
+		public function getLastRecordID():int{
+			var query:String = "";
+			
+			query = "SELECT last_insert_rowid() as id";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			var lastID:int = result.data[0].id;
+			
+			return lastID;
 		}
 		
 	}
