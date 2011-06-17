@@ -83,6 +83,8 @@
 				itemAtPlace.notes = "";
 				
 				dbManager.itemAtPlaceDAO.save(itemAtPlace);
+				alert.message = "Your match has been saved. ";
+				alert.open(this, true);
 				
 			}
 			
@@ -119,7 +121,7 @@
 	
 	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<components:Alert id="alert" />
 	</fx:Declarations>
 	
 	<fx:Style>
