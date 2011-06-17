@@ -24,9 +24,8 @@ package skins
 		{
 			super();
 			borderClass = borderClassTemp;
-			
-			height = 88;
-			
+			height = 90;
+			this.cacheAsBitmap = true;			
 			
 		}
 		
