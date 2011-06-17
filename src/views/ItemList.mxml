@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="false" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemList">
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="false" creationComplete="init(event)" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemList" xmlns:renderers="renderers.*">
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			protected var dataToPush:Object = new Object();
+			protected var dbManager:DBManager;
+			
+			[Bindable]
+			protected var items:ArrayCollection = new ArrayCollection();
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data;
+				dbManager = data.dbManager;
+				items = dbManager.itemDAO.list();
+			}
+			
+			protected function itemList_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.item = itemList.selectedItem;
+				navigator.pushView(ItemEdit,dataToPush);
+			}
+			
+			protected function addButton_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.item = null;
+				navigator.pushView(ItemEdit,dataToPush);
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Items"/>
+	<s:List id="itemList" left="0" right="0" top="180" bottom="0" contentBackgroundAlpha="0" dataProvider="{items}" click="itemList_clickHandler(event)" >
+		<s:itemRenderer>
+			<fx:Component>
+				<renderers:ItemListRenderer labelField="name"  
+											decorator="@Embed('/assets/icons/itemListButtonUp.png')" styleName="itemName">
+				</renderers:ItemListRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:List>
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="deleteButton" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
+	</s:viewMenuItems>
 </s:View>

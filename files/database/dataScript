@@ -1,0 +1,44 @@
+CREATE TABLE "item" (	itemid		INTEGER PRIMARY KEY, 	name	TEXT, 	description		TEXT);
+
+INSERT INTO item (itemid,name,description) VALUES (1,'Cloves','Clove cigarettes, my one vice, so hard to get. ');
+INSERT INTO item (itemid,name,description) VALUES (2,'Coke Zero',null);
+INSERT INTO item (itemid,name,description) VALUES (3,'Indian Buffet',null);
+INSERT INTO item (itemid,name,description) VALUES (4,'Sushi',null);
+INSERT INTO item (itemid,name,description) VALUES (5,'Ben & Jerry\'s Mudslide',null);
+INSERT INTO item (itemid,name,description) VALUES (6,'Yuengling Lager',null);
+INSERT INTO item (itemid,name,description) VALUES (7,'Stoudt\'s Double Bock',null);
+INSERT INTO item (itemid,name,description) VALUES (8,'Mexican Coke',null);
+INSERT INTO item (itemid,name,description) VALUES (9,'Soft Serve',null);
+INSERT INTO item (itemid,name,description) VALUES (10,'BLT\'s with Avacodo',null);
+
+
+CREATE TABLE "itemAtPlace" (	itemid		INTEGER,   	placeid		INTEGER,   	notes	TEXT,   	date		TEXT,    picturepath TEXT);
+
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (1,1,null,'2011-06-14 14:35:44','/assets/items/0.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (1,2,null,'2011-06-14 14:35:44','/assets/items/0.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (2,3,'','2011-06-14 14:35:44','/assets/items/1.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (3,4,'','2011-06-14 14:35:44','/assets/items/2.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (4,10,'','2011-06-14 14:35:44','/assets/items/3.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (5,6,'','2011-06-14 14:35:44','/assets/items/4.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (6,7,'','2011-06-14 14:35:44','/assets/items/5.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (7,5,'','2011-06-14 14:35:44','/assets/items/6.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (8,8,'','2011-06-14 14:35:44','/assets/items/7.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (9,8,'','2011-06-14 14:35:44','/assets/items/8.jpg');
+INSERT INTO itemAtPlace (itemid,placeid,notes,date,picturepath) VALUES (10,9,'','2011-06-14 14:35:44','/assets/items/9.jpg');
+
+
+CREATE TABLE "place" (	placeid		INTEGER PRIMARY KEY,	name	TEXT,	address	TEXT,	city	TEXT,	state	TEXT,	mailingcode	TEXT,	country	TEXT,	lat	NUMERIC,	lon	NUMERIC,	notes		TEXT);
+
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (1,'Holt\'s Cigar Company','1522 Walnut Street','Philadelphia','PA','19102','USA','39.949635','-75.167071','');
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (2,'Avril 50','3406 Sansom St','Philadelphia','PA','19104','USA','39.953457','-75.192546',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (3,'Wawa','2040 Hamilton Street','Philadelphia','PA','19130','USA','39.962357','-75.17308',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (4,'Sitar India Restaurant','60 South 38th Street','Philadelphia','PA','19104','USA','39.955565','-75.198517',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (5,'McCrossen\'s Tavern','529 North 20th Street','Philadelphia','PA','19130','USA','39.963089','-75.170888',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (6,'Whole Foods','2001 Pennsylvania Ave','Philadelphia','PA','19130','USA','39.96144','-75.172649',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (7,'Philly Pub N Grub','2001 Hamilton St','Philadelphia','PA','19130','USA','39.962791','-75.171981',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (8,'Philly Flavors','2004 Fairmount Avenue','Philadelphia','PA','19130','USA','39.967155','-75.17046',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (9,'Rybread','2319 Fairmount Avenue','Philadelphia','PA','19130','USA','39.967541','-75.175991',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (10,'Doma Japanese Restaurant','1822 Callowhill Street','Philadelphia','PA','19130','USA','39.9603','-75.169242',null);
+INSERT INTO place (placeid,name,address,city,state,mailingcode,country,lat,lon,notes) VALUES (11,'KA','3803 Locust Walk','Philadelphia','PA','19130','USA','0','0','');
+
+

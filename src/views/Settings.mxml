@@ -3,6 +3,8 @@
 		xmlns:s="library://ns.adobe.com/flex/spark" title="Settings" xmlns:renderers="renderers.*">
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.vo.Item;
+			
 			import mx.events.FlexEvent;
 			
 			protected var dataToPush:Object = new Object();
@@ -20,6 +22,10 @@
 						navigator.pushView(PlaceList, dataToPush);
 					}
 					
+					if (settingsList.selectedItem.name =="Items"){
+						navigator.pushView(ItemList, dataToPush);
+					}
+					
 				}
 			}
 			
@@ -27,6 +33,7 @@
 	</fx:Script>
 	<fx:Declarations>
 		<s:ArrayCollection id="settings">
+			<fx:Object name="Items" details="Add/Edit/Remove Items" />
 			<fx:Object name="Places" details="Add/Edit/Remove Places" />
 		</s:ArrayCollection>
 	</fx:Declarations>

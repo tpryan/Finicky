@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false"  creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemEdit" xmlns:components="components.*">
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.vo.Item;
+			
+			import mx.events.FlexEvent;
+			
+			protected var dbManager:DBManager;
+			protected var itemid:int;
+			[Bindable]
+			protected var item:Item;
+			
+			
+			protected function init(event:FlexEvent):void
+			{
+				dbManager = data.dbManager;
+				
+				if (data.item){
+					item = data.item;
+					titleLabel.text = "Edit Item";	
+				}
+				else{
+					item = new Item();
+					titleLabel.text = "New Item";
+					deleteButton.visible = false;
+				}
+				
+			}
+			
+			protected function saveButton_clickHandler(event:MouseEvent):void
+			{
+				
+				dbManager.itemDAO.save(item);	
+				alert.message = "Your item has been saved. ";
+				alert.open(this, true);
+				
+				
+			}
+			
+			protected function deleteButton_clickHandler(event:MouseEvent):void
+			{
+				accept.addEventListener("ok", handleDelete);
+				accept.message = "Are you sure you want to delete?"
+				accept.open(this,false);
+				
+			}
+			
+			protected function handleDelete(event:Event):void
+			{
+				dbManager.itemDAO.destroy(item);
+				navigator.popView();
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<components:Alert id="alert"  />
+		<components:AcceptPopUp id="accept" />
+	</fx:Declarations>
+	
+	
+	<s:VGroup left="5" right="5" top="5" bottom="5">
+		<s:Label id="titleLabel" text="Add/Edit Item"/>
+		<s:Label id="nameLabel" text="Name:"/>
+		<s:TextInput id="nameText" skinClass="skins.EditTexInputSkin" width="100%" text="@{item.name}" focusThickness="0"/>
+	</s:VGroup>
+	
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="deleteButton" label="DELETE" skinClass="skins.DetailsViewMenuItemSkin" click="deleteButton_clickHandler(event)" />
+	</s:viewMenuItems>
+	
+</s:View>

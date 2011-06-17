@@ -80,7 +80,8 @@ package com.terrenceryan.finicky.db
 			var query:String = "";
 			
 			query = "SELECT * " + 
-				"FROM  place ";
+				"FROM  place " +
+				"ORDER BY name";
 			
 			var sqlSelect:SQLStatement = new SQLStatement();
 			sqlSelect.sqlConnection = _conn;
@@ -191,6 +192,23 @@ package com.terrenceryan.finicky.db
 			sqlUpdate.text = query;
 			
 			
+			sqlUpdate.execute();	
+		}
+		
+		
+		public function destroy(place:Place):void{
+			var query:String = "DELETE FROM place " + 
+				"WHERE placeid='" + place.placeid + "' "; 
+			
+			trace(query);
+			
+			
+			var sqlUpdate:SQLStatement = new SQLStatement();
+			sqlUpdate.sqlConnection = _conn;
+			//sqlUpdate.addEventListener( SQLEvent.RESULT, onSQLSave );
+			//sqlUpdate.addEventListener( SQLErrorEvent.ERROR, onSQLError );				
+			
+			sqlUpdate.text = query;
 			sqlUpdate.execute();	
 		}
 		

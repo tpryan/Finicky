@@ -26,15 +26,21 @@
 			{
 				dataToPush.place = placeList.selectedItem;
 				
-				navigator.pushView(EditLocation,dataToPush);
+				navigator.pushView(PlaceEdit,dataToPush);
 				
+			}
+			
+			protected function addButton_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.place = null;
+				navigator.pushView(PlaceEdit,dataToPush);
 			}
 			
 		]]>
 	</fx:Script>
 
 	
-	<s:List id="placeList" left="0" right="0" top="53" bottom="0" contentBackgroundAlpha="0" dataProvider="{places}" click="placeList_clickHandler(event)">
+	<s:List id="placeList" left="0" right="0" top="180" bottom="0" contentBackgroundAlpha="0" dataProvider="{places}" click="placeList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
 				<renderers:ItemListRenderer labelField="name" messageFunction="getCityandState" messageStyleName="locationName" 
@@ -53,5 +59,10 @@
 	
 	
 	</s:List>
-	<s:Label id="titleLabel"  x="10" y="10" text="Edit Places"/>
+	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Places"/>
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="deleteButton" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
+	</s:viewMenuItems>
 </s:View>

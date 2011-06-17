@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						   xmlns:s="library://ns.adobe.com/flex/spark"
+						   skinClass="skins.AlertSkin"
+						   
+						   >
+	
+	<fx:Metadata>
+		[Event(name="ok", type="flash.events.Event")]
+		[Event(name="cancel", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		#okLabel,#cancelLabel{
+			fontFamily:"Liberator";
+			fontSize:40;
+			fontWeight:"normal";
+			textAlign: center;
+			
+		}
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			public var message:String = "";
+			
+			protected function okButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new Event("ok"));
+				this.close();
+				
+			}
+			
+			protected function cancelButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new Event("cancel"));
+				this.close();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:VGroup horizontalCenter="0" verticalCenter="0">
+		<s:Label id="messageText" text="{message}" horizontalCenter="0" textAlign="center" width="80%"  />
+		<s:HGroup >
+			<s:Button id="okButton" label=""  click="okButton_clickHandler(event)" skinClass="skins.AlertOKButtonSkin" />
+			<s:Label id="okLabel" text="OK" paddingTop="40" />
+		</s:HGroup>
+		<s:HGroup>
+			<s:Button id="cancelButton" label=""  click="cancelButton_clickHandler(event)" skinClass="skins.AlertCloseButtonSkin" />
+			<s:Label id="cancelLabel" text="Cancel" paddingTop="40" />
+		</s:HGroup>
+	</s:VGroup>
+		
+		
+		
+	
+	
+</s:SkinnablePopUpContainer>

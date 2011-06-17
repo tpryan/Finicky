@@ -55,7 +55,8 @@ package com.terrenceryan.finicky.db
 			var query:String = "";
 			
 			query = "SELECT * " + 
-				"FROM  item ";
+				"FROM  item " +
+				"ORDER BY name";
 			
 			var sqlSelect:SQLStatement = new SQLStatement();
 			sqlSelect.sqlConnection = _conn;
@@ -128,6 +129,15 @@ package com.terrenceryan.finicky.db
 		}		
 		
 		public function save(item:Item):void {
+			if(item.itemid != 0){
+				update(item);
+			}
+			else{
+				insert(item);
+			}
+		}
+		
+		public function insert(item:Item):void {
 			var query:String = "INSERT INTO item (" + 
 				"name," + 
 				"description)" + 
@@ -143,6 +153,37 @@ package com.terrenceryan.finicky.db
 			sqlInsert.text = query;
 			sqlInsert.parameters[":name"] = item.name;
 			sqlInsert.parameters[":description"] = item.description; 
+			
+			sqlInsert.execute();	
+		}
+		
+		public function destroy(item:Item):void {
+			var query:String = "DELETE FROM item " + 
+				"WHERE itemid = " + item.itemid + " ";
+			
+			var sqlInsert:SQLStatement = new SQLStatement();
+			sqlInsert.sqlConnection = _conn;
+			//sqlInsert.addEventListener( SQLEvent.RESULT, onSQLSave );
+			//sqlInsert.addEventListener( SQLErrorEvent.ERROR, onSQLError );				
+			
+			sqlInsert.text = query;
+			
+			sqlInsert.execute();	
+		}
+		
+		public function update(item:Item):void {
+			var query:String = "UPDATE item " + 
+				"set " + 
+				"name ='" + item.name +  "', " + 
+				"description ='" + item.description +  "' " +
+				"WHERE itemid = " + item.itemid + " ";
+			
+			var sqlInsert:SQLStatement = new SQLStatement();
+			sqlInsert.sqlConnection = _conn;
+			//sqlInsert.addEventListener( SQLEvent.RESULT, onSQLSave );
+			//sqlInsert.addEventListener( SQLErrorEvent.ERROR, onSQLError );				
+			
+			sqlInsert.text = query;
 			
 			sqlInsert.execute();	
 		}

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.vo.Place;
+			
+			private const BUTTON_PADDING:int = 210;
+			
+			private var _active:Boolean = true;
+			public var place:Place;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/modalCheckOff.png")]
+			private var off:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/modalCheckOn.png")]
+			private var on:Class;
+			
+			public function get active():Boolean
+			{
+				return _active;
+			}
+
+			public function set active(value:Boolean):void
+			{
+				_active = value;
+				visible = value;
+			}
+
+			protected function closeButton_clickHandler(event:MouseEvent):void
+			{
+				active = false;
+				visible = false;
+				
+			}
+			
+			protected function clickHandler(event:MouseEvent):void
+			{
+				
+				iconCurrent.source = off;
+				iconExisting.source = off;
+				iconNew.source = off;
+				
+				event.currentTarget.source = on;
+				
+				if (event.currentTarget.name == "iconCurrent"){
+					currentName.visible = true;
+				}
+				
+			}
+			
+			protected function currentName_focusInHandler(event:FocusEvent):void
+			{
+				if (currentName.text = "[Name]"){
+					currentName.text = "";
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		#textCurrent,#textNew,#textExisting{
+			fontFamily:"Liberator";
+			fontSize:40;
+			fontWeight:"normal";
+			textAlign: center;
+			
+		}
+	</fx:Style>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<s:Rect width="100%" height="100%" alpha=".8">
+		<s:fill>
+			<s:SolidColor color="0x000000" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
+		<s:Image id="bg" width="95%" maxWidth="554" maxHeight="807"  x="10" source="@Embed('/assets/bg/bg_modal_long.png')" verticalCenter="0"/>
+	
+		
+		<s:Image id="closeButton" right="5" y="{bg.y+ 50}" click="closeButton_clickHandler(event)"
+				 source="@Embed('/assets/icons/closebutton.png')"/>
+		
+		
+				<s:Image id="iconCurrent" name="iconCurrent" source="{off}" horizontalCenter="-140" top="80" click="clickHandler(event)"  />
+				<s:Label id="textCurrent" text="Current Location" horizontalCenter="80" top="{iconCurrent.top + 40}" width="200"  />
+				<s:TextInput id="currentName" text="[Name]" skinClass="skins.EditTexInputSkin" focusIn="currentName_focusInHandler(event)" focusThickness="0" horizontalCenter="0" top="{iconCurrent.top + 135}" width="90%" visible="false"  />
+		
+				<s:Image id="iconNew" source="{off}" horizontalCenter="-140" top="{iconCurrent.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
+				<s:Label id="textNew" text="New Location" horizontalCenter="80" top="{iconNew.top + 40}"  width="200" />
+				
+				<s:Image id="iconExisting" source="{off}" horizontalCenter="-140" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
+				<s:Label id="textExisting" text="Existing Location" horizontalCenter="80" top="{iconExisting.top + 40}" width="200" />
+			
+			
+			
+		
+		
+	</s:Group>
+	
+	
+</s:Group>
