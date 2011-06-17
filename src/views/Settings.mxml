@@ -44,9 +44,9 @@
 		</s:ArrayCollection>
 	</fx:Declarations>
 	
-	<s:Label id="titleLabel"  x="10" y="10" text="Settings"/>
+	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Settings"/>
 	
-	<s:List id="settingsList" left="0" right="0" top="53" bottom="0" contentBackgroundAlpha="0" dataProvider="{settings}" click="settingsList_clickHandler(event)">
+	<s:List id="settingsList" left="0" right="0" top="180" bottom="0" contentBackgroundAlpha="0" dataProvider="{settings}" click="settingsList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
 				<renderers:ItemListRenderer labelField="name" messageField="details" messageStyleName="locationName" 
@@ -54,8 +54,6 @@
 				</renderers:ItemListRenderer>
 			</fx:Component>
 		</s:itemRenderer>
-		
-		
 	</s:List>
 	
 </s:View>
