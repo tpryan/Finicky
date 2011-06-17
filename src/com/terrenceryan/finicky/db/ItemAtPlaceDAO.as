@@ -132,6 +132,21 @@ package com.terrenceryan.finicky.db
 			return itemAtPlace;
 		}
 		
+		public function destroy(itemAtPlace:ItemAtPlace):void {
+			var query:String = "DELETE FROM itemAtPlace " + 
+				"WHERE itemid = " + itemAtPlace.item.itemid + " " +
+				"AND placeid = " + itemAtPlace.place.placeid + " ";
+			
+			var sqlInsert:SQLStatement = new SQLStatement();
+			sqlInsert.sqlConnection = _conn;
+			//sqlInsert.addEventListener( SQLEvent.RESULT, onSQLSave );
+			//sqlInsert.addEventListener( SQLErrorEvent.ERROR, onSQLError );				
+			
+			sqlInsert.text = query;
+			
+			sqlInsert.execute();	
+		}
+		
 		public function save(itemAtPlace:ItemAtPlace):void{
 			if (!itemAtPlace.item.itemid || itemAtPlace.item.itemid == 0){
 				_dbmanager.itemDAO.save(itemAtPlace.item);

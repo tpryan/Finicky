@@ -66,4 +66,12 @@ s|ViewMenu{
 	
 }
 
+.userInputtedInfo{
+	fontFamily: "Lions Den";
+	fontSize: 40;
+}
 
+.appProvidedText{
+	fontFamily: "Trade Gothic LT Std";
+	fontSize: 40;
+}

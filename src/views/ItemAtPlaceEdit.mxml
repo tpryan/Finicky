@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="false" creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemAtPlaceEdit" xmlns:components="components.*">
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.vo.ItemAtPlace;
+			
+			import mx.events.FlexEvent;
+			[Bindable]
+			protected var itemAtPlace:ItemAtPlace;
+			protected var dbManager:DBManager;
+			
+			protected function init(event:FlexEvent):void
+			{
+				itemAtPlace = data.itemAtPlace;	
+				dbManager = data.dbManager;
+			}
+			
+			protected function deleteButton_clickHandler(event:MouseEvent):void
+			{
+				accept.addEventListener("ok", handleDelete);
+				accept.message = "Are you sure you want to delete?"
+				accept.open(this,false);
+				
+			}
+			
+			protected function handleDelete(event:Event):void
+			{
+				dbManager.itemAtPlaceDAO.destroy(itemAtPlace);
+				navigator.popView();
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<components:AcceptPopUp id="accept" />
+	</fx:Declarations>
+	
+	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Match"/>
+	<s:VGroup left="5" right="5" top="180" bottom="0">
+		<s:Label width="100%" styleName="userInputtedInfo" text="{itemAtPlace.item.name}" paddingLeft="50"/>
+		<s:Label width="100%" styleName="appProvidedText" text="at" textAlign="center"/>
+		<s:Label id="storeName" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"/>
+		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{itemAtPlace.place.address}"/>
+		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{itemAtPlace.place.toCityStateZipString()}"/>
+	</s:VGroup>
+	
+	
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="deleteButton" label="DELETE" skinClass="skins.DetailsViewMenuItemSkin" click="deleteButton_clickHandler(event)" />
+		<s:ViewMenuItem id="saveButton" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
+		
+	</s:viewMenuItems>
+	
+	
+</s:View>
