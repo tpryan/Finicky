@@ -24,6 +24,9 @@
 			[Bindable]
 			protected var places:ArrayCollection = new ArrayCollection();
 			
+			[Bindable]
+			protected var itemAtPlace:ItemAtPlace;
+			
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data;
@@ -35,6 +38,15 @@
 				if (data.itemToPlaceInProgress){
 					locationModal_placeSelectedHandler(null);
 					data.itemToPlaceInProgress = null;
+				}
+				
+				if (data.itemAtPlace){
+					itemAtPlace = data.itemAtPlace;
+					locationModal_placeSelectedHandler(null);
+				}
+				else{
+					itemAtPlace = new ItemAtPlace();
+					itemAtPlace.place = data.home;
 				}
 				
 				
@@ -142,7 +154,7 @@
 	<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
 		 text="WHAT DID YOU FIND?" textAlign="center"/>
 	<components:SuggestionTextBox id="itemTexInput" suggestionPool="{items}" depth="20"
-								  top="61" width="100%" horizontalCenter="0"
+								  top="61" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
 								  textAlign="center" focusThickness="0"
 								  />
 	
@@ -151,11 +163,11 @@
 	<s:Button id="locationButton" top="205" label="Pick Location" horizontalCenter="-0" click="locationButton_clickHandler(event)"
 		  skinClass="skins.EditLocationButtonSkin"/>
 	
-	<components:PhotoButton id="cameraButton" top="355" horizontalCenter="-122" photo="/assets/items/{data.selectedIndex}.jpg" click="cameraButton_clickHandler(event)"  />
+	<components:PhotoButton id="cameraButton" top="355" horizontalCenter="-122" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
 	<components:WriteButton id="writeButton" top="355" horizontalCenter="122" click="writeButton_clickHandler(event)" />
 		
 		
-	<components:LocationModal id="locationModal" width="100%" height="100%" depth="50" place="{data.home}" places="{places}" visible="false" 
+	<components:LocationModal id="locationModal" width="100%" height="100%" depth="50" place="{itemAtPlace.place}" places="{places}" visible="false" 
 							  placeSelected="locationModal_placeSelectedHandler(event)" newPlaceRequested="locationModal_newPlaceRequestedHandler(event)" />
 	
 	<s:viewMenuItems>

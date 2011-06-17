@@ -87,6 +87,7 @@
 			
 			protected function hardmenu_editClickedHandler(event:Event):void
 			{
+				dataToPush.itemAtPlace = itemAtPlace;
 				navigator.pushView(Edit,dataToPush);
 				
 			}
@@ -163,6 +164,13 @@
 				navigateToURL(new URLRequest(url + source + start + dest));
 			}
 			
+			protected function hard_menu_addButton_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.itemAtPlace = null;
+				navigator.pushView(Edit,dataToPush);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -187,10 +195,8 @@
 	
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin"  />
+		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="hard_menu_addButton_clickHandler(event)"  />
 		<s:ViewMenuItem id="editButton" label="EDIT" skinClass="skins.DetailsViewMenuItemSkin" click="hardmenu_editClickedHandler(event)" />
-		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" />
-		<s:ViewMenuItem id="mapButton" label="MAP" skinClass="skins.DetailsViewMenuItemSkin" />
 	</s:viewMenuItems>
 	
 </s:View>
