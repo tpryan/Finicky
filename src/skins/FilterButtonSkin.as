@@ -72,7 +72,7 @@ package skins
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
-			border.blendMode = "multiply";	
+			//border.blendMode = "multiply";	
 		}
 		
 	}

@@ -3,6 +3,7 @@ package com.terrenceryan.finicky.vo
 	public class Place
 	{
 		
+		private const FEET_IN_MILE:int = 5280;
 		private var _placeid:int = 0;
 		private var _name:String = "";
 		private var _address:String = "";
@@ -167,8 +168,25 @@ package com.terrenceryan.finicky.vo
 			return result;
 		}
 		
+		public function getDistanceInHumanForm():String{
+			var result:String = "";
+			var digits:String;
+			if (_distance < 500){
+				digits = _distance.toFixed(0);
+				result = digits.toString() + "ft";
+			}
+			else{
+				var temp:Number = _distance / FEET_IN_MILE;
+				digits = temp.toFixed(2);
+				result =  digits + "mi";
+			}	
+			
+			return result;
+		}
+		
+		
 		public function distanceFromPlace(place:Place):Number{
-			var d:Number = distanceBetweenCoordinates(_lat,_lon,place.lat,place.lon);
+			var d:Number = distanceBetweenCoordinates(_lat,_lon,place.lat,place.lon, "feet");
 			return d;
 		}
 		
@@ -179,6 +197,9 @@ package com.terrenceryan.finicky.vo
 			var R:int = 6371;
 			if (units == "miles"){
 				R = 3963;
+			}
+			if (units =="feet"){
+				R= 20925525;
 			}
 			
 			var dLat:Number = (lat2-lat1) * Math.PI/180;

@@ -84,7 +84,7 @@
 					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
 				}
 				else{
-					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name");
+					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name",data.home);
 				}
 				
 			}
@@ -124,7 +124,9 @@
 						<![CDATA[
 							import com.terrenceryan.finicky.vo.Place;
 							protected function upperLocation(obj:Object):String{
-								return obj.place.name.toUpperCase();
+								var result:String = "";
+								result = obj.place.name.toUpperCase() + " (" + obj.place.getDistanceInHumanForm() +")"; 
+								return result;
 							}
 							
 							protected function getItemName(obj:Object):String{
