@@ -7,6 +7,9 @@ package com.terrenceryan.finicky.db
 	import flash.data.SQLResult;
 	import flash.data.SQLStatement;
 	import flash.errors.SQLError;
+	import flash.events.SQLErrorEvent;
+	
+	import mx.collections.ArrayCollection;
 	
 	public class PlaceDAO
 	{
@@ -73,9 +76,35 @@ package com.terrenceryan.finicky.db
 			return place;
 		}
 		
+		public function list():ArrayCollection{
+			var query:String = "";
+			
+			query = "SELECT * " + 
+				"FROM  place ";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			
+			var ac:ArrayCollection = new ArrayCollection();
+			if (result.data != null){
+				for (var i:int = 0; i < result.data.length; i++){
+					var place:Place = convertPlainObjectToPlace(result.data[i]);
+					ac.addItem(place);
+				}
+			}
+			return ac;
+			
+		}
+		
 		private function convertPlainObjectToPlace(obj:Object):Place
 		{
 			var place:Place = new Place();
+			place.placeid = obj.placeid;
 			place.name = obj.name;
 			place.address = obj.address;
 			place.city = obj.city;
@@ -89,6 +118,15 @@ package com.terrenceryan.finicky.db
 		}		
 		
 		public function save(place:Place):void{
+			if(place.placeid != 0){
+				update(place);
+			}
+			else{
+				insert(place);
+			}
+		}
+		
+		public function insert(place:Place):void{
 			var query:String = "INSERT INTO place (" + 
 				"name," +
 				"address," +
@@ -128,6 +166,34 @@ package com.terrenceryan.finicky.db
 			
 			sqlInsert.execute();	
 		}
+		
+		public function update(place:Place):void{
+			var query:String = "UPDATE place " + 
+				"SET name='" + place.name + "', " +
+				"address='" + place.address + "', " +
+				"city='" + place.city + "', " +
+				"state='" + place.state + "', " +
+				"mailingCode='" + place.mailingCode + "', " +
+				"country='" + place.country + "', " +
+				"lat='" + place.lat + "', " +
+				"lon='" + place.lon + "', " +
+				"notes='" + place.notes + "' " +
+				"WHERE placeid='" + place.placeid + "' "; 
+			
+			trace(query);
+			
+			
+			var sqlUpdate:SQLStatement = new SQLStatement();
+			sqlUpdate.sqlConnection = _conn;
+			//sqlUpdate.addEventListener( SQLEvent.RESULT, onSQLSave );
+			//sqlUpdate.addEventListener( SQLErrorEvent.ERROR, onSQLError );				
+			
+			sqlUpdate.text = query;
+			
+			
+			sqlUpdate.execute();	
+		}
+		
 		
 		public function getLastRecordID():int{
 			var query:String = "";

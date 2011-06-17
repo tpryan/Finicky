@@ -20,6 +20,83 @@ package com.terrenceryan.finicky.vo
 		{
 		}
 
+		[Bindable]
+		public function get country():String
+		{
+			return _country;
+		}
+
+		public function set country(value:String):void
+		{
+			_country = value;
+		}
+
+		[Bindable]
+		public function get mailingCode():String
+		{
+			return _mailingCode;
+		}
+
+		public function set mailingCode(value:String):void
+		{
+			_mailingCode = value;
+		}
+
+		[Bindable]
+		public function get state():String
+		{
+			return _state;
+		}
+
+		public function set state(value:String):void
+		{
+			_state = value;
+		}
+
+		[Bindable]
+		public function get city():String
+		{
+			return _city;
+		}
+
+		public function set city(value:String):void
+		{
+			_city = value;
+		}
+
+		[Bindable]
+		public function get address():String
+		{
+			return _address;
+		}
+
+		public function set address(value:String):void
+		{
+			_address = value;
+		}
+
+		[Bindable]
+		public function get name():String
+		{
+			return _name;
+		}
+
+		public function set name(value:String):void
+		{
+			_name = value;
+		}
+
+		[Bindable]
+		public function get placeid():int
+		{
+			return _placeid;
+		}
+
+		public function set placeid(value:int):void
+		{
+			_placeid = value;
+		}
+
 		public function get otherPlace():Place
 		{
 			return _otherPlace;
@@ -67,79 +144,7 @@ package com.terrenceryan.finicky.vo
 			_lat = value;
 		}
 
-		public function get country():String
-		{
-			return _country;
-		}
-
-		public function set country(value:String):void
-		{
-			_country = value;
-		}
-
-		public function get mailingCode():String
-		{
-			return _mailingCode;
-		}
-
-		public function set mailingCode(value:String):void
-		{
-			_mailingCode = value;
-		}
-
-		[Bindable]	
-		public function get state():String
-		{
-			return _state;
-		}
-
-		public function set state(value:String):void
-		{
-			_state = value;
-		}
-
-		[Bindable]
-		public function get city():String
-		{
-			return _city;
-		}
-
-		public function set city(value:String):void
-		{
-			_city = value;
-		}
 		
-		[Bindable]
-		public function get address():String
-		{
-			return _address;
-		}
-
-		public function set address(value:String):void
-		{
-			_address = value;
-		}
-
-		[Bindable]
-		public function get name():String
-		{
-			return _name;
-		}
-
-		public function set name(value:String):void
-		{
-			_name = value;
-		}
-
-		public function get placeid():int
-		{
-			return _placeid;
-		}
-
-		public function set placeid(value:int):void
-		{
-			_placeid = value;
-		}
 
 		public function toAddressString():String
 		{
@@ -150,7 +155,14 @@ package com.terrenceryan.finicky.vo
 		
 		public function toCityStateZipString():String
 		{
-			var result:String = _city + " " + _state + " " + _mailingCode;
+			var result:String = _city + ", " + _state + " " + _mailingCode;
+			trace(result);
+			return result;
+		}
+		
+		public function toCityStateString():String
+		{
+			var result:String = _city + ", " + _state;
 			trace(result);
 			return result;
 		}

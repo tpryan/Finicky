@@ -6,12 +6,17 @@
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.geo.GeoCode;
 			
+			import events.GeoResultEvent;
+			
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			protected var currentCity:int = 0;
 			protected var dataToPush:Object;
 			public var i:int = 0;
 			protected var dbManager:DBManager;
+			protected var geoCodeService:GeoCode;
 			
 			[Bindable]
 			protected var itemAtPlaceList:ArrayCollection;
@@ -22,21 +27,13 @@
 				dataToPush = data;
 				dbManager = data.dbManager;
 				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
+				geoCodeService = data.geoCodeService;
 				
+				geoCodeService.addEventListener("result", setLocationBanner);
 				
 				
 			}
 			
-			protected function location1_locationChangedHandler(event:Event):void
-			{
-				currentCity = currentCity + 1;
-				
-				if (currentCity >= cities.length){
-					currentCity = 0;
-				}
-				
-				locationInterface.location = cities.getItemAt(currentCity).name;
-			}
 			
 			protected function itemList_clickHandler(event:MouseEvent):void
 			{
@@ -100,31 +97,21 @@
 				
 			}
 			
+			protected function setLocationBanner(event:GeoResultEvent):void
+			{
+				locationInterface.location = data.home.toCityStateString();
+				
+			}
+			
+			protected function settingsButton_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView(Settings, dataToPush);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
-	<fx:Declarations>
-		<s:ArrayCollection id="cities">
-			<fx:Object name="Philadelphia, PA" />
-			<fx:Object name="New York, NY" />
-			<fx:Object name="Los Angeles, CA" />
-			<fx:Object name="San Francisco, CA	" />
-		</s:ArrayCollection>
-		
-		<s:ArrayCollection id="items">
-			<fx:Object name="Cloves" location="Avril 50" />
-			<fx:Object name="Coke Zero" location="7/Eleven" />
-			<fx:Object name="Indian Buffet" location="Sitar India" />
-			<fx:Object name="Sushi" location="Aoi" />
-			<fx:Object name="Ben &amp; Jerry's Mudslide" location="Whole Foods" />
-			<fx:Object name="Yuengling Lager" location="McCrossens" />
-			<fx:Object name="Stoudt's Double Bock" location="Philly Pub and Grub" />
-			<fx:Object name="Mexican Coke" location="Philly Flavors" />
-			<fx:Object name="Soft Serve" location="Philly Flavors" />
-			<fx:Object name="BLT's with Avacodo" location="RyBread" />
-		</s:ArrayCollection>
-		
-	</fx:Declarations>
 	
 	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{itemAtPlaceList}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
 		<s:itemRenderer>
@@ -152,14 +139,15 @@
 		</s:itemRenderer>
 	</s:List>
 
-	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.city}, {data.home.state}" locationChanged="location1_locationChangedHandler(event)" />
+	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.city}, {data.home.state}"  />
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
 		<s:ViewMenuItem id="mapButton" label="MAP" skinClass="skins.DetailsViewMenuItemSkin" click="mapButton_clickHandler(event)" />
-	
+		<s:ViewMenuItem id="settingsButton" label="SETTINGS" skinClass="skins.DetailsViewMenuItemSkin" click="settingsButton_clickHandler(event)" />
+		<s:ViewMenuItem id="holder" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
 	</s:viewMenuItems>
 	
 </s:View>

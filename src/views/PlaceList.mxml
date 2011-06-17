@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="false" creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="PlaceList" xmlns:renderers="renderers.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			protected var dataToPush:Object = new Object();
+			protected var dbManager:DBManager;
+			
+			[Bindable]
+			protected var places:ArrayCollection = new ArrayCollection();
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data;
+				dbManager = data.dbManager;
+				places = dbManager.placeDAO.list();
+			}
+			
+			protected function placeList_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.place = placeList.selectedItem;
+				
+				navigator.pushView(EditLocation,dataToPush);
+				
+			}
+			
+		]]>
+	</fx:Script>
+
+	
+	<s:List id="placeList" left="0" right="0" top="53" bottom="0" contentBackgroundAlpha="0" dataProvider="{places}" click="placeList_clickHandler(event)">
+		<s:itemRenderer>
+			<fx:Component>
+				<renderers:ItemListRenderer labelField="name" messageFunction="getCityandState" messageStyleName="locationName" 
+											decorator="@Embed('/assets/icons/itemListButtonUp.png')" styleName="itemName">
+					<fx:Script>
+						<![CDATA[
+							protected function getCityandState(obj:Object):String{
+								return obj.toCityStateString();
+							}
+							
+						]]>
+					</fx:Script>
+				</renderers:ItemListRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	
+	
+	</s:List>
+	<s:Label id="titleLabel"  x="10" y="10" text="Edit Places"/>
+</s:View>

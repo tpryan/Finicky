@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" actionBarVisible="false" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Settings" xmlns:renderers="renderers.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected var dataToPush:Object = new Object();
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data;	
+			}
+			
+			protected function settingsList_clickHandler(event:MouseEvent):void
+			{
+				if (settingsList.selectedIndex > -1){
+					
+					if (settingsList.selectedItem.name =="Places"){
+						navigator.pushView(PlaceList, dataToPush);
+					}
+					
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:ArrayCollection id="settings">
+			<fx:Object name="Places" details="Add/Edit/Remove Places" />
+		</s:ArrayCollection>
+	</fx:Declarations>
+	
+	<s:Label id="titleLabel"  x="10" y="10" text="Settings"/>
+	
+	<s:List id="settingsList" left="0" right="0" top="53" bottom="0" contentBackgroundAlpha="0" dataProvider="{settings}" click="settingsList_clickHandler(event)">
+		<s:itemRenderer>
+			<fx:Component>
+				<renderers:ItemListRenderer labelField="name" messageField="details" messageStyleName="locationName" 
+											decorator="@Embed('/assets/icons/itemListButtonUp.png')" styleName="itemName">
+				</renderers:ItemListRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+		
+		
+	</s:List>
+	
+</s:View>
