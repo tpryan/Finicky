@@ -13,21 +13,29 @@
 			
 			import spark.transitions.SlideViewTransition;
 			
+			[Bindable]
 			protected var dataToPush:Object = new Object;
 			protected var dbManager:DBManager;
 			
 			protected var cameraUI:CameraUI = new CameraUI();
 			
 			[Bindable]
-			protected var itemList:ArrayCollection = new ArrayCollection();
-			
+			protected var items:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			protected var places:ArrayCollection = new ArrayCollection();
 			
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data;
 				dbManager = data.dbManager;
 				cameraUI.addEventListener(MediaEvent.COMPLETE, onCameraReturn);
-				itemList = dbManager.itemDAO.list();
+				items = dbManager.itemDAO.list();
+				places = dbManager.placeDAO.list();
+				
+				if (data.itemToPlaceInProgress){
+					locationModal_placeSelectedHandler(null);
+					data.itemToPlaceInProgress = null;
+				}
 				
 				
 			}
@@ -36,7 +44,6 @@
 			{
 				var trans:SlideViewTransition = new SlideViewTransition();
 				trans.direction = "up";
-				
 				navigator.pushView(EditNote,dataToPush,null,trans);
 				
 			}
@@ -85,6 +92,28 @@
 				
 			}
 			
+			protected function locationModal_placeSelectedHandler(event:Event):void
+			{
+				var boxThreshold:int = 19;
+				
+				if (locationModal.place.name.length < boxThreshold){
+					locationButton.label = locationModal.place.name;
+				}
+				else{
+					var text:String = locationModal.place.name.slice(0,boxThreshold -3);
+					text = text.concat("...");
+					locationButton.label = text;
+				}
+			}
+			
+			protected function locationModal_newPlaceRequestedHandler(event:Event):void
+			{
+				dataToPush.place = data.home;
+				dataToPush.itemToPlaceInProgress = true;
+				navigator.pushView(PlaceEdit,dataToPush);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -110,7 +139,7 @@
 	
 	<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
 		 text="WHAT DID YOU FIND?" textAlign="center"/>
-	<components:SuggestionTextBox id="itemTexInput" suggestionPool="{itemList}" depth="20"
+	<components:SuggestionTextBox id="itemTexInput" suggestionPool="{items}" depth="20"
 								  top="61" width="100%" horizontalCenter="0"
 								  textAlign="center" focusThickness="0"
 								  />
@@ -124,7 +153,8 @@
 	<components:WriteButton id="writeButton" top="355" horizontalCenter="122" click="writeButton_clickHandler(event)" />
 		
 		
-	<components:LocationModal id="locationModal" width="100%" height="100%" depth="50" place="{data.home}" visible="false" />
+	<components:LocationModal id="locationModal" width="100%" height="100%" depth="50" place="{data.home}" places="{places}" visible="false" 
+							  placeSelected="locationModal_placeSelectedHandler(event)" newPlaceRequested="locationModal_newPlaceRequestedHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />

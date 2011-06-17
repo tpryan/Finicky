@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark">
+		 xmlns:s="library://ns.adobe.com/flex/spark" xmlns:renderers="renderers.*">
+	
+	<fx:Metadata>
+		[Event(name="placeSelected", type="flash.events.Event")]
+		[Event(name="newPlaceRequested", type="flash.events.Event")]
+	</fx:Metadata>
 	
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.vo.Place;
 			
-			private const BUTTON_PADDING:int = 210;
+			import mx.collections.ArrayCollection;
+			
+			private const BUTTON_PADDING:int = 140;
 			
 			private var _active:Boolean = true;
 			public var place:Place;
+			[Bindable]
+			public var places:ArrayCollection;
 			
 			[Bindable]
 			[Embed(source="/assets/icons/modalCheckOff.png")]
@@ -40,22 +49,28 @@
 			protected function clickHandler(event:MouseEvent):void
 			{
 				
-				iconCurrent.source = off;
 				iconExisting.source = off;
 				iconNew.source = off;
 				
 				event.currentTarget.source = on;
-				
-				if (event.currentTarget.name == "iconCurrent"){
-					currentName.visible = true;
+				if (event.currentTarget.name == "iconExisting"){
+					placeList.visible = true;
 				}
 				
+				if (event.currentTarget.name == "iconNew"){
+					placeList.visible = false;
+					dispatchEvent(new Event("newPlaceRequested") );
+				}
 			}
 			
-			protected function currentName_focusInHandler(event:FocusEvent):void
+			
+			protected function placeList_clickHandler(event:MouseEvent):void
 			{
-				if (currentName.text = "[Name]"){
-					currentName.text = "";
+				if (placeList.selectedIndex > -1){
+					place = placeList.selectedItem;
+					dispatchEvent(new Event("placeSelected"));
+					active = false;
+					
 				}
 				
 			}
@@ -87,22 +102,33 @@
 	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
 		<s:Image id="bg" width="95%" maxWidth="554" maxHeight="807"  x="10" source="@Embed('/assets/bg/bg_modal_long.png')" verticalCenter="0"/>
 	
+		<s:Button id="closeButton" right="0" y="{bg.y+ 30}" click="closeButton_clickHandler(event)" skinClass="skins.AlertCloseButtonSkin" /> 
 		
-		<s:Image id="closeButton" right="5" y="{bg.y+ 50}" click="closeButton_clickHandler(event)"
-				 source="@Embed('/assets/icons/closebutton.png')"/>
+
+		<s:Image id="iconNew" name="iconNew"  source="{off}" horizontalCenter="-140" top="{120}"  click="clickHandler(event)"  />
+		<s:Label id="textNew" text="New Place" horizontalCenter="80" top="{iconNew.top + 40}"  width="160" />
 		
-		
-				<s:Image id="iconCurrent" name="iconCurrent" source="{off}" horizontalCenter="-140" top="80" click="clickHandler(event)"  />
-				<s:Label id="textCurrent" text="Current Location" horizontalCenter="80" top="{iconCurrent.top + 40}" width="200"  />
-				<s:TextInput id="currentName" text="[Name]" skinClass="skins.EditTexInputSkin" focusIn="currentName_focusInHandler(event)" focusThickness="0" horizontalCenter="0" top="{iconCurrent.top + 135}" width="90%" visible="false"  />
-		
-				<s:Image id="iconNew" source="{off}" horizontalCenter="-140" top="{iconCurrent.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
-				<s:Label id="textNew" text="New Location" horizontalCenter="80" top="{iconNew.top + 40}"  width="200" />
-				
-				<s:Image id="iconExisting" source="{off}" horizontalCenter="-140" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
-				<s:Label id="textExisting" text="Existing Location" horizontalCenter="80" top="{iconExisting.top + 40}" width="200" />
+		<s:Image id="iconExisting" name="iconExisting" source="{off}" horizontalCenter="-140" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
+		<s:Label id="textExisting" text="Existing Place" horizontalCenter="80" top="{iconExisting.top + 40}" width="200" />
 			
-			
+		<s:List id="placeList" visible="false" top="{iconExisting.top + BUTTON_PADDING}" horizontalCenter="0" width="90%" height="330" 
+				dataProvider="{places}" contentBackgroundAlpha="0" click="placeList_clickHandler(event)"  >
+			<s:itemRenderer>
+				<fx:Component>
+					<renderers:ItemListRenderer labelField="name" messageFunction="getCityandState" messageStyleName="locationName" 
+												decorator="@Embed('/assets/icons/itemListButtonUp.png')" styleName="itemName">
+						<fx:Script>
+							<![CDATA[
+								protected function getCityandState(obj:Object):String{
+									return obj.toCityStateString();
+								}
+								
+							]]>
+						</fx:Script>
+					</renderers:ItemListRenderer>
+				</fx:Component>
+			</s:itemRenderer>
+		</s:List>	
 			
 		
 		
