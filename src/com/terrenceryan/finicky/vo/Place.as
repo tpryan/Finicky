@@ -163,8 +163,17 @@ package com.terrenceryan.finicky.vo
 		
 		public function toCityStateString():String
 		{
-			var result:String = _city + ", " + _state;
-			trace(result);
+			var result:String = "";
+			
+			if ((_city.length > 0) && (_state.length > 0) ){
+				result = _city + ", " + _state;
+			}
+			else if ((_city.length == 0) && (_state.length == 0) ){
+				result = "Where are you?";
+			}
+			else{
+				result = _city + " " + _state;
+			}
 			return result;
 		}
 		

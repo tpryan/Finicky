@@ -73,7 +73,7 @@
 				}
 				
 				dataToPush.home = home;
-				
+				dataToPush.geo = geo;
 				
 				
 				

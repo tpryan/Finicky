@@ -7,8 +7,11 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.geo.GeoCode;
+			import com.terrenceryan.finicky.vo.Place;
 			
 			import events.GeoResultEvent;
+			
+			import flash.sensors.Geolocation;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
@@ -17,13 +20,25 @@
 			public var i:int = 0;
 			protected var dbManager:DBManager;
 			protected var geoCodeService:GeoCode;
+			protected var geo:Geolocation;
 			
 			[Bindable]
 			protected var itemAtPlaceList:ArrayCollection;
 			
+			[Bindable]
+			protected var home:Place; 
+			
 			
 			protected function init(event:FlexEvent):void
 			{
+				
+				if ( (data.home) && ((data.home.lat == 0) && (data.home.lon == 0)) && (data.geo) ){
+					geo = data.geo;
+					geo.addEventListener(GeolocationEvent.UPDATE, resetList);
+				}
+				
+				home = data.home;
+				
 				dataToPush = data;
 				dbManager = data.dbManager;
 				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
@@ -109,6 +124,12 @@
 				
 			}
 			
+			protected function resetList(event:GeolocationEvent):void
+			{
+				filterModal_changedHandler(null);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -141,7 +162,7 @@
 		</s:itemRenderer>
 	</s:List>
 
-	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.city}, {data.home.state}"  />
+	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.city} {data.home.state}"  />
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
