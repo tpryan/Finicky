@@ -26,6 +26,7 @@
 			import mx.events.FlexEvent;
 			
 			import spark.components.supportClasses.StyleableTextField;
+			import spark.events.ViewNavigatorEvent;
 			import spark.transitions.SlideViewTransition;
 			
 			protected var dataToPush:Object;
@@ -60,6 +61,10 @@
 				if (itemAtPlace.picturepath.length > 0){
 					pictureDisplay.rotationSeed = item.name;
 					pictureDisplay.placePicture();
+					
+					addEventListener(ViewNavigatorEvent.VIEW_ACTIVATE, onViewActivate);
+					
+					
 				}
 				
 				if (itemAtPlace.picturepath.length < 1 || itemAtPlace.picturepath == "/assets/items/-1.jpg"){
@@ -184,11 +189,18 @@
 				
 			}
 			
+			protected function onViewActivate(event:ViewNavigatorEvent):void
+			{
+				pictureFade.stop();
+				pictureFade.play();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		
+		<s:Fade id="pictureFade" alphaFrom="0" alphaTo="1" duration="100" target="{pictureDisplay}" />
 	</fx:Declarations>
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
@@ -208,7 +220,7 @@
 				
 			</s:HGroup>
 			
-			<components:PictureDisplay id="pictureDisplay" source="{itemAtPlace.picturepath}" rotationSeed="{itemAtPlace.item.name}" />
+			<components:PictureDisplay id="pictureDisplay" alpha="0" source="{itemAtPlace.picturepath}" rotationSeed="{itemAtPlace.item.name}" />
 			<s:Image id="rule" source="@Embed('/assets/bg/rule2.png')" horizontalCenter="0" />
 			<s:Label id="matchNotes" width="100%" text="{itemAtPlace.notes}"/>
 		</s:VGroup>
