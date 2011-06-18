@@ -57,6 +57,19 @@
 				
 				directionsBtn.y = itemNav.y + itemNav.height + 20;
 				
+				if (itemAtPlace.picturepath.length > 0){
+					pictureDisplay.rotationSeed = item.name;
+					pictureDisplay.placePicture();
+				}
+				
+				if (itemAtPlace.picturepath.length < 1 || itemAtPlace.picturepath == "/assets/items/-1.jpg"){
+					pictureDisplay.height = 0;
+					pictureDisplay.visible = false;
+					
+				}
+				
+				
+				
 			}
 			
 			
@@ -180,16 +193,23 @@
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 		
-	<s:Button id="directionsBtn" label="DIRECTIONS" z="0" right="30" y="{itemNav.y + itemNav.height + 20}" skinClass="skins.DirectionsButtonSkin" click="directionsBtn_clickHandler(event)" />	
+	
 	
 	<s:VGroup id="content" left="0" right="0" top="0" bottom="0" gap="10" clipAndEnableScrolling="true">
 		<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
-		<s:Label id="storeName" width="100%" horizontalCenter="0" text="{store.name}"/>
-		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{store.address}"/>
-		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{store.toCityStateZipString()}"/>
 		
-		<components:PictureDisplay source="{itemAtPlace.picturepath}" rotationSeed="{item.name}" />
-		<s:Image id="rule" source="@Embed('/assets/bg/rule.png')" horizontalCenter="0" />
+		<s:HGroup>
+			<s:VGroup>
+				<s:Label id="storeName"  horizontalCenter="0" text="{store.name}"/>
+				<s:Label id="storeAddress"   horizontalCenter="0" text="{store.address}"/>
+				<s:Label id="storeCityStateZip"  horizontalCenter="0" text="{store.toCityStateZipString()}"/>
+			</s:VGroup>
+			<s:Button id="directionsBtn" label="DIRECTIONS" z="0" y="{itemNav.y + itemNav.height + 20}" skinClass="skins.DirectionsButtonSkin" click="directionsBtn_clickHandler(event)" />	
+			
+		</s:HGroup>
+		
+		<components:PictureDisplay id="pictureDisplay" source="{itemAtPlace.picturepath}" rotationSeed="{itemAtPlace.item.name}" />
+		<s:Image id="rule" source="@Embed('/assets/bg/rule2.png')" horizontalCenter="0" />
 		<s:Label id="storeDescription" width="100%" text="{store.notes}"/>
 	</s:VGroup>
 	

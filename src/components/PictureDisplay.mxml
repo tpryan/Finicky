@@ -7,22 +7,13 @@
 			import mx.events.FlexEvent;
 			[Bindable]
 			private var _source:String = "";
+			
 			[Bindable]
-			private var _rotationSeed:String = "Rotation Seed";
+			public var rotationSeed:String = "Rotation Seed";
 			private var actualRotation:Number = 0;
 			private var actualTopPadding:int = 0;
 			
-
-			public function get rotationSeed():String
-			{
-				return _rotationSeed;
-			}
-			
-			[Bindable]
-			public function set rotationSeed(value:String):void
-			{
-				_rotationSeed = value;
-			}
+			private var originaly:int;
 
 			public function get source():String
 			{
@@ -34,14 +25,17 @@
 				_source = value;
 			}
 			
-			private function placePicture():void
+			public function placePicture():void
 			{
+				
+				
+				
 				calculateRotation();
 				calculateTopPadding();
 				
 				itemPicture.rotation = actualRotation;
 				pictureBG.rotation = actualRotation;
-				itemPicture.y = itemPicture.y + actualTopPadding;
+				itemPicture.y = originaly + actualTopPadding;
 				paperclip.right = 0;
 				paperclip.y = pictureBG.y + 100;
 				
@@ -56,7 +50,7 @@
 					holder = 0 - holder; 
 				}
 				
-				topPadding = holder + 70;
+				topPadding = holder;
 				
 				actualTopPadding = topPadding;
 			}		
@@ -65,7 +59,7 @@
 			private function calculateRotation():void{
 				var rotation:Number = -14;
 				 
-				var offset:Number = _rotationSeed.length;
+				var offset:Number = rotationSeed.length;
 				rotation = rotation + offset;
 				
 				
@@ -77,14 +71,17 @@
 					rotation = -14;
 				} 
 				
-				trace("Rotation seed " + _rotationSeed + " yields " + rotation);
+				trace("Rotation seed " + rotationSeed + " yields " + rotation);
 				actualRotation = rotation;
 			}
 			
 			protected function init(event:FlexEvent):void
 			{
+				originaly = itemPicture.y;
 				placePicture();
 				this.width = parent.width;
+				
+				
 			}
 			
 		]]>
