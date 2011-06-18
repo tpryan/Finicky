@@ -37,7 +37,7 @@
 				pictureBG.rotation = actualRotation;
 				itemPicture.y = originaly + actualTopPadding;
 				paperclip.right = 0;
-				paperclip.y = pictureBG.y + 100;
+				paperclip.y = pictureBG.y + 100 + (2 * actualRotation);
 				
 			}
 			
