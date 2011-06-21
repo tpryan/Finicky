@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" creationComplete="init(event)" 
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" 
+		creationComplete="init(event)" keyDown="keyPress(event)"
 		xmlns:s="library://ns.adobe.com/flex/spark" title="Edit" xmlns:components="components.*">
 	
 	<fx:Script>
@@ -12,6 +13,8 @@
 			import mx.events.FlexEvent;
 			
 			import spark.transitions.SlideViewTransition;
+			
+			private var scrolledDown:Boolean = false;
 			
 			[Bindable]
 			protected var dataToPush:Object = new Object;
@@ -54,10 +57,8 @@
 			
 			protected function writeButton_clickHandler(event:MouseEvent):void
 			{
-				var trans:SlideViewTransition = new SlideViewTransition();
-				trans.direction = "up";
-				navigator.pushView(EditNote,dataToPush,null,trans);
-				
+				animateDown.play();
+				scrolledDown = true;
 			}
 			
 			
@@ -92,11 +93,28 @@
 				itemAtPlace.item = item;
 				itemAtPlace.date = new Date();
 				itemAtPlace.picturepath = cameraButton.photo;
-				itemAtPlace.notes = "";
+				itemAtPlace.notes = notepad.text;
 				
 				dbManager.itemAtPlaceDAO.save(itemAtPlace);
 				alert.message = "Your match has been saved. ";
 				alert.open(this, true);
+				
+			}
+			
+			protected function keyPress(event:KeyboardEvent):void
+			{
+				trace(event.keyCode);
+				
+				if (event.keyCode == Keyboard.BACK){
+					
+					if (scrolledDown == true){
+						event.preventDefault();
+						animateUp.play();
+						scrolledDown = false;
+					}
+				}
+				
+				
 				
 			}
 			
@@ -134,6 +152,13 @@
 	
 	<fx:Declarations>
 		<components:Alert id="alert" />
+		<s:Animate id="animateDown" target="{scrollerContent}">
+			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="700" />
+		</s:Animate>
+		
+		<s:Animate id="animateUp" target="{scrollerContent}">
+			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="0" />
+		</s:Animate>
 	</fx:Declarations>
 	
 	<fx:Style>
@@ -147,28 +172,41 @@
 		
 	</fx:Style>
 	
+	<s:Scroller id="pageScroller" width="100%" height="100%" horizontalScrollPolicy="off">
+		<s:Group id="scrollerContent" clipAndEnableScrolling="true">
+			
+			<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
+			
+			
+			<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="350" />
+			
+			<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
+					 text="WHAT DID YOU FIND?" textAlign="center"/>
+			<components:SuggestionTextBox id="itemTexInput" suggestionPool="{items}" depth="20"
+										  top="61" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
+										  textAlign="center" focusThickness="0"
+										  />
+			
+			<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
+					 text="WHERE DID YOU FIND IT?" textAlign="center"/>
+			<s:Button id="locationButton" top="205" label="Pick Location" horizontalCenter="-0" click="locationButton_clickHandler(event)"
+					  skinClass="skins.EditLocationButtonSkin"/>
+			
+			
+			
+			<components:LocationModal id="locationModal" width="100%" height="100%" depth="50" place="{itemAtPlace.place}" places="{places}" visible="false" 
+									  placeSelected="locationModal_placeSelectedHandler(event)" newPlaceRequested="locationModal_newPlaceRequestedHandler(event)" />
+			
+			
+			<components:PhotoButton id="cameraButton" top="355" horizontalCenter="-122" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
+			<components:WriteButton id="writeButton" top="355" horizontalCenter="122" click="writeButton_clickHandler(event)" />
+			
+			
+			<components:NotePad id="notepad" text="{itemAtPlace.notes}" top="700" height="{height}" width="100%"  />
+			
+		</s:Group>
+	</s:Scroller>
 	
-	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
-	<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="350" />
-	
-	<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
-		 text="WHAT DID YOU FIND?" textAlign="center"/>
-	<components:SuggestionTextBox id="itemTexInput" suggestionPool="{items}" depth="20"
-								  top="61" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
-								  textAlign="center" focusThickness="0"
-								  />
-	
-	<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
-		 text="WHERE DID YOU FIND IT?" textAlign="center"/>
-	<s:Button id="locationButton" top="205" label="Pick Location" horizontalCenter="-0" click="locationButton_clickHandler(event)"
-		  skinClass="skins.EditLocationButtonSkin"/>
-	
-	<components:PhotoButton id="cameraButton" top="355" horizontalCenter="-122" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
-	<components:WriteButton id="writeButton" top="355" horizontalCenter="122" click="writeButton_clickHandler(event)" />
-		
-		
-	<components:LocationModal id="locationModal" width="100%" height="100%" depth="50" place="{itemAtPlace.place}" places="{places}" visible="false" 
-							  placeSelected="locationModal_placeSelectedHandler(event)" newPlaceRequested="locationModal_newPlaceRequestedHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />

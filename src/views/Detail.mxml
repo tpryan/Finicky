@@ -58,7 +58,7 @@
 				
 				directionsBtn.y = itemNav.y + itemNav.height + 20;
 				
-				if (itemAtPlace.picturepath.length > 0){
+				if (itemAtPlace.picturepath && itemAtPlace.picturepath.length > 0){
 					pictureDisplay.rotationSeed = item.name;
 					pictureDisplay.placePicture();
 					
@@ -67,7 +67,7 @@
 					
 				}
 				
-				if (itemAtPlace.picturepath.length < 1 || itemAtPlace.picturepath == "/assets/items/-1.jpg"){
+				if (!itemAtPlace.picturepath || itemAtPlace.picturepath.length < 1 || itemAtPlace.picturepath == "/assets/items/-1.jpg"){
 					pictureDisplay.height = 0;
 					pictureDisplay.visible = false;
 					

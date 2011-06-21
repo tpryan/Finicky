@@ -148,6 +148,9 @@ package com.terrenceryan.finicky.db
 		}
 		
 		public function save(itemAtPlace:ItemAtPlace):void{
+			
+			destroy(itemAtPlace);
+			
 			if (!itemAtPlace.item.itemid || itemAtPlace.item.itemid == 0){
 				_dbmanager.itemDAO.save(itemAtPlace.item);
 				itemAtPlace.item.itemid = _dbmanager.itemDAO.getLastRecordID(); 
@@ -157,6 +160,8 @@ package com.terrenceryan.finicky.db
 				_dbmanager.placeDAO.save(itemAtPlace.place);
 				itemAtPlace.place.placeid = _dbmanager.placeDAO.getLastRecordID(); 
 			}
+			
+			
 			
 			var query:String = "INSERT INTO itemAtPlace (" + 
 				"itemid, " + 

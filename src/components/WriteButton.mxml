@@ -7,7 +7,7 @@
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
-			public var photo:Image = null;
+			public var text:String;
 			protected var loader:Loader;
 			
 			[Bindable]
