@@ -74,7 +74,6 @@
 				}
 				
 				
-				
 			}
 			
 			
@@ -196,11 +195,13 @@
 				
 			}
 			
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
 		<s:Fade id="pictureFade" alphaFrom="0" alphaTo="1" duration="100" target="{pictureDisplay}" />
+		<s:GlowFilter id="textShadow" alpha=".4" color="0x13C7E1" strength="1" />
 	</fx:Declarations>
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
@@ -211,10 +212,10 @@
 			<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
 			
 			<s:HGroup>
-				<s:VGroup>
-					<s:Label id="storeName"  horizontalCenter="0" text="{store.name}"/>
-					<s:Label id="storeAddress"   horizontalCenter="0" text="{store.address}"/>
-					<s:Label id="storeCityStateZip"  horizontalCenter="0" text="{store.toCityStateZipString()}"/>
+				<s:VGroup maxWidth="300">
+					<s:Label id="storeName" filters="{[textShadow]}"  horizontalCenter="0" text="{store.name}" width="280"/>
+					<s:Label id="storeAddress" filters="{[textShadow]}"    horizontalCenter="0" text="{store.address}" width="280"/>
+					<s:Label id="storeCityStateZip" filters="{[textShadow]}"    horizontalCenter="0" text="{store.toCityStateZipString()}" width="280"/>
 				</s:VGroup>
 				<s:Button id="directionsBtn" label="DIRECTIONS" z="0" y="{itemNav.y + itemNav.height + 20}" skinClass="skins.DirectionsButtonSkin" click="directionsBtn_clickHandler(event)" />	
 				
