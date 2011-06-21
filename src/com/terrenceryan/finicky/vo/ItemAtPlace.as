@@ -6,6 +6,7 @@ package com.terrenceryan.finicky.vo
 		public var item:Item;
 		[Bindable]
 		public var place:Place;
+		[Bindable]
 		public var notes:String;
 		public var date:Date;
 		[Bindable]
