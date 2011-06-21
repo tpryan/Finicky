@@ -6,15 +6,18 @@
 			import com.esri.ags.Graphic;
 			import com.esri.ags.geometry.MapPoint;
 			import com.esri.ags.geometry.WebMercatorMapPoint;
+			import com.esri.ags.symbols.CompositeSymbol;
 			import com.esri.ags.symbols.PictureMarkerSymbol;
 			import com.esri.ags.symbols.SimpleMarkerSymbol;
 			import com.esri.ags.symbols.TextSymbol;
+			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.Place;
 			
 			import mx.controls.Text;
 			import mx.events.FlexEvent;
 			
 			protected var play:Number  = .01;
+			protected var dataToPush:Object;
 			
 			[Bindable]
 			[Embed(source="/assets/icons/mapMarker.png")]
@@ -23,43 +26,106 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				dataToPush = data;
 				
-				var homeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(data.home.lon,data.home.lat);
 				
-				var homeMarker:SimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_DIAMOND, 22, 0x009933);
+				//Format for place names
+				var placeTextFormat:TextFormat = new TextFormat();
+				placeTextFormat.font = "Trade Gothic LT Std Cn";
+				placeTextFormat.bold = true;
+				placeTextFormat.size = 16;
+				
+				//Format for place names
+				var itemTextFormat:TextFormat = new TextFormat();
+				itemTextFormat.font = "Lions Den";
+				itemTextFormat.bold = false;
+				itemTextFormat.size = 16;
+				
+				//Pictures for place markers
 				var placeMaker:PictureMarkerSymbol = new PictureMarkerSymbol(mapMarker,281,96);
-				placeMaker.xoffset = 190;
+				placeMaker.xoffset = 140;
 				placeMaker.yoffset = 48;
 				
-				var myGraphicMarker:Graphic = new Graphic(homeMapPoint,homeMarker);
-				myGraphicMarker.toolTip = "Home";
-				myGraphicsLayer.add(myGraphicMarker);
+				var homeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(data.home.lon,data.home.lat);
+				var homeSymbol:SimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_DIAMOND, 22, 0xFF0000);
 				
-				var textFormat:TextFormat = new TextFormat();
-				textFormat.font = "Trade Gothic LT Std Cn";
-				textFormat.bold = true;
-				textFormat.size = 16;
+				var textMarker:TextSymbol = new TextSymbol("You");
+				textMarker.textFormat = placeTextFormat;
+
+				var homeCompositeSymbol:CompositeSymbol = new CompositeSymbol([homeSymbol, textMarker]);
+				
+				var homeGraphic:Graphic = new Graphic(homeMapPoint,homeCompositeSymbol);
+			
+				myGraphicsLayer.add(homeGraphic);
 				
 				for (var i:int = 0; i < data.itemAtPlaceList.length; i++){
 					var place:Place = data.itemAtPlaceList.getItemAt(i).place;
+					var item:Item = data.itemAtPlaceList.getItemAt(i).item;
+					
+					var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
+					
+					var placeTextMarker:TextSymbol = new TextSymbol(place.name);
+					placeTextMarker.xoffset = placeMaker.xoffset;
+					placeTextMarker.yoffset = placeMaker.yoffset;
+					placeTextMarker.textFormat = placeTextFormat;
+					
+					var itemTextMarker:TextSymbol = new TextSymbol(item.name);
+					itemTextMarker.xoffset = placeMaker.xoffset;
+					itemTextMarker.yoffset = placeMaker.yoffset + 20;
+					itemTextMarker.textFormat = itemTextFormat;
+					
+					var placeCompositeSymbol:CompositeSymbol = new CompositeSymbol([placeMaker,placeTextMarker,itemTextMarker]);
+					var placeGraphic:Graphic = new Graphic(placeMapPoint, placeCompositeSymbol);
+				
+					
+					placeGraphic.name = i.toString();
+					placeGraphic.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {dataToPush.selectedIndex = parseInt(event.currentTarget.name); navigator.pushView(Detail, dataToPush);});
+					
+					myGraphicsLayer.add(placeGraphic);
+					
+				}
+				
+				/* for (var i:int = 0; i < data.itemAtPlaceList.length; i++){
+					var place:Place = data.itemAtPlaceList.getItemAt(i).place;
 					var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
 					myGraphicMarker = new Graphic(placeMapPoint,placeMaker);
-					myGraphicMarker.toolTip = place.name;
 					myGraphicsLayer.add(myGraphicMarker);
 					
 					
-					var textMarker:TextSymbol = new TextSymbol();
+					textMarker = new TextSymbol();
 					textMarker.text = place.name;
 					textMarker.xoffset = placeMaker.xoffset;
 					textMarker.yoffset = placeMaker.yoffset;
 					textMarker.textFormat = textFormat;
 					
+					
 					myGraphicMarker = new Graphic(placeMapPoint,textMarker);
+					
 					myGraphicsLayer.add(myGraphicMarker);
-				}  
+				}    */
 				
 				
 		
+			}
+			
+			protected function listButton_clickHandler(event:MouseEvent):void
+			{
+				navigator.popView();
+				
+			}
+			
+			protected function addButton_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.selectedIndex = -1;
+				navigator.pushView(Edit, dataToPush);
+				
+			}
+			
+			
+			protected function settingsButton_clickHandler(event:MouseEvent):void
+			{
+				navigator.pushView(Settings, dataToPush);
+				
 			}
 			
 		]]>
@@ -76,5 +142,12 @@
 		<esri:ArcGISTiledMapServiceLayer url="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
 		<esri:GraphicsLayer id="myGraphicsLayer" />
 	</esri:Map>
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="listButton" label="LIST" skinClass="skins.DetailsViewMenuItemSkin" click="listButton_clickHandler(event)" />
+		<s:ViewMenuItem id="settingsButton" label="SETTINGS" skinClass="skins.DetailsViewMenuItemSkin" click="settingsButton_clickHandler(event)" />
+		<s:ViewMenuItem id="holder" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
+	</s:viewMenuItems>
 	
 </s:View>
