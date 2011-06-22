@@ -18,6 +18,7 @@ package com.terrenceryan.finicky.db
 		private var _itemDAO:ItemDAO = null;
 		private var _placeDAO:PlaceDAO = null;
 		private var _itemAtPlaceDAO:ItemAtPlaceDAO = null;
+		private var _currentLocationDBO:CurrentLocationDBO = null;
 		
 		
 		[Event(name="loaded", type="flash.events.Event")]
@@ -32,6 +33,7 @@ package com.terrenceryan.finicky.db
 				_itemDAO = new ItemDAO(_conn);
 				_placeDAO = new PlaceDAO(_conn);
 				_itemAtPlaceDAO = new ItemAtPlaceDAO(_conn,this);
+				_currentLocationDBO = new CurrentLocationDBO(_conn);
 				onLoadComplete();
 				
 				
@@ -48,6 +50,16 @@ package com.terrenceryan.finicky.db
 			
 		}
 		
+		public function get currentLocationDBO():CurrentLocationDBO
+		{
+			return _currentLocationDBO;
+		}
+
+		public function set currentLocationDBO(value:CurrentLocationDBO):void
+		{
+			_currentLocationDBO = value;
+		}
+
 		public function get itemAtPlaceDAO():ItemAtPlaceDAO
 		{
 			return _itemAtPlaceDAO;

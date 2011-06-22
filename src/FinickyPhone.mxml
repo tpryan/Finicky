@@ -30,8 +30,8 @@
 			
 			import mx.events.FlexEvent;
 			
-			import views.PlaceEdit;
 			import views.Landing;
+			import views.PlaceEdit;
 			import views.Settings;
 			
 			public var dbManager:DBManager = null;
@@ -45,6 +45,8 @@
 				getFonts();
 				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);
+				home = dbManager.currentLocationDBO.get();;
+				
 				getLocation();
 				onLoaded();
 				
@@ -65,10 +67,9 @@
 					}
 				}
 				else{
-					
 					//Philadelphia
-					home.lat = 39.962199;
-					home.lon = -75.170639;
+					//home.lat = 39.962199;
+					//home.lon = -75.170639;
 					
 					//London
 					//home.lat = 51.512911;
