@@ -20,13 +20,22 @@
 			[Bindable]
 			public var places:ArrayCollection;
 			
-			[Bindable]
-			[Embed(source="/assets/icons/modalCheckOff.png")]
-			private var off:Class;
 			
 			[Bindable]
-			[Embed(source="/assets/icons/modalCheckOn.png")]
-			private var on:Class;
+			[Embed(source="/assets/icons/newPlaceUp.png")]
+			private var newPlaceUp:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/newPlaceDown.png")]
+			private var newPlaceDown:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/pickPlaceUp.png")]
+			private var pickPlaceUp:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/pickPlaceDown.png")]
+			private var pickPlaceDown:Class;
 			
 			public function get active():Boolean
 			{
@@ -49,15 +58,16 @@
 			protected function clickHandler(event:MouseEvent):void
 			{
 				
-				iconExisting.source = off;
-				iconNew.source = off;
+				iconPick.source = pickPlaceUp;
+				iconNew.source = newPlaceUp;
 				
-				event.currentTarget.source = on;
-				if (event.currentTarget.name == "iconExisting"){
+				if (event.currentTarget.name == "iconPick"){
+					iconPick.source = pickPlaceDown;
 					placeList.visible = true;
 				}
 				
 				if (event.currentTarget.name == "iconNew"){
+					iconNew.source = newPlaceDown;
 					placeList.visible = false;
 					dispatchEvent(new Event("newPlaceRequested") );
 				}
@@ -105,13 +115,10 @@
 		<s:Button id="closeButton" right="0" y="{bg.y+ 30}" click="closeButton_clickHandler(event)" skinClass="skins.AlertCloseButtonSkin" /> 
 		
 
-		<s:Image id="iconNew" name="iconNew"  source="{off}" horizontalCenter="-140" top="{120}"  click="clickHandler(event)"  />
-		<s:Label id="textNew" text="New Place" horizontalCenter="80" top="{iconNew.top + 40}"  width="160" />
-		
-		<s:Image id="iconExisting" name="iconExisting" source="{off}" horizontalCenter="-140" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
-		<s:Label id="textExisting" text="Existing Place" horizontalCenter="80" top="{iconExisting.top + 40}" width="200" />
+		<s:Image id="iconNew" name="iconNew"  source="{newPlaceUp}" horizontalCenter="0" top="{120}"  click="clickHandler(event)"  />
+		<s:Image id="iconPick" depth="2" name="iconPick" source="{pickPlaceUp}" horizontalCenter="0" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
 			
-		<s:List id="placeList" visible="false" top="{iconExisting.top + BUTTON_PADDING}" horizontalCenter="0" width="90%" height="330" 
+		<s:List id="placeList" depth="1" visible="false" top="{iconPick.top + BUTTON_PADDING}" horizontalCenter="0" width="90%" height="330" 
 				dataProvider="{places}" contentBackgroundAlpha="0" click="placeList_clickHandler(event)"  >
 			<s:itemRenderer>
 				<fx:Component>
