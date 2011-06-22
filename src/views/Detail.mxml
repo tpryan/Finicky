@@ -84,17 +84,8 @@
 				
 				if (event.keyCode == Keyboard.BACK){
 					
-					if (data.navigating == "left"){
-						event.preventDefault();
-						dataToPush.selectedIndex++;
-						navigator.popView();
-					}
-					
-					if (data.navigating == "right"){
-						event.preventDefault();
-						dataToPush.selectedIndex--;
-						navigator.popView();
-					}
+					event.preventDefault();
+					navigator.popToFirstView();
 				}
 				
 				
