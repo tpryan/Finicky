@@ -86,12 +86,32 @@ package com.terrenceryan.finicky.db
 		public function list(orderby:String="item.name",otherPlace:Place = null):ArrayCollection{
 			var query:String = "";
 			
-			
-			query = "SELECT 	p.* " +
-					"FROM 		itemAtPlace p " +
-					"JOIN 		item i on i.itemid=p.itemid " +
-					"ORDER BY 	i.name "; 
+			if (otherPlace){
+				var latmin:Number = otherPlace.lat - 1; 
+				var latmax:Number = otherPlace.lat + 1; 
+				var lonmin:Number = otherPlace.lon - 1; 
+				var lonmax:Number = otherPlace.lon + 1; 
 				
+				
+				query = "SELECT 	ip.* " +
+					"FROM 		itemAtPlace ip " +
+					
+					"JOIN 		item i on i.itemid=ip.itemid " +
+					"JOIN 		place p on p.placeid=ip.placeid " +
+					"WHERE 		p.lat BETWEEN " + latmin.toString() + " AND " + latmax.toString() + " " +
+					"AND 		p.lon BETWEEN " + lonmin.toString() + " AND " + lonmax.toString() + " " +
+					"ORDER BY 	i.name "; 
+			}	
+			else{
+				
+			
+				query = "SELECT 	ip.* " +
+						"FROM 		itemAtPlace ip " +
+						
+						"JOIN 		item i on i.itemid=ip.itemid " +
+						"JOIN 		place p on p.placeid=ip.placeid " +
+						"ORDER BY 	i.name "; 
+			}	
 			var sqlSelect:SQLStatement = new SQLStatement();
 			sqlSelect.sqlConnection = _conn;
 			

@@ -20,7 +20,8 @@ package com.terrenceryan.finicky.geo
 
 	public class GeoCode extends EventDispatcher
 	{
-		
+		private const NA_URL:String = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer";
+		private const EU_URL:String = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_EU/GeocodeServer";
 		
 		private var locatorService:Locator = new Locator();
 		private var wgs:SpatialReference = new SpatialReference(4326);
@@ -28,7 +29,7 @@ package com.terrenceryan.finicky.geo
 		
 		public function GeoCode()
 		{
-			locatorService.url = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer";
+			locatorService.url = NA_URL;
 			locatorService.concurrency = "last";
 		
 		}
@@ -44,6 +45,7 @@ package com.terrenceryan.finicky.geo
 		public function fromLatLonToAddress(lat:Number,lon:Number):void{
 			
 			var mappoint:MapPoint = new MapPoint(lon,lat,wgs);
+			
 			
 			locatorService.outSpatialReference = wgs;
 			locatorService.addEventListener(LocatorEvent.LOCATION_TO_ADDRESS_COMPLETE,getLocation);
@@ -70,8 +72,18 @@ package com.terrenceryan.finicky.geo
 				candidate = event.addressCandidate;
 				location.address = candidate.address.Address;
 				location.city = candidate.address.City;
-				location.state = candidate.address.State;
-				location.mailingCode = candidate.address.Zip;
+				if (candidate.address.State){
+					location.state = candidate.address.State;
+				}
+				
+				if (candidate.address.Zip){
+					location.mailingCode = candidate.address.Zip;
+				}
+				
+				if (candidate.address.Postcode){
+					location.mailingCode = candidate.address.Postcode;
+				}
+				
 				location.country = "USA";
 			}
 			else{

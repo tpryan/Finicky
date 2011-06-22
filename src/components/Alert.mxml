@@ -28,7 +28,7 @@
 	
 	<s:VGroup horizontalAlign="center" horizontalCenter="0" paddingBottom="8" paddingLeft="8"
 			  paddingRight="8" paddingTop="8" verticalCenter="0">
-		<s:Label id="messageText" text="{message}" horizontalCenter="0" textAlign="center" width="80%"/>
-		<s:Button label="" horizontalCenter="0" click="button1_clickHandler(event)" skinClass="skins.AlertOKButtonSkin" />
+		<s:Label id="messageText" text="{message}" horizontalCenter="0" textAlign="center" width="200"/>
+		<s:Button label="" horizontalCenter="0" click="button1_clickHandler(event)" skinClass="skins.OkButtonSkin" />
 	</s:VGroup>
 </s:SkinnablePopUpContainer>

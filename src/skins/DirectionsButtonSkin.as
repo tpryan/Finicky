@@ -72,7 +72,7 @@ package skins
 			super.layoutContents(unscaledWidth, unscaledHeight);
 			setElementPosition(labelDisplay, 50, 55);
 			setElementPosition(labelDisplayShadow, labelDisplay.x, labelDisplay.y + 1);
-			border.blendMode = "multiply";	
+			//border.blendMode = "multiply";	
 		}
 		
 	}

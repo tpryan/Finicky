@@ -36,8 +36,8 @@ package com.terrenceryan.finicky.db
 			sql += "	state	TEXT,";
 			sql += "	mailingcode	TEXT,";
 			sql += "	country	TEXT,";
-			sql += "	lat	TEXT,";
-			sql += "	lon	TEXT,";
+			sql += "	lat	NUMERIC,";
+			sql += "	lon	NUMERIC,";
 			sql += "	notes		TEXT";
 			sql += ")";
 			createStmt.text = sql;

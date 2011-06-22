@@ -66,8 +66,18 @@
 				}
 				else{
 					
+					//Philadelphia
 					home.lat = 39.962199;
 					home.lon = -75.170639;
+					
+					//London
+					//home.lat = 51.512911;
+					//home.lon = -0.158020;
+				
+					//New York	
+					//home.lat = 40.758306;
+					//home.lon = -73.985642;
+						
 					geoCodeService.addEventListener("result", geoCodeResultHandler);
 					geoCodeService.fromLatLonToAddress(home.lat, home.lon);
 				}

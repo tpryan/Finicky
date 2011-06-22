@@ -133,7 +133,10 @@
 				var boxThreshold:int = 19;
 				
 				if (locationModal.place){
-					if (locationModal.place.name.length < boxThreshold){
+					if (locationModal.place.name.length == 0){
+						locationButton.label = "Pick Location";
+					}
+					else if (locationModal.place.name.length < boxThreshold){
 						locationButton.label = locationModal.place.name;
 					}
 					else{
@@ -141,6 +144,12 @@
 						text = text.concat("...");
 						locationButton.label = text;
 					}
+					
+					
+					
+				}
+				else{
+					locationButton.label = "Pick Location";
 				}
 			}
 			

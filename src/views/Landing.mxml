@@ -14,6 +14,7 @@
 			import flash.sensors.Geolocation;
 			
 			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			protected var currentCity:int = 0;
 			protected var dataToPush:Object;
@@ -48,8 +49,23 @@
 				
 				geoCodeService.addEventListener("result", setLocationBanner);
 				
-				if (dbManager.itemAtPlaceDAO.count() == 0){
-					startingNotice.open()
+			
+				if (!data.noticeShown){
+					if (dbManager.itemAtPlaceDAO.count() == 0){
+						
+						startingNotice.open()
+						data.noticeShown = true;	
+					}
+					else if (itemAtPlaceList.length == 0){
+						alert.open(this,true);
+						data.noticeShown = true;	
+						
+					}
+				}
+				
+				if (itemAtPlaceList.length == 0){
+					mapButton.visible = false;
+					
 				}
 				
 			}
@@ -57,10 +73,12 @@
 			
 			protected function itemList_clickHandler(event:MouseEvent):void
 			{
-				dataToPush.selectedIndex = itemList.selectedIndex;
-				dataToPush.itemAtPlaceList = itemAtPlaceList;
-				navigator.pushView(Detail, dataToPush);
-				
+			
+				if (itemList.selectedIndex > -1){
+					dataToPush.selectedIndex = itemList.selectedIndex;
+					dataToPush.itemAtPlaceList = itemAtPlaceList;
+					navigator.pushView(Detail, dataToPush);
+				}
 			}
 			
 			protected function keyPress(event:KeyboardEvent):void
@@ -135,11 +153,22 @@
 				
 			}
 			
+			protected function alert_closedHandler(event:Event):void
+			{
+				mx.core.FlexGlobals.topLevelApplication.viewMenuOpen = true;				
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
+		<components:Alert id="alert" message="{alertText}" left="0" right="0" closed="alert_closedHandler(event)" />
+	
+		<fx:String id="alertText">You don't have any Finicky matches nearby. 
+
+How's about you add some?</fx:String>
 		
+	
 	</fx:Declarations>
 	
 	

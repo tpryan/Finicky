@@ -21,7 +21,7 @@ package skins
 		public function OkButtonSkin()
 		{
 			super();
-			width = 401;
+			width = 346;
 			height = 161;
 			
 		}
