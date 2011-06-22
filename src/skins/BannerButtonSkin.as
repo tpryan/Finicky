@@ -1,5 +1,10 @@
 package skins
 {
+	import flash.display.Sprite;
+	
+	import mx.charts.HitData;
+	
+	import spark.components.Button;
 	import spark.skins.mobile.ButtonSkin;
 	
 	public class BannerButtonSkin extends ButtonSkin
@@ -25,11 +30,11 @@ package skins
 			super();
 			
 			width = 110;
-			height= 110;
+			height= 181;
 		}
 		
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void{
-			
+		
 		}
 		
 		override protected function getBorderClassForCurrentState():Class
