@@ -39,8 +39,12 @@
 				places = dbManager.placeDAO.list();
 				
 				if (data.itemToPlaceInProgress){
+					locationModal.place = data.place;
+					itemTexInput.text = data.itemName;
 					locationModal_placeSelectedHandler(null);
 					data.itemToPlaceInProgress = null;
+					data.place = null;
+					data.itemName = null;
 				}
 				
 				if (data.itemAtPlace){
@@ -128,19 +132,22 @@
 			{
 				var boxThreshold:int = 19;
 				
-				if (locationModal.place.name.length < boxThreshold){
-					locationButton.label = locationModal.place.name;
-				}
-				else{
-					var text:String = locationModal.place.name.slice(0,boxThreshold -3);
-					text = text.concat("...");
-					locationButton.label = text;
+				if (locationModal.place){
+					if (locationModal.place.name.length < boxThreshold){
+						locationButton.label = locationModal.place.name;
+					}
+					else{
+						var text:String = locationModal.place.name.slice(0,boxThreshold -3);
+						text = text.concat("...");
+						locationButton.label = text;
+					}
 				}
 			}
 			
 			protected function locationModal_newPlaceRequestedHandler(event:Event):void
 			{
 				dataToPush.place = data.home;
+				dataToPush.itemName = itemTexInput.text;
 				dataToPush.itemToPlaceInProgress = true;
 				navigator.pushView(PlaceEdit,dataToPush);
 				

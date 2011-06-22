@@ -104,6 +104,34 @@ package com.terrenceryan.finicky.db
 			
 		}
 		
+		public function get(itemid:int, placeid:int):ItemAtPlace{
+			var query:String = "";
+			
+			
+			query = "SELECT 	p.* " +
+				"FROM 		itemAtPlace p " +
+				"WHERE		itemid = :itemid " +
+				"AND		placeid = :placeid "; 
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			
+			
+			sqlSelect.text = query;
+			sqlSelect.parameters[":itemid"] = itemid;
+			sqlSelect.parameters[":placeid"] = placeid;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			if (result.data != null){
+					var itemAtPlace:ItemAtPlace = convertPlainObjectToItemAtPlace(result.data[0]);
+					
+			}
+			
+			return itemAtPlace;
+			
+		}
+		
 		private function distanceCompare(a:Object, b:Object, fields:Array = null):int
 		{
 			var result:int = 0;

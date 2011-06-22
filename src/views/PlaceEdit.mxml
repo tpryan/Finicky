@@ -115,11 +115,17 @@
 				
 			}
 			
+			protected function alert_closedHandler(event:Event):void
+			{
+				navigator.popView();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<components:Alert id="alert"  />
+		<components:Alert id="alert" closed="alert_closedHandler(event)"  />
 		<components:AcceptPopUp id="accept" />
 	</fx:Declarations>
 	

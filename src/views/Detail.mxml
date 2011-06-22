@@ -16,6 +16,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			import com.terrenceryan.finicky.vo.Place;
@@ -38,6 +39,7 @@
 			[Bindable]
 			protected var store:Place = new Place();
 			
+			protected var dbManager:DBManager;
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -45,11 +47,14 @@
 				
 				dataToPush = data;
 				
+				dbManager = data.dbManager;
+				
 				if (data.navigating == null){
 					dataToPush.navigating = "none";
 				}
 				var itemAtPlaceList:ArrayCollection = data.itemAtPlaceList;
 				itemAtPlace = itemAtPlaceList.getItemAt(data.selectedIndex) as ItemAtPlace;
+				itemAtPlace = dbManager.itemAtPlaceDAO.get(itemAtPlace.item.itemid, itemAtPlace.place.placeid);
 				
 				item = itemAtPlace.item;
 				store = itemAtPlace.place;
