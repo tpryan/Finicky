@@ -16,6 +16,7 @@
 			import mx.controls.Text;
 			import mx.events.FlexEvent;
 			
+			[Bindable]
 			protected var play:Number  = .01;
 			protected var dataToPush:Object;
 			
