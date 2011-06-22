@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" enabled="false" visible="false" mouseEnabled="false" 
+		 xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		#startText{
+			fontFamily: "Trade Gothic LT Std Cn";
+			fontSize:54;
+			fontWeight:"normal";
+			textAlign: left;
+			
+		}
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			
+			public function close():void
+			{
+				this.visible = false;
+				this.enabled = false;
+				this.mouseEnabled = false;
+				
+			}
+			
+			public function open():void
+			{
+				this.visible = true;
+				this.enabled = true;
+				this.mouseEnabled = true;
+				
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Rect width="100%" height="100%" alpha=".8">
+		<s:fill>
+			<s:SolidColor color="0x000000" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
+		<s:Image id="bg" width="95%" maxWidth="554" maxHeight="807"  x="10" source="@Embed('/assets/bg/bg_modal_long.png')" verticalCenter="0"/>
+		<s:Label id="startText" x = "{bg.x + 20}" width="90%" maxWidth="520" verticalCenter="-53"  >
+			<![CDATA[Couldn't help but notice, you've got no stuff here. 
+			
+Start jotting down all of the hard to find stuff you find along your way.]]>
+		</s:Label>
+				 
+		
+		<s:Button id="closeButton" click="close()" verticalCenter="270" horizontalCenter="0" skinClass="skins.OkButtonSkin" />
+		
+		
+		
+	</s:Group>
+	
+	
+</s:Group>

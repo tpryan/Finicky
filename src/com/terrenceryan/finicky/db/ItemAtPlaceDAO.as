@@ -60,6 +60,28 @@ package com.terrenceryan.finicky.db
 			}
 		}
 		
+		public function count():int{
+			var query:String = "";
+			
+			
+			query = "SELECT 	count(*) as count " +
+				"FROM 		itemAtPlace p "; 
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			
+			var count:int = result.data[0].count;
+			
+			
+			return count;
+			
+		}
+		
 		
 		public function list(orderby:String="item.name",otherPlace:Place = null):ArrayCollection{
 			var query:String = "";
