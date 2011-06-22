@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Finicky" default="main" basedir=".">
+	
+	<property file="settings.properties"/>
+	
+	<!-- Paths to AIR executables -->
+	<property name="ADT" value="${FLEX_HOME}/bin/adt"/>
+	<property name="ADL" value="${FLEX_HOME}/bin/adl"/>
+	<property name="IOS_ADT" value="${IOS_HOME}/bin/adt"/>
+
+	<property name="contentText" value="[This value will be overwritten by Flash Builder in the output app.xml]"/>
+	
+	<!-- File Paths to code and destination -->
+	<property name="build.dir" value="bin-release"/>
+	<property name="dev.dir" value="src"/>
+	
+	<!-- File Paths working copies -->
+	<property name="device.build" value="${build.dir}/swf/device"/>
+	<property name="desktop.build" value="${build.dir}/swf/desktop"/>
+	<property name="device.swf" value="${device.build}/${app.name}.swf"/>
+	
+	<!-- BB specific paths -->
+	<property name="bb.collect" value="${build.dir}/blackberry"/>
+	<property name="bb.build" value="${build.dir}/swf/bb"/>
+	<property name="bb.swf" value="${bb.build}/${app.name}.swf"/>
+
+	<!-- android specific paths -->
+	<property name="android.collect" value="${build.dir}/android"/>
+	<property name="android.swf" value="${device.swf}"/>
+	
+	<!-- # IOS specific paths -->
+	<property name="ios.collect" value="${build.dir}/IOS"/>
+	<property name="ios.swf" value="${device.swf}"/>
+
+	<!-- Desktop specific paths -->
+	<property name="desktop.collect" value="${build.dir}/desktop"/>
+	<property name="desktop.swf" value="${desktop.build}/${app.name}.swf"/>
+
+	
+	<!-- Amazon Store path -->
+	<property name="amazon.url" value="http://www.amazon.com/gp/mas/dl/android/com.adobe.air"/>
+
+	<property name="projectFile" value="${dev.dir}/${app.name}.${app.type}"/>
+
+	
+	
+	<!-- path to the flex task libraries. -->
+	<path id="flextasks.classpath">
+		<fileset dir="${FLEX_HOME}/ant/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>  
+	
+	<typedef resource="flexTasks.tasks" classpathref="flextasks.classpath" />
+	
+	<target name="main" depends="desktop,device" description="Builds app files." />
+	<target name="device" depends="android,blackberry,ios" description="Builds app files for all devices." />
+	
+	<target name="clean">
+		<echo message="Cleaning Build Space"/>
+		<delete dir="${build.dir}"/>
+	</target>
+	
+	<target name="createAppStore">
+		<echo message="Cleaning Build Space"/>
+		<mkdir dir="${build.dir}/APPS"/>
+	</target>
+	
+	<target name="device.compile" depends="clean">
+		<echo message="Creating Device Folder"/>
+		<mkdir dir="${device.build}"/>
+		<echo message="Compiling swf for devices"/>
+		<mxmlc file="${projectFile}" output="${device.swf}" debug="false"> 
+	        <load-config filename="${FLEX_HOME}/frameworks/airmobile-config.xml"/> 
+	        <source-path path-element="${FLEX_HOME}/frameworks"/>
+			<static-link-runtime-shared-libraries />
+			
+			<compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
+                <include name="libs/*" />
+            </compiler.library-path>
+			
+			<compiler.library-path dir="libs" append="true">
+                <include name="*" />
+            </compiler.library-path>
+		</mxmlc>
+		
+	    </target>
+
+	<!-- Desktop Steps -->
+	<target name="desktop" depends="desktop.compile, desktop.collect, desktop.package" description="All of the tasks needed to create an Android apk file." />
+	
+	<target name="desktop.compile" depends="clean">
+		<echo message="Creating Desktop Folder"/>
+		<mkdir dir="${desktop.build}"/>
+		<echo message="Compiling swf for desktop"/>
+		<mxmlc file="${projectFile}" output="${desktop.swf}"> 
+	        <load-config filename="${FLEX_HOME}/frameworks/air-config.xml"/> 
+	        <source-path path-element="${FLEX_HOME}/frameworks"/>
+			<static-link-runtime-shared-libraries />
+			
+			<compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
+                <include name="libs/*" />
+            </compiler.library-path>
+			
+			<compiler.library-path dir="libs" append="true">
+                <include name="*" />
+            </compiler.library-path>
+		</mxmlc>
+		
+		
+    </target>	
+	
+	<target name="desktop.collect">
+		<echo message="Creating Device Folder for Desktop"/>
+		<mkdir dir="${desktop.collect}"/>
+		<echo message="Copying SWF for Desktop"/>
+		<copy file="${desktop.swf}" todir="${desktop.collect}"  />
+		<echo message="Copying Application Description File for Desktop"/>
+		<copy file="${dev.dir}/${app.name}-app.xml" todir="${desktop.collect}" preservelastmodified="true" />
+		<echo message="Modifying Application Description File"/>
+		<replace file="${desktop.collect}/${app.name}-app.xml">
+			<replacefilter token="${contentText}" value="${app.name}.swf" />
+		</replace>
+		<echo message="Copying Assets for Desktop"/>
+		<copy todir="${desktop.collect}/assets" preservelastmodified="true">
+			<fileset dir="${dev.dir}/assets">
+				<exclude name='.gitignore'/>
+				<exclude name='**/.DS_Store'/>
+			</fileset>	
+		</copy>
+	</target>
+	
+	<target name="desktop.package" depends="createAppStore">
+		<echo message="Packaging for Desktop"/>
+		<exec executable="${ADT}" dir="${desktop.collect}">
+			<arg value="-package"/>
+			<arg line="-storetype pkcs12"/>
+			<arg line="-keystore ${cert}" />
+			<arg line="-storepass ${cert.password}" />
+			<arg value="${app.name}"/>
+			<arg value="${app.name}-app.xml"/>
+			<arg value="${app.name}.swf"/>
+			<arg value="assets"/>
+		</exec>
+		
+		<echo message="Copying Desktop App to App Folder"/>
+		<copy file="${desktop.collect}/${app.name}.air" todir="${build.dir}/APPS" preservelastmodified="true" />
+	</target>
+	
+	<!-- Android Steps -->
+	<target name="android" depends="android.compile, android.collect, android.package.market,android.package.amazon" description="All of the tasks needed to create an Android apk file." />
+	
+	<target name="android.compile" depends="device.compile" />
+	
+	<target name="android.collect">
+		<echo message="Creating Device Folder for Android"/>
+		<mkdir dir="${android.collect}"/>
+		<echo message="Copying SWF for Android"/>
+		<copy file="${android.swf}" todir="${android.collect}"  />
+		<echo message="Copying Application Description File for Android"/>
+		<copy file="${dev.dir}/${app.name}-app.xml" todir="${android.collect}" preservelastmodified="true" />
+		<echo message="Modifying Application Description File"/>
+		<replace file="${android.collect}/${app.name}-app.xml">
+			<replacefilter token="${contentText}" value="${app.name}.swf" />
+		</replace>
+		<echo message="Copying Assets for Android"/>
+		<copy todir="${android.collect}/assets" preservelastmodified="true">
+			<fileset dir="${dev.dir}/assets">
+				<exclude name='.gitignore'/>
+				<exclude name='**/.DS_Store'/>
+			</fileset>	
+		</copy>
+	</target>
+
+	<target name="android.package.market"  depends="createAppStore">
+		<echo message="Packaging for Android Market"/>
+		<exec executable="${ADT}" dir="${android.collect}">
+			<arg value="-package"/>
+			<arg line="-target apk"/>
+			<arg line="-storetype pkcs12"/>
+			<arg line="-keystore ${cert}" />
+			<arg line="-storepass ${cert.password}" />
+			<arg value="${app.name}"/>
+			<arg value="${app.name}-app.xml"/>
+			<arg value="${app.name}.swf"/>
+			<arg value="assets"/>
+		</exec>
+		
+		<echo message="Copying Android App to App Folder"/>
+		<copy file="${android.collect}/${app.name}.apk" todir="${build.dir}/APPS" preservelastmodified="true" />
+		
+	</target>
+	
+	<target name="android.package.amazon"  depends="createAppStore">
+		<echo message="Packaging for Amazon Market"/>
+		<exec executable="${ADT}" dir="${android.collect}">
+			<arg value="-package"/>
+			<arg line="-target apk"/>
+			<arg line="-airDownloadURL ${amazon.url}"/>
+			<arg line="-storetype pkcs12"/>
+			<arg line="-keystore ${cert}" />
+			<arg line="-storepass ${cert.password}" />
+			<arg value="${app.name}_amazon"/>
+			<arg value="${app.name}-app.xml"/>
+			<arg value="${app.name}.swf"/>
+			<arg value="assets"/>
+		</exec>
+		
+		<echo message="Copying Android App to App Folder"/>
+		<copy file="${android.collect}/${app.name}_amazon.apk" todir="${build.dir}/APPS" preservelastmodified="true" />
+		
+	</target>
+	
+	<!-- IOS Steps -->
+	<target name="ios" depends="ios.compile, ios.collect, ios.package" description="All of the tasks needed to create an IOS IPA file." />
+	<target name="ios.debug" depends="ios.compile, ios.collect, ios.package.debug" description="All of the tasks needed to create an IOS IPA file, but uses the interpreted, poorer performing version. " />
+	
+	<target name="ios.compile" depends="device.compile" />
+	
+	<target name="ios.collect">
+		<echo message="Creating Device Folder for IOS"/>
+		<mkdir dir="${ios.collect}"/>
+		<echo message="Copying SWF for IOS"/>
+		<copy file="${ios.swf}" todir="${ios.collect}"  />
+		<echo message="Copying Application Description File for IOS"/>
+		<copy file="${dev.dir}/${app.name}-app.xml" todir="${ios.collect}" preservelastmodified="true" />
+		<echo message="Modifying Application Description File"/>
+		<replace file="${ios.collect}/${app.name}-app.xml">
+			<replacefilter token="${contentText}" value="${app.name}.swf" />
+		</replace>
+		<echo message="Copying Assets for IOS"/>
+		<copy todir="${ios.collect}/assets" preservelastmodified="true">
+			<fileset dir="${dev.dir}/assets">
+				<exclude name='.gitignore'/>
+				<exclude name='**/.DS_Store'/>
+			</fileset>	
+		</copy>
+	</target>
+	
+	<target name="ios.package.debug" depends="createAppStore">
+		<echo message="Packaging for IOS"/>
+		<exec executable="${IOS_ADT}" dir="${ios.collect}">
+			<arg value="-package"/>
+			<arg value="-Xuseinterpreter"/>
+			<arg line="-target ipa-ad-hoc "/>
+			<arg line="-provisioning-profile ${ios.provision} " />
+			<arg line="-storetype pkcs12 "/>
+			<arg line="-keystore ${ios.cert} " />
+			<arg line="-storepass ${ios.certpass} " />
+			
+			<arg value="${app.name}.ipa"/>
+			<arg value="${app.name}-app.xml"/>
+			<arg value="${app.name}.swf"/>
+			<arg value="assets"/>
+		</exec>
+		
+		<echo message="Copying IOS App to App Folder"/>
+		<copy file="${ios.collect}/${app.name}.ipa" todir="${build.dir}/APPS" preservelastmodified="true" />
+		
+	</target>
+	
+	<target name="ios.package" depends="createAppStore">
+			<echo message="Packaging for IOS"/>
+			<exec executable="${IOS_ADT}" dir="${ios.collect}">
+				<arg value="-package"/>
+				<arg line="-target ipa-ad-hoc "/>
+				<arg line="-provisioning-profile ${ios.provision} " />
+				<arg line="-storetype pkcs12 "/>
+				<arg line="-keystore ${ios.cert} " />
+				<arg line="-storepass ${ios.certpass} " />
+				
+				<arg value="${app.name}.ipa"/>
+				<arg value="${app.name}-app.xml"/>
+				<arg value="${app.name}.swf"/>
+				<arg value="assets"/>
+			</exec>
+			
+			<echo message="Copying IOS App to App Folder"/>
+			<copy file="${ios.collect}/${app.name}.ipa" todir="${build.dir}/APPS" preservelastmodified="true" />
+			
+		</target>
+	
+	<!-- BlackBerry Steps -->
+	<target name="blackberry" depends="blackberry.compile, blackberry.collect, blackberry.package" description="All of the tasks needed to create an BlackBerry BAR file." />
+	
+	<target name="blackberry.compile" depends="clean">
+		<echo message="Creating BlackBerry Folder"/>
+		<mkdir dir="${bb.build}"/>
+		<echo message="Compiling swf for BlackBerry devices"/>
+		<mxmlc file="${projectFile}" output="${bb.swf}" swf-version="10"> 
+	        <load-config filename="${FLEX_HOME}/frameworks/airmobile-config.xml"/> 
+	        <source-path path-element="${FLEX_HOME}/frameworks"/>
+			<static-link-runtime-shared-libraries />
+			
+			<compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
+                <include name="libs/*" />
+            </compiler.library-path>
+			
+			<compiler.library-path dir="libs" append="true">
+                <include name="*" />
+            </compiler.library-path>
+		</mxmlc>
+		
+    </target>
+	
+	<target name="blackberry.collect">
+		<echo message="Creating Collection Folder for BlackBerry"/>
+		<mkdir dir="${bb.collect}"/>
+		<echo message="Copying SWF for BlackBerry"/>
+		<copy file="${bb.swf}" todir="${bb.collect}"  />
+		<echo message="Copying Application Description File for BlackBerry"/>
+		<copy file="${dev.dir}/${app.name}-app.bb.xml" todir="${bb.collect}" preservelastmodified="true" />
+		<echo message="Copying BlackBerry Description File for BlackBerry"/>
+		<copy file="${dev.dir}/blackberry-tablet.xml" todir="${bb.collect}" preservelastmodified="true" />
+		<echo message="Modifying Application Description File"/>
+		<replace file="${bb.collect}/${app.name}-app.bb.xml">
+			<replacefilter token="${contentText}" value="${app.name}.swf" />
+		</replace>
+		<echo message="Copying Assets for BlackBerry"/>
+		<copy todir="${bb.collect}/assets" preservelastmodified="true">
+			<fileset dir="${dev.dir}/assets">
+				<exclude name='.gitignore'/>
+				<exclude name='**/.DS_Store'/>
+			</fileset>	
+		</copy>
+	</target>
+	
+	<target name="blackberry.package"  depends="createAppStore">
+		<echo message="Packaging for BlackBerry"/>
+		<exec executable="${bb.packager}" dir="${bb.collect}">
+			<arg value="-package"/>
+			<arg value="${app.name}.bar"/>
+			<arg value="${app.name}-app.bb.xml"/>
+			<arg value="${app.name}.swf"/>
+			<arg value="assets"/>
+			<arg value="blackberry-tablet.xml"/>
+		</exec>
+		
+		<echo message="Copying BlackBerry App to App Folder"/>
+		<copy file="${bb.collect}/${app.name}.bar" todir="${build.dir}/APPS" preservelastmodified="true" />
+	</target>
+	
+	<!-- Development tasks. -->
+	<target name="android.install">
+		<echo message="Installing onto attached Android Device"/>
+		<exec executable="${ADB}">
+			<arg value="install"/>
+			<arg value="-r"/>
+			<arg value="${android.collect}/${app.name}.apk"/>
+		</exec>	
+	</target>
+	
+	<target name="desktop.debug" depends="desktop.compile,desktop.collect">
+		<echo message="Debugging on Desktop"/>
+		<exec executable="${ADL}" dir="${desktop.collect}">
+			<arg value="${app.name}-app.xml"/>
+		</exec>
+	</target>
+	
+	<target name="blackberry.install" depends="blackberry.compile,blackberry.collect">
+		<echo message="Installing onto Blackberry VM"/>
+		<exec executable="${bb.packager}" dir="${build.dir}/blackberry">
+			<arg value="-package"/>
+			<arg value="${app.name}.bar"/>
+			<arg value="-installApp"/>
+			<arg value="-launchApp"/>
+			<arg value="${app.name}-app.bb.xml"/>
+			<arg value="${app.name}.swf"/>
+			<arg value="assets"/>
+			<arg value="-device"/>
+			<arg value="${bb.ip}"/>
+			<arg value="-password"/>
+			<arg value="${bb.password}"/>
+		</exec>
+	</target>
+	
+	
+	
+</project>	
