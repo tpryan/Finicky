@@ -131,6 +131,7 @@
 				else{
 					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name",dataToPush.home);
 				}
+				filterModal.close();
 				
 			}
 			

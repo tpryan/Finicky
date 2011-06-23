@@ -70,9 +70,13 @@
 			
 			protected function closeButton_clickHandler(event:MouseEvent):void
 			{
+				close();
+				
+			}
+			
+			public function close():void{
 				active = false;
 				visible = false;
-				
 			}
 			
 		]]>
