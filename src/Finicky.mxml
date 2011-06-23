@@ -50,6 +50,7 @@
 				
 				getLocation();
 				onLoaded();
+				navigator.actionBar.visible = false;
 				
 			}
 			
