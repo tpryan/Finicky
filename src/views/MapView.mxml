@@ -41,12 +41,12 @@
 				var itemTextFormat:TextFormat = new TextFormat();
 				itemTextFormat.font = "Lions Den";
 				itemTextFormat.bold = false;
-				itemTextFormat.size = 16;
+				itemTextFormat.size = 20;
 				
 				//Pictures for place markers
-				var placeMaker:PictureMarkerSymbol = new PictureMarkerSymbol(mapMarker,281,96);
-				placeMaker.xoffset = 140;
-				placeMaker.yoffset = 48;
+				var placeMaker:PictureMarkerSymbol = new PictureMarkerSymbol(mapMarker,167,58);
+				placeMaker.xoffset = 85;
+				placeMaker.yoffset = 28;
 				
 				var homeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(data.home.lon,data.home.lat);
 				var homeSymbol:SimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_DIAMOND, 22, 0xFF0000);
@@ -66,17 +66,13 @@
 					
 					var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
 					
-					var placeTextMarker:TextSymbol = new TextSymbol(place.name);
-					placeTextMarker.xoffset = placeMaker.xoffset;
-					placeTextMarker.yoffset = placeMaker.yoffset;
-					placeTextMarker.textFormat = placeTextFormat;
 					
-					var itemTextMarker:TextSymbol = new TextSymbol(item.name);
+					var itemTextMarker:TextSymbol = new TextSymbol(fitString(item.name));
 					itemTextMarker.xoffset = placeMaker.xoffset;
-					itemTextMarker.yoffset = placeMaker.yoffset + 20;
+					itemTextMarker.yoffset = placeMaker.yoffset + 10;
 					itemTextMarker.textFormat = itemTextFormat;
 					
-					var placeCompositeSymbol:CompositeSymbol = new CompositeSymbol([placeMaker,placeTextMarker,itemTextMarker]);
+					var placeCompositeSymbol:CompositeSymbol = new CompositeSymbol([placeMaker,itemTextMarker]);
 					var placeGraphic:Graphic = new Graphic(placeMapPoint, placeCompositeSymbol);
 				
 					
@@ -108,6 +104,21 @@
 				
 				
 		
+			}
+			
+			
+			protected function fitString(str:String):String
+			{
+				var boxThreshold:int = 17;
+				var result:String = str;
+				
+				if (str.length > boxThreshold){
+					result = str.slice(0,boxThreshold -3);
+					result = result.concat("...");
+				}
+					
+					
+				return result;	
 			}
 			
 			protected function listButton_clickHandler(event:MouseEvent):void
