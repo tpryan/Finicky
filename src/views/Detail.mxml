@@ -62,7 +62,7 @@
 				
 				toggleBannerControls();
 				
-				directionsBtn.y = itemNav.y + itemNav.height + 20;
+				//directionsBtn.y = itemNav.y + itemNav.height + 20;
 				
 				if (itemAtPlace.picturepath && itemAtPlace.picturepath.length > 0){
 					pictureDisplay.rotationSeed = item.name;
@@ -205,11 +205,11 @@
 		
 	
 	<s:Scroller left="0" right="0" top="0" bottom="0" horizontalScrollPolicy="off" >
-		<s:VGroup id="content" gap="10" clipAndEnableScrolling="true">
-			<components:ItemNavigator id="itemNav" left="0" right="0" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
+		<s:VGroup id="content" gap="10" clipAndEnableScrolling="true" width="100%">
+			<components:ItemNavigator id="itemNav" width="100%" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
 			
 			<s:HGroup>
-				<s:VGroup maxWidth="300">
+				<s:VGroup maxWidth="280" paddingLeft="50">
 					<s:Label id="storeName" filters="{[textShadow]}"  horizontalCenter="0" text="{store.name}" width="280"/>
 					<s:Label id="storeAddress" filters="{[textShadow]}"    horizontalCenter="0" text="{store.address}" width="280"/>
 					<s:Label id="storeCityStateZip" filters="{[textShadow]}"    horizontalCenter="0" text="{store.toCityStateZipString()}" width="280"/>
@@ -219,7 +219,7 @@
 			</s:HGroup>
 			
 			<components:PictureDisplay id="pictureDisplay" alpha="0" source="{itemAtPlace.picturepath}" rotationSeed="{itemAtPlace.item.name}" />
-			<s:Image id="rule" source="@Embed('/assets/bg/rule2.png')" horizontalCenter="0" />
+			<s:Image id="rule" source="@Embed('/assets/bg/rule2.png')" horizontalCenter="0" width="100%" />
 			<s:Label id="matchNotes" width="100%" text="{itemAtPlace.notes}"/>
 		</s:VGroup>
 	</s:Scroller>

@@ -35,7 +35,6 @@ s|IconItemRenderer{
 	fontFamily: "Trade Gothic LT Std Cn";
 	fontSize: 22;
 	color: #000000;
-	paddingLeft:50;
 	fontWeight: bold;
 }
 
@@ -43,7 +42,6 @@ s|IconItemRenderer{
 	fontFamily: "Trade Gothic LT Std";
 	fontSize: 20;
 	color: #000000;
-	paddingLeft:50;
 }
 
 #matchNotes{
