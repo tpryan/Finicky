@@ -3,12 +3,13 @@
 		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemList" xmlns:renderers="renderers.*">
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
-			protected var dataToPush:Object = new Object();
+			protected var dataToPush:DataSingleton;
 			protected var dbManager:DBManager;
 			
 			[Bindable]
@@ -16,7 +17,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				dataToPush = data;
+				dataToPush = data as DataSingleton;
 				dbManager = data.dbManager;
 				items = dbManager.itemDAO.list();
 			}

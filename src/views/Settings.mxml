@@ -3,16 +3,17 @@
 		xmlns:s="library://ns.adobe.com/flex/spark" title="Settings" xmlns:renderers="renderers.*">
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			
 			import mx.events.FlexEvent;
 			
-			protected var dataToPush:Object = new Object();
+			protected var dataToPush:DataSingleton;
 			
 			protected function init(event:FlexEvent):void
 			{
-				dataToPush = data;	
+				dataToPush = data as DataSingleton;	
 			}
 			
 			protected function settingsList_clickHandler(event:MouseEvent):void

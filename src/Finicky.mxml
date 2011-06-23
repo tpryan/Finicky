@@ -9,6 +9,7 @@
 	<fx:Style source="main.css" />
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.fonts.Liberator;
 			import com.terrenceryan.finicky.fonts.LiberatorTLF;
@@ -36,7 +37,7 @@
 			
 			public var dbManager:DBManager = null;
 			public var geoCodeService:GeoCode = new GeoCode();
-			public var dataToPush:Object = new Object();
+			public var dataToPush:DataSingleton = new DataSingleton();
 			public var geo:Geolocation;
 			public var home:Place = new Place();
 			
@@ -153,6 +154,7 @@
 				home.mailingCode = event.result.mailingCode;
 				home.country = event.result.country;
 				dataToPush.home = home;
+				dbManager.currentLocationDBO.save(home);
 			}
 			
 		]]>

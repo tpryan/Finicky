@@ -5,6 +5,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.geo.GeoCode;
 			import com.terrenceryan.finicky.vo.Place;
@@ -17,7 +18,7 @@
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			protected var currentCity:int = 0;
-			protected var dataToPush:Object;
+			protected var dataToPush:DataSingleton;
 			public var i:int = 0;
 			protected var dbManager:DBManager;
 			protected var geoCodeService:GeoCode;
@@ -42,12 +43,17 @@
 				
 				home = data.home;
 				
-				dataToPush = data;
+				dataToPush = data as DataSingleton;
 				dbManager = data.dbManager;
 				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
 				geoCodeService = data.geoCodeService;
 				
 				geoCodeService.addEventListener("result", setLocationBanner);
+				
+				if (data.geo){
+					data.geo.addEventListener(GeolocationEvent.UPDATE, setLocationBanner);
+					data.geo.addEventListener(GeolocationEvent.UPDATE, filterModal_changedHandler);
+				}
 				
 			
 				if (!data.noticeShown){
@@ -200,7 +206,7 @@ How's about you add some?</fx:String>
 		</s:itemRenderer>
 	</s:List>
 
-	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.city} {data.home.state}"  />
+	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.toCityStateString()}"  />
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	

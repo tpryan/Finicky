@@ -16,6 +16,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
@@ -30,7 +31,7 @@
 			import spark.events.ViewNavigatorEvent;
 			import spark.transitions.SlideViewTransition;
 			
-			protected var dataToPush:Object;
+			protected var dataToPush:DataSingleton;
 			[Bindable]
 			protected var item:Item = new Item();
 			[Bindable]
@@ -45,7 +46,7 @@
 			{
 				
 				
-				dataToPush = data;
+				dataToPush = data as DataSingleton;
 				
 				dbManager = data.dbManager;
 				

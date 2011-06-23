@@ -5,6 +5,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
@@ -17,7 +18,7 @@
 			private var scrolledDown:Boolean = false;
 			
 			[Bindable]
-			protected var dataToPush:Object = new Object;
+			protected var dataToPush:DataSingleton;
 			protected var dbManager:DBManager;
 			
 			protected var cameraUI:CameraUI = new CameraUI();
@@ -32,7 +33,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				dataToPush = data;
+				dataToPush = data as DataSingleton;
 				dbManager = data.dbManager;
 				cameraUI.addEventListener(MediaEvent.COMPLETE, onCameraReturn);
 				items = dbManager.itemDAO.list();

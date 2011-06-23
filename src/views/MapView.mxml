@@ -10,6 +10,7 @@
 			import com.esri.ags.symbols.PictureMarkerSymbol;
 			import com.esri.ags.symbols.SimpleMarkerSymbol;
 			import com.esri.ags.symbols.TextSymbol;
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.Place;
 			
@@ -18,7 +19,7 @@
 			
 			[Bindable]
 			protected var play:Number  = .01;
-			protected var dataToPush:Object;
+			protected var dataToPush:DataSingleton;
 			
 			[Bindable]
 			[Embed(source="/assets/icons/mapMarker.png")]
@@ -27,7 +28,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				dataToPush = data;
+				dataToPush = data as DataSingleton;
 				
 				
 				//Format for place names
