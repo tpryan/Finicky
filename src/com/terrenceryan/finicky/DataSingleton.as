@@ -2,6 +2,8 @@ package com.terrenceryan.finicky
 {
 	import com.terrenceryan.finicky.db.DBManager;
 	import com.terrenceryan.finicky.geo.GeoCode;
+	import com.terrenceryan.finicky.vo.Item;
+	import com.terrenceryan.finicky.vo.ItemAtPlace;
 	import com.terrenceryan.finicky.vo.Place;
 	
 	import flash.events.EventDispatcher;
@@ -9,7 +11,6 @@ package com.terrenceryan.finicky
 	import flash.sensors.Geolocation;
 	
 	import mx.collections.ArrayCollection;
-	import com.terrenceryan.finicky.vo.ItemAtPlace;
 	
 	public class DataSingleton extends EventDispatcher
 	{
@@ -27,7 +28,8 @@ package com.terrenceryan.finicky
 		public var place:Object;
 		public var itemName:String;
 		public var itemToPlaceInProgress:Boolean;
-		public var item:*;
+		public var item:Item;
+		public var noticeShown:Boolean;
 		
 		public function DataSingleton()
 		{

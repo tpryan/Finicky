@@ -34,37 +34,37 @@
 			protected function init(event:FlexEvent):void
 			{
 				
-			
+				dataToPush = data as DataSingleton;
 				
-				if ( (data.home) && ((data.home.lat == 0) && (data.home.lon == 0)) && (data.geo) ){
-					geo = data.geo;
+				if ( (dataToPush.home) && ((dataToPush.home.lat == 0) && (dataToPush.home.lon == 0)) && (dataToPush.geo) ){
+					geo = dataToPush.geo;
 					geo.addEventListener(GeolocationEvent.UPDATE, resetList);
 				}
 				
-				home = data.home;
+				home = dataToPush.home;
 				
-				dataToPush = data as DataSingleton;
-				dbManager = data.dbManager;
-				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
-				geoCodeService = data.geoCodeService;
+				
+				dbManager = dataToPush.dbManager;
+				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",dataToPush.home);
+				geoCodeService = dataToPush.geoCodeService;
 				
 				geoCodeService.addEventListener("result", setLocationBanner);
 				
-				if (data.geo){
-					data.geo.addEventListener(GeolocationEvent.UPDATE, setLocationBanner);
-					data.geo.addEventListener(GeolocationEvent.UPDATE, filterModal_changedHandler);
+				if (dataToPush.geo){
+					dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, setLocationBanner);
+					dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, filterModal_changedHandler);
 				}
 				
 			
-				if (!data.noticeShown){
+				if (!dataToPush.noticeShown){
 					if (dbManager.itemAtPlaceDAO.count() == 0){
 						
 						startingNotice.open()
-						data.noticeShown = true;	
+						dataToPush.noticeShown = true;	
 					}
 					else if (itemAtPlaceList.length == 0){
 						alert.open(this,true);
-						data.noticeShown = true;	
+						dataToPush.noticeShown = true;	
 						
 					}
 				}
@@ -125,10 +125,10 @@
 			protected function filterModal_changedHandler(event:Event):void
 			{
 				if (filterModal.filterType == "place"){
-					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",data.home);
+					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",dataToPush.home);
 				}
 				else{
-					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name",data.home);
+					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name",dataToPush.home);
 				}
 				
 			}
@@ -143,7 +143,7 @@
 			
 			protected function setLocationBanner(event:GeoResultEvent):void
 			{
-				locationInterface.location = data.home.toCityStateString();
+				locationInterface.location = dataToPush.home.toCityStateString();
 				
 			}
 			
@@ -206,7 +206,7 @@ How's about you add some?</fx:String>
 		</s:itemRenderer>
 	</s:List>
 
-	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{data.home.toCityStateString()}"  />
+	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{dataToPush.home.toCityStateString()}"  />
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
