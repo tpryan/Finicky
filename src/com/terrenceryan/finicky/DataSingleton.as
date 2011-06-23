@@ -14,7 +14,7 @@ package com.terrenceryan.finicky
 	
 	public class DataSingleton extends EventDispatcher
 	{
-		
+		[Bindable]
 		public var home:Place;
 		public var dbManager:DBManager;
 		public var geo:Geolocation;

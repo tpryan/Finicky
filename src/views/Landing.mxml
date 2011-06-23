@@ -18,6 +18,7 @@
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			protected var currentCity:int = 0;
+			[Bindable]
 			protected var dataToPush:DataSingleton;
 			public var i:int = 0;
 			protected var dbManager:DBManager;
