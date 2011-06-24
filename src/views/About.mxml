@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="About">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		#labelDev, #labelDes, #labelThanks {
+			textAlign: center;
+			fontFamily: "Trade Gothic LT Std Cn";
+			fontSize: 22;
+			color: #000000;
+			fontWeight: bold;
+		}
+		
+		#textDev, #textDes, #textThanks{
+			fontFamily: "Lions Den";
+			fontSize: 35;
+			color: #383539;
+			textAlign: center;
+		}
+	</fx:Style>
+	
+	<s:Image id="logo" source="@Embed('/assets/icons/aboutLogo.png')" horizontalCenter="0" y="0" depth="0"  />
+	
+	<s:Label id="labelDev" horizontalCenter="0" y="350" text="Development" />
+	<s:Label id="textDev" horizontalCenter="0" y="380" text="Terry Ryan"/>
+	
+	<s:Label id="labelDes" horizontalCenter="0" y="450" text="Design"/>
+	<s:Label id="textDes" horizontalCenter="0" y="480" text="The1stMovement"/>
+	
+	<s:Label id="labelThanks" horizontalCenter="0" y="550" text="Special Thanks"/>
+	<s:Label id="textThanks" horizontalCenter="0" y="580" text="Adobe"/>
+	
+</s:View>
