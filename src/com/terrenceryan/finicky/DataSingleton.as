@@ -30,6 +30,7 @@ package com.terrenceryan.finicky
 		public var itemToPlaceInProgress:Boolean;
 		public var item:Item;
 		public var noticeShown:Boolean;
+		public var lastView:String;
 		
 		public function DataSingleton()
 		{

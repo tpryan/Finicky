@@ -90,8 +90,10 @@
 				
 				if (event.keyCode == Keyboard.BACK){
 					
-					event.preventDefault();
-					navigator.popToFirstView();
+					if (dataToPush.lastView == "Landing"){
+						event.preventDefault();
+						navigator.popToFirstView();
+					}
 				}
 				
 				
@@ -110,33 +112,21 @@
 			{
 				
 				
-				if (data.navigating == "right"){
-					dataToPush.selectedIndex--;
-					navigator.popView();
-				}
-				else{
-					var trans:SlideViewTransition = new SlideViewTransition();
-					trans.direction = "right";
-					
-					dataToPush.selectedIndex = data.selectedIndex-1;
-					dataToPush.navigating = "left";
-					navigator.pushView(Detail, dataToPush, null, trans);
-				}
+				var trans:SlideViewTransition = new SlideViewTransition();
+				trans.direction = "right";
+				
+				dataToPush.selectedIndex = data.selectedIndex-1;
+				dataToPush.navigating = "left";
+				navigator.pushView(Detail, dataToPush, null, trans);
 				
 			}
 			
 			protected function itemNav_clickRightHandler(event:Event):void
 			{
 				
-				if (data.navigating == "left"){
-					dataToPush.selectedIndex++;
-					navigator.popView();
-				}
-				else{
-					dataToPush.selectedIndex = data.selectedIndex+1;
-					dataToPush.navigating = "right";
-					navigator.pushView(Detail, dataToPush);
-				}
+				dataToPush.selectedIndex = data.selectedIndex+1;
+				dataToPush.navigating = "right";
+				navigator.pushView(Detail, dataToPush);
 			}
 			
 			private function toggleBannerControls():void

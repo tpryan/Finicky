@@ -29,7 +29,7 @@
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data as DataSingleton;
-				
+				dataToPush.lastView = "MapView";
 				
 				//Format for place names
 				var placeTextFormat:TextFormat = new TextFormat();

@@ -37,6 +37,7 @@
 			{
 				
 				dataToPush = data as DataSingleton;
+				dataToPush.lastView = "Landing";
 				
 				if ( (dataToPush.home) && ((dataToPush.home.lat == 0) && (dataToPush.home.lon == 0)) && (dataToPush.geo) ){
 					geo = dataToPush.geo;
