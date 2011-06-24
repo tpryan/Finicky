@@ -115,6 +115,11 @@
 				
 				if (event.keyCode == Keyboard.BACK){
 					
+					if (locationModal.active){
+						event.preventDefault();
+						locationModal.active = false;
+					}
+					
 					if (scrolledDown == true){
 						event.preventDefault();
 						animateUp.play();
