@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"  
 		 xmlns:s="library://ns.adobe.com/flex/spark" xmlns:renderers="renderers.*">
 	
 	<fx:Metadata>
@@ -37,6 +37,8 @@
 			[Embed(source="/assets/icons/pickPlaceDown.png")]
 			private var pickPlaceDown:Class;
 			
+			private var expanded:Boolean = false;
+			
 			public function get active():Boolean
 			{
 				return _active;
@@ -64,12 +66,18 @@
 				if (event.currentTarget.name == "iconPick"){
 					iconPick.source = pickPlaceDown;
 					placeList.visible = true;
+					growPaper.play();
+					expanded = true;
 				}
 				
 				if (event.currentTarget.name == "iconNew"){
 					iconNew.source = newPlaceDown;
 					placeList.visible = false;
 					dispatchEvent(new Event("newPlaceRequested") );
+					if (expanded){
+						shrinkPaper.play();
+						expanded = false;
+					}
 				}
 			}
 			
@@ -99,7 +107,13 @@
 	</fx:Style>
 	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Animate id="growPaper" duration="500" target="{scroller}">
+			<s:SimpleMotionPath property="height" valueFrom="300" valueTo="{height-20}" />
+		</s:Animate>
+		
+		<s:Animate id="shrinkPaper" duration="500" target="{scroller}">
+			<s:SimpleMotionPath property="height" valueTo="300" valueFrom="{height-20}" />
+		</s:Animate>
 	</fx:Declarations>
 	
 	
@@ -109,33 +123,50 @@
 		</s:fill>
 	</s:Rect>
 	
-	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
-		<s:Image id="bg" width="95%" maxWidth="554" maxHeight="807"  x="10" source="@Embed('/assets/bg/bg_modal_long.png')" verticalCenter="0"/>
 	
-		<s:Button id="closeButton" right="0" y="{bg.y+ 30}" click="closeButton_clickHandler(event)" skinClass="skins.AlertCloseButtonSkin" /> 
+	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
+		
+		
+		
+		<s:Scroller id="scroller" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="95%" height="300" horizontalCenter="0" verticalCenter="-100">
+			<s:Group clipAndEnableScrolling="true" >
+				<s:Image id="bg" width="554" height="807"  source="@Embed('/assets/bg/bg_modal_long.png')" />
+				
+				
+				
+			
+				<s:Image id="iconNew" name="iconNew"  source="{newPlaceUp}" horizontalCenter="0" top="{10}"  click="clickHandler(event)"  />
+				<s:Image id="iconPick" depth="2" name="iconPick" source="{pickPlaceUp}" horizontalCenter="0" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
+				
+				
+				<s:List id="placeList" depth="1" visible="false" top="{iconPick.top + BUTTON_PADDING}" horizontalCenter="0" width="90%" bottom="0" 
+						dataProvider="{places}" contentBackgroundAlpha="0" click="placeList_clickHandler(event)"  >
+					<s:itemRenderer>
+						<fx:Component>
+							<renderers:ItemListRenderer labelField="name" messageFunction="getCityandState" messageStyleName="locationName" 
+														decorator="@Embed('/assets/icons/itemListButtonUp.png')" styleName="itemName">
+								<fx:Script>
+									<![CDATA[
+										protected function getCityandState(obj:Object):String{
+											return obj.toCityStateString();
+										}
+										
+									]]>
+								</fx:Script>
+							</renderers:ItemListRenderer>
+						</fx:Component>
+					</s:itemRenderer>
+				</s:List>	
+				
+			</s:Group>
+		</s:Scroller>
+		
+		
+	
+		
 		
 
-		<s:Image id="iconNew" name="iconNew"  source="{newPlaceUp}" horizontalCenter="0" top="{120}"  click="clickHandler(event)"  />
-		<s:Image id="iconPick" depth="2" name="iconPick" source="{pickPlaceUp}" horizontalCenter="0" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
-			
-		<s:List id="placeList" depth="1" visible="false" top="{iconPick.top + BUTTON_PADDING}" horizontalCenter="0" width="90%" height="330" 
-				dataProvider="{places}" contentBackgroundAlpha="0" click="placeList_clickHandler(event)"  >
-			<s:itemRenderer>
-				<fx:Component>
-					<renderers:ItemListRenderer labelField="name" messageFunction="getCityandState" messageStyleName="locationName" 
-												decorator="@Embed('/assets/icons/itemListButtonUp.png')" styleName="itemName">
-						<fx:Script>
-							<![CDATA[
-								protected function getCityandState(obj:Object):String{
-									return obj.toCityStateString();
-								}
-								
-							]]>
-						</fx:Script>
-					</renderers:ItemListRenderer>
-				</fx:Component>
-			</s:itemRenderer>
-		</s:List>	
+		
 			
 		
 		
