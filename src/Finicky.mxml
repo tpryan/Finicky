@@ -44,7 +44,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
+				//NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				getFonts();
 				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);

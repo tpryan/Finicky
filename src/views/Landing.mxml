@@ -198,7 +198,7 @@ How's about you add some?</fx:String>
 							import com.terrenceryan.finicky.vo.Place;
 							protected function upperLocation(obj:Object):String{
 								var result:String = "";
-								result = obj.place.name.toUpperCase() + " (" + obj.place.getDistanceInHumanForm() +")"; 
+								result = obj.place.name.toUpperCase() + " \n(" + obj.place.getDistanceInHumanForm() +")"; 
 								return result;
 							}
 							

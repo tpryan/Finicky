@@ -27,8 +27,9 @@ s|IconItemRenderer{
 
 .locationName{
 	fontFamily: "Trade Gothic LT Std";
-	fontSize: 24;
-	paddingLeft:58;
+	fontWeight: bold;
+	fontSize: 18;
+	
 }
 
 #storeName{
