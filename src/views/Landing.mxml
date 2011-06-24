@@ -198,7 +198,7 @@ How's about you add some?</fx:String>
 			<fx:Component>
 				<renderers:ItemListRenderer  styleName="itemName" messageStyleName="locationName" labelFunction="getItemName"
 										decorator="@Embed('/assets/icons/itemListButtonUp.png') "
-										messageFunction="upperLocation" 
+										messageFunction="upperLocation" cacheAsBitmap="true" 
 										>
 					<fx:Script>
 						<![CDATA[
