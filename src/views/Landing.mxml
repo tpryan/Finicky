@@ -95,12 +95,12 @@
 				
 				if (event.keyCode == Keyboard.BACK){
 					
-					event.preventDefault();
 					
 					if (filterModal.active){
+						event.preventDefault();
 						filterModal.active = false;
 						filterModal.visible = false;
-					} 
+					}
 				}
 				
 				
@@ -166,6 +166,12 @@
 				mx.core.FlexGlobals.topLevelApplication.viewMenuOpen = true;				
 			}
 			
+			protected function closePopup_okHandler(event:Event):void
+			{
+				NativeApplication.nativeApplication.exit();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -176,7 +182,6 @@
 
 How's about you add some?</fx:String>
 		
-	
 	</fx:Declarations>
 	
 	

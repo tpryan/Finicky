@@ -36,6 +36,7 @@
 			protected function cancelButton_clickHandler(event:MouseEvent):void
 			{
 				dispatchEvent(new Event("cancel"));
+				
 				this.close();
 			}
 			
