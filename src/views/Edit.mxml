@@ -67,6 +67,7 @@
 			{
 				animateDown.play();
 				scrolledDown = true;
+				focusManager.setFocus(notepad.contentArea);
 			}
 			
 			

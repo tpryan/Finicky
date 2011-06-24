@@ -6,12 +6,27 @@
 		<![CDATA[
 			[Bindable]
 			public var text:String = "";
+			
+			protected function contentArea_focusInHandler(event:FocusEvent):void
+			{
+				topBounds.visible = true;
+				bottomBounds.visible = true;
+				
+			}
+			
+			protected function contentArea_focusOutHandler(event:FocusEvent):void
+			{
+				topBounds.visible = false;
+				bottomBounds.visible = false;
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
-	<s:Image id="topBounds" top="0" width="100%" blendMode="multiply" cacheAsBitmap="true"
+	<s:Image id="topBounds" visible="false" top="0" width="100%" blendMode="multiply" cacheAsBitmap="true"
 			 source="@Embed('/assets/bg/noteTop.png')"/>
-	<s:Image id="bottomBounds" bottom="0" width="100%" blendMode="multiply" cacheAsBitmap="true"
+	<s:Image id="bottomBounds" visible="false" y="{contentArea.y + contentArea.height}" width="100%" blendMode="multiply" cacheAsBitmap="true"
 			 source="@Embed('/assets/bg/noteBottom.png')"/>
-	<s:TextArea focusThickness="0" left="25" right="24" top="36" bottom="46" skinClass="skins.NoteSkin" text="@{text}"/>
+	<s:TextArea id="contentArea" focusIn="contentArea_focusInHandler(event)" focusOut="contentArea_focusOutHandler(event)" focusThickness="0" left="25" right="24" top="36"  skinClass="skins.NoteSkin" text="@{text}"/>
 </s:Group>

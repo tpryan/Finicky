@@ -32,9 +32,9 @@ package skins
 			var borderWidth:uint = borderSize * 2;
 			
 			// Draw the contentBackgroundColor
-			graphics.beginFill(0xC3F4FC, getStyle("contentBackgroundAlpha"));
-			graphics.drawRoundRect(borderSize, borderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, layoutCornerEllipseSize, layoutCornerEllipseSize);
-			graphics.endFill();
+			//graphics.beginFill(0xC3F4FC, getStyle("contentBackgroundAlpha"));
+			//graphics.drawRoundRect(borderSize, borderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, layoutCornerEllipseSize, layoutCornerEllipseSize);
+			//graphics.endFill();
 		}
 		
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void{

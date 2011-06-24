@@ -82,11 +82,17 @@
             <s:Fade duration="150" target="{chrome}"/>
         </s:Transition>
     </s:transitions>
-        
+
+	<s:Rect width="100%" height="100%" alpha=".8">
+		<s:fill>
+			<s:SolidColor color="0x000000" />
+		</s:fill>
+	</s:Rect>
+	
     <!--- Defines the background and content group used by this skin. -->
     <s:Group id="chrome" left="0" right="0" top="0" bottom="0" visible.closedGroup="false">
 
-		<s:Image source="@Embed('/assets/bg/bg_modal_long.png')" width="60%" horizontalCenter="0" />	
+		<s:Image source="@Embed('/assets/bg/bg_modal_long.png')" width="60%" horizontalCenter="0"  />	
         
         <!--
         Note: Setting the minimum size to 0 here so that changes to the host component's
