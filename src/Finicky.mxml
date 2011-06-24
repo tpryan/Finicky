@@ -43,6 +43,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				getFonts();
 				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);
@@ -156,6 +157,12 @@
 				home.country = event.result.country;
 				dataToPush.home = home;
 				dbManager.currentLocationDBO.save(home);
+			}
+			
+			protected function onDeactivate(event:Event):void
+			{
+				NativeApplication.nativeApplication.exit();
+				
 			}
 			
 		]]>
