@@ -80,7 +80,7 @@ package skins
 			
 			// Draw the contentBackgroundColor
 			graphics.beginFill(0xC3F4FC, getStyle("contentBackgroundAlpha"));
-			graphics.drawRoundRect(textDisplay.x+10, textDisplay.y-14, textDisplay.width-25, textDisplay.height+15, layoutCornerEllipseSize, layoutCornerEllipseSize);
+			graphics.drawRoundRect(textDisplay.x, textDisplay.y-14, textDisplay.width-25, textDisplay.height+15, layoutCornerEllipseSize, layoutCornerEllipseSize);
 			graphics.endFill();
 			
 		}	

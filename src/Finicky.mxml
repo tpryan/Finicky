@@ -34,6 +34,7 @@
 			import views.Landing;
 			import views.PlaceEdit;
 			import views.Settings;
+			import views.TestView;
 			
 			public var dbManager:DBManager = null;
 			public var geoCodeService:GeoCode = new GeoCode();
