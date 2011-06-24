@@ -4,6 +4,7 @@ package skins
 	import flash.events.FocusEvent;
 	
 	import spark.components.Image;
+	import spark.components.supportClasses.StyleableTextField;
 	import spark.skins.mobile.TextInputSkin;
 	
 	public class EditTexInputSkin extends TextInputSkin
@@ -49,11 +50,20 @@ package skins
 			textDisplay.setStyle("fontSize", 36);
 			textDisplay.setStyle("color", 0x22221b);
 			
+			
+			
 			if (hostComponent.getStyle("textAlign")){
 				textDisplay.setStyle("textAlign", hostComponent.getStyle("textAlign"));
+				textDisplay.x = 15;
+				if (promptDisplay){
+					promptDisplay.x = 15;
+				}
 			}
 			else{
 				textDisplay.setStyle("textAlign", "center");
+				if (promptDisplay){
+					promptDisplay.setStyle("textAlign", "center");
+				}
 			}
 			
 			
@@ -81,7 +91,22 @@ package skins
 			// Draw the contentBackgroundColor
 			graphics.clear();
 			
-		}	
+		}
+		
+		override protected function createPromptDisplay():StyleableTextField
+		{
+			var prompt:StyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
+			prompt.styleName = this;
+			prompt.editable = false;
+			prompt.mouseEnabled = false;
+			
+			prompt.setStyle("fontFamily", "Lions Den");
+			prompt.setStyle("fontSize", 36);
+			prompt.setStyle("color", 0x999999);
+			
+			
+			return prompt;
+		}
 		
 		
 		

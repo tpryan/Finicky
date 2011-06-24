@@ -34,6 +34,7 @@
 			
 			import events.GeoResultEvent;
 			
+			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			protected var dbManager:DBManager;
 			protected var geoCodeService:GeoCode;
@@ -45,20 +46,16 @@
 			protected function keyPress(event:KeyboardEvent):void
 			{
 				trace(event.keyCode);
-				
-				
+
 				if (event.keyCode == Keyboard.BACK){
 					
 					navigator.popView();					
 				}
 				
-				
-				
 			}
 			
 			protected function saveButton_clickHandler(event:MouseEvent):void
 			{
-				
 				
 				dbManager.placeDAO.save(place);	
 				placeid = dbManager.placeDAO.getLastRecordID();
@@ -121,6 +118,12 @@
 				
 			}
 			
+			protected function cancelButton_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				navigator.popView();
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -129,30 +132,26 @@
 		<components:AcceptPopUp id="accept" />
 	</fx:Declarations>
 	
-	
-		<s:Scroller width="100%" height="100%" left="5" right="5" top="5" bottom="5">
-			<s:VGroup clipAndEnableScrolling="true">
+	<s:Scroller width="100%" height="100%" left="5" right="5" top="5" bottom="5">
+		<s:VGroup clipAndEnableScrolling="true">
 			<s:Label id="titleLabel" text="Add/Edit Place"/>
-			<s:Label id="nameLabel" text="Name:"/>
-			<s:TextInput id="nameText" skinClass="skins.EditTexInputSkin" width="100%" text="@{place.name}"/>
-			<s:Label id="addressLabel" text="Address:"/>
-			<s:TextInput id="addressText" skinClass="skins.EditTexInputSkin" width="100%"  text="@{place.address}"/>
-			<s:Label id="cityLabel" text="City:"/>
-			<s:TextInput id="cityText" skinClass="skins.EditTexInputSkin" width="100%"  text="@{place.city}"/>
-			<s:Label id="stateLabel" text="State:"/>
-			<s:TextInput id="stateText" skinClass="skins.EditTexInputSkin" width="100%"  text="@{place.state}"/>
-			<s:Label id="mailingcodeLabel" text="Mailing Code:"/>
-			<s:TextInput id="mailingcodeText" skinClass="skins.EditTexInputSkin" width="100%"  text="@{place.mailingCode}"/>
-			<s:Label id="countryLabel" text="Country:"/>
-			<s:TextInput id="countryText" skinClass="skins.EditTexInputSkin" width="100%"  text="@{place.country}"/>
-			</s:VGroup>	
-		</s:Scroller>
-	
-	
-	
+			<s:TextInput id="nameText" skinClass="skins.FormTexInputSkin" width="100%" text="@{place.name}" prompt="[Name]" />
+			<s:TextInput id="addressText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.address}" prompt="[Address]"/>
+			<s:TextInput id="cityText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.city}" prompt="[City]"/>
+			<s:TextInput id="stateText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.state}" prompt="[State]"/>
+			<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"/>
+			<s:TextInput id="countryText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.country}" prompt="[Country]"/>
+			
+			<s:HGroup width="100%" gap="50" horizontalAlign="center">
+				<s:Button id="saveButton" label="SAVE" skinClass="skins.FormButtonSkin" click="saveButton_clickHandler(event)" />
+				<s:Button id="cancelButton" label="CANCEL" skinClass="skins.FormButtonSkin" click="cancelButton_clickHandler(event)" />
+			</s:HGroup>
+		
+		</s:VGroup>	
+	</s:Scroller>
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="menuSaveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />
 		<s:ViewMenuItem id="deleteButton" label="DELETE" skinClass="skins.DetailsViewMenuItemSkin" click="deleteButton_clickHandler(event)" />
 	</s:viewMenuItems>
 </s:View>

@@ -24,8 +24,10 @@
 			
 			protected function itemList_clickHandler(event:MouseEvent):void
 			{
-				dataToPush.item = itemList.selectedItem;
-				navigator.pushView(ItemEdit,dataToPush);
+				if (itemList.selectedIndex > -1){	
+					dataToPush.item = itemList.selectedItem;
+					navigator.pushView(ItemEdit,dataToPush);
+				}
 			}
 			
 			protected function addButton_clickHandler(event:MouseEvent):void

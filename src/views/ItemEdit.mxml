@@ -55,23 +55,40 @@
 				
 			}
 			
+			protected function alert_closedHandler(event:Event):void
+			{
+				navigator.popView();
+				
+			}
+			
+			protected function cancelButton_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				navigator.popView()
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<components:Alert id="alert"  />
+		<components:Alert id="alert" close="alert_closedHandler(event)"  />
 		<components:AcceptPopUp id="accept" />
 	</fx:Declarations>
 	
 	
 	<s:VGroup left="5" right="5" top="5" bottom="5">
 		<s:Label id="titleLabel" text="Add/Edit Item"/>
-		<s:Label id="nameLabel" text="Name:"/>
-		<s:TextInput id="nameText" skinClass="skins.EditTexInputSkin" width="100%" text="@{item.name}" focusThickness="0"/>
+		<s:TextInput id="nameText" skinClass="skins.FormTexInputSkin" width="100%" text="@{item.name}" focusThickness="0" prompt="Item"/>
+		
+		<s:HGroup width="100%" gap="50" horizontalAlign="center">
+			<s:Button id="saveButton" label="SAVE" skinClass="skins.FormButtonSkin" click="saveButton_clickHandler(event)" />
+			<s:Button id="cancelButton" label="CANCEL" skinClass="skins.FormButtonSkin" click="cancelButton_clickHandler(event)" />
+		</s:HGroup>
+		
 	</s:VGroup>
 	
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="menuSaveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />
 		<s:ViewMenuItem id="deleteButton" label="DELETE" skinClass="skins.DetailsViewMenuItemSkin" click="deleteButton_clickHandler(event)" />
 	</s:viewMenuItems>
 	
