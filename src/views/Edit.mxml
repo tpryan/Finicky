@@ -168,12 +168,17 @@
 			
 			
 			
+			protected function alert_closedHandler(event:Event):void
+			{
+				navigator.popView();				
+			}
+			
 		]]>
 	</fx:Script>
 	
 	
 	<fx:Declarations>
-		<components:Alert id="alert" />
+		<components:Alert id="alert" closed="alert_closedHandler(event)" />
 		<s:Animate id="animateDown" target="{scrollerContent}">
 			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="700" />
 		</s:Animate>
