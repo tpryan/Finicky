@@ -184,7 +184,7 @@
 How's about you add some?</fx:String>
 		
 	</fx:Declarations>
-	
+	<s:Image id="logo" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" y="0" depth="0"  />
 	
 	<s:List id="itemList" left="0" right="0" top="310" bottom="0" dataProvider="{itemAtPlaceList}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
 		<s:itemRenderer>
@@ -214,6 +214,8 @@ How's about you add some?</fx:String>
 		</s:itemRenderer>
 	</s:List>
 
+	
+	
 	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{dataToPush.home.toCityStateString()}"  />
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />

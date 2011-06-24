@@ -11,7 +11,7 @@ package skins
 	{
 		
 		[Bindable]
-		[Embed(source="/assets/bg/bg_list.jpg")]
+		[Embed(source="/assets/bg/bg_main.jpg")]
 		private var bgClass:Class;
 		
 		private var bg:Image = new Image();
@@ -21,8 +21,8 @@ package skins
 			super();
 			bg.source = bgClass;
 			bg.horizontalCenter = 0;
-			bg.width = 680;
-			bg.height = 960;
+			bg.width = 640;
+			bg.height = 1608;
 			addChild(bg);
 			
 		}

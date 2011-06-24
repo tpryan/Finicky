@@ -181,6 +181,8 @@
 		<s:Animate id="animateUp" target="{scrollerContent}">
 			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="0" />
 		</s:Animate>
+		
+		<s:GlowFilter id="textShadow" alpha=".4" color="0x13C7E1" strength="1" />
 	</fx:Declarations>
 	
 	<fx:Style>
@@ -203,14 +205,14 @@
 			<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="350" />
 			
 			<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
-					 text="WHAT DID YOU FIND?" textAlign="center"/>
+					 text="WHAT DID YOU FIND?" textAlign="center" filters="{[textShadow]}" />
 			<components:SuggestionTextBox id="itemTexInput" suggestionPool="{items}" depth="20"
 										  top="61" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
 										  textAlign="center" focusThickness="0"
 										  />
 			
 			<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
-					 text="WHERE DID YOU FIND IT?" textAlign="center"/>
+					 text="WHERE DID YOU FIND IT?" textAlign="center" filters="{[textShadow]}" />
 			<s:Button id="locationButton" top="205" label="Pick Location" horizontalCenter="-0" click="locationButton_clickHandler(event)"
 					  skinClass="skins.EditLocationButtonSkin"/>
 			
