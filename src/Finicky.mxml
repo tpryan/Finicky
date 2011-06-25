@@ -159,9 +159,11 @@
 			
 			protected function onDeactivate(event:Event):void
 			{
-				NativeApplication.nativeApplication.exit();
-				
+				if (dataToPush.allowToClose){
+					NativeApplication.nativeApplication.exit();
+				}
 			}
+			
 			
 		]]>
 	</fx:Script>

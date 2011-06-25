@@ -31,6 +31,7 @@ package com.terrenceryan.finicky
 		public var item:Item;
 		public var noticeShown:Boolean;
 		public var lastView:String;
+		public var allowToClose:Boolean = true;
 		
 		public function DataSingleton()
 		{

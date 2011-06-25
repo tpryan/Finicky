@@ -74,6 +74,7 @@
 			
 			protected function cameraButton_clickHandler(event:MouseEvent):void
 			{
+				dataToPush.allowToClose = false;
 				cameraUI.launch("image");
 				
 			}
@@ -81,8 +82,10 @@
 			protected function onCameraReturn(event:MediaEvent):void
 			{
 				cameraButton.photo = event.data.file.url;
+				dataToPush.allowToClose = true;
 				
 			}
+			
 			
 			protected function saveButton_clickHandler(event:MouseEvent):void
 			{
