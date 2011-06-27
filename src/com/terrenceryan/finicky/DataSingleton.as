@@ -32,6 +32,7 @@ package com.terrenceryan.finicky
 		public var noticeShown:Boolean;
 		public var lastView:String;
 		public var allowToClose:Boolean = true;
+		public var locationReconciler:LocationReconciler;
 		
 		public function DataSingleton()
 		{

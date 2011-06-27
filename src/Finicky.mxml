@@ -10,6 +10,7 @@
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
+			import com.terrenceryan.finicky.LocationReconciler;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.fonts.Liberator;
 			import com.terrenceryan.finicky.fonts.LiberatorTLF;
@@ -32,12 +33,14 @@
 			import mx.events.FlexEvent;
 			
 			import views.Landing;
+			import views.TestView;
 			
 			public var dbManager:DBManager = null;
 			public var geoCodeService:GeoCode = new GeoCode();
 			public var dataToPush:DataSingleton = new DataSingleton();
 			public var geo:Geolocation;
 			public var home:Place = new Place();
+			public var locationReconciler:LocationReconciler = new LocationReconciler();
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -45,8 +48,8 @@
 				getFonts();
 				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);
-				home = dbManager.currentLocationDBO.get();;
-				
+				home = dbManager.currentLocationDBO.get();
+				locationReconciler.reconcile();
 				getLocation();
 				onLoaded();
 				navigator.actionBar.visible = false;
@@ -97,7 +100,7 @@
 				dataToPush.geoCodeService = geoCodeService;
 				dataToPush.geo = geo;
 				dataToPush.os = Capabilities.os;
-				
+				dataToPush.locationReconciler = locationReconciler;
 				
 				if (dataToPush.os.indexOf("iPhone") >= 0){
 					dataToPush.softControls = true;

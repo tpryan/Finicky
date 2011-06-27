@@ -76,12 +76,62 @@ package com.terrenceryan.finicky.db
 			return place;
 		}
 		
+		public function getAtLatLon(lat:Number, lon:Number):Place{
+			var query:String = "";
+			
+			query = "SELECT * " + 
+				"FROM  	place " + 
+				"WHERE 	lat = :lat" +
+				"AND	lon = :lon";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			sqlSelect.parameters[":lat"] = lat;
+			sqlSelect.parameters[":lon"] = lat;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			var place:Place = convertPlainObjectToPlace(result.data[0]);
+			
+			return place;
+		}
+		
 		public function list():ArrayCollection{
 			var query:String = "";
 			
 			query = "SELECT * " + 
 				"FROM  place " +
 				"ORDER BY name";
+			
+			var sqlSelect:SQLStatement = new SQLStatement();
+			sqlSelect.sqlConnection = _conn;
+			
+			sqlSelect.text = query;
+			sqlSelect.execute();
+			var result:SQLResult =  sqlSelect.getResult();
+			
+			
+			var ac:ArrayCollection = new ArrayCollection();
+			if (result.data != null){
+				for (var i:int = 0; i < result.data.length; i++){
+					var place:Place = convertPlainObjectToPlace(result.data[i]);
+					ac.addItem(place);
+				}
+			}
+			return ac;
+			
+		}
+		
+		public function listWithNoLocation():ArrayCollection{
+			var query:String = "";
+			
+			query = "SELECT * " + 
+					"FROM  	place " +
+					"WHERE 	lat = 0 " +
+					"AND	lon = 0 " +
+					"ORDER BY name";
 			
 			var sqlSelect:SQLStatement = new SQLStatement();
 			sqlSelect.sqlConnection = _conn;

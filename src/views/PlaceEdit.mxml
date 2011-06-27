@@ -156,6 +156,7 @@
 			<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  change="resetPlace()"/>
 			<s:TextInput id="countryText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.country}" prompt="[Country]"  change="resetPlace()"/>
 			
+			
 			<s:HGroup width="100%" gap="50" horizontalAlign="center">
 				<s:Button id="saveButton" label="SAVE" skinClass="skins.FormButtonSkin" click="saveButton_clickHandler(event)" />
 				<s:Button id="cancelButton" label="CANCEL" skinClass="skins.FormButtonSkin" click="cancelButton_clickHandler(event)" />

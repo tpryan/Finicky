@@ -13,11 +13,13 @@ package com.terrenceryan.finicky.geo
 	import flash.events.EventDispatcher;
 	import flash.sensors.Geolocation;
 	
+	import mx.collections.ArrayCollection;
 	import mx.rpc.events.FaultEvent;
 	
+	import spark.collections.Sort;
 	
 	[Event(name="result", type="events.GeoResultEvent")]
-
+	
 	public class GeoCode extends EventDispatcher
 	{
 		private const NA_URL:String = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer";
@@ -25,6 +27,7 @@ package com.terrenceryan.finicky.geo
 		
 		private var locatorService:Locator = new Locator();
 		private var wgs:SpatialReference = new SpatialReference(4326);
+		public var placeid:int = 0;
 		
 		
 		public function GeoCode()
@@ -66,6 +69,10 @@ package com.terrenceryan.finicky.geo
 			var eventToReport:GeoResultEvent = new GeoResultEvent("result");
 			var location:Object = new Object();
 			
+			
+		
+			
+			
 			var candidate:AddressCandidate = new AddressCandidate();
 			
 			if (!event.addressCandidates){
@@ -87,7 +94,16 @@ package com.terrenceryan.finicky.geo
 				location.country = "USA";
 			}
 			else{
-				candidate = event.addressCandidates[0];
+				var canAC:ArrayCollection = new ArrayCollection(event.addressCandidates);
+				var sort:Sort = new Sort();
+				sort.compareFunction = scoreOrder;
+				canAC.sort = sort;
+				
+				canAC.refresh();
+				
+				
+				
+				candidate = canAC.getItemAt(0) as AddressCandidate;
 			}
 			
 			location.lon = candidate.location.x;
@@ -95,8 +111,26 @@ package com.terrenceryan.finicky.geo
 			
 			
 			eventToReport.result = location;
+			eventToReport.placeid = placeid;
 			dispatchEvent(eventToReport);
 			
 		}
+		
+		private function scoreOrder(a:Object, b:Object, fields:Array = null):int
+			{
+				var result:int = 0;
+				
+				if (a.score > b.score){
+					result = -1	
+				}
+				else if (a.score == b.score){
+					result = 0;
+				}
+				else{
+					result = 1;
+				}
+				
+				return result;
+			}
 	}
 }
