@@ -161,11 +161,11 @@ package com.terrenceryan.finicky.vo
 			return result;
 		}
 		
-		public function toCityStateString():String
+		public function getCityStateString():String
 		{
 			var result:String = "";
 			
-			if ((_city.length > 0) && (_state.length > 0) ){
+			if (( _city.length > 0) && (_state.length > 0) ){
 				result = _city + ", " + _state;
 			}
 			else if ((_city.length == 0) && (_state.length == 0) ){
@@ -173,6 +173,38 @@ package com.terrenceryan.finicky.vo
 			}
 			else{
 				result = _city + " " + _state;
+			}
+			return result;
+		}
+		
+		public function getCityCountryString():String
+		{
+			var result:String = "";
+			
+			if (( _city.length > 0) && (_country.length > 0) ){
+				result = _city + ", " + _country;
+			}
+			else if ((_city.length == 0) && (_country.length == 0) ){
+				result = "Where are you?";
+			}
+			else{
+				result = _city + " " + _country;
+			}
+			return result;
+		}
+		
+		public function getRendererLabel():String
+		{
+			var result:String = "";
+			
+			if (_city && _state ){
+				result = getCityStateString();
+			}
+			else if (_city && _country ){
+				result = getCityCountryString();
+			}
+			else{
+				result = _city;
 			}
 			return result;
 		}
@@ -226,6 +258,22 @@ package com.terrenceryan.finicky.vo
 			return d;
 		}
 		
+		public function clone():Place{
+			var result:Place = new Place();
+			result.placeid = _placeid;
+			result.name = _name;
+			result.address = _address;
+			result.city = _city;
+			result.state = _state;
+			result.mailingCode = _mailingCode;
+			result.country = _country;
+			result.lat = _lat;
+			result.lon = _lon;
+			result.notes = _notes;
+			trace("Place cloned")
+			return result;
+			
+		}
 		
 		
 	}

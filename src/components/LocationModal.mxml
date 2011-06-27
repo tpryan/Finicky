@@ -148,7 +148,7 @@
 								<fx:Script>
 									<![CDATA[
 										protected function getCityandState(obj:Object):String{
-											return obj.toCityStateString();
+											return obj.getRendererLabel();
 										}
 										
 									]]>

@@ -43,21 +43,21 @@
 				places = dbManager.placeDAO.list();
 				
 				if (data.itemToPlaceInProgress){
-					locationModal.place = data.place;
+					locationModal.place = data.place.clone();
 					itemTexInput.text = data.itemName;
 					locationModal_placeSelectedHandler(null);
 					data.itemToPlaceInProgress = null;
 					data.place = null;
 					data.itemName = null;
+					itemAtPlace = data.itemAtPlace;
 				}
-				
-				if (data.itemAtPlace){
+				else if (data.itemAtPlace){
 					itemAtPlace = data.itemAtPlace;
 					locationModal_placeSelectedHandler(null);
 				}
 				else{
 					itemAtPlace = new ItemAtPlace();
-					itemAtPlace.place = data.home;
+					itemAtPlace.place = data.home.clone();
 				}
 				
 				

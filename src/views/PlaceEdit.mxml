@@ -36,6 +36,8 @@
 			
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
+			
+			import spark.events.TextOperationEvent;
 			protected var dbManager:DBManager;
 			protected var geoCodeService:GeoCode;
 			protected var placeid:int;
@@ -68,6 +70,7 @@
 					geoCodeService = data.geoCodeService;
 					geoCodeService.addEventListener("result", processResult);
 					geoCodeService.fromAddressToLatLon(place.toAddressString());
+					trace("Place without a geocode.")
 				}
 			}
 			
@@ -77,7 +80,7 @@
 				dbManager = data.dbManager;
 				
 				if (data.place){
-					place = data.place;
+					place = data.place.clone();
 					titleLabel.text = "Edit Place";	
 				}
 				else{
@@ -93,6 +96,7 @@
 				place.lat = event.result.lat;
 				place.lon = event.result.lon;
 				place.placeid = placeid;
+				data.place = place;
 				dbManager.placeDAO.save(place);
 				
 			}
@@ -114,6 +118,7 @@
 			
 			protected function alert_closedHandler(event:Event):void
 			{
+				data.place = place;
 				navigator.popView();
 				
 			}
@@ -122,6 +127,15 @@
 			{
 				// TODO Auto-generated method stub
 				navigator.popView();
+			}
+			
+			protected function resetPlace():void
+			{
+				place.lat = 0;
+				place.lon = 0;
+				trace("Place Reset");
+				
+				
 			}
 			
 		]]>
@@ -136,11 +150,11 @@
 		<s:VGroup clipAndEnableScrolling="true">
 			<s:Label id="titleLabel" text="Add/Edit Place"/>
 			<s:TextInput id="nameText" skinClass="skins.FormTexInputSkin" width="100%" text="@{place.name}" prompt="[Name]" />
-			<s:TextInput id="addressText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.address}" prompt="[Address]"/>
-			<s:TextInput id="cityText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.city}" prompt="[City]"/>
-			<s:TextInput id="stateText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.state}" prompt="[State]"/>
-			<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"/>
-			<s:TextInput id="countryText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.country}" prompt="[Country]"/>
+			<s:TextInput id="addressText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.address}" prompt="[Address]" change="resetPlace()"/>
+			<s:TextInput id="cityText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.city}" prompt="[City]"  change="resetPlace()"/>
+			<s:TextInput id="stateText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.state}" prompt="[State]"  change="resetPlace()"/>
+			<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  change="resetPlace()"/>
+			<s:TextInput id="countryText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.country}" prompt="[Country]"  change="resetPlace()"/>
 			
 			<s:HGroup width="100%" gap="50" horizontalAlign="center">
 				<s:Button id="saveButton" label="SAVE" skinClass="skins.FormButtonSkin" click="saveButton_clickHandler(event)" />

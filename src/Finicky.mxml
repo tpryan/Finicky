@@ -41,7 +41,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
+				//NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				getFonts();
 				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);
@@ -138,7 +138,7 @@
 			
 			protected function geolocationUpdateHandler(event:GeolocationEvent):void
 			{
-				geo.setRequestedUpdateInterval(60000);
+				geo.setRequestedUpdateInterval(300000);
 				home.lat = event.latitude;
 				home.lon = event.longitude;
 				geoCodeService.addEventListener("result", geoCodeResultHandler);
@@ -148,6 +148,7 @@
 			
 			protected function geoCodeResultHandler(event:GeoResultEvent):void
 			{
+				geoCodeService.removeEventListener("result", geoCodeResultHandler);
 				home.address = event.result.address;
 				home.city = event.result.city;
 				home.state = event.result.state;

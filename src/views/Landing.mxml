@@ -147,7 +147,7 @@
 			
 			protected function setLocationBanner(event:GeoResultEvent):void
 			{
-				locationInterface.location = dataToPush.home.toCityStateString();
+				locationInterface.location = dataToPush.home.getRendererLabel();
 				
 			}
 			
@@ -229,7 +229,7 @@ How's about you add some?</fx:String>
 
 	
 	
-	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{dataToPush.home.toCityStateString()}"  />
+	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{dataToPush.home.getRendererLabel()}"  />
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
