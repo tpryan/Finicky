@@ -2,6 +2,10 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" enabled="false" visible="false" mouseEnabled="false" 
 		 xmlns:s="library://ns.adobe.com/flex/spark">
 	
+	<fx:Metadata>
+		[Event(name="close", type="flash.events.Event")]
+	</fx:Metadata>
+		
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		#startText{
@@ -32,6 +36,14 @@
 				this.mouseEnabled = true;
 				
 			}
+			
+			protected function closeButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new Event("close"));
+				close();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -50,7 +62,7 @@ Start jotting down all of the hard to find stuff you find along your way.]]>
 		</s:Label>
 				 
 		
-		<s:Button id="closeButton" click="close()" verticalCenter="270" horizontalCenter="0" skinClass="skins.OkButtonSkin" />
+		<s:Button id="closeButton" click="closeButton_clickHandler(event)" verticalCenter="270" horizontalCenter="0" skinClass="skins.OkButtonSkin" />
 		
 		
 		

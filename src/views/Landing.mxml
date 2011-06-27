@@ -180,6 +180,12 @@
 				
 			}
 			
+			protected function startingNotice_closeHandler(event:Event):void
+			{
+				mx.core.FlexGlobals.topLevelApplication.viewMenuOpen = true;				
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -227,7 +233,7 @@ How's about you add some?</fx:String>
 
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
-	<components:StartingNotice id="startingNotice" width="100%" height="100%" />
+	<components:StartingNotice id="startingNotice" width="100%" height="100%" close="startingNotice_closeHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
