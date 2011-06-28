@@ -61,7 +61,6 @@
 Start jotting down all of the hard to find stuff you find along your way.]]>
 		</s:Label>
 				 
-		
 		<s:Button id="closeButton" click="closeButton_clickHandler(event)" verticalCenter="270" horizontalCenter="0" skinClass="skins.OkButtonSkin" />
 		
 		
