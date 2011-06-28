@@ -41,10 +41,12 @@
 			public var geo:Geolocation;
 			public var home:Place = new Place();
 			public var locationReconciler:LocationReconciler = new LocationReconciler();
+			public var closeTimer:Timer;
 			
 			protected function init(event:FlexEvent):void
 			{
-				//NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
+				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
+				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, onActivate);
 				getFonts();
 				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);
@@ -164,10 +166,22 @@
 			protected function onDeactivate(event:Event):void
 			{
 				if (dataToPush.allowToClose){
-					NativeApplication.nativeApplication.exit();
+					closeTimer = new Timer(30000,1);
+					closeTimer.addEventListener(TimerEvent.TIMER_COMPLETE, closeApp);
+					closeTimer.start();
 				}
 			}
 			
+			protected function closeApp(event:Event):void{
+				NativeApplication.nativeApplication.exit();
+			}
+			
+			
+			protected function onActivate(event:Event):void
+			{
+				closeTimer = null;
+				
+			}
 			
 		]]>
 	</fx:Script>
