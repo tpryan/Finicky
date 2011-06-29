@@ -74,7 +74,7 @@
 				
 				if (itemAtPlaceList.length == 0){
 					mapButton.visible = false;
-					
+					noItemsLabel.visible = true;
 				}
 				
 			}
@@ -227,7 +227,7 @@ How's about you add some?</fx:String>
 		</s:itemRenderer>
 	</s:List>
 
-	
+	<s:Label id="noItemsLabel" visible="false" text="No items yet." top="400" horizontalCenter="0" />
 	
 	<components:Location id="locationInterface" filterClicked="locationInterface_filterClickedHandler(event)" location="{dataToPush.home.getRendererLabel()}"  />
 
