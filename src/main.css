@@ -39,7 +39,7 @@ s|IconItemRenderer{
 	fontWeight: bold;
 }
 
-#storeAddress, #storeCityStateZip{
+#storeAddress, #storeCityStateZip, #storeLat, #storeLon{
 	fontFamily: "Trade Gothic LT Std";
 	fontSize: 20;
 	color: #000000;

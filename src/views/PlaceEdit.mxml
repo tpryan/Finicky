@@ -28,6 +28,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.geo.GeoCode;
 			import com.terrenceryan.finicky.vo.Place;
@@ -43,6 +44,8 @@
 			protected var placeid:int;
 			[Bindable]
 			protected var place:Place;
+			[Bindable]
+			private var dataToPush:DataSingleton;
 			
 			
 			protected function keyPress(event:KeyboardEvent):void
@@ -76,7 +79,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				
+				dataToPush = data as DataSingleton;
 				dbManager = data.dbManager;
 				
 				if (data.place){
@@ -138,6 +141,12 @@
 				
 			}
 			
+			protected function changeLocationBtn_updatedHandler(event:Event):void
+			{
+				place = dataToPush.home.clone();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -147,22 +156,30 @@
 	</fx:Declarations>
 	
 	<s:Scroller width="100%" height="100%" left="5" right="5" top="5" bottom="5">
-		<s:VGroup clipAndEnableScrolling="true">
-			<s:Label id="titleLabel" text="Add/Edit Place"/>
-			<s:TextInput id="nameText" skinClass="skins.FormTexInputSkin" width="100%" text="@{place.name}" prompt="[Name]" />
-			<s:TextInput id="addressText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.address}" prompt="[Address]" change="resetPlace()"/>
-			<s:TextInput id="cityText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.city}" prompt="[City]"  change="resetPlace()"/>
-			<s:TextInput id="stateText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.state}" prompt="[State]"  change="resetPlace()"/>
-			<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  change="resetPlace()"/>
-			<s:TextInput id="countryText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.country}" prompt="[Country]"  change="resetPlace()"/>
-			
-			
-			<s:HGroup width="100%" gap="50" horizontalAlign="center">
-				<s:Button id="saveButton" label="SAVE" skinClass="skins.FormButtonSkin" click="saveButton_clickHandler(event)" />
-				<s:Button id="cancelButton" label="CANCEL" skinClass="skins.FormButtonSkin" click="cancelButton_clickHandler(event)" />
-			</s:HGroup>
+		<s:Group clipAndEnableScrolling="true">
+			<components:ChangeLocationButton id="changeLocationBtn" data="{dataToPush}" top="5" right="5" updated="changeLocationBtn_updatedHandler(event)"   />
 		
-		</s:VGroup>	
+			<s:VGroup width="100%" >
+				
+				<s:Label id="titleLabel" text="Add/Edit Place"/>
+				
+				
+				<s:TextInput id="nameText" skinClass="skins.FormTexInputSkin" width="100%" text="@{place.name}" prompt="[Name]" />
+				<s:TextInput id="addressText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.address}" prompt="[Address]" change="resetPlace()"/>
+				<s:TextInput id="cityText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.city}" prompt="[City]"  change="resetPlace()"/>
+				<s:TextInput id="stateText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.state}" prompt="[State]"  change="resetPlace()"/>
+				<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  change="resetPlace()"/>
+				<s:TextInput id="countryText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.country}" prompt="[Country]"  change="resetPlace()"/>
+				
+				
+				<s:HGroup width="100%" gap="50" horizontalAlign="center">
+					<s:Button id="saveButton" label="SAVE" skinClass="skins.FormButtonSkin" click="saveButton_clickHandler(event)" />
+					<s:Button id="cancelButton" label="CANCEL" skinClass="skins.FormButtonSkin" click="cancelButton_clickHandler(event)" />
+				</s:HGroup>
+				
+			</s:VGroup>	
+		</s:Group>
+		
 	</s:Scroller>
 	
 	<s:viewMenuItems>

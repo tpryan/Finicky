@@ -67,6 +67,13 @@
 				
 			}
 			
+			protected function changeLocationBtn_clickedHandler(event:Event):void
+			{
+				dispatchEvent(new Event("locationChanged"));
+				
+			}
+			
+			
 		]]>
 	</fx:Script>
 	

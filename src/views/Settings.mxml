@@ -7,6 +7,7 @@
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			
+			
 			import mx.events.FlexEvent;
 			
 			protected var dataToPush:DataSingleton;
@@ -32,6 +33,10 @@
 						navigator.pushView(ItemAtPlaceList, dataToPush);
 					}
 					
+					if (settingsList.selectedItem.name =="Location"){
+						navigator.pushView(CurrentLocation, dataToPush);
+					}
+					
 				}
 			}
 			
@@ -42,6 +47,7 @@
 			<fx:Object name="Items" details="Add/Edit/Remove Items" />
 			<fx:Object name="Places" details="Add/Edit/Remove Places" />
 			<fx:Object name="Matches" details="Remove links between Items and Places" />
+			<fx:Object name="Location" details="View and refresh details about current location" />
 		</s:ArrayCollection>
 	</fx:Declarations>
 	

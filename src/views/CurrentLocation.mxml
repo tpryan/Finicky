@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="CurrentLocation" xmlns:components="components.*">
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
+			import com.terrenceryan.finicky.vo.Place;
+			
+			import flash.sensors.Geolocation;
+			
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			protected var home:Place;
+			[Bindable]
+			private var dataToPush:DataSingleton;
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data as DataSingleton;
+				home = data.home;				
+			}
+			
+			
+		
+			
+			protected function changeLocationBtn_updatedHandler(event:Event):void
+			{
+				home = data.home;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Current Location"/>
+	
+	<s:HGroup top="180">
+		<s:VGroup id="addressInfo" maxWidth="280" paddingLeft="50" >
+			
+			<s:Label id="storeAddress"   horizontalCenter="0" text="{home.address}" width="280"/>
+			<s:Label id="storeCityStateZip"  horizontalCenter="0" text="{home.toCityStateZipString()}" width="280"/>
+			<s:Label id="storeLat" horizontalCenter="0" text="{home.lat}" width="280"/>
+			<s:Label id="storeLon" horizontalCenter="0" text="{home.lon}" width="280"/>
+		</s:VGroup>
+		
+		<components:ChangeLocationButton id="changeLocationBtn" data="{dataToPush}" updated="changeLocationBtn_updatedHandler(event)"   />	
+		
+	</s:HGroup>
+	
+	
+	
+	
+	
+</s:View>

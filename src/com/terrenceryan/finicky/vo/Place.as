@@ -124,7 +124,7 @@ package com.terrenceryan.finicky.vo
 		{
 			_notes = value;
 		}
-
+		[Bindable]
 		public function get lon():Number
 		{
 			return _lon;
@@ -134,7 +134,7 @@ package com.terrenceryan.finicky.vo
 		{
 			_lon = value;
 		}
-
+		[Bindable]
 		public function get lat():Number
 		{
 			return _lat;

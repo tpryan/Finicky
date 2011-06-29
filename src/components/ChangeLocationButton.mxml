@@ -1,44 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" height="75" width="75"
-		 xmlns:s="library://ns.adobe.com/flex/spark" click="clickHandler()" mouseDown="down(event)" mouseUp="up(event)" >
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" click="icon_clickHandler(event)" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" width="100" height="60"  >
 	
 	<fx:Metadata>
 		[Event(name="clicked", type="flash.events.Event")]
+		[Event(name="updated", type="flash.events.Event")]
 	</fx:Metadata>
 	
 	<fx:Script>
 		
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
+			
+			import flash.sensors.Geolocation;
+			
 			import mx.events.FlexEvent;
 			
-		
-
-			protected function clickHandler():void
-			{
-				dispatchEvent(new Event("clicked"));
-			}
+			public var data:DataSingleton;
+			private var geo:Geolocation;
 			
 			
-			protected function down(event:MouseEvent):void
+			protected function icon_clickHandler(event:MouseEvent):void
 			{
-				icon.source = "assets/icons/changelocationdown.png";
+				if (data && data.geo){
+					geo = data.geo;
+					geo.addEventListener(GeolocationEvent.UPDATE, processResponse);
+					geo.setRequestedUpdateInterval(100);
+					spinner.visible = true;
+					buttonText.visible = true;
+					icon.visible = false;
+					spinEffect.stop();
+					spinEffect.play();
+				}
 				
 			}
 			
-			protected function up(event:MouseEvent):void
+			protected function processResponse(event:GeolocationEvent):void
 			{
-				icon.source = "assets/icons/changelocationup.png";
+				geo.removeEventListener(GeolocationEvent.UPDATE, processResponse);
+				dispatchEvent(new Event("updated"));
+				spinEffect.stop();
+				spinner.visible = false;
+				icon.visible = true;
+				buttonText.visible = false;
 				
 			}
-			
 			
 			protected function init(event:FlexEvent):void
 			{
+				buttonText.x = icon.x;
+				buttonText.y = icon.y;
 				
 			}
 			
 		]]>
 	</fx:Script>
+	<fx:Declarations>
+		<s:Rotate id="spinEffect" duration="1000" angleFrom="0" angleTo="360" target="{spinner}" repeatCount="0" easer="{null}"   /> 
+	</fx:Declarations>
 	
-	<s:Image id="icon" horizontalCenter="0" verticalCenter="0" source="assets/icons/changelocationup.png" />
+	<s:Image id="buttonText" visible="false" source="@Embed('/assets/icons/changelocationinProgress.png')"  />
+	<s:Image id="spinner" x="{icon.x}" y="{icon.y}" visible="false" transformX="12" transformY="12"  source="@Embed('/assets/icons/locationIndicator.png')"  />
+	<s:Button id="icon" top="0" right="0" skinClass="skins.ChangeLocationButtonSkin" click="icon_clickHandler(event)" />
 </s:Group>
