@@ -19,6 +19,8 @@
 			import com.terrenceryan.finicky.fonts.Spoleto;
 			import com.terrenceryan.finicky.fonts.TradeGothicLTBC;
 			import com.terrenceryan.finicky.fonts.TradeGothicLTBCTLF;
+			import com.terrenceryan.finicky.fonts.TradeGothicLTStdCn;
+			import com.terrenceryan.finicky.fonts.TradeGothicLTStdCnTLF;
 			import com.terrenceryan.finicky.fonts.tradegothic;
 			import com.terrenceryan.finicky.fonts.tradegothicbold;
 			import com.terrenceryan.finicky.fonts.tradegothictlf;
@@ -132,7 +134,8 @@
 				var myFont9:Font = new LiberatorTLF as Font;
 				var myFont10:Font = new TradeGothicLTBC as Font;
 				var myFont11:Font = new TradeGothicLTBCTLF as Font;
-				
+				var myFont12:Font = new TradeGothicLTStdCn as Font;
+				var myFont13:Font = new TradeGothicLTStdCnTLF as Font;
 				
 				var fonts:Array = Font.enumerateFonts();
 				for each (var key:Font in fonts)
