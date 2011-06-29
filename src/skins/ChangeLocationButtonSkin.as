@@ -12,7 +12,7 @@ package skins
 		private var up:Class;
 		
 		[Bindable]
-		[Embed(source="assets/icons/changelocationdown.png")]
+		[Embed(source="/assets/icons/changelocationdown.png")]
 		private var down:Class;
 		
 		
