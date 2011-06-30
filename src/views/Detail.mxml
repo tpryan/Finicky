@@ -192,7 +192,6 @@
 	</fx:Declarations>
 	
 	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
-	<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')" depth="0" rotation="10" y="140" x="50"  />	
 	
 	<s:Scroller left="0" right="0" top="0" bottom="0" horizontalScrollPolicy="off" >
 		
@@ -202,9 +201,9 @@
 			<s:HGroup>
 				<s:VGroup id="addressInfo" maxWidth="280" paddingLeft="50">
 					
-					<s:Label id="storeName" filters="{[textShadow]}"  horizontalCenter="0" text="{store.name}" width="280"/>
-					<s:Label id="storeAddress" filters="{[textShadow]}"    horizontalCenter="0" text="{store.address}" width="280"/>
-					<s:Label id="storeCityStateZip" filters="{[textShadow]}"    horizontalCenter="0" text="{store.toCityStateZipString()}" width="280"/>
+					<s:Label id="storeName"   horizontalCenter="0" text="{store.name}" width="280"/>
+					<s:Label id="storeAddress"     horizontalCenter="0" text="{store.address}" width="280"/>
+					<s:Label id="storeCityStateZip"     horizontalCenter="0" text="{store.toCityStateZipString()}" width="280"/>
 				</s:VGroup>
 				
 				<s:Button id="directionsBtn" label="DIRECTIONS" z="0" y="{itemNav.y + itemNav.height + 20}" skinClass="skins.DirectionsButtonSkin" click="directionsBtn_clickHandler(event)" />	

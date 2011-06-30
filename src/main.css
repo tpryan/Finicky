@@ -34,6 +34,7 @@ s|IconItemRenderer{
 
 #storeName{
 	fontFamily: "Trade Gothic LT Std Cn";
+	fontWeight: bold; 
 	fontSize: 22;
 	color: #000000;
 	fontWeight: bold;
