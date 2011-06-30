@@ -16,6 +16,8 @@ package com.terrenceryan.finicky
 	{
 		[Bindable]
 		public var home:Place;
+		[Bindable]
+		public var homeAlternatives:ArrayCollection;
 		public var dbManager:DBManager;
 		public var geo:Geolocation;
 		public var geoCodeService:GeoCode;

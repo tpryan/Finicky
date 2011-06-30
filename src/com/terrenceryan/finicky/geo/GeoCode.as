@@ -6,6 +6,7 @@ package com.terrenceryan.finicky.geo
 	import com.esri.ags.geometry.WebMercatorMapPoint;
 	import com.esri.ags.tasks.Locator;
 	import com.esri.ags.tasks.supportClasses.AddressCandidate;
+	import com.terrenceryan.finicky.vo.Place;
 	
 	import events.GeoResultEvent;
 	
@@ -19,6 +20,7 @@ package com.terrenceryan.finicky.geo
 	import spark.collections.Sort;
 	
 	[Event(name="result", type="events.GeoResultEvent")]
+	[Event(name="alternativesResult", type="events.GeoResultEvent")]
 	
 	public class GeoCode extends EventDispatcher
 	{
@@ -45,17 +47,69 @@ package com.terrenceryan.finicky.geo
 			
 		}
 		
+		public function getAlternativeLocations(place:Place):void{
+			var addressToSend:Object = { SingleLine: place.toAddressString() };
+			locatorService.outSpatialReference = wgs;
+			locatorService.addEventListener(LocatorEvent.ADDRESS_TO_LOCATIONS_COMPLETE,processAlternatives);
+			locatorService.addressToLocations(addressToSend,["*"]);
+			
+		}
+		
+		protected function processAlternatives(event:LocatorEvent):void
+		{
+			var ac:ArrayCollection = new ArrayCollection();
+			var eventToReport:GeoResultEvent = new GeoResultEvent("alternativesResult");
+			
+			for (var i:int = 0; i < event.addressCandidates.length; i++){
+				var candidate:AddressCandidate = event.addressCandidates[i] as AddressCandidate;
+				
+				if (candidate.score >= 70){
+					var place:Place = convertAddressCandidateToPlace(candidate);
+					ac.addItem(place);
+				}
+			
+			}
+			
+			eventToReport.result = ac;
+			dispatchEvent(eventToReport);
+		}
+		
+		private function convertAddressCandidateToPlace(addressCandidate:AddressCandidate):Place{
+			var place:Place = new Place();
+			
+			if (addressCandidate.attributes.House && addressCandidate.attributes.House.length > 0){
+				place.address = addressCandidate.attributes.House;
+			}
+			else{
+				place.address = addressCandidate.attributes.FromAddr;
+				place.address = place.address + " - ";
+				place.address = place.address + addressCandidate.attributes.ToAddr;
+			}
+			place.address = place.address + " ";
+			place.address = place.address + addressCandidate.attributes.StreetName;
+			place.address = place.address + " ";
+			place.address = place.address + addressCandidate.attributes.SufType;
+			
+			place.state = addressCandidate.attributes.State;
+			place.mailingCode = addressCandidate.attributes.Zip;
+			
+			place.lat = addressCandidate.attributes.X;
+			place.lon = addressCandidate.attributes.Y;
+			
+			return place;
+		}
+		
 		public function fromLatLonToAddress(lat:Number,lon:Number):void{
 			
 			var mappoint:MapPoint = new MapPoint(lon,lat,wgs);
-			
-			
 			locatorService.outSpatialReference = wgs;
 			locatorService.addEventListener(LocatorEvent.LOCATION_TO_ADDRESS_COMPLETE,getLocation);
 			locatorService.addEventListener(FaultEvent.FAULT, faultHandler);
 			locatorService.locationToAddress(mappoint,100);
 			
 		}
+		
+		
 		
 		protected function faultHandler(event:FaultEvent):void
 		{
@@ -68,10 +122,6 @@ package com.terrenceryan.finicky.geo
 			trace("got result");
 			var eventToReport:GeoResultEvent = new GeoResultEvent("result");
 			var location:Object = new Object();
-			
-			
-		
-			
 			
 			var candidate:AddressCandidate = new AddressCandidate();
 			

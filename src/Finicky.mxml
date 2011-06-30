@@ -32,6 +32,7 @@
 			
 			import flash.sensors.Geolocation;
 			
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
 			import views.Landing;
@@ -164,6 +165,16 @@
 				home.country = event.result.country;
 				dataToPush.home = home;
 				dbManager.currentLocationDBO.save(home);
+				geoCodeService.addEventListener("alternativesResult", processAlternatives);
+				geoCodeService.getAlternativeLocations(home);
+			}
+			
+			protected function processAlternatives(event:GeoResultEvent):void
+			{
+				geoCodeService.removeEventListener("alternativesResult", processAlternatives);
+				var ac:ArrayCollection = event.result as ArrayCollection;
+				dataToPush.homeAlternatives = ac;
+				
 			}
 			
 			protected function onDeactivate(event:Event):void
@@ -185,6 +196,8 @@
 				closeTimer = null;
 				
 			}
+			
+			
 			
 		]]>
 	</fx:Script>
