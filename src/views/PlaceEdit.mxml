@@ -72,7 +72,7 @@
 				if (place.lat == 0){ 
 					geoCodeService = data.geoCodeService;
 					geoCodeService.addEventListener("result", processResult);
-					geoCodeService.fromAddressToLatLon(place.toAddressString());
+					geoCodeService.fromAddressToLatLon(place);
 					trace("Place without a geocode.")
 				}
 			}

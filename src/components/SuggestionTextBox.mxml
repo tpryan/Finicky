@@ -2,6 +2,10 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" 
 		 xmlns:s="library://ns.adobe.com/flex/spark">
 	
+	<fx:Metadata>
+		[Event(name="itemSelected", type="flash.events.Event")]
+	</fx:Metadata>
+	
 	<fx:Script>
 		<![CDATA[
 			
@@ -24,6 +28,11 @@
 			[Bindable]
 			public var focusThickness:Number = 0;
 			
+			[Bindable]
+			public var selectedItem:Object;
+			
+			
+			
 			
 			
 			protected function init(event:FlexEvent):void
@@ -37,13 +46,19 @@
 				suggestionList.visible = true;
 				filter();
 				
+				if (suggestions.length == 0){
+					depth = 0;
+				}
+				
 			}
 			
 			protected function ti_focusOutHandler(event:FocusEvent):void
 			{
 				if (!event.relatedObject || !event.relatedObject.name || event.relatedObject.name != "suggestionList"){
 					suggestionList.visible = false;
+					
 				}
+				depth = 0;
 			}
 			
 			private function filter():void {
@@ -63,8 +78,7 @@
 			protected function suggesttionList_clickHandler(event:MouseEvent):void
 			{
 				if (suggestionList.selectedIndex > -1){
-					ti.text = suggestionList.selectedItem.name;
-					suggestionList.visible = false;
+					itemSelected(suggestionList.selectedItem);
 				}
 				
 			}
@@ -72,11 +86,24 @@
 			protected function ti_enterHandler(event:FlexEvent):void
 			{
 				if (suggestionList.visible){
-					ti.text = suggestions.getItemAt(0).name;
-					suggestionList.visible = false;
+					itemSelected(suggestions.getItemAt(0));
 				}
 			}
 			
+			protected function itemSelected(obj:Object):void{
+				ti.text = obj.name;
+				selectedItem = obj;
+				dispatchEvent( new Event("itemSelected") );
+				suggestionList.visible = false;
+				depth = 0;
+			}
+			
+			
+			protected function ti_focusInHandler(event:FocusEvent):void
+			{
+				depth = 20;
+				
+			}
 			
 		]]>
 	</fx:Script>
@@ -92,9 +119,9 @@
 		}
 	</fx:Style>
 	
-	<s:TextInput id="ti" skinClass="skins.EditTexInputSkin" enter="ti_enterHandler(event)"  width="100%" text="@{text}" textAlign="{textAlign}" focusThickness="{focusThickness}" change="ti_changeHandler(event)" focusOut="ti_focusOutHandler(event)"/>
+	<s:TextInput id="ti" skinClass="skins.EditTexInputSkin" enter="ti_enterHandler(event)" focusIn="ti_focusInHandler(event)"  width="100%" text="@{text}" textAlign="{textAlign}" focusThickness="{focusThickness}" change="ti_changeHandler(event)" focusOut="ti_focusOutHandler(event)"/>
 	<s:List id="suggestionList" name="suggestionList" 
-				visible="false" contentBackgroundAlpha="0"
+				visible="false" contentBackgroundAlpha="0" depth="10"
 				width="100%" left="13" right="18" y="{ti.y + 80}"  
 				dataProvider="{suggestions}" labelField="name"
 				click="suggesttionList_clickHandler(event)" 

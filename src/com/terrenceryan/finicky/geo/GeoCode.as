@@ -24,7 +24,7 @@ package com.terrenceryan.finicky.geo
 	
 	public class GeoCode extends EventDispatcher
 	{
-		private const NA_URL:String = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_NA_10/GeocodeServer";
+		private const NA_URL:String = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Streets_US/GeocodeServer";
 		private const EU_URL:String = "http://tasks.arcgisonline.com/ArcGIS/rest/services/Locators/TA_Address_EU/GeocodeServer";
 		
 		private var locatorService:Locator = new Locator();
@@ -39,19 +39,36 @@ package com.terrenceryan.finicky.geo
 		
 		}
 		
-		public function fromAddressToLatLon(address:String):void{
-			var addressToSend:Object = { SingleLine: address };
+		public function fromAddressToLatLon(place:Place):void{
+			var addressToSend:Object = new Object();
+			addressToSend.Street = place.address;
+			addressToSend.City = place.city;
+			addressToSend.State = place.state;
+			addressToSend.ZIP = place.mailingCode;
 			locatorService.outSpatialReference = wgs;
 			locatorService.addEventListener(LocatorEvent.ADDRESS_TO_LOCATIONS_COMPLETE,getLocation);
+			locatorService.addEventListener(FaultEvent.FAULT, handleFault);
 		 	locatorService.addressToLocations(addressToSend,["*"]);
 			
 		}
 		
 		public function getAlternativeLocations(place:Place):void{
-			var addressToSend:Object = { SingleLine: place.toAddressString() };
+			var addressToSend:Object = new Object();
+			addressToSend.Street = place.address;
+			addressToSend.City = place.city;
+			addressToSend.State = place.state;
+			addressToSend.ZIP = place.mailingCode;
+			
 			locatorService.outSpatialReference = wgs;
 			locatorService.addEventListener(LocatorEvent.ADDRESS_TO_LOCATIONS_COMPLETE,processAlternatives);
+			locatorService.addEventListener(FaultEvent.FAULT, handleFault);
 			locatorService.addressToLocations(addressToSend,["*"]);
+			
+		}
+		
+		protected function handleFault(event:FaultEvent):void
+		{
+			trace("geoCode.getAlternativeLocations Error");
 			
 		}
 		
@@ -63,7 +80,7 @@ package com.terrenceryan.finicky.geo
 			for (var i:int = 0; i < event.addressCandidates.length; i++){
 				var candidate:AddressCandidate = event.addressCandidates[i] as AddressCandidate;
 				
-				if (candidate.score >= 70){
+				if (candidate.score >= 0){
 					var place:Place = convertAddressCandidateToPlace(candidate);
 					ac.addItem(place);
 				}
@@ -80,18 +97,57 @@ package com.terrenceryan.finicky.geo
 			if (addressCandidate.attributes.House && addressCandidate.attributes.House.length > 0){
 				place.address = addressCandidate.attributes.House;
 			}
+			else if (addressCandidate.attributes.LeftFrom){
+				place.address = addressCandidate.address.toString().split(" ")[0];
+			}
+			else if (addressCandidate.address is String){
+				place.address = addressCandidate.attributes.LeftFrom;
+			}
 			else{
 				place.address = addressCandidate.attributes.FromAddr;
 				place.address = place.address + " - ";
 				place.address = place.address + addressCandidate.attributes.ToAddr;
 			}
+			if (addressCandidate.attributes.PreType){
+				place.address = place.address + " ";
+				place.address = place.address + addressCandidate.attributes.PreType;
+			}
+			
+			
+			
 			place.address = place.address + " ";
 			place.address = place.address + addressCandidate.attributes.StreetName;
 			place.address = place.address + " ";
-			place.address = place.address + addressCandidate.attributes.SufType;
 			
-			place.state = addressCandidate.attributes.State;
-			place.mailingCode = addressCandidate.attributes.Zip;
+			
+			if (addressCandidate.attributes.SufType){
+				place.address = place.address + addressCandidate.attributes.SufType;
+			}
+			else if(addressCandidate.attributes.StreetType){
+				place.address = place.address + addressCandidate.attributes.StreetType;
+			}
+			
+			
+			if (addressCandidate.attributes.City){
+				place.city = addressCandidate.attributes.City;
+			}
+			else if(addressCandidate.attributes.LeftCity){
+				place.city = addressCandidate.attributes.LeftCity;
+			}
+			
+			if (addressCandidate.attributes.State){
+				place.state = addressCandidate.attributes.State;
+			}
+			else if(addressCandidate.attributes.LeftState){
+				place.state = addressCandidate.attributes.LeftState;
+			}
+			
+			if (addressCandidate.attributes.ZIP){
+				place.mailingCode = addressCandidate.attributes.ZIP;
+			}
+			else if(addressCandidate.attributes.LeftZIP){
+				place.mailingCode = addressCandidate.attributes.LeftZIP;
+			}
 			
 			place.lat = addressCandidate.attributes.X;
 			place.lon = addressCandidate.attributes.Y;
@@ -105,7 +161,7 @@ package com.terrenceryan.finicky.geo
 			locatorService.outSpatialReference = wgs;
 			locatorService.addEventListener(LocatorEvent.LOCATION_TO_ADDRESS_COMPLETE,getLocation);
 			locatorService.addEventListener(FaultEvent.FAULT, faultHandler);
-			locatorService.locationToAddress(mappoint,100);
+			locatorService.locationToAddress(mappoint,1000);
 			
 		}
 		
@@ -127,14 +183,21 @@ package com.terrenceryan.finicky.geo
 			
 			if (!event.addressCandidates){
 				candidate = event.addressCandidate;
-				location.address = candidate.address.Address;
+				
+				if(candidate.address.Street){
+					location.address = candidate.address.Street;
+				}
+				else{
+					location.address = candidate.address.Address;
+				}
+				
 				location.city = candidate.address.City;
 				if (candidate.address.State){
 					location.state = candidate.address.State;
 				}
 				
-				if (candidate.address.Zip){
-					location.mailingCode = candidate.address.Zip;
+				if (candidate.address.ZIP){
+					location.mailingCode = candidate.address.ZIP;
 				}
 				
 				if (candidate.address.Postcode){

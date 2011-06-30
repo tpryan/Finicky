@@ -33,7 +33,7 @@ package com.terrenceryan.finicky
 				var geoCode:GeoCode = new GeoCode();
 				geoCode.placeid = place.placeid;
 				geoCode.addEventListener("result", processResult);
-				geoCode.fromAddressToLatLon(place.toAddressString());
+				geoCode.fromAddressToLatLon(place);
 			}
 			
 		}

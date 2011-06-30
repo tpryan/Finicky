@@ -13,10 +13,22 @@ package renderers
 		private var _bgVisible:Boolean = false;
 		
 		[Embed(source='/assets/bg/bg_itemSelected.png')]
-		private static var itemSelected:Class;	
+		private static var itemSelected:Class;
+		
+		[Embed(source='/assets/bg/bg_itemSelectedSmaller.png')]
+		private static var itemSelectedSmall:Class;	
 		
 		[Embed(source='/assets/icons/itemListButtonDown.png')]
 		private static var itemDown:Class;
+		
+		[Embed(source='/assets/icons/itemListButtonUp.png')]
+		private static var itemUp:Class;
+		
+		[Embed(source='/assets/icons/itemListButtonSmallDown.png')]
+		private static var itemDownSmall:Class;
+		
+		[Embed(source='/assets/icons/itemListButtonSmallUp.png')]
+		private static var itemUpSmall:Class;
 		
 		[Embed(source='/assets/bg/rule.png')]
 		private static var rule:Class;
@@ -30,23 +42,56 @@ package renderers
 		public var bg:Image = new Image();
 		public var decoratorCover:Image = new Image();
 		public var ruleImg:Image = new Image();
+		public var size:String;
+		
+		
+		protected var decoratorClass:Class;
+		protected var decoratorCoverClass:Class;
+		protected var decoratorWidth:int;
+		protected var decoratorHeight:int;
+		
+		protected var highlightClass:Class;
+		protected var highlightWidth:int;
+		protected var highlightHeight:int;
+		
 		
 		public function ItemListRenderer()
 		{
 			super();
 			
+			if (size =="small"){
+				decoratorClass = itemUpSmall
+				decoratorCoverClass = itemDownSmall;
+				decoratorHeight = 61;
+				decoratorWidth = 60;
+				
+				highlightClass = itemSelectedSmall;
+				highlightHeight = 585;
+				highlightWidth = 75;
+			}
+			else{
+				decoratorClass = itemUp;
+				decoratorCoverClass = itemDown;
+				
+				decoratorHeight = 125;
+				decoratorWidth = 123;
+				
+				highlightClass = itemSelected;
+				highlightHeight = 585;
+				highlightWidth = 150;
+			}
 			
 			
-			decoratorCover.source= itemDown;
-			decoratorCover.width = 123;
-			decoratorCover.height = 125;
+			decoratorCover.source= decoratorCoverClass;
+			decoratorCover.width = decoratorWidth;
+			decoratorCover.height = decoratorHeight;
 			decoratorCover.visible = false;
 			addChildAt(decoratorCover, 0);
 			
 			
-			bg.source = itemSelected;
-			bg.width = 585;
-			bg.height = 150;
+			bg.source = highlightClass;
+			bg.width = highlightHeight;
+			bg.height = highlightWidth;
 			bg.y = 18;
 			bg.visible = false;
 			addChildAt(bg, 0);
@@ -98,6 +143,10 @@ package renderers
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
+			
+			decoratorDisplay.source = itemUp;
+			setElementSize(decoratorDisplay, decoratorWidth, decoratorHeight);
+			
 			setElementPosition(decoratorCover, decoratorDisplay.x, decoratorDisplay.y);
 			setElementSize(ruleImg, width, 2);
 			setElementPosition(ruleImg, 0,0);

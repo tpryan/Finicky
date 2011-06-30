@@ -7,8 +7,12 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.geo.GeoCode;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
+			import com.terrenceryan.finicky.vo.Place;
+			
+			import events.GeoResultEvent;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
@@ -31,6 +35,9 @@
 			[Bindable]
 			protected var itemAtPlace:ItemAtPlace;
 			
+			[Bindable]
+			protected var alternatives:ArrayCollection;
+			
 			protected function init(event:FlexEvent):void
 			{
 				
@@ -41,23 +48,23 @@
 				cameraUI.addEventListener(MediaEvent.COMPLETE, onCameraReturn);
 				items = dbManager.itemDAO.list();
 				places = dbManager.placeDAO.list();
+				alternatives = dataToPush.homeAlternatives;
 				
 				if (data.itemToPlaceInProgress){
-					locationModal.place = data.place.clone();
-					itemTexInput.text = data.itemName;
-					locationModal_placeSelectedHandler(null);
+					locationSelector.place = dataToPush.place.clone();
+					itemTexInput.text = dataToPush.itemName;
+					placeTextInput.text = dataToPush.placeName;
 					data.itemToPlaceInProgress = null;
 					data.place = null;
 					data.itemName = null;
-					itemAtPlace = data.itemAtPlace;
+					itemAtPlace = dataToPush.itemAtPlace;
 				}
 				else if (data.itemAtPlace){
-					itemAtPlace = data.itemAtPlace;
-					locationModal_placeSelectedHandler(null);
+					itemAtPlace = dataToPush.itemAtPlace;
 				}
 				else{
 					itemAtPlace = new ItemAtPlace();
-					itemAtPlace.place = data.home.clone();
+					itemAtPlace.place = dataToPush.home.clone();
 				}
 				
 				
@@ -101,15 +108,35 @@
 				
 				
 				var itemAtPlace:ItemAtPlace = new ItemAtPlace();
-				itemAtPlace.place = locationModal.place;
+				itemAtPlace.place = locationSelector.place;
+				itemAtPlace.place.name = placeTextInput.text;
 				itemAtPlace.item = item;
 				itemAtPlace.date = new Date();
 				itemAtPlace.picturepath = cameraButton.photo;
 				itemAtPlace.notes = notepad.text;
 				
 				dbManager.itemAtPlaceDAO.save(itemAtPlace);
+
+				if (itemAtPlace.place.lat == 0){ 
+					var geoCodeService:GeoCode = new GeoCode();
+					geoCodeService.placeid = dbManager.placeDAO.getLastRecordID();
+					geoCodeService.addEventListener("result", processResult);
+					
+					geoCodeService.fromAddressToLatLon(itemAtPlace.place);
+					trace("Place without a geocode.")
+				}
+				
 				alert.message = "Your match has been saved. ";
 				alert.open(this, true);
+				
+			}
+			
+			protected function processResult(event:GeoResultEvent):void
+			{
+				var place:Place = dbManager.placeDAO.get(event.placeid);
+				place.lat = event.result.lat;
+				place.lon = event.result.lon	;
+				dbManager.placeDAO.save(place);
 				
 			}
 			
@@ -119,9 +146,9 @@
 				
 				if (event.keyCode == Keyboard.BACK){
 					
-					if (locationModal.active){
+					if (locationSelector.active){
 						event.preventDefault();
-						locationModal.active = false;
+						locationSelector.active = false;
 					}
 					
 					if (scrolledDown == true){
@@ -135,51 +162,30 @@
 				
 			}
 			
-			protected function locationButton_clickHandler(event:MouseEvent):void
-			{
-				locationModal.active = true;
-				
-			}
 			
-			protected function locationModal_placeSelectedHandler(event:Event):void
-			{
-				var boxThreshold:int = 19;
-				
-				if (locationModal.place){
-					if (locationModal.place.name.length == 0){
-						locationButton.label = "Pick Location";
-					}
-					else if (locationModal.place.name.length < boxThreshold){
-						locationButton.label = locationModal.place.name;
-					}
-					else{
-						var text:String = locationModal.place.name.slice(0,boxThreshold -3);
-						text = text.concat("...");
-						locationButton.label = text;
-					}
-					
-					
-					
-				}
-				else{
-					locationButton.label = "Pick Location";
-				}
-			}
 			
-			protected function locationModal_newPlaceRequestedHandler(event:Event):void
-			{
-				dataToPush.place = data.home;
-				dataToPush.itemName = itemTexInput.text;
-				dataToPush.itemToPlaceInProgress = true;
-				navigator.pushView(PlaceEdit,dataToPush);
-				
-			}
 			
 			
 			
 			protected function alert_closedHandler(event:Event):void
 			{
 				navigator.popView();				
+			}
+			
+			protected function locationSelector_newItemRequestedHandler(event:Event):void
+			{
+				dataToPush.place = data.home;
+				dataToPush.itemName = itemTexInput.text;
+				dataToPush.placeName = placeTextInput.text;
+				dataToPush.itemToPlaceInProgress = true;
+				navigator.pushView(AddressEdit,dataToPush);
+				
+			}
+			
+			protected function placeTextInput_itemSelectedHandler(event:Event):void
+			{
+				locationSelector.place = placeTextInput.selectedItem as Place;
+				
 			}
 			
 		]]>
@@ -216,7 +222,7 @@
 			<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 			
 			
-			<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="350" />
+			<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="450" />
 			
 			<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
 					 text="WHAT DID YOU FIND?" textAlign="center" filters="{[textShadow]}" />
@@ -227,20 +233,21 @@
 			
 			<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
 					 text="WHERE DID YOU FIND IT?" textAlign="center" filters="{[textShadow]}" />
-			<s:Button id="locationButton" top="205" label="Pick Location" horizontalCenter="-0" click="locationButton_clickHandler(event)"
-					  skinClass="skins.EditLocationButtonSkin"/>
+			
+			<components:SuggestionTextBox id="placeTextInput" suggestionPool="{places}" depth="20" itemSelected="placeTextInput_itemSelectedHandler(event)"
+										  top="210" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"
+										  textAlign="center" focusThickness="0"
+										  />
 			
 			
+			<components:LocationSelector top="0" id="locationSelector" place="{itemAtPlace.place}" places="{alternatives}" depth="5"
+										 newItemRequested="locationSelector_newItemRequestedHandler(event)" />
 			
-			<components:LocationModal id="locationModal" width="100%" height="100%" depth="50" place="{itemAtPlace.place}" places="{places}" visible="false" 
-									  placeSelected="locationModal_placeSelectedHandler(event)" newPlaceRequested="locationModal_newPlaceRequestedHandler(event)" />
-			
-			
-			<components:PhotoButton id="cameraButton" top="355" horizontalCenter="-122" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
-			<components:WriteButton id="writeButton" top="355" horizontalCenter="122" click="writeButton_clickHandler(event)" />
+			<components:PhotoButton id="cameraButton" top="450" horizontalCenter="-122" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
+			<components:WriteButton id="writeButton" top="450" horizontalCenter="122" click="writeButton_clickHandler(event)" />
 			
 			
-			<components:NotePad id="notepad" text="{itemAtPlace.notes}" top="700" height="{height}" width="100%"  />
+			<components:NotePad id="notepad" text="{itemAtPlace.notes}" top="750" height="{height}" width="100%"  />
 			
 		</s:Group>
 	</s:Scroller>
