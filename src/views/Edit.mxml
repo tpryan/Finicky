@@ -52,7 +52,7 @@
 				
 				if (data.itemToPlaceInProgress){
 					locationSelector.place = dataToPush.place.clone();
-					itemTexInput.text = dataToPush.itemName;
+					itemTextInput.text = dataToPush.itemName;
 					placeTextInput.text = dataToPush.placeName;
 					data.itemToPlaceInProgress = null;
 					data.place = null;
@@ -99,11 +99,11 @@
 				
 				var item:Item = new Item();
 				
-				item = dbManager.itemDAO.getItemByName(itemTexInput.text);
+				item = dbManager.itemDAO.getItemByName(itemTextInput.text);
 				
 				if (!item || !item.itemid || item.itemid == 0){
 					item = new Item();
-					item.name = itemTexInput.text;
+					item.name = itemTextInput.text;
 				}
 				
 				
@@ -175,7 +175,7 @@
 			protected function locationSelector_newItemRequestedHandler(event:Event):void
 			{
 				dataToPush.place = data.home;
-				dataToPush.itemName = itemTexInput.text;
+				dataToPush.itemName = itemTextInput.text;
 				dataToPush.placeName = placeTextInput.text;
 				dataToPush.itemToPlaceInProgress = true;
 				navigator.pushView(AddressEdit,dataToPush);
@@ -220,28 +220,28 @@
 		<s:Group id="scrollerContent" clipAndEnableScrolling="true">
 			
 			<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
-			
-			
 			<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="450" />
 			
-			<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0" 
+			<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0"
 					 text="WHAT DID YOU FIND?" textAlign="center" filters="{[textShadow]}" />
-			<components:SuggestionTextBox id="itemTexInput" suggestionPool="{items}" depth="20"
-										  top="61" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
-										  textAlign="center" focusThickness="0"
-										  />
 			
 			<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
 					 text="WHERE DID YOU FIND IT?" textAlign="center" filters="{[textShadow]}" />
+			
+			<components:LocationSelector top="0" id="locationSelector" place="{itemAtPlace.place}" horizontalCenter="0" 
+										 places="{alternatives}" depth="5"
+										 newItemRequested="locationSelector_newItemRequestedHandler(event)" />
 			
 			<components:SuggestionTextBox id="placeTextInput" suggestionPool="{places}" depth="20" itemSelected="placeTextInput_itemSelectedHandler(event)"
 										  top="210" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"
 										  textAlign="center" focusThickness="0"
 										  />
 			
+			<components:SuggestionTextBox id="itemTextInput" suggestionPool="{items}" depth="20"
+										  top="61" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
+										  textAlign="center" focusThickness="0"
+										  />
 			
-			<components:LocationSelector top="0" id="locationSelector" place="{itemAtPlace.place}" places="{alternatives}" depth="5"
-										 newItemRequested="locationSelector_newItemRequestedHandler(event)" />
 			
 			<components:PhotoButton id="cameraButton" top="450" horizontalCenter="-122" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
 			<components:WriteButton id="writeButton" top="450" horizontalCenter="122" click="writeButton_clickHandler(event)" />

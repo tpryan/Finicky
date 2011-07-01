@@ -19,7 +19,7 @@ package skins
 		
 		
 		[Bindable]
-		[Embed(source="/assets/icons/edithighlight.png")]
+		[Embed(source="/assets/icons/editHighlight.png")]
 		private var highlight:Class;
 		
 		protected var hl:Image = new Image();
@@ -27,11 +27,11 @@ package skins
 		public function EditLocationButtonSkin()
 		{
 			super();
-			width = 383;
+			width = 552;
 			height = 158;
 			
 			hl.source = highlight;
-			hl.width = 383;
+			hl.width = 552;
 			hl.height = 158;
 			hl.x = 0;
 			hl.y = 0;

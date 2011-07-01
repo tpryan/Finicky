@@ -101,7 +101,7 @@
 			
 			protected function ti_focusInHandler(event:FocusEvent):void
 			{
-				depth = 20;
+				depth = 30;
 				
 			}
 			
