@@ -59,7 +59,7 @@
 				
 			}
 			
-			protected function saveButton_clickHandler(event:MouseEvent):void
+			protected function saveButton_clickHandler(event:Event):void
 			{
 				
 				
@@ -124,7 +124,7 @@
 				
 			}
 			
-			protected function cancelButton_clickHandler(event:MouseEvent):void
+			protected function cancelButton_clickHandler(event:Event):void
 			{
 				// TODO Auto-generated method stub
 				navigator.popView();
@@ -168,15 +168,14 @@
 				<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  change="resetPlace()"/>
 				
 				
-				<s:HGroup width="100%" gap="50" horizontalAlign="center">
-					<s:Button id="saveButton" label="SAVE" skinClass="skins.FormButtonSkin" click="saveButton_clickHandler(event)" />
-					<s:Button id="cancelButton" label="CANCEL" skinClass="skins.FormButtonSkin" click="cancelButton_clickHandler(event)" />
-				</s:HGroup>
 				
 			</s:VGroup>	
 		</s:Group>
 		
 	</s:Scroller>
+	
+	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="CANCEL" leftClick="saveButton_clickHandler(event)" rightClick="cancelButton_clickHandler(event)" />
+	
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="menuSaveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />

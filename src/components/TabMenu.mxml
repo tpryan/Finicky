@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"  horizontalCenter="0" width="100%"
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"  horizontalCenter="0" width="100%" bottom="0"
 		 creationComplete="init(event)"
 		 xmlns:s="library://ns.adobe.com/flex/spark">
 	<fx:Metadata>
@@ -17,7 +17,7 @@
 			[Bindable]
 			public var rightButtonText:String = "RIGHT";
 			
-			private var _active:Boolean = false;
+			private var _active:Boolean = true;
 
 			[Bindable(event="activeChange")]
 			public function get active():Boolean
@@ -33,14 +33,6 @@
 					dispatchEvent(new Event("activeChange"));
 				}
 				
-				if (_active){
-					show.stop();
-					show.play();
-				}
-				else{
-					hide.stop();
-					hide.play();
-				}
 				
 			}
 
