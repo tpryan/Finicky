@@ -57,7 +57,7 @@
 		<s:Label id="startText" x = "{bg.x + 20}" width="90%" maxWidth="520" verticalCenter="-53"  >
 			<![CDATA[Couldn't help but notice, you've got no stuff here. 
 			
-Start jotting down all of the hard to find stuff you find along your way.]]>
+Bring up the menu and click 'Add' to get started.]]>
 		</s:Label>
 				 
 		<s:Button id="closeButton" click="closeButton_clickHandler(event)" verticalCenter="270" horizontalCenter="0" skinClass="skins.OkButtonSkin" />
