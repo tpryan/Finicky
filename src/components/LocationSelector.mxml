@@ -4,6 +4,8 @@
 	
 	<fx:Metadata>
 		[Event(name="newItemRequested", type="flash.events.Event")]
+		[Event(name="activeOn", type="flash.events.Event")]
+		[Event(name="activeOff", type="flash.events.Event")]
 	</fx:Metadata>
 	
 	<fx:Script>
@@ -33,10 +35,12 @@
 				modalBG.visible = value;
 				
 				if (value){
-					depth = 20;
+					depth = 40;
+					dispatchEvent( new Event("activeOn") );
 				}
 				else{
 					depth = 0;
+					dispatchEvent( new Event("activeOff") );
 				}
 				
 			}

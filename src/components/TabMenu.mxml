@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"  horizontalCenter="0" width="100%"
+		 creationComplete="init(event)"
+		 xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Metadata>
+		[Event(name="leftClick", type="flash.events.Event")]
+		[Event(name="rightClick", type="flash.events.Event")]
+	</fx:Metadata>
+		
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			[Bindable]
+			public var leftButtonText:String = "LEFT";
+			
+			[Bindable]
+			public var rightButtonText:String = "RIGHT";
+			
+			private var _active:Boolean = false;
+
+			[Bindable(event="activeChange")]
+			public function get active():Boolean
+			{
+				return _active;
+			}
+
+			public function set active(value:Boolean):void
+			{
+				if( _active !== value)
+				{
+					_active = value;
+					dispatchEvent(new Event("activeChange"));
+				}
+				
+				if (_active){
+					show.stop();
+					show.play();
+				}
+				else{
+					hide.stop();
+					hide.play();
+				}
+				
+			}
+
+			protected function init(event:FlexEvent):void
+			{
+				y = parent.height + height;
+				
+			}
+			
+			protected function leftButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent( new Event("leftClick") );
+				
+			}
+			
+			protected function rightButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent( new Event("rightClick") );
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Move id="show" yTo="{parent.height - height /2}" duration="500" target="{this}" />	
+		<s:Move id="hide" yTo="{parent.height + height}" duration="500" target="{this}" />	
+	</fx:Declarations>
+	
+	<s:Image source="@Embed('/assets/bg/bg_tabmenu.png')" width="100%" height="100" scaleMode="stretch" />
+	
+	<s:HGroup width="100%" horizontalCenter="0" horizontalAlign="center" gap="50">
+		<s:Button id="leftButton" skinClass="skins.DetailsViewMenuItemSkin" label="{leftButtonText}" click="leftButton_clickHandler(event)" />
+		<s:Button id="rightButton"  skinClass="skins.DetailsViewMenuItemSkin" label="{rightButtonText}" click="rightButton_clickHandler(event)" />
+	</s:HGroup>
+	
+</s:Group>

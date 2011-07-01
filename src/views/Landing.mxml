@@ -242,6 +242,8 @@ How's about you add some?</fx:String>
 	
 	<components:StartingNotice id="startingNotice" width="100%" height="100%" close="startingNotice_closeHandler(event)" />
 	
+	
+	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
 		<s:ViewMenuItem id="mapButton" label="MAP" skinClass="skins.DetailsViewMenuItemSkin" click="mapButton_clickHandler(event)" />

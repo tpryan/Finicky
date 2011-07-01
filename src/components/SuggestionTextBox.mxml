@@ -48,6 +48,7 @@
 				
 				if (suggestions.length == 0){
 					depth = 0;
+					suggestionList.visible = false;
 				}
 				
 			}
