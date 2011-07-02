@@ -75,13 +75,13 @@ package skins
 		
 		protected function drawBGRect(event:FocusEvent):void
 		{
-			var borderSize:uint = (border) ? layoutBorderSize : 0;
+			/*var borderSize:uint = (border) ? layoutBorderSize : 0;
 			var borderWidth:uint = borderSize * 2;
 			
 			// Draw the contentBackgroundColor
 			graphics.beginFill(0xC3F4FC, getStyle("contentBackgroundAlpha"));
 			graphics.drawRoundRect(textDisplay.x, textDisplay.y-14, textDisplay.width-25, textDisplay.height+15, layoutCornerEllipseSize, layoutCornerEllipseSize);
-			graphics.endFill();
+			graphics.endFill();*/
 			
 		}	
 		
