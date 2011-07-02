@@ -6,6 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
+			import com.terrenceryan.finicky.LocationReconciler;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.geo.GeoCode;
 			import com.terrenceryan.finicky.vo.Item;
@@ -68,6 +69,11 @@
 				}
 				
 				
+				if (dataToPush.displayNotice){
+					notice.open(this, false);
+					dataToPush.displayNotice = false;
+				}
+				
 			}
 			
 			protected function writeButton_clickHandler(event:MouseEvent):void
@@ -123,11 +129,13 @@
 					geoCodeService.addEventListener("result", processResult);
 					
 					geoCodeService.fromAddressToLatLon(itemAtPlace.place);
-					trace("Place without a geocode.")
+					trace("Place without a geocode.");
+					var lr:LocationReconciler = new LocationReconciler();
+					lr.reconcile();
 				}
 				
-				alert.message = "Your match has been saved. ";
-				alert.open(this, true);
+				data.displayNotice = true;
+				navigator.popView();	
 				
 			}
 			
@@ -167,11 +175,6 @@
 			
 			
 			
-			protected function alert_closedHandler(event:Event):void
-			{
-				navigator.popView();				
-			}
-			
 			protected function locationSelector_newItemRequestedHandler(event:Event):void
 			{
 				dataToPush.place = data.home;
@@ -188,11 +191,6 @@
 				
 			}
 			
-			protected function tabMenu_leftClickHandler(event:Event):void
-			{
-				// TODO Auto-generated method stub
-				
-			}
 			
 			protected function tabMenu_rightClickHandler(event:Event):void
 			{
@@ -217,7 +215,7 @@
 	
 	
 	<fx:Declarations>
-		<components:Alert id="alert" closed="alert_closedHandler(event)" />
+		<components:Notice id="notice" text="Address Set." verticalCenter="0" horizontalCenter="0" />
 		<s:Animate id="animateDown" target="{scrollerContent}">
 			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="700" />
 		</s:Animate>

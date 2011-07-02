@@ -63,8 +63,6 @@
 			{
 				
 				
-				alert.message = "Your place has been saved. ";
-				alert.open(this, true);
 
 				
 				if (place.lat == 0){ 
@@ -73,6 +71,10 @@
 					geoCodeService.fromAddressToLatLon(place);
 					trace("Place without a geocode.")
 				}
+				
+				data.place = place;
+				data.displayNotice = true;
+				navigator.popView();
 			}
 			
 			protected function init(event:FlexEvent):void

@@ -77,6 +77,11 @@
 					noItemsLabel.visible = true;
 				}
 				
+				if (dataToPush.displayNotice){
+					notice.open(this, false);
+					dataToPush.displayNotice = false;
+				}
+				
 			}
 			
 			
@@ -191,6 +196,7 @@
 	</fx:Script>
 	
 	<fx:Declarations>
+		<components:Notice id="notice" text="Match Saved." verticalCenter="0" horizontalCenter="0" />
 		<components:Alert id="alert" message="{alertText}" left="0" right="0" closed="alert_closedHandler(event)" />
 	
 		<fx:String id="alertText">You don't have any Finicky matches nearby. 

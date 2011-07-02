@@ -36,6 +36,7 @@ package com.terrenceryan.finicky
 		public var allowToClose:Boolean = true;
 		public var locationReconciler:LocationReconciler;
 		public var placeName:String;
+		public var displayNotice:Boolean;
 		
 		public function DataSingleton()
 		{

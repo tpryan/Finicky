@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)"
+						    y="200"
+						   open="onOpen(event)" 
+						   xmlns:s="library://ns.adobe.com/flex/spark" width="200" height="40" backgroundColor="0x13C1DF">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.events.PopUpEvent;
+			[Bindable]
+			public var text:String = "" ;
+			
+			protected function init(event:FlexEvent):void
+			{
+				x= parent.width/2 -100;
+			}
+			
+			protected function onOpen(event:PopUpEvent):void
+			{
+				fadeOut.play();
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace fb "http://ns.adobe.com/flashbuilder/2009";
+		#messageText{
+			fontFamily:"Trade Gothic LT Std";
+			fontSize: 20;
+			fontWeight: normal;
+		}
+	</fx:Style>
+	
+	<fx:Declarations>
+		<s:Fade id="fadeOut" target="{this}" alphaFrom="1" alphaTo="0" duration="500" startDelay="1000" />
+	</fx:Declarations>
+	
+	<s:Label id="messageText" text="{text}" horizontalCenter="0" verticalCenter="0" /> 
+	
+</s:SkinnablePopUpContainer>

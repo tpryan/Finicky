@@ -79,6 +79,11 @@
 					
 				}
 				
+				if (dataToPush.displayNotice){
+					notice.open(this, false);
+					dataToPush.displayNotice = false;
+				}
+				
 				
 			}
 			
@@ -187,6 +192,7 @@
 	</fx:Script>
 	
 	<fx:Declarations>
+		<components:Notice id="notice" text="Match Saved." verticalCenter="0" horizontalCenter="0" />
 		<s:Fade id="pictureFade" alphaFrom="0" alphaTo="1" duration="100" target="{pictureDisplay}" />
 		<s:GlowFilter id="textShadow" alpha=".4" color="0x13C7E1" strength="1" />
 	</fx:Declarations>
