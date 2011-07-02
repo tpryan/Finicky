@@ -15,20 +15,12 @@ package renderers
 		[Embed(source='/assets/bg/bg_itemSelected.png')]
 		private static var itemSelected:Class;
 		
-		[Embed(source='/assets/bg/bg_itemSelectedSmaller.png')]
-		private static var itemSelectedSmall:Class;	
-		
 		[Embed(source='/assets/icons/itemListButtonDown.png')]
 		private static var itemDown:Class;
 		
 		[Embed(source='/assets/icons/itemListButtonUp.png')]
 		private static var itemUp:Class;
 		
-		[Embed(source='/assets/icons/itemListButtonSmallDown.png')]
-		private static var itemDownSmall:Class;
-		
-		[Embed(source='/assets/icons/itemListButtonSmallUp.png')]
-		private static var itemUpSmall:Class;
 		
 		[Embed(source='/assets/bg/rule.png')]
 		private static var rule:Class;
@@ -59,27 +51,15 @@ package renderers
 		{
 			super();
 			
-			if (size =="small"){
-				decoratorClass = itemUpSmall
-				decoratorCoverClass = itemDownSmall;
-				decoratorHeight = 61;
-				decoratorWidth = 60;
-				
-				highlightClass = itemSelectedSmall;
-				highlightHeight = 585;
-				highlightWidth = 75;
-			}
-			else{
-				decoratorClass = itemUp;
-				decoratorCoverClass = itemDown;
-				
-				decoratorHeight = 125;
-				decoratorWidth = 123;
-				
-				highlightClass = itemSelected;
-				highlightHeight = 585;
-				highlightWidth = 150;
-			}
+			decoratorClass = itemUp;
+			decoratorCoverClass = itemDown;
+			
+			decoratorHeight = 125;
+			decoratorWidth = 123;
+			
+			highlightClass = itemSelected;
+			highlightHeight = 585;
+			highlightWidth = 150;
 			
 			
 			decoratorCover.source= decoratorCoverClass;
@@ -96,12 +76,8 @@ package renderers
 			bg.visible = false;
 			addChildAt(bg, 0);
 			
-			
-			
-			
 			ruleImg.source = rule;
 			addChildAt(ruleImg,0);
-			
 			
 			this.addEventListener(MouseEvent.CLICK, toggleHighlight);
 			
@@ -147,7 +123,14 @@ package renderers
 			decoratorDisplay.source = itemUp;
 			setElementSize(decoratorDisplay, decoratorWidth, decoratorHeight);
 			
+			setElementPosition(bg, bg.x, -20);
+			
+			setElementPosition(decoratorDisplay, decoratorDisplay.x, 5);
 			setElementPosition(decoratorCover, decoratorDisplay.x, decoratorDisplay.y);
+			
+			setElementPosition(labelDisplay, labelDisplay.x, 30);
+			setElementPosition(messageDisplay, messageDisplay.x, labelDisplay.y + labelDisplay.height);
+			
 			setElementSize(ruleImg, width, 2);
 			setElementPosition(ruleImg, 0,0);
 			labelDisplay.wordWrap = true;
@@ -175,7 +158,7 @@ package renderers
 				}
 			}
 			
-			
+			height = 130;
 		}
 	}
 }
