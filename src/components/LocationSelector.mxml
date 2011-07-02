@@ -33,6 +33,8 @@
 				_active = value;
 				placeList.visible = value;
 				modalBG.visible = value;
+				listScroller.visible = value;
+				cancelButton.visible = value;
 				
 				if (value){
 					depth = 40;
@@ -54,11 +56,20 @@
 			public function set place(value:Place):void
 			{
 				_place = value;
-				locationButton.label = value.address;
+				//locationButton.label = value.address;
 			}
 
 			protected function init(event:FlexEvent):void
 			{
+				
+				if (listScroller.height > 807){
+					cancelButton.y = 737;
+				}
+				else{
+					cancelButton.bottom = 40;
+				}
+				
+				
 				placeList.dataProvider = places;
 				placeList.addEventListener(FlexEvent.UPDATE_COMPLETE, addNewItemOptionToList);
 				
@@ -97,6 +108,11 @@
 				}
 			}
 			
+			protected function cancelButton_clickHandler(event:MouseEvent):void
+			{
+				active = false;
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -104,9 +120,6 @@
 	</fx:Declarations>
 	
 	
-	<s:Button id="locationButton" top="300" label="{place.address}" horizontalCenter="-0" 
-			  click="locationButton_clickHandler(event)" 
-			  skinClass="skins.EditLocationButtonSkin"/>
 	
 	<s:Rect id="modalBG" width="100%" height="100%" alpha=".8" visible="false">
 		<s:fill>
@@ -114,7 +127,13 @@
 		</s:fill>
 	</s:Rect>
 	
-	<s:List id="placeList" left="30" right="30" top="10" bottom="10" dataProvider="{places}" skinClass="skins.LocationSelectorListSkin"
+	<s:Scroller id="listScroller" left="30" right="30" top="10" bottom="30" verticalScrollPolicy="off" horizontalScrollPolicy="off" visible="false">
+		<s:Group clipAndEnableScrolling="true" >
+			<s:Image id="listBG" source="@Embed('/assets/bg/bg_modal_long.png')" />
+		</s:Group>
+	</s:Scroller>
+	
+	<s:List id="placeList" left="30" right="30" top="10" bottom="80" dataProvider="{places}" 
 			click="placeList_clickHandler(event)"
 			visible="false" contentBackgroundAlpha="0">
 		<s:itemRenderer>
@@ -146,5 +165,5 @@
 			
 		</s:itemRenderer>
 	</s:List>
-	
+	<s:Button id="cancelButton" label="CANCEL"  click="cancelButton_clickHandler(event)" horizontalCenter="0" visible="false" skinClass="skins.DetailsViewMenuItemSkin" /> 
 </s:Group>

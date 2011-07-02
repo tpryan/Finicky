@@ -22,18 +22,16 @@ package renderers
 		[Embed(source='/assets/icons/itemListButtonSmallUp.png')]
 		private static var itemUpSmall:Class;
 		
-		[Embed(source='/assets/bg/rule.png')]
-		private static var rule:Class;
+		[Embed(source='/assets/icons/radioCheckOn.png')]
+		private static var radioOn:Class;
 		
-		[Embed(source='/assets/bg/rule2.png')]
-		private static var rule2:Class;
+		[Embed(source='/assets/icons/radioCheckOff.png')]
+		private static var radioOff:Class;
 		
-		[Embed(source='/assets/bg/rule3.png')]
-		private static var rule3:Class;
 		
 		public var bg:Image = new Image();
 		public var decoratorCover:Image = new Image();
-		public var ruleImg:Image = new Image();
+		public var radio:Image = new Image();
 		public var size:String;
 		
 		
@@ -68,6 +66,12 @@ package renderers
 			addChildAt(decoratorCover, 0);
 			
 			
+			radio.source = radioOff;
+			radio.height = 70;
+			radio.width = 65;
+			radio.visible = false;
+			addChildAt(radio,0);
+			
 			bg.source = highlightClass;
 			bg.width = highlightHeight;
 			bg.height = highlightWidth;
@@ -78,8 +82,6 @@ package renderers
 			
 			
 			
-			ruleImg.source = rule;
-			addChildAt(ruleImg,0);
 			
 			
 			this.addEventListener(MouseEvent.CLICK, toggleHighlight);
@@ -92,12 +94,12 @@ package renderers
 		protected function toggleHighlight(event:MouseEvent):void
 		{
 			if (!bg.visible){
-				bg.visible = true;
 				decoratorCover.visible = true;
+				radio.source = radioOn;
 			}
 			else{
-				bg.visible = false;
 				decoratorCover.visible = false;
+				radio.source = radioOff;
 			}
 			
 		}
@@ -127,33 +129,19 @@ package renderers
 			setElementSize(decoratorDisplay, decoratorWidth, decoratorHeight);
 			
 			setElementPosition(decoratorCover, decoratorDisplay.x, decoratorDisplay.y);
-			setElementSize(ruleImg, width, 2);
-			setElementPosition(ruleImg, 0,0);
 			labelDisplay.wordWrap = true;
 			
-			
-			var ruleNumber:Number = labelDisplay.text.length % 3;
-			
-			switch(ruleNumber)
-			{
-				case 1:
-				{
-					ruleImg.source = rule2;
-					break;
-				}
-				case 2:
-				{
-					ruleImg.source = rule3;
-					break;
-				}
-					
-				default:
-				{
-					ruleImg.source = rule;
-					break;
-				}
+			if (!(labelDisplay.text == "[Add location by hand]")){
+				decoratorCover.visible = false;
+				decoratorDisplay.visible = false;
+				radio.visible = true;
+				setElementPosition(radio, 10, 5);
 			}
+			setElementPosition(labelDisplay, 80, labelDisplay.y);
+			setElementPosition(messageDisplay, 80, messageDisplay.y);
 			
+			
+			height = 81;
 			
 		}
 	}
