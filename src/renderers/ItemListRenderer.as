@@ -129,7 +129,7 @@ package renderers
 			setElementPosition(decoratorCover, decoratorDisplay.x, decoratorDisplay.y);
 			
 			setElementPosition(labelDisplay, labelDisplay.x, 30);
-			setElementPosition(messageDisplay, messageDisplay.x, labelDisplay.y + labelDisplay.height);
+			setElementPosition(messageDisplay, messageDisplay.x, labelDisplay.y + labelDisplay.height - 5);
 			
 			setElementSize(ruleImg, width, 2);
 			setElementPosition(ruleImg, 0,0);
