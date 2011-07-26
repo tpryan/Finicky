@@ -253,10 +253,10 @@ How's about you add some?</fx:String>
 	
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="mapButton" label="MAP" skinClass="skins.DetailsViewMenuItemSkin" click="mapButton_clickHandler(event)" />
-		<s:ViewMenuItem id="settingsButton" label="SETTINGS" skinClass="skins.DetailsViewMenuItemSkin" click="settingsButton_clickHandler(event)" />
-		<s:ViewMenuItem id="aboutButton" label="ABOUT" skinClass="skins.DetailsViewMenuItemSkin" click="aboutButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="addButton" label="ADD"  click="addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="mapButton" label="MAP"  click="mapButton_clickHandler(event)" />
+		<s:ViewMenuItem id="settingsButton" label="SETTINGS"  click="settingsButton_clickHandler(event)" />
+		<s:ViewMenuItem id="aboutButton" label="ABOUT" click="aboutButton_clickHandler(event)"  />
 	</s:viewMenuItems>
 	
 	

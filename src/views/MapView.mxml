@@ -157,10 +157,10 @@
 	</esri:Map>
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="listButton" label="LIST" skinClass="skins.DetailsViewMenuItemSkin" click="listButton_clickHandler(event)" />
-		<s:ViewMenuItem id="settingsButton" label="SETTINGS" skinClass="skins.DetailsViewMenuItemSkin" click="settingsButton_clickHandler(event)" />
-		<s:ViewMenuItem id="holder" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
+		<s:ViewMenuItem id="addButton" label="ADD" click="addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="listButton" label="LIST" click="listButton_clickHandler(event)" />
+		<s:ViewMenuItem id="settingsButton" label="SETTINGS" click="settingsButton_clickHandler(event)" />
+		<s:ViewMenuItem id="holder" label=" "  />
 	</s:viewMenuItems>
 	
 </s:View>

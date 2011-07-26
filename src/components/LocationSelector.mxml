@@ -165,5 +165,5 @@
 			
 		</s:itemRenderer>
 	</s:List>
-	<s:Button id="cancelButton" label="CANCEL"  click="cancelButton_clickHandler(event)" horizontalCenter="0" visible="false" skinClass="skins.DetailsViewMenuItemSkin" /> 
+	<s:Button id="cancelButton" label="CANCEL"  click="cancelButton_clickHandler(event)" horizontalCenter="0" visible="false" /> 
 </s:Group>

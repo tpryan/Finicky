@@ -54,9 +54,7 @@ s|IconItemRenderer{
 	color: #383539;
 }
 
-s|ViewMenu{
-	skinClass: ClassReference("skins.DetailViewMenuSkin");
-}
+
 
 #titleLabel{
 	fontFamily:"Liberator";
@@ -79,4 +77,29 @@ s|ViewMenu{
 #noItemsLabel{
 	fontFamily: "Trade Gothic LT Std";
 	fontSize: 40;
+}
+
+
+s|ViewMenu{
+	skinClass: ClassReference("skins.DetailViewMenuSkin");
+}
+
+s|ViewMenuItem{
+	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
+}
+
+s|TextInput{
+	skinClass: ClassReference("skins.FormTexInputSkin");
+}
+
+#persistentTabMenu s|Button{
+	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
+}
+
+#directionsBtn{
+	skinClass: ClassReference("skins.DirectionsButtonSkin");
+}
+
+#locationButton{
+	skinClass: ClassReference("skins.EditLocationButtonSkin");
 }

@@ -64,9 +64,9 @@
 	
 	<s:Image source="@Embed('/assets/bg/bg_tabmenu.png')" width="100%" height="100" scaleMode="stretch" />
 	
-	<s:HGroup width="100%" horizontalCenter="0" horizontalAlign="center" gap="50">
-		<s:Button id="leftButton" skinClass="skins.DetailsViewMenuItemSkin" label="{leftButtonText}" click="leftButton_clickHandler(event)" />
-		<s:Button id="rightButton"  skinClass="skins.DetailsViewMenuItemSkin" label="{rightButtonText}" click="rightButton_clickHandler(event)" />
+	<s:HGroup id="persistentTabMenu" width="100%" horizontalCenter="0" horizontalAlign="center" gap="50" >
+		<s:Button id="leftButton" label="{leftButtonText}" click="leftButton_clickHandler(event)" />
+		<s:Button id="rightButton"  label="{rightButtonText}" click="rightButton_clickHandler(event)" />
 	</s:HGroup>
 	
 </s:Group>

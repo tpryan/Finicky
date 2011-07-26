@@ -164,10 +164,10 @@
 				<s:Label id="titleLabel" text="Add/Edit Place"/>
 				
 				
-				<s:TextInput id="addressText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.address}" prompt="[Address]" change="resetPlace()"/>
-				<s:TextInput id="cityText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.city}" prompt="[City]"  change="resetPlace()"/>
-				<s:TextInput id="stateText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.state}" prompt="[State]"  change="resetPlace()"/>
-				<s:TextInput id="mailingcodeText" skinClass="skins.FormTexInputSkin" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  change="resetPlace()"/>
+				<s:TextInput id="addressText" width="100%"  text="@{place.address}" prompt="[Address]" change="resetPlace()"/>
+				<s:TextInput id="cityText" width="100%"  text="@{place.city}" prompt="[City]"  change="resetPlace()"/>
+				<s:TextInput id="stateText" width="100%"  text="@{place.state}" prompt="[State]"  change="resetPlace()"/>
+				<s:TextInput id="mailingcodeText" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  change="resetPlace()"/>
 				
 				
 				
@@ -180,7 +180,7 @@
 	
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="menuSaveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="deleteButton" label="DELETE" skinClass="skins.DetailsViewMenuItemSkin" click="deleteButton_clickHandler(event)" />
+		<s:ViewMenuItem id="menuSaveButton" label="SAVE" click="saveButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="deleteButton" label="DELETE" click="deleteButton_clickHandler(event)" />
 	</s:viewMenuItems>
 </s:View>

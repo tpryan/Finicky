@@ -212,7 +212,7 @@
 					<s:Label id="storeCityStateZip"     horizontalCenter="0" text="{store.toCityStateZipString()}" width="280"/>
 				</s:VGroup>
 				
-				<s:Button id="directionsBtn" label="DIRECTIONS" z="0" y="{itemNav.y + itemNav.height + 20}" skinClass="skins.DirectionsButtonSkin" click="directionsBtn_clickHandler(event)" />	
+				<s:Button id="directionsBtn" label="DIRECTIONS" z="0" y="{itemNav.y + itemNav.height + 20}"  click="directionsBtn_clickHandler(event)" />	
 				
 			</s:HGroup>
 			
@@ -225,8 +225,8 @@
 	
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="hard_menu_addButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="editButton" label="EDIT" skinClass="skins.DetailsViewMenuItemSkin" click="hardmenu_editClickedHandler(event)" />
+		<s:ViewMenuItem id="addButton" label="ADD" click="hard_menu_addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="editButton" label="EDIT" click="hardmenu_editClickedHandler(event)" />
 	</s:viewMenuItems>
 	
 </s:View>

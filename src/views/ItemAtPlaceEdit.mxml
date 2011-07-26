@@ -49,8 +49,8 @@
 	
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="deleteButton" label="DELETE" skinClass="skins.DetailsViewMenuItemSkin" click="deleteButton_clickHandler(event)" />
-		<s:ViewMenuItem id="saveButton" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
+		<s:ViewMenuItem id="deleteButton" label="DELETE" click="deleteButton_clickHandler(event)" />
+		<s:ViewMenuItem id="saveButton" label=" "  />
 		
 	</s:viewMenuItems>
 	

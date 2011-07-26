@@ -73,7 +73,7 @@
 	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Matches"/>
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="addButton" label="ADD" skinClass="skins.DetailsViewMenuItemSkin" click="addButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="deleteButton" label=" " skinClass="skins.DetailsViewMenuItemSkin"  />
+		<s:ViewMenuItem id="addButton" label="ADD" click="addButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="deleteButton" label=" "  />
 	</s:viewMenuItems>
 </s:View>

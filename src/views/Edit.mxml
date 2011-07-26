@@ -259,8 +259,7 @@
 					 text="WHERE DID YOU FIND IT?" textAlign="center" filters="{[textShadow]}" />
 			
 			<s:Button id="locationButton" top="300" horizontalCenter="-0" label="{locationSelector.place.address}"
-					  click="locationButton_clickHandler(event)"
-					  skinClass="skins.EditLocationButtonSkin"/>
+					  click="locationButton_clickHandler(event)" />
 			
 			
 			
@@ -291,8 +290,8 @@
 								 newItemRequested="locationSelector_newItemRequestedHandler(event)" />
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem id="saveButton" label="SAVE" skinClass="skins.DetailsViewMenuItemSkin" click="saveButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="mapButton" label=" " skinClass="skins.DetailsViewMenuItemSkin" />
+		<s:ViewMenuItem id="saveButton" label="SAVE" click="saveButton_clickHandler(event)"  />
+		<s:ViewMenuItem id="mapButton" label=" " />
 	</s:viewMenuItems>
 		
 	
