@@ -82,16 +82,6 @@
 		]]>
 	</fx:Script>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		
-		#modalPlaceLabel, #modalItemLabel{
-			fontFamily: "Liberator";
-			fontSize: 54;
-			color: #383539;
-		}
-		
-	</fx:Style>
 	
 	<s:Rect width="100%" height="100%" alpha=".8">
 		<s:fill>

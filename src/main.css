@@ -1,6 +1,8 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace components "components.*";
+@namespace views "views.*";
+@namespace skins "skins.*";
 
 
 s|View{
@@ -80,6 +82,65 @@ s|IconItemRenderer{
 	fontSize: 40;
 }
 
+#titleLabel{
+	fontFamily:"Liberator";
+	fontSize:40;
+	fontWeight:"normal";
+	textAlign: center;
+	
+}
+
+/**********************************************
+	View Specific style
+***********************************************/
+views|About #labelDev, views|About #labelDes, views|About #labelThanks {
+	textAlign: center;
+	fontFamily: "Trade Gothic LT Std Cn";
+	fontSize: 22;
+	color: #000000;
+	fontWeight: bold;
+}
+
+views|About #textDev, views|About #textDes, views|About #textThanks{
+	fontFamily: "Lions Den";
+	fontSize: 35;
+	color: #383539;
+	textAlign: center;
+}
+
+views|AddressEdit #nameText, views|AddressEdit #addressText, views|AddressEdit #cityText, views|AddressEdit #stateText,
+views|AddressEdit  #mailingcodeText, views|AddressEdit #countryText{
+	focusThickness: 0;
+	textAlign: left; 
+	
+}
+
+views|AddressEdit #nameLabel, views|AddressEdit #addressLabel, views|AddressEdit #cityLabel, views|AddressEdit #stateLabel, views|AddressEdit #mailingcodeLabel, views|AddressEdit #countryLabel{
+	fontFamily: "Trade Gothic LT Std";
+	
+}
+
+views|Edit #editItemLabel, views|Edit #editLocationLabel{
+	fontFamily: "Liberator";
+	fontSize: 40;
+	color: #21211A;
+}
+
+views|PlaceEdit #nameText, views|PlaceEdit #addressText, views|PlaceEdit #cityText, views|PlaceEdit #stateText,
+views|PlaceEdit #mailingcodeText, views|PlaceEdit #countryText{
+	focusThickness: 0;
+	textAlign: left; 
+	
+}
+
+views|PlaceEdit #nameLabel, views|PlaceEdit #addressLabel, views|PlaceEdit #cityLabel, views|PlaceEdit #stateLabel, 
+views|PlaceEdit #mailingcodeLabel, views|PlaceEdit #countryLabel{
+	fontFamily: "Trade Gothic LT Std";
+	
+}
+
+
+
 /**********************************************
 	Component Specific style
 ***********************************************/
@@ -123,6 +184,20 @@ components|SuggestionTextBox #suggestionList{
 	fontSize: 36;
 }
 
+components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel{
+	fontFamily: "Liberator";
+	fontSize: 54;
+	color: #383539;
+}
+
+/**********************************************
+	Skin Specific style
+***********************************************/
+skins|AlertSkin #messageText{
+	fontFamily:"Trade Gothic LT Std";
+	fontSize: 30;
+	fontWeight: normal;
+}
 /**********************************************
 	SKINS
 ***********************************************/

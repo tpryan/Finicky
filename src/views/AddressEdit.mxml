@@ -4,27 +4,6 @@
 		creationComplete="init(event)" xmlns:components="components.*"
 		>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		#nameText,#addressText,#cityText,#stateText,#mailingcodeText,#countryText{
-			focusThickness: 0;
-			textAlign: left; 
-			
-		}
-		
-		#nameLabel,#addressLabel,#cityLabel,#stateLabel,#mailingcodeLabel,#countryLabel{
-			fontFamily: "Trade Gothic LT Std";
-			
-		}
-		
-		#titleLabel{
-			fontFamily:"Liberator";
-			fontSize:40;
-			fontWeight:"normal";
-			textAlign: center;
-			
-		}
-	</fx:Style>
 	
 	<fx:Script>
 		<![CDATA[

@@ -47,15 +47,6 @@
         ]]>        
     </fx:Script>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		@namespace fb "http://ns.adobe.com/flashbuilder/2009";
-		#messageText{
-			fontFamily:"Trade Gothic LT Std";
-			fontSize: 30;
-			fontWeight: normal;
-		}
-	</fx:Style>
     
     <s:states>
         <s:State name="normal"/>

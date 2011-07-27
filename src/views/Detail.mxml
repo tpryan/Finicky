@@ -6,13 +6,6 @@
 		xmlns:components="components.*" 
 		xmlns:vo="com.terrenceryan.finicky.vo.*" >
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		#currentViewMenu {
-			skinClass: ClassReference("skins.DetailViewMenuSkin");
-		}
-		
-	</fx:Style>
 	
 	<fx:Script>
 		<![CDATA[

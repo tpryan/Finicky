@@ -20,24 +20,6 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		
-		#labelDev, #labelDes, #labelThanks {
-			textAlign: center;
-			fontFamily: "Trade Gothic LT Std Cn";
-			fontSize: 22;
-			color: #000000;
-			fontWeight: bold;
-		}
-		
-		#textDev, #textDes, #textThanks{
-			fontFamily: "Lions Den";
-			fontSize: 35;
-			color: #383539;
-			textAlign: center;
-		}
-	</fx:Style>
 	
 	<s:Image id="logo" source="@Embed('/assets/icons/aboutLogo.png')" horizontalCenter="0" y="20" depth="0"  />
 	

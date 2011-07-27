@@ -233,16 +233,6 @@
 		<s:GlowFilter id="textShadow" alpha=".4" color="0x13C7E1" strength="1" />
 	</fx:Declarations>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		
-		#editItemLabel, #editLocationLabel{
-			fontFamily: "Liberator";
-			fontSize: 40;
-			color: #21211A;
-		}
-		
-	</fx:Style>
 	
 	
 	
