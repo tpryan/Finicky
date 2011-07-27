@@ -9,16 +9,6 @@
 		[Event(name="cancel", type="flash.events.Event")]
 	</fx:Metadata>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		#okLabel,#cancelLabel{
-			fontFamily:"Liberator";
-			fontSize:40;
-			fontWeight:"normal";
-			textAlign: center;
-			
-		}
-	</fx:Style>
 	
 	<fx:Script>
 		<![CDATA[

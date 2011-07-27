@@ -112,13 +112,6 @@
 	<fx:Declarations>
 	</fx:Declarations>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		#suggestionList{
-			fontFamily: "Lions Den";
-			fontSize: 36;
-		}
-	</fx:Style>
 	
 	<s:TextInput id="ti" enter="ti_enterHandler(event)" focusIn="ti_focusInHandler(event)"  width="100%" text="@{text}" textAlign="{textAlign}" focusThickness="{focusThickness}" change="ti_changeHandler(event)" focusOut="ti_focusOutHandler(event)"/>
 	<s:List id="suggestionList" name="suggestionList" 

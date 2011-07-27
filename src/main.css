@@ -80,62 +80,95 @@ s|IconItemRenderer{
 	fontSize: 40;
 }
 
+/**********************************************
+	Component Specific style
+***********************************************/
+
+components|AcceptPopUp #okLabel, components|AcceptPopUp #cancelLabel{
+	fontFamily:"Liberator";
+	fontSize:40;
+	fontWeight:"normal";
+	textAlign: center;
+}
+
+components|LocationModal #textCurrent, components|LocationModal #textNew, components|LocationModal #textExisting{
+	fontFamily:"Liberator";
+	fontSize:40;
+	fontWeight:"normal";
+	textAlign: center;
+	
+}
+
+components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel{
+	fontFamily: "Liberator";
+	fontSize: 54;
+	color: #383539;
+}
+
+components|Notice #messageText{
+	fontFamily:"Trade Gothic LT Std";
+	fontSize: 20;
+	fontWeight: normal;
+}
+
+components|StartingNotice #startText{
+	fontFamily: "Trade Gothic LT Std Cn";
+	fontSize:54;
+	textAlign: left;
+	
+}
+
+components|SuggestionTextBox #suggestionList{
+	fontFamily: "Lions Den";
+	fontSize: 36;
+}
+
+/**********************************************
+	SKINS
+***********************************************/
+
 #filterBtn{
 	skinClass: ClassReference("skins.FilterButtonSkin")
 }
-
 s|ViewNavigatorApplication{
 	skinClass: ClassReference("skins.AppSkin");
 }
-
 s|ViewMenu{
 	skinClass: ClassReference("skins.DetailViewMenuSkin");
 }
-
 s|ViewMenuItem{
 	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
 }
-
 s|TextInput{
 	skinClass: ClassReference("skins.FormTexInputSkin");
 }
-
 #persistentTabMenu s|Button{
 	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
 }
-
 #directionsBtn{
 	skinClass: ClassReference("skins.DirectionsButtonSkin");
 }
-
 #locationButton{
 	skinClass: ClassReference("skins.EditLocationButtonSkin");
 }
-
 #emailButton{
 	skinClass: ClassReference("skins.FormButtonSkin");	
 }	
-
 components|AcceptPopUp{
 	skinClass: ClassReference("skins.AlertSkin");
 }
-
 components|AcceptPopUp #okButton{
 	skinClass: ClassReference("skins.AlertOKButtonSkin");
 }
-
 components|AcceptPopUp #cancelButton{
 	skinClass: ClassReference("skins.AlertCloseButtonSkin");
 }
-
 components|Alert {
 	skinClass: ClassReference("skins.AlertSkin");
 }
-
 components|Alert #okButton{
 	skinClass: ClassReference("skins.OkButtonSkin");
 }
-
 components|ChangeLocationButton #icon{
 	skinClass: ClassReference("skins.ChangeLocationButtonSkin");
 }

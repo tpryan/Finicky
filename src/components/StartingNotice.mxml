@@ -5,16 +5,6 @@
 	<fx:Metadata>
 		[Event(name="close", type="flash.events.Event")]
 	</fx:Metadata>
-		
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		#startText{
-			fontFamily: "Trade Gothic LT Std Cn";
-			fontSize:54;
-			textAlign: left;
-			
-		}
-	</fx:Style>
 	
 	<fx:Script>
 		<![CDATA[

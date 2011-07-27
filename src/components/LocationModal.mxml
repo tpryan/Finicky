@@ -95,16 +95,6 @@
 			
 		]]>
 	</fx:Script>
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		#textCurrent,#textNew,#textExisting{
-			fontFamily:"Liberator";
-			fontSize:40;
-			fontWeight:"normal";
-			textAlign: center;
-			
-		}
-	</fx:Style>
 	
 	<fx:Declarations>
 		<s:Animate id="growPaper" duration="500" target="{scroller}">

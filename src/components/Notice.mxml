@@ -26,15 +26,6 @@
 		]]>
 	</fx:Script>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		@namespace fb "http://ns.adobe.com/flashbuilder/2009";
-		#messageText{
-			fontFamily:"Trade Gothic LT Std";
-			fontSize: 20;
-			fontWeight: normal;
-		}
-	</fx:Style>
 	
 	<fx:Declarations>
 		<s:Fade id="fadeOut" target="{this}" alphaFrom="1" alphaTo="0" duration="500" startDelay="1000" />
