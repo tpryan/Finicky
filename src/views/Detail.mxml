@@ -194,8 +194,10 @@
 	
 	<s:Scroller left="0" right="0" top="0" bottom="0" horizontalScrollPolicy="off" >
 		
-		<s:VGroup id="content" gap="10" clipAndEnableScrolling="true" width="100%">
-			<components:ItemNavigator id="itemNav" width="100%" currentItem="{item.name}" clickLeft="itemNav_clickLeftHandler(event)" clickRight="itemNav_clickRightHandler(event)" />
+		<s:VGroup id="content" gap="10" paddingTop="0" clipAndEnableScrolling="true" width="100%">
+			<components:ItemNavigator id="itemNav" width="100%" currentItem="{item.name}" 
+										clickLeft="itemNav_clickLeftHandler(event)" 
+										clickRight="itemNav_clickRightHandler(event)" />
 			
 			<s:HGroup>
 				<s:VGroup id="addressInfo" maxWidth="280" paddingLeft="50">

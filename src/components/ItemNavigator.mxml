@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns:s="library://ns.adobe.com/flex/spark"
-		  height="199" creationComplete="init(event)" xmlns:components="components.*" >
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:components="components.*" >
 	
 	<fx:Metadata>
 		[Event(name="clickLeft", type="flash.events.Event")]
@@ -35,40 +35,21 @@
 			{
 				_currentItem = value;
 			}
-
-			protected function init(event:FlexEvent):void
-			{
-				
-			}
-			
 			
 			protected function leftBtn_clickHandler(event:MouseEvent):void
 			{
 				dispatchEvent( new Event("clickLeft"));
-				
 			}
 			
 			protected function rightBtn_clickHandler(event:MouseEvent):void
 			{
 				dispatchEvent( new Event("clickRight"));
-				
 			}
-			
-			
 			
 		]]>
 	</fx:Script>
 	
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
-	
-	<s:Image id="banner" y="0" horizontalCenter="0" width="{width -50}" source="@Embed('/assets/bg/detailBanner.png')" depth="1" scaleMode="stretch"/>
-	<s:Button id="leftBtn" visible="{visibleLeft}" depth="0" left="0" y="27" click="leftBtn_clickHandler(event)" />
-	<s:Button id="rightBtn" visible="{visibleRight}" depth="0" right="0"  y="27" click="rightBtn_clickHandler(event)" />
-	
-	
-	
-	<s:Label id="itemLabel" horizontalCenter="0"  text="{_currentItem}" width="380" depth="2"
-			 textAlign="center" verticalAlign="middle" verticalCenter="24"/>
-</s:Group>
+	<s:Button id="leftBtn" label="&lt;" visible="{visibleLeft}" left="0" y="27" click="leftBtn_clickHandler(event)" />
+	<s:Button id="rightBtn" label="&gt;" visible="{visibleRight}" right="0"  y="27" click="rightBtn_clickHandler(event)" />
+	<s:Label id="itemLabel" horizontalCenter="0" verticalCenter="0" width="380" text="{_currentItem}" textAlign="center"  />
+</s:SkinnableContainer>

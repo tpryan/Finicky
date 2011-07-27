@@ -248,6 +248,9 @@ components|Alert #okButton{
 components|ChangeLocationButton #icon{
 	skinClass: ClassReference("skins.ChangeLocationButtonSkin");
 }
+components|ItemNavigator {
+	skinClass: ClassReference("skins.ItemNavigatorSkin");
+}
 components|ItemNavigator s|Button{
 	skinClass: ClassReference("skins.BannerButtonSkin");
 }
@@ -265,5 +268,12 @@ components|StartingNotice #closeButton{
 }
 components|WriteButton {
 	skinClass: ClassReference("skins.EditButtonSkin");
+}
+
+/**********************************************
+	Device Specific Skinning
+***********************************************/
+
+@media (os-platform: "AND"){
 }
 
