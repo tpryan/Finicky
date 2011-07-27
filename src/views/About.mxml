@@ -50,6 +50,6 @@
 	<s:Label id="labelThanks" horizontalCenter="0" y="550" text="Special Thanks"/>
 	<s:Label id="textThanks" horizontalCenter="0" y="580" text="Adobe, ESRI"/>
 	
-	<s:Button id="emailButton" skinClass="skins.FormButtonSkin" horizontalCenter="0" y="650" label="CONTACT" click="emailButton_clickHandler(event)"  />
+	<s:Button id="emailButton"  horizontalCenter="0" y="650" label="CONTACT" click="emailButton_clickHandler(event)"  />
 	
 </s:View>

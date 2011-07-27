@@ -61,5 +61,5 @@
 	
 	<s:Image id="buttonText" visible="false" source="@Embed('/assets/icons/changelocationinProgress.png')"  />
 	<s:Image id="spinner" x="{icon.x}" y="{icon.y}" visible="false" transformX="12" transformY="12"  source="@Embed('/assets/icons/locationIndicator.png')"  />
-	<s:Button id="icon" top="0" right="0" skinClass="skins.ChangeLocationButtonSkin" click="icon_clickHandler(event)" />
+	<s:Button id="icon" top="0" right="0" click="icon_clickHandler(event)" />
 </s:Group>

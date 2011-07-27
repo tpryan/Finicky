@@ -1,5 +1,6 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
+@namespace components "components.*";
 
 
 s|View{
@@ -79,6 +80,13 @@ s|IconItemRenderer{
 	fontSize: 40;
 }
 
+#filterBtn{
+	skinClass: ClassReference("skins.FilterButtonSkin")
+}
+
+s|ViewNavigatorApplication{
+	skinClass: ClassReference("skins.AppSkin");
+}
 
 s|ViewMenu{
 	skinClass: ClassReference("skins.DetailViewMenuSkin");
@@ -103,3 +111,50 @@ s|TextInput{
 #locationButton{
 	skinClass: ClassReference("skins.EditLocationButtonSkin");
 }
+
+#emailButton{
+	skinClass: ClassReference("skins.FormButtonSkin");	
+}	
+
+components|AcceptPopUp{
+	skinClass: ClassReference("skins.AlertSkin");
+}
+
+components|AcceptPopUp #okButton{
+	skinClass: ClassReference("skins.AlertOKButtonSkin");
+}
+
+components|AcceptPopUp #cancelButton{
+	skinClass: ClassReference("skins.AlertCloseButtonSkin");
+}
+
+components|Alert {
+	skinClass: ClassReference("skins.AlertSkin");
+}
+
+components|Alert #okButton{
+	skinClass: ClassReference("skins.OkButtonSkin");
+}
+
+components|ChangeLocationButton #icon{
+	skinClass: ClassReference("skins.ChangeLocationButtonSkin");
+}
+components|ItemNavigator s|Button{
+	skinClass: ClassReference("skins.BannerButtonSkin");
+}
+components|Location{
+	skinClass: ClassReference("skins.FilterButtonSkin");
+}
+components|NotePad #contentArea{
+	skinClass: ClassReference("skins.NoteSkin");
+}
+components|PhotoButton{
+	skinClass: ClassReference("skins.EditButtonSkin");
+}
+components|StartingNotice #closeButton{
+	skinClass: ClassReference("skins.OkButtonSkin");
+}
+components|WriteButton {
+	skinClass: ClassReference("skins.EditButtonSkin");
+}
+

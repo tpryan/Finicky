@@ -64,8 +64,8 @@
 	</fx:Declarations>
 	
 	<s:Image id="banner" y="0" horizontalCenter="0" width="{width -50}" source="@Embed('/assets/bg/detailBanner.png')" depth="1" scaleMode="stretch"/>
-	<s:Button id="leftBtn" visible="{visibleLeft}" depth="0" left="0" y="27" skinClass="skins.BannerButtonSkin" click="leftBtn_clickHandler(event)" />
-	<s:Button id="rightBtn" visible="{visibleRight}" depth="0" right="0"  y="27" skinClass="skins.BannerButtonSkin" click="rightBtn_clickHandler(event)" />
+	<s:Button id="leftBtn" visible="{visibleLeft}" depth="0" left="0" y="27" click="leftBtn_clickHandler(event)" />
+	<s:Button id="rightBtn" visible="{visibleRight}" depth="0" right="0"  y="27" click="rightBtn_clickHandler(event)" />
 	
 	
 	

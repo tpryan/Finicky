@@ -120,7 +120,7 @@
 		}
 	</fx:Style>
 	
-	<s:TextInput id="ti" skinClass="skins.EditTexInputSkin" enter="ti_enterHandler(event)" focusIn="ti_focusInHandler(event)"  width="100%" text="@{text}" textAlign="{textAlign}" focusThickness="{focusThickness}" change="ti_changeHandler(event)" focusOut="ti_focusOutHandler(event)"/>
+	<s:TextInput id="ti" enter="ti_enterHandler(event)" focusIn="ti_focusInHandler(event)"  width="100%" text="@{text}" textAlign="{textAlign}" focusThickness="{focusThickness}" change="ti_changeHandler(event)" focusOut="ti_focusOutHandler(event)"/>
 	<s:List id="suggestionList" name="suggestionList" 
 				visible="false" contentBackgroundAlpha="0" depth="10"
 				width="100%" left="13" right="18" y="{ti.y + 80}"  

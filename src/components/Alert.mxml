@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 						   xmlns:s="library://ns.adobe.com/flex/spark"
-						   skinClass="skins.AlertSkin"
-						   
 						   >
 	
 	<fx:Metadata>
@@ -29,6 +27,6 @@
 	<s:VGroup horizontalAlign="center" horizontalCenter="0" paddingBottom="8" paddingLeft="8"
 			  paddingRight="8" paddingTop="8" verticalCenter="0">
 		<s:Label id="messageText" text="{message}" horizontalCenter="0" textAlign="center" width="200"/>
-		<s:Button label="" horizontalCenter="0" click="button1_clickHandler(event)" skinClass="skins.OkButtonSkin" />
+		<s:Button id="okButton" label="" horizontalCenter="0" click="button1_clickHandler(event)"  />
 	</s:VGroup>
 </s:SkinnablePopUpContainer>

@@ -60,7 +60,7 @@
 Bring up the menu and click 'Add' to get started.]]>
 		</s:Label>
 				 
-		<s:Button id="closeButton" click="closeButton_clickHandler(event)" verticalCenter="270" horizontalCenter="0" skinClass="skins.OkButtonSkin" />
+		<s:Button id="closeButton" click="closeButton_clickHandler(event)" verticalCenter="270" horizontalCenter="0"  />
 		
 		
 		
