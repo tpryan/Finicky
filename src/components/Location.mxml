@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" width="100%" creationComplete="init(event)" xmlns:components="components.*">
 	
 	<fx:Metadata>
 		[Event(name="locationChanged", type="flash.events.Event")]
-		[Event(name="filterClicked", type="flash.events.Event")]
 	</fx:Metadata>
 	
 	<fx:Script>
 		<![CDATA[
-			import flash.filters.DropShadowFilter;
 			
 			import mx.events.FlexEvent;
 			
@@ -19,7 +17,7 @@
 			private var _location:String = "";
 			
 			
-			protected var locationLabel:StyleableTextField = new StyleableTextField();
+			public var locationLabel:StyleableTextField = new StyleableTextField();
 			
 			public function get location():String
 			{
@@ -34,37 +32,13 @@
 
 			protected function init(event:FlexEvent):void
 			{
-				// TODO Auto-generated method stub
 				
-				var dropshadow:flash.filters.DropShadowFilter = new flash.filters.DropShadowFilter();
-				dropshadow.alpha = .9;
-				dropshadow.color = 0x000000;
-				dropshadow.angle = 120;
-				dropshadow.distance = 1;
-				
-			
-				locationLabel.autoSize = TextFieldAutoSize.LEFT;
-				locationLabel.text = _location;
 				locationLabel.x = 10;
 				locationLabel.y = 108;
 				locationLabel.width = 700;
 				locationLabel.selectable = false;
 				locationLabel.editable = false;
-				locationLabel.setStyle("fontFamily", "Spoleto");
-				locationLabel.setStyle("fontSize", 60);
-				locationLabel.setStyle("color", 0xFFFFFF);
-				locationLabel.rotation = -15.5;
-				locationLabel.filters = [dropshadow];
 				addElement(locationLabel);
-				
-				
-			}
-			
-			
-			protected function filterBtn_clickHandler(event:MouseEvent):void
-			{
-				dispatchEvent( new Event("filterClicked"));
-				
 			}
 			
 			protected function changeLocationBtn_clickedHandler(event:Event):void
@@ -77,9 +51,9 @@
 		]]>
 	</fx:Script>
 	
-	<s:Image y="89" right="0" source="@Embed('/assets/bg/bg_location_filter.png')"/>
-	<s:Image top="0" horizontalCenter="0" source="@Embed('/assets/bg/bg_location.png')" width="100%" scaleMode="stretch" />
+	<!--<s:Image y="89" right="0" source="@Embed('/assets/bg/bg_location_filter.png')"/>-->
+	<!--<s:Image top="0" horizontalCenter="0" source="@Embed('/assets/bg/bg_location.png')" width="100%" scaleMode="stretch" />-->
 	
 	
 	
-</s:Group>
+</s:SkinnableContainer>

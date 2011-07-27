@@ -270,6 +270,10 @@ components|WriteButton {
 	skinClass: ClassReference("skins.EditButtonSkin");
 }
 
+components|Location {
+	skinClass: ClassReference("skins.LocationSkin");
+}
+
 /**********************************************
 	Device Specific Skinning
 ***********************************************/
