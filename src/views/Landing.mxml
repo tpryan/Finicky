@@ -244,7 +244,9 @@ How's about you add some?</fx:String>
 	<s:Label id="noItemsLabel" visible="false" text="No items yet." top="400" horizontalCenter="0" />
 	
 	
-	<components:Location id="locationInterface" locationChanged="locationInterface_locationChangedHandler(event)" filterClicked="locationInterface_filterClickedHandler(event)" location="{dataToPush.home.getRendererLabel()}"  />
+	<components:Location id="locationInterface" locationChanged="locationInterface_locationChangedHandler(event)"  location="{dataToPush.home.getRendererLabel()}"  />
+	<s:Button id="filterBtn" label="Sort" right="10" top="165" click="locationInterface_filterClickedHandler(event)" enabled="true"/>
+	
 	<components:ChangeLocationButton id="changeLocationBtn" top="5" right="5" z="5" data="{dataToPush}" />	
 	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
