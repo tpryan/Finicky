@@ -179,7 +179,7 @@ components|StartingNotice #startText{
 	
 }
 
-components|SuggestionTextBox #suggestionList{
+components|SuggestionTextBox #suggestionList, components|SuggestionTextBox #ti {
 	fontFamily: "Lions Den";
 	fontSize: 36;
 }
@@ -189,6 +189,10 @@ components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel{
 	fontSize: 54;
 	color: #383539;
 }
+
+
+
+
 
 
 /**********************************************
@@ -218,6 +222,11 @@ s|ViewMenuItem{
 s|TextInput{
 	skinClass: ClassReference("skins.FormTexInputSkin");
 }
+
+components|SuggestionTextBox s|TextInput{
+	skinClass: ClassReference("skins.SuggestionTextBoxTextInputSkin")
+}
+
 #persistentTabMenu s|Button{
 	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
 }

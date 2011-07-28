@@ -7,7 +7,7 @@ package skins
 	import spark.components.supportClasses.StyleableTextField;
 	import spark.skins.mobile.TextInputSkin;
 	
-	public class EditTexInputSkin extends TextInputSkin
+	public class SuggestionTextBoxTextInputSkin extends TextInputSkin
 	{
 		
 		
@@ -21,7 +21,7 @@ package skins
 		
 		protected var whiteBG:Image = new Image;
 		
-		public function EditTexInputSkin()
+		public function SuggestionTextBoxTextInputSkin()
 		{
 			super();
 			borderClass = borderClassTemp;
