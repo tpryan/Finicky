@@ -283,6 +283,10 @@ components|Location {
 	skinClass: ClassReference("skins.LocationSkin");
 }
 
+components|LocationSelector #cancelButton{
+	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
+}
+
 /**********************************************
 	Device Specific Skinning
 ***********************************************/
