@@ -28,7 +28,7 @@
 					dataToPush.item = itemList.selectedItem;
 					navigator.pushView(ItemEdit,dataToPush);
 				}
-			}
+			} 
 			
 			protected function addButton_clickHandler(event:MouseEvent):void
 			{
