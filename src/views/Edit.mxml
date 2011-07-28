@@ -248,7 +248,7 @@
 			<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
 					 text="WHERE DID YOU FIND IT?" textAlign="center" filters="{[textShadow]}" />
 			
-			<s:Button id="locationButton" top="300" horizontalCenter="-0" label="{locationSelector.place.address}"
+			<s:Button id="locationButton" top="300" horizontalCenter="-0" label="{locationSelector.place.address}" width="100%"
 					  click="locationButton_clickHandler(event)" />
 			
 			
