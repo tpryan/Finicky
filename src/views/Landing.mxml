@@ -169,10 +169,6 @@
 				
 			}
 			
-			protected function alert_closedHandler(event:Event):void
-			{
-				mx.core.FlexGlobals.topLevelApplication.viewMenuOpen = true;				
-			}
 			
 			protected function closePopup_okHandler(event:Event):void
 			{
@@ -204,7 +200,7 @@
 	
 	<fx:Declarations>
 		<components:Notice id="notice" text="Match Saved." verticalCenter="0" horizontalCenter="0" />
-		<components:Alert id="alert" message="{alertText}" left="0" right="0" closed="alert_closedHandler(event)" />
+		<components:Alert id="alert" message="{alertText}" left="0" right="0" height="{height}" />
 	
 		<fx:String id="alertText">You don't have any Finicky matches nearby. 
 
