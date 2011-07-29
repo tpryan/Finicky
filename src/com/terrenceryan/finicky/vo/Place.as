@@ -1,6 +1,11 @@
 package com.terrenceryan.finicky.vo
 {
-	public class Place
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
+	
+	[Event(name="dataChanged", type="flash.events.Event")]
+
+	public class Place extends EventDispatcher
 	{
 		
 		private const FEET_IN_MILE:int = 5280;
@@ -30,17 +35,20 @@ package com.terrenceryan.finicky.vo
 		public function set country(value:String):void
 		{
 			_country = value;
+			announceChange()
 		}
 
 		[Bindable]
 		public function get mailingCode():String
 		{
 			return _mailingCode;
+			
 		}
 
 		public function set mailingCode(value:String):void
 		{
 			_mailingCode = value;
+			announceChange();
 		}
 
 		[Bindable]
@@ -52,6 +60,7 @@ package com.terrenceryan.finicky.vo
 		public function set state(value:String):void
 		{
 			_state = value;
+			announceChange();
 		}
 
 		[Bindable]
@@ -63,6 +72,7 @@ package com.terrenceryan.finicky.vo
 		public function set city(value:String):void
 		{
 			_city = value;
+			announceChange();
 		}
 
 		[Bindable]
@@ -74,6 +84,7 @@ package com.terrenceryan.finicky.vo
 		public function set address(value:String):void
 		{
 			_address = value;
+			announceChange();
 		}
 
 		[Bindable]
@@ -85,6 +96,7 @@ package com.terrenceryan.finicky.vo
 		public function set name(value:String):void
 		{
 			_name = value;
+			announceChange();
 		}
 
 		[Bindable]
@@ -96,6 +108,7 @@ package com.terrenceryan.finicky.vo
 		public function set placeid(value:int):void
 		{
 			_placeid = value;
+			announceChange();
 		}
 
 		public function get otherPlace():Place
@@ -123,6 +136,7 @@ package com.terrenceryan.finicky.vo
 		public function set notes(value:String):void
 		{
 			_notes = value;
+			announceChange();
 		}
 		[Bindable]
 		public function get lon():Number
@@ -133,6 +147,7 @@ package com.terrenceryan.finicky.vo
 		public function set lon(value:Number):void
 		{
 			_lon = value;
+			announceChange();
 		}
 		[Bindable]
 		public function get lat():Number
@@ -143,6 +158,7 @@ package com.terrenceryan.finicky.vo
 		public function set lat(value:Number):void
 		{
 			_lat = value;
+			announceChange();
 		}
 
 		
@@ -273,6 +289,10 @@ package com.terrenceryan.finicky.vo
 			trace("Place cloned")
 			return result;
 			
+		}
+		
+		public function announceChange():void{
+			dispatchEvent(new Event("dataChanged"));
 		}
 		
 		

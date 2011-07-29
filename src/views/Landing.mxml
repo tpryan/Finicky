@@ -40,6 +40,8 @@
 				dataToPush.lastView = "Landing";
 				dataToPush.geoCodeService.addEventListener("result", resetheader);
 				
+				dataToPush.home.addEventListener("dataChanged", setLocationBanner);
+				
 				if ( (dataToPush.home) && ((dataToPush.home.lat == 0) && (dataToPush.home.lon == 0)) && (dataToPush.geo) ){
 					geo = dataToPush.geo;
 					geo.addEventListener(GeolocationEvent.UPDATE, resetList);

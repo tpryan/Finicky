@@ -156,7 +156,7 @@ package com.terrenceryan.finicky.geo
 		}
 		
 		public function fromLatLonToAddress(lat:Number,lon:Number):void{
-			
+			trace("ESRI Calls started");
 			var mappoint:MapPoint = new MapPoint(lon,lat,wgs);
 			locatorService.outSpatialReference = wgs;
 			locatorService.addEventListener(LocatorEvent.LOCATION_TO_ADDRESS_COMPLETE,getLocation);

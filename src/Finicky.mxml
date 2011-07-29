@@ -38,6 +38,9 @@
 			import views.Landing;
 			import views.TestView;
 			
+			//deleteme
+			private var count:Number = new Date().time;
+			
 			public var dbManager:DBManager = null;
 			public var geoCodeService:GeoCode = new GeoCode();
 			public var dataToPush:DataSingleton = new DataSingleton();
@@ -66,9 +69,12 @@
 				
 				if (Geolocation.isSupported)
 				{
+					trace("Geolocation supported");
+					trace((new Date().time - count) + "ms");
 					//Initialize the location sensor.
 					geo = new Geolocation();
 					if(! geo.muted){
+						trace("Geolocation is not muted");
 						geo.setRequestedUpdateInterval(100);
 						//Register to receive location updates.
 						geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
@@ -146,6 +152,7 @@
 			
 			protected function geolocationUpdateHandler(event:GeolocationEvent):void
 			{
+				trace("Geolocation Event Fired");
 				geo.setRequestedUpdateInterval(300000);
 				home.lat = event.latitude;
 				home.lon = event.longitude;
@@ -156,13 +163,20 @@
 			
 			protected function geoCodeResultHandler(event:GeoResultEvent):void
 			{
+				trace("ESRI Calls returned");
+				trace(event.result.address);
+				trace(event.result.city);
+				trace(event.result.state);
+				trace(event.result.mailingCode);
+				
+				
+				
 				geoCodeService.removeEventListener("result", geoCodeResultHandler);
-				home.address = event.result.address;
-				home.city = event.result.city;
-				home.state = event.result.state;
-				home.mailingCode = event.result.mailingCode;
-				home.country = event.result.country;
-				dataToPush.home = home;
+				dataToPush.home.address = event.result.address;
+				dataToPush.home.city = event.result.city;
+				dataToPush.home.state = event.result.state;
+				dataToPush.home.mailingCode = event.result.mailingCode;
+				dataToPush.home.country = event.result.country;
 				dbManager.currentLocationDBO.save(home);
 				geoCodeService.addEventListener("alternativesResult", processAlternatives);
 				geoCodeService.getAlternativeLocations(home);
