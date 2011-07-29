@@ -54,10 +54,6 @@ package skins
 			
 			if (hostComponent.getStyle("textAlign")){
 				textDisplay.setStyle("textAlign", hostComponent.getStyle("textAlign"));
-				textDisplay.x = 15;
-				if (promptDisplay){
-					promptDisplay.x = 15;
-				}
 			}
 			else{
 				textDisplay.setStyle("textAlign", "center");
