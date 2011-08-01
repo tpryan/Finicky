@@ -17,7 +17,7 @@
 				dbManager = data.dbManager;
 			}
 			
-			protected function deleteButton_clickHandler(event:MouseEvent):void
+			protected function deleteButton_clickHandler(event:Event):void
 			{
 				accept.addEventListener("ok", handleDelete);
 				accept.message = "Are you sure you want to delete?"
@@ -39,14 +39,16 @@
 	
 	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Match"/>
 	<s:VGroup left="5" right="5" top="180" bottom="0">
-		<s:Label width="100%" styleName="userInputtedInfo" text="{itemAtPlace.item.name}" paddingLeft="50"/>
-		<s:Label width="100%" styleName="appProvidedText" text="at" textAlign="center"/>
+		<s:Label width="100%" styleName="userInputtedInfo" text="{itemAtPlace.item.name}" />
+		<s:Label width="100%" styleName="appProvidedText" text="at" textAlign="left"/>
 		<s:Label id="storeName" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"/>
 		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{itemAtPlace.place.address}"/>
 		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{itemAtPlace.place.toCityStateZipString()}"/>
 	</s:VGroup>
 	
-	
+	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="DELETE" 
+						leftClick="navigator.popView()" 
+						rightClick="deleteButton_clickHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="deleteButton" label="DELETE" click="deleteButton_clickHandler(event)" />
