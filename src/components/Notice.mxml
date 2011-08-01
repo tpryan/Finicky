@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)"
-						    y="200"
+						    y="200" 
 						   open="onOpen(event)" 
 						   xmlns:s="library://ns.adobe.com/flex/spark" width="200" height="40" backgroundColor="0x13C1DF">
 	
@@ -15,6 +15,7 @@
 			protected function init(event:FlexEvent):void
 			{
 				x= parent.width/2 -100;
+				this.filters = [shadow];
 			}
 			
 			protected function onOpen(event:PopUpEvent):void
@@ -28,7 +29,8 @@
 	
 	
 	<fx:Declarations>
-		<s:Fade id="fadeOut" target="{this}" alphaFrom="1" alphaTo="0" duration="500" startDelay="1000" />
+		<s:DropShadowFilter id="shadow" alpha=".7" color="0x000000" angle="120" distance="2" />
+		<s:Fade id="fadeOut" target="{this}" alphaFrom="1" alphaTo="0" duration="800" startDelay="1000" />
 	</fx:Declarations>
 	
 	<s:Label id="messageText" text="{text}" horizontalCenter="0" verticalCenter="0" /> 
