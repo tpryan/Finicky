@@ -51,6 +51,8 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				this.actionBar.visible = false;
+				navigator.showActionBar(false);
 				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, onActivate);
 				getFonts();
@@ -60,7 +62,7 @@
 				locationReconciler.reconcile();
 				getLocation();
 				onLoaded();
-				navigator.showActionBar(false);
+				
 			}
 			
 			protected function getLocation():void{
