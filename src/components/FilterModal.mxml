@@ -32,12 +32,6 @@
 			}
 			
 			private function toggleFilter():void{
-				if (_filterType == "item"){
-					_filterType = "place";
-				}
-				else{
-					_filterType = "item";
-				}
 				
 				dispatchEvent(new Event("changed"));
 				
@@ -79,6 +73,19 @@
 				visible = false;
 			}
 			
+			protected function placeClickHandler(event:MouseEvent):void
+			{
+				_filterType = "place";
+				toggleFilter();
+				
+			}
+			
+			protected function itemClickHandler(event:MouseEvent):void
+			{
+				_filterType = "item";
+				toggleFilter();	
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -94,11 +101,9 @@
 		<s:Label id="modalItemLabel" horizontalCenter="-140" text="ITEM" verticalCenter="-50"/>
 		<s:Label id="modalPlaceLabel" horizontalCenter="140" text="PLACE" verticalCenter="-50"/>
 		
-		<s:Image id="closeButton" right="5" top="5" click="closeButton_clickHandler(event)"
-				 source="@Embed('/assets/icons/closebutton.png')"/>
 		
-		<s:Image id="modalItemIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="clickHandler(event)"/>
-		<s:Image id="modalPlaceIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="clickHandler(event)" />
+		<s:Image id="modalItemIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="itemClickHandler(event)"/>
+		<s:Image id="modalPlaceIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="placeClickHandler(event)" />
 	</s:Group>
 	
 	
