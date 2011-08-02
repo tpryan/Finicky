@@ -223,6 +223,9 @@ s|TextInput{
 	skinClass: ClassReference("skins.FormTexInputSkin");
 }
 
+views|MapView #filterString{
+	skinClass: ClassReference("skins.SuggestionTextBoxTextInputSkin")
+}
 components|SuggestionTextBox s|TextInput{
 	skinClass: ClassReference("skins.SuggestionTextBoxTextInputSkin")
 }

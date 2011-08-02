@@ -14,7 +14,10 @@
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.Place;
 			
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
+			
+			import spark.events.TextOperationEvent;
 			
 			[Bindable]
 			protected var play:Number  = .01;
@@ -24,12 +27,24 @@
 			[Embed(source="/assets/icons/mapMarker.png")]
 			private var mapMarker:Class;
 			
+			private var markers:ArrayCollection;
+			
 			
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data as DataSingleton;
 				dataToPush.lastView = "MapView";
 				
+				markers = data.itemAtPlaceList;
+				
+				placeMarkers();
+				
+				
+				
+		
+			}
+			
+			protected function placeMarkers():void{
 				//Format for place names
 				var placeTextFormat:TextFormat = new TextFormat();
 				placeTextFormat.font = "Trade Gothic LT Std Cn";
@@ -52,16 +67,16 @@
 				
 				var textMarker:TextSymbol = new TextSymbol("You");
 				textMarker.textFormat = placeTextFormat;
-
+				
 				var homeCompositeSymbol:CompositeSymbol = new CompositeSymbol([homeSymbol, textMarker]);
 				
 				var homeGraphic:Graphic = new Graphic(homeMapPoint,homeCompositeSymbol);
-			
+				
 				myGraphicsLayer.add(homeGraphic);
 				
-				for (var i:int = 0; i < data.itemAtPlaceList.length; i++){
-					var place:Place = data.itemAtPlaceList.getItemAt(i).place;
-					var item:Item = data.itemAtPlaceList.getItemAt(i).item;
+				for (var i:int = 0; i < markers.length; i++){
+					var place:Place = markers.getItemAt(i).place;
+					var item:Item = markers.getItemAt(i).item;
 					
 					var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
 					
@@ -73,7 +88,7 @@
 					
 					var placeCompositeSymbol:CompositeSymbol = new CompositeSymbol([placeMaker,itemTextMarker]);
 					var placeGraphic:Graphic = new Graphic(placeMapPoint, placeCompositeSymbol);
-				
+					
 					
 					placeGraphic.name = i.toString();
 					placeGraphic.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {dataToPush.selectedIndex = parseInt(event.currentTarget.name); navigator.pushView(Detail, dataToPush);});
@@ -81,28 +96,6 @@
 					myGraphicsLayer.add(placeGraphic);
 					
 				}
-				
-				/* for (var i:int = 0; i < data.itemAtPlaceList.length; i++){
-					var place:Place = data.itemAtPlaceList.getItemAt(i).place;
-					var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
-					myGraphicMarker = new Graphic(placeMapPoint,placeMaker);
-					myGraphicsLayer.add(myGraphicMarker);
-					
-					
-					textMarker = new TextSymbol();
-					textMarker.text = place.name;
-					textMarker.xoffset = placeMaker.xoffset;
-					textMarker.yoffset = placeMaker.yoffset;
-					textMarker.textFormat = textFormat;
-					
-					
-					myGraphicMarker = new Graphic(placeMapPoint,textMarker);
-					
-					myGraphicsLayer.add(myGraphicMarker);
-				}    */
-				
-				
-		
 			}
 			
 			
@@ -140,6 +133,22 @@
 				
 			}
 			
+			protected function filterString_changeHandler(event:TextOperationEvent):void
+			{
+				markers.filterFunction = filterFunction;
+				markers.refresh();
+				myGraphicsLayer.clear();
+				placeMarkers();
+				
+			}
+			
+			private function filterFunction(itemAtPlace:Object):Boolean {
+				var searchString:String = filterString.text.toLowerCase();
+				var itemName:String = (itemAtPlace.item.name as String).toLowerCase();
+				return itemName.indexOf(searchString) > -1;
+			}
+			
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -147,13 +156,16 @@
 
 	</fx:Declarations>
 	
+	
 	<esri:Map id="mainMap" wrapAround180="true" top="0" left="0" right="0" bottom="">
 		<esri:extent>
-			<esri:WebMercatorExtent id="map" minlon="{data.home.lon-play}" minlat="{data.home.lat-play}" maxlon="{data.home.lon+play}" maxlat="{data.home.lat-play}"/>
+			<esri:WebMercatorExtent id="map" minlon="{data.home.lon-play}" minlat="{data.home.lat-play}" maxlon="{data.home.lon+play}" maxlat="{data.home.lat+play}"/>
 		</esri:extent>
 		<esri:ArcGISTiledMapServiceLayer url="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
 		<esri:GraphicsLayer id="myGraphicsLayer" />
 	</esri:Map>
+	
+	<s:TextInput id="filterString" top="5" left="45" right="5" textAlign="center" change="filterString_changeHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" click="addButton_clickHandler(event)"  />
