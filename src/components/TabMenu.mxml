@@ -12,6 +12,8 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
+			
+			import spark.effects.Move;
 			[Bindable]
 			public var leftButtonText:String = "LEFT";
 			
@@ -20,6 +22,9 @@
 			
 			private var _active:Boolean = true;
 
+			public var show:Move;
+			public var hide:Move;
+			
 			[Bindable(event="activeChange")]
 			public function get active():Boolean
 			{
@@ -55,13 +60,19 @@
 				
 			}
 			
+			protected function setupEffects():void{
+				show.yTo = parent.height - height /2;
+				show.target = this;
+				show.duration = 500;
+				
+				hide.yTo = parent.height + height;
+				hide.target = this;
+				hide.duration = 500;
+			}
+			
 		]]>
 	</fx:Script>
 	
-	<fx:Declarations>
-		<s:Move id="show" yTo="{parent.height - height /2}" duration="500" target="{this}" />	
-		<s:Move id="hide" yTo="{parent.height + height}" duration="500" target="{this}" />	
-	</fx:Declarations>
 	
 	<s:Image source="@Embed('/assets/bg/bg_tabmenu.png')" width="100%" height="100" scaleMode="stretch" />
 	
