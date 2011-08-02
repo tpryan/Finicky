@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="false" creationComplete="init(event)"
-		xmlns:s="library://ns.adobe.com/flex/spark" title="PlaceList" xmlns:renderers="renderers.*">
+		xmlns:s="library://ns.adobe.com/flex/spark" title="PlaceList" xmlns:renderers="renderers.*" xmlns:components="components.*">
 	
 	<fx:Script>
 		<![CDATA[
@@ -21,6 +21,12 @@
 				dataToPush = data as DataSingleton;
 				dbManager = data.dbManager;
 				places = dbManager.placeDAO.list();
+				
+				if (dataToPush.displayNotice){
+					notice.open(this, false);
+					dataToPush.displayNotice = false;
+				}
+				
 			}
 			
 			protected function placeList_clickHandler(event:MouseEvent):void
@@ -40,6 +46,9 @@
 		]]>
 	</fx:Script>
 
+	<fx:Declarations>
+		<components:Notice id="notice" text="Place Saved." verticalCenter="0" horizontalCenter="0" />
+	</fx:Declarations>
 	
 	<s:List id="placeList" left="0" right="0" top="180" bottom="0" contentBackgroundAlpha="0" dataProvider="{places}" click="placeList_clickHandler(event)">
 		<s:itemRenderer>

@@ -45,8 +45,6 @@
 				placeid = dbManager.placeDAO.getLastRecordID();
 				place = dbManager.placeDAO.get(placeid);
 				dataToPush.place = place;
-				alert.message = "Your place has been saved. ";
-				alert.open(this, true);
 
 				
 				if (place.lat == 0){ 
@@ -55,6 +53,10 @@
 					geoCodeService.fromAddressToLatLon(place);
 					trace("Place without a geocode.")
 				}
+				
+				dataToPush.displayNotice = true;
+				navigator.popView();
+				
 			}
 			
 			protected function init(event:FlexEvent):void

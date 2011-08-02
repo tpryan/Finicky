@@ -3,6 +3,7 @@
 		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemEdit" xmlns:components="components.*">
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.vo.Item;
 			
@@ -13,9 +14,12 @@
 			[Bindable]
 			protected var item:Item;
 			
+			protected var dataToPush:DataSingleton; 
 			
 			protected function init(event:FlexEvent):void
 			{
+				dataToPush = data as DataSingleton;
+				
 				dbManager = data.dbManager;
 				
 				if (data.item){
@@ -30,17 +34,16 @@
 				
 			}
 			
-			protected function saveButton_clickHandler(event:MouseEvent):void
+			protected function saveButton_clickHandler(event:Event):void
 			{
 				
 				dbManager.itemDAO.save(item);	
-				alert.message = "Your item has been saved. ";
-				alert.open(this, true);
-				
+				dataToPush.displayNotice = true;
+				navigator.popView();
 				
 			}
 			
-			protected function deleteButton_clickHandler(event:MouseEvent):void
+			protected function deleteButton_clickHandler(event:Event):void
 			{
 				accept.addEventListener("ok", handleDelete);
 				accept.message = "Are you sure you want to delete?"
@@ -61,7 +64,7 @@
 				
 			}
 			
-			protected function cancelButton_clickHandler(event:MouseEvent):void
+			protected function cancelButton_clickHandler(event:Event):void
 			{
 				// TODO Auto-generated method stub
 				navigator.popView()
@@ -79,12 +82,12 @@
 		<s:Label id="titleLabel" text="Add/Edit Item"/>
 		<s:TextInput id="nameText" width="100%" text="@{item.name}" focusThickness="0" prompt="Item"/>
 		
-		<s:HGroup width="100%" gap="50" horizontalAlign="center">
-			<s:Button id="saveButton" label="SAVE" click="saveButton_clickHandler(event)" />
-			<s:Button id="cancelButton" label="CANCEL" click="cancelButton_clickHandler(event)" />
-		</s:HGroup>
 		
 	</s:VGroup>
+	
+	<components:TabMenu id="tabMenu" active="true" bottom="0" 
+						leftButtonText="SAVE" rightButtonText="CANCEL" 
+						leftClick="saveButton_clickHandler(event)" rightClick="cancelButton_clickHandler(event)" />
 	
 	
 	<s:viewMenuItems>
