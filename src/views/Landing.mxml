@@ -51,7 +51,7 @@
 				
 				
 				dbManager = dataToPush.dbManager;
-				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",dataToPush.home);
+				getListData();
 				geoCodeService = dataToPush.geoCodeService;
 				
 				geoCodeService.addEventListener("result", setLocationBanner);
@@ -78,6 +78,8 @@
 				if (itemAtPlaceList.length == 0){
 					mapButton.visible = false;
 					noItemsLabel.visible = true;
+					dataToPush.locationReconciler.reconcile();
+					dataToPush.locationReconciler.addEventListener("reconciled", getListData);
 				}
 				
 				if (dataToPush.displayNotice){
@@ -87,6 +89,13 @@
 				
 			}
 			
+			protected function getListData(e:Event = null):void{
+				itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",dataToPush.home);
+				
+				if (itemAtPlaceList.length > 0){
+					noItemsLabel.visible = false;
+				}
+			}
 			
 			protected function itemList_clickHandler(event:MouseEvent):void
 			{

@@ -6,11 +6,15 @@ package com.terrenceryan.finicky
 	
 	import events.GeoResultEvent;
 	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.filesystem.File;
 	
 	import mx.collections.ArrayCollection;
+	
+	[Event(name="reconciled", type="flash.events.Event")]
 
-	public class LocationReconciler
+	public class LocationReconciler extends EventDispatcher
 	{
 		
 		protected var dbManager:DBManager;
@@ -45,6 +49,7 @@ package com.terrenceryan.finicky
 			place.lon = event.result.lon;
 			dbManager.placeDAO.save(place);
 			trace("Processed  "+ place.name + " lat: " + place.lat + " lon: "+ place.lon);
+			dispatchEvent(new Event("reconciled") );
 			
 		}
 		

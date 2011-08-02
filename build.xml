@@ -75,8 +75,12 @@
 	        <source-path path-element="${FLEX_HOME}/frameworks"/>
 			<static-link-runtime-shared-libraries />
 			
-			<compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
-                <include name="libs/*" />
+			<compiler.library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
+				<include name="core.swc" />
+				<include name="framework.swc" />
+				<include name="spark.swc" />
+				<include name="mobile" />
+				
             </compiler.library-path>
 			
 			<compiler.library-path dir="libs" append="true">
