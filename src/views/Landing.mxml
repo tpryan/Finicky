@@ -85,6 +85,8 @@
 				if (dataToPush.displayNotice){
 					notice.open(this, false);
 					dataToPush.displayNotice = false;
+					dataToPush.locationReconciler.reconcile();
+					dataToPush.locationReconciler.addEventListener("reconciled", getListData);
 				}
 				
 			}

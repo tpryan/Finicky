@@ -44,6 +44,7 @@
 				dbManager.placeDAO.save(place);	
 				placeid = dbManager.placeDAO.getLastRecordID();
 				place = dbManager.placeDAO.get(placeid);
+				dataToPush.place = place;
 				alert.message = "Your place has been saved. ";
 				alert.open(this, true);
 
@@ -80,6 +81,7 @@
 				place.placeid = placeid;
 				data.place = place;
 				dbManager.placeDAO.save(place);
+				dataToPush.place = place;
 				
 			}
 			
