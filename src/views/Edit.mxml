@@ -9,6 +9,7 @@
 			import com.terrenceryan.finicky.LocationReconciler;
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.geo.GeoCode;
+			import com.terrenceryan.finicky.util.StringUtil;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			import com.terrenceryan.finicky.vo.Place;
@@ -38,6 +39,8 @@
 			
 			[Bindable]
 			protected var alternatives:ArrayCollection;
+			
+			protected var stringUtils:StringUtil = new StringUtil();
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -115,7 +118,7 @@
 				
 				var itemAtPlace:ItemAtPlace = new ItemAtPlace();
 				itemAtPlace.place = locationSelector.place;
-				itemAtPlace.place.name = placeTextInput.text;
+				itemAtPlace.place.name = stringUtils.toTitleCase(placeTextInput.text);
 				itemAtPlace.item = item;
 				itemAtPlace.date = new Date();
 				itemAtPlace.picturepath = cameraButton.photo;
