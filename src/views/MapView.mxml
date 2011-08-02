@@ -14,7 +14,6 @@
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.Place;
 			
-			import mx.controls.Text;
 			import mx.events.FlexEvent;
 			
 			[Bindable]
