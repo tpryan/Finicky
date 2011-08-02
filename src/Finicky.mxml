@@ -26,6 +26,7 @@
 			import com.terrenceryan.finicky.fonts.tradegothictlf;
 			import com.terrenceryan.finicky.fonts.tradegothictlfbold;
 			import com.terrenceryan.finicky.geo.GeoCode;
+			import com.terrenceryan.finicky.util.StringUtil;
 			import com.terrenceryan.finicky.vo.Place;
 			
 			import events.GeoResultEvent;
@@ -48,6 +49,7 @@
 			public var home:Place = new Place();
 			public var locationReconciler:LocationReconciler = new LocationReconciler();
 			public var closeTimer:Timer;
+			public var stringUtils:StringUtil = new StringUtil();
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -174,7 +176,7 @@
 				
 				
 				geoCodeService.removeEventListener("result", geoCodeResultHandler);
-				dataToPush.home.address = event.result.address;
+				dataToPush.home.address = stringUtils.toTitleCase(event.result.address);
 				dataToPush.home.city = event.result.city;
 				dataToPush.home.state = event.result.state;
 				dataToPush.home.mailingCode = event.result.mailingCode;

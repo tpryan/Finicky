@@ -6,6 +6,7 @@ package com.terrenceryan.finicky.geo
 	import com.esri.ags.geometry.WebMercatorMapPoint;
 	import com.esri.ags.tasks.Locator;
 	import com.esri.ags.tasks.supportClasses.AddressCandidate;
+	import com.terrenceryan.finicky.util.StringUtil;
 	import com.terrenceryan.finicky.vo.Place;
 	
 	import events.GeoResultEvent;
@@ -30,6 +31,7 @@ package com.terrenceryan.finicky.geo
 		private var locatorService:Locator = new Locator();
 		private var wgs:SpatialReference = new SpatialReference(4326);
 		public var placeid:int = 0;
+		private var stringUtil:StringUtil = new StringUtil();
 		
 		
 		public function GeoCode()
@@ -151,6 +153,11 @@ package com.terrenceryan.finicky.geo
 			
 			place.lat = addressCandidate.attributes.X;
 			place.lon = addressCandidate.attributes.Y;
+			
+			
+			//correcting for tendency to over cap addresses
+			place.address = stringUtil.toTitleCase(place.address);
+				
 			
 			return place;
 		}
