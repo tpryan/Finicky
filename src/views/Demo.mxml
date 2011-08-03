@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Demo">
+	
+	<fx:Script>
+		<![CDATA[
+			import org.osmf.events.TimeEvent;
+			protected function playButton_clickHandler(event:MouseEvent):void
+			{
+				videoPlayer.play();
+				videoPlayer.alpha = 1;
+				playButton.alpha = .01;
+				
+				
+			}
+			
+			protected function videoPlayer_completeHandler(event:TimeEvent):void
+			{
+				videoPlayer.alpha = .2;
+				playButton.alpha = .8;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<s:Rect top="4" bottom="4" left="4" right="4">
+		<s:stroke>
+			<s:SolidColorStroke color="0x13C5DE" />
+		</s:stroke>
+	</s:Rect>
+	
+	<s:VideoDisplay id="videoPlayer" complete="videoPlayer_completeHandler(event)"  source="/assets/video/demo.f4v" top="5" bottom="5" left="5" right="5" autoPlay="false" alpha=".2" />
+	<s:Image id="playButton" x="177" y="332" source="@Embed('/assets/icons/itemListButtonUp.png')" alpha=".8" click="playButton_clickHandler(event)"/>
+	
+</s:View>

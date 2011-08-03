@@ -210,6 +210,11 @@ skins|AlertSkin #messageText{
 #filterBtn{
 	skinClass: ClassReference("skins.FilterButtonSkin")
 }
+
+#noItemsButton{
+	skinClass: ClassReference("skins.FilterButtonSkin")
+}
+
 s|ViewNavigatorApplication{
 	skinClass: ClassReference("skins.AppSkin");
 }

@@ -36,6 +36,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import views.Demo;
 			import views.Landing;
 			import views.TestView;
 			
