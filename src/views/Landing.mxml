@@ -258,7 +258,7 @@ How's about you add some?</fx:String>
 	</s:List>
 
 	<s:Label id="noItemsLabel" visible="false" text="No items yet." top="400" horizontalCenter="0" />
-	<s:Button id="noItemsButton" visible="false" label="Demo" top="480" horizontalCenter="0" click="noItemsButton_clickHandler(event)" />
+	<s:Button id="noItemsButton" visible="false" label="Need a little help?" top="480" horizontalCenter="0" click="noItemsButton_clickHandler(event)" />
 	
 	<components:Location id="locationInterface" locationChanged="locationInterface_locationChangedHandler(event)"  location="{dataToPush.home.getRendererLabel()}"  />
 	<s:Button id="filterBtn" label="Sort" right="10" top="165" click="locationInterface_filterClickedHandler(event)" enabled="true"/>

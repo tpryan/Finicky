@@ -212,7 +212,7 @@ skins|AlertSkin #messageText{
 }
 
 #noItemsButton{
-	skinClass: ClassReference("skins.FilterButtonSkin")
+	skinClass: ClassReference("skins.EditLocationButtonSkin")
 }
 
 s|ViewNavigatorApplication{
