@@ -28,6 +28,20 @@
 			{
 				_location = value;
 				locationLabel.text = value;
+				
+				if (locationLabel.text.length < 20){
+					locationLabel.setStyle("fontSize", 60);
+					locationLabel.y = 108;
+				}
+				else if (locationLabel.text.length >= 20 && locationLabel.text.length < 25){
+					locationLabel.setStyle("fontSize", 45);
+					locationLabel.y = 108 + 15;
+				}
+				else{
+					locationLabel.setStyle("fontSize", 30);
+					locationLabel.y = 108 + 25;
+				}
+				
 			}
 
 			protected function init(event:FlexEvent):void

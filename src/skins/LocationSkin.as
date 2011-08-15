@@ -74,6 +74,7 @@ package skins
 			
 			locationLabel.autoSize = "left";
 			locationLabel.setStyle("fontFamily", "Spoleto");
+			
 			locationLabel.setStyle("fontSize", 60);
 			locationLabel.setStyle("color", 0xFFFFFF);
 			locationLabel.rotation = -15.5;

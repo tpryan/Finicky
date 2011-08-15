@@ -22,6 +22,7 @@ package com.terrenceryan.finicky
 		public var geo:Geolocation;
 		public var geoCodeService:GeoCode;
 		public var os:String;
+		[Bindable]
 		public var softControls:Boolean;
 		public var itemAtPlaceList:ArrayCollection;
 		public var selectedIndex:int;

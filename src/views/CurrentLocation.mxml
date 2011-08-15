@@ -18,7 +18,13 @@
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data as DataSingleton;
-				home = data.home;				
+				home = data.home;
+				
+				if (dataToPush.displayNotice){
+					notice.open(this, false);
+					dataToPush.displayNotice = false;
+				}
+				
 			}
 			
 			
@@ -30,8 +36,17 @@
 				
 			}
 			
+			protected function setLocationButton_clickHandler(event:MouseEvent):void
+			{
+				dataToPush.place = home.clone();
+				navigator.pushView(CurrentLocationEdit, dataToPush);
+			}
+			
 		]]>
 	</fx:Script>
+	<fx:Declarations>
+		<components:Notice id="notice" text="Location Saved." verticalCenter="0" horizontalCenter="0" />
+	</fx:Declarations>	
 	
 	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Current Location"/>
 	
@@ -48,7 +63,7 @@
 		
 	</s:HGroup>
 	
-	
+	<s:Button id="setLocationButton" label="Manually Set Location" top="480" horizontalCenter="0" click="setLocationButton_clickHandler(event)"  />
 	
 	
 	

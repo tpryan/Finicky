@@ -211,7 +211,7 @@ skins|AlertSkin #messageText{
 	skinClass: ClassReference("skins.FilterButtonSkin")
 }
 
-#noItemsButton{
+#noItemsButton, #setLocationButton{
 	skinClass: ClassReference("skins.EditLocationButtonSkin")
 }
 

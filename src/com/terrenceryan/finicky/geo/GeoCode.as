@@ -21,6 +21,7 @@ package com.terrenceryan.finicky.geo
 	import spark.collections.Sort;
 	
 	[Event(name="result", type="events.GeoResultEvent")]
+	[Event(name="fault", type="flash.events.Event")]
 	[Event(name="alternativesResult", type="events.GeoResultEvent")]
 	
 	public class GeoCode extends EventDispatcher
@@ -32,7 +33,7 @@ package com.terrenceryan.finicky.geo
 		private var wgs:SpatialReference = new SpatialReference(4326);
 		public var placeid:int = 0;
 		private var stringUtil:StringUtil = new StringUtil();
-		
+		private var mappoint:MapPoint;
 		
 		public function GeoCode()
 		{
@@ -164,7 +165,7 @@ package com.terrenceryan.finicky.geo
 		
 		public function fromLatLonToAddress(lat:Number,lon:Number):void{
 			trace("ESRI Calls started");
-			var mappoint:MapPoint = new MapPoint(lon,lat,wgs);
+			mappoint = new MapPoint(lon,lat,wgs);
 			locatorService.outSpatialReference = wgs;
 			locatorService.addEventListener(LocatorEvent.LOCATION_TO_ADDRESS_COMPLETE,getLocation);
 			locatorService.addEventListener(FaultEvent.FAULT, faultHandler);
@@ -176,7 +177,12 @@ package com.terrenceryan.finicky.geo
 		
 		protected function faultHandler(event:FaultEvent):void
 		{
-			trace(event.fault.content);
+			trace(event.fault.faultString);
+			dispatchEvent( new Event("fault"));
+			/*if (locatorService.url == NA_URL){
+				locatorService.url = EU_URL;
+				locatorService.locationToAddress(mappoint,1000);
+			}*/
 			
 		}		
 		

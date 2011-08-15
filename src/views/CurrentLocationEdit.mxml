@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" dataChange="dataChangeHandler(event)" actionBarVisible="{data.softControls}" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="CurrentLocationEdit" xmlns:components="components.*">
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
+			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.vo.Place;
+			
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			public var place:Place = new Place();
+			
+			public var dataToPush:DataSingleton;
+			public var dbManager:DBManager;
+			
+			protected function dataChangeHandler(event:FlexEvent):void
+			{
+				dataToPush = data as DataSingleton;
+				place = dataToPush.place as Place;
+				dbManager = dataToPush.dbManager;
+			}
+			
+			protected function saveButton_clickHandler(event:Event):void
+			{
+				
+				dbManager.currentLocationDBO.save(place);
+				dataToPush.home = place;
+				dataToPush.place = null;
+				dataToPush.displayNotice = true;
+				navigator.popView();
+				
+			}
+			
+			protected function cancelButton_clickHandler(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				navigator.popView();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	
+	
+	<s:Scroller width="100%" height="100%" left="5" right="5" top="5" bottom="5">
+		<s:VGroup clipAndEnableScrolling="true">
+				<s:Label id="titleLabel" text="Edit Current Location"/>
+				<s:TextInput id="addressText" width="100%"  text="@{place.address}" prompt="[Address]" />
+				<s:TextInput id="cityText" width="100%"  text="@{place.city}" prompt="[City]"  />
+				<s:TextInput id="stateText" width="100%"  text="@{place.state}" prompt="[State]"  />
+				<s:TextInput id="mailingcodeText" width="100%"  text="@{place.mailingCode}" prompt="[Mailing Code]"  />
+				<s:TextInput id="countryText" width="100%"  text="@{place.country}" prompt="[Country]"  />
+				<s:TextInput id="latText" width="100%" enabled="false"  text="{place.lat}" prompt="[Latitude]"  />
+				<s:TextInput id="lonText" width="100%" enabled="false"  text="{place.lon}" prompt="[Longitude]"  />
+			</s:VGroup>	
+	</s:Scroller>
+	
+	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="CANCEL" 
+						leftClick="saveButton_clickHandler(event)" rightClick="cancelButton_clickHandler(event)" />
+	
+</s:View>
