@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" creationComplete="init(event)"
-		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemAtPlaceList" xmlns:renderers="renderers.*">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Matches" xmlns:renderers="renderers.*">
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
@@ -30,10 +30,14 @@
 				
 			}
 			
-			protected function addButton_clickHandler(event:MouseEvent):void
-			{
-				dataToPush.place = null;
-				navigator.pushView(PlaceEdit,dataToPush);
+			
+			public function getTopPadding():int{
+				if (data.softControls){
+					return 0;
+				}
+				else{
+					return 50;
+				}
 			}
 			
 		]]>
@@ -42,7 +46,7 @@
 	
 	
 	
-	<s:List id="itemAtPlaceList" left="0" right="0" top="180" bottom="0" contentBackgroundAlpha="0" dataProvider="{itemAtPlaces}" click="placeList_clickHandler(event)">
+	<s:List id="itemAtPlaceList" left="0" right="0" top="{getTopPadding()}" bottom="0" contentBackgroundAlpha="0" dataProvider="{itemAtPlaces}" click="placeList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
 				<renderers:ItemListRenderer  styleName="itemName" messageStyleName="locationName" labelFunction="getItemName"
@@ -70,10 +74,10 @@
 		
 		
 	</s:List>
-	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Matches"/>
+	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Matches" visible="{!data.softControls}"/>
 	
-	<s:viewMenuItems>
-		<s:ViewMenuItem id="addButton" label="ADD" click="addButton_clickHandler(event)"  />
-		<s:ViewMenuItem id="deleteButton" label=" "  />
-	</s:viewMenuItems>
+	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popView()" />
+	</s:navigationContent>
 </s:View>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="false" creationComplete="init(event)" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemList" xmlns:renderers="renderers.*" xmlns:components="components.*">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="{data.softControls}" creationComplete="init(event)" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Items" xmlns:renderers="renderers.*" xmlns:components="components.*">
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
@@ -44,6 +44,15 @@
 				
 			}
 			
+			public function getTopPadding():int{
+				if (data.softControls){
+					return 0;
+				}
+				else{
+					return 50;
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -51,8 +60,8 @@
 		<components:Notice id="notice" text="Item Saved." verticalCenter="0" horizontalCenter="0" />
 	</fx:Declarations>
 	
-	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Items"/>
-	<s:List id="itemList" left="0" right="0" top="180" bottom="0" contentBackgroundAlpha="0" dataProvider="{items}" click="itemList_clickHandler(event)" >
+	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Items" visible="{!data.softControls}"/>
+	<s:List id="itemList" left="0" right="0" top="{getTopPadding()}" bottom="0" contentBackgroundAlpha="0" dataProvider="{items}" click="itemList_clickHandler(event)" >
 		<s:itemRenderer>
 			<fx:Component>
 				<renderers:ItemListRenderer labelField="name"  
@@ -61,6 +70,14 @@
 			</fx:Component>
 		</s:itemRenderer>
 	</s:List>
+	
+	<s:actionContent>
+		<s:Button id="addButtonAB" click="addButton_clickHandler(event)" label="+" />	
+	</s:actionContent>
+	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popView()" />
+	</s:navigationContent>
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="addButton" label="ADD" click="addButton_clickHandler(event)"  />

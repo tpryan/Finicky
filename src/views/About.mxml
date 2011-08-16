@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" 
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="About">
 	
 	<fx:Script>
@@ -7,7 +7,7 @@
 			protected function emailButton_clickHandler(event:MouseEvent):void
 			{
 				var urlString:String = "mailto:";
-				urlString += "terry@terrenceryan.com";
+				urlString += "finickyapp@terrenceryan.com";
 				urlString += "?subject=";
 				urlString += "Contact from Finicky app";
 				navigateToURL(new URLRequest(urlString));
@@ -33,5 +33,9 @@
 	<s:Label id="textThanks" horizontalCenter="0" y="580" text="Adobe, ESRI"/>
 	
 	<s:Button id="emailButton"  horizontalCenter="0" y="650" label="CONTACT" click="emailButton_clickHandler(event)"  />
+	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popView()" />
+	</s:navigationContent>
 	
 </s:View>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" 
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" 
 		keyDown="keyPress(event)" gestureSwipe="onSwipte(event)" creationComplete="init(event)" 
-		title="Detail" cacheAsBitmap="true" 
+		title="" cacheAsBitmap="true" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
 		xmlns:components="components.*" 
 		xmlns:vo="com.terrenceryan.finicky.vo.*" >
@@ -223,5 +223,13 @@
 		<s:ViewMenuItem id="addButton" label="ADD" click="hard_menu_addButton_clickHandler(event)"  />
 		<s:ViewMenuItem id="editButton" label="EDIT" click="hardmenu_editClickedHandler(event)" />
 	</s:viewMenuItems>
+	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popToFirstView()" />
+	</s:navigationContent>
+	
+	<s:actionContent>
+		<s:Button id="editBtn" label="Edit" click="hardmenu_editClickedHandler(event)" />
+	</s:actionContent>
 	
 </s:View>

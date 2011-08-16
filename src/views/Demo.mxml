@@ -38,4 +38,9 @@
 	<s:VideoDisplay id="videoPlayer" complete="videoPlayer_completeHandler(event)"  source="/assets/video/demo.f4v" top="5" bottom="5" left="5" right="5" autoPlay="false" alpha=".2" />
 	<s:Image id="playButton" x="177" y="332" source="@Embed('/assets/icons/itemListButtonUp.png')" alpha=".8" click="playButton_clickHandler(event)"/>
 	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popView()" />
+	</s:navigationContent>
+	
+	
 </s:View>

@@ -225,7 +225,7 @@ package com.terrenceryan.finicky.vo
 			else{
 				result = _city;
 			}
-			return result;
+			return result + String.fromCharCode(32);
 		}
 		
 		public function getDistanceInHumanForm():String{

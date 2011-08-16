@@ -31,7 +31,7 @@ package skins
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
-			bg.x = -340 + unscaledWidth/2;
+			bg.x = -320 + unscaledWidth/2;
 			bg.y = -480 + unscaledHeight/2;
 			
 		}

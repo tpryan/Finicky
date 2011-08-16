@@ -37,6 +37,7 @@
 			import mx.events.FlexEvent;
 			
 			import views.Demo;
+			import views.IOSLanding;
 			import views.Landing;
 			import views.TestView;
 			
@@ -114,22 +115,30 @@
 				dataToPush.dbManager = dbManager;
 				dataToPush.geoCodeService = geoCodeService;
 				dataToPush.geo = geo;
-				dataToPush.os = Capabilities.os;
+				dataToPush.os = Capabilities.version;
 				dataToPush.locationReconciler = locationReconciler;
 				
-				if (dataToPush.os.indexOf("iPhone") >= 0){
+				if (dataToPush.os.indexOf("IOS") >= 0){
 					dataToPush.softControls = true;
 				}
 				else if (dataToPush.os.indexOf("QNX") >= 0){
 					dataToPush.softControls = true;
+				}
+				else if (dataToPush.os.indexOf("AND") >= 0){
+					dataToPush.softControls = false;
 				}
 				else{
 					dataToPush.softControls = false;
 				}
 				
 				
+				if (dataToPush.os.indexOf("IOS") >= 0){
+					navigator.pushView(views.IOSLanding, dataToPush);
+				}
+				else{
+					navigator.pushView(views.Landing, dataToPush);
+				}
 				
-				navigator.pushView(views.Landing, dataToPush);
 			}
 			
 			private function getFonts():void

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" actionBarVisible="false" 
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" actionBarVisible="{data.softControls}" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="Settings" xmlns:renderers="renderers.*">
 	<fx:Script>
 		<![CDATA[
@@ -40,6 +40,19 @@
 						navigator.pushView(Demo, dataToPush);
 					}
 					
+					if (settingsList.selectedItem.name =="About"){
+						navigator.pushView(About, dataToPush);
+					}
+					
+				}
+			}
+			
+			public function getTopPadding():int{
+				if (data.softControls){
+					return 0;
+				}
+				else{
+					return 50;
 				}
 			}
 			
@@ -47,17 +60,25 @@
 	</fx:Script>
 	<fx:Declarations>
 		<s:ArrayCollection id="settings">
+			<fx:Object name="About" details="Find out about creators of Finicky" />
 			<fx:Object name="Demo" details="View video demo of Finicky" />
 			<fx:Object name="Items" details="Add/Edit/Remove Items" />
-			<fx:Object name="Places" details="Add/Edit/Remove Places" />
-			<fx:Object name="Matches" details="Remove links between Items and Places" />
 			<fx:Object name="Location" details="View and refresh details about current location" />
+			<fx:Object name="Matches" details="Remove links between Items and Places" />
+			<fx:Object name="Places" details="Add/Edit/Remove Places" />
+			
+			
 		</s:ArrayCollection>
+		
+		<s:SlideViewTransition id="slideForward" direction="down" />
 	</fx:Declarations>
 	
-	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Settings"/>
+	<s:VGroup>
+		
+	</s:VGroup>
+	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Settings" visible="{!data.softControls}"/>
 	
-	<s:List id="settingsList" left="0" right="0" top="180" bottom="0" contentBackgroundAlpha="0" dataProvider="{settings}" click="settingsList_clickHandler(event)">
+	<s:List id="settingsList" left="0" right="0" top="{getTopPadding()}" bottom="0" contentBackgroundAlpha="0" dataProvider="{settings}" click="settingsList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
 				<renderers:ItemListRenderer labelField="name" messageField="details" messageStyleName="locationName" 
@@ -66,5 +87,9 @@
 			</fx:Component>
 		</s:itemRenderer>
 	</s:List>
+	
+	<s:actionContent>
+		<s:Button id="doneBtn" label="Done" click="navigator.popView(slideForward)" />
+	</s:actionContent>
 	
 </s:View>

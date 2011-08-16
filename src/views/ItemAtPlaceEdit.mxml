@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="false" creationComplete="init(event)"
-		xmlns:s="library://ns.adobe.com/flex/spark" title="ItemAtPlaceEdit" xmlns:components="components.*">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="{data.softControls}" creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Delete Match" xmlns:components="components.*">
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.db.DBManager;
@@ -34,11 +34,12 @@
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<components:AcceptPopUp id="accept" />
+		<components:AcceptPopUp id="accept" top="0" right="0" bottom="0" left="0" />
 	</fx:Declarations>
 	
-	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Edit Match"/>
-	<s:VGroup left="5" right="5" top="180" bottom="0">
+	
+	<s:VGroup top="5" left="5" right="5" bottom="50">
+		<s:Label id="titleLabel" horizontalCenter="0" text="Delete Match" visible="{!data.softControls}"/>
 		<s:Label width="100%" styleName="userInputtedInfo" text="{itemAtPlace.item.name}" />
 		<s:Label width="100%" styleName="appProvidedText" text="at" textAlign="left"/>
 		<s:Label id="storeName" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"/>
@@ -46,7 +47,11 @@
 		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{itemAtPlace.place.toCityStateZipString()}"/>
 	</s:VGroup>
 	
-	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="DELETE" 
+	<s:Button id="deleteBtnIOS" visible="{data.softControls}" styleName="iosDelete" label="Delete" click="deleteButton_clickHandler(event)" bottom="5" /> 
+			  
+	
+	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="DELETE"
+						visible="{!data.softControls}"
 						leftClick="navigator.popView()" 
 						rightClick="deleteButton_clickHandler(event)" />
 	
@@ -56,5 +61,8 @@
 		
 	</s:viewMenuItems>
 	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popView()" />
+	</s:navigationContent>
 	
 </s:View>

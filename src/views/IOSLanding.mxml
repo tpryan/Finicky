@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" dataChange="onDataChange(event)" actionBarVisible="false"
+		title="{dataToPush.home.getRendererLabel()} "
+					   xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
+			
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			public var dataToPush:DataSingleton;
+			
+			protected function onDataChange(event:FlexEvent):void
+			{
+				dataToPush = data as DataSingleton;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:TabbedViewNavigator height="100%" >
+		<s:ViewNavigator id="list" firstView="views.Landing" firstViewData="{dataToPush}" label="List" width="100%" /> 
+		<s:ViewNavigator id="map" firstView="views.MapView" firstViewData="{dataToPush}" label="Map" height="100%" /> 
+	</s:TabbedViewNavigator>
+	
+</s:View>

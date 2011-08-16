@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  xmlns:esri="http://www.esri.com/2008/ags" creationComplete="init(event)"
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Map" actionBarVisible="false" >
+		xmlns:s="library://ns.adobe.com/flex/spark" title="{data.home.getRendererLabel()}" actionBarVisible="{data.softControls}" >
 	<fx:Script>
 		<![CDATA[
 			import com.esri.ags.Graphic;
@@ -74,27 +74,29 @@
 				
 				myGraphicsLayer.add(homeGraphic);
 				
-				for (var i:int = 0; i < markers.length; i++){
-					var place:Place = markers.getItemAt(i).place;
-					var item:Item = markers.getItemAt(i).item;
-					
-					var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
-					
-					
-					var itemTextMarker:TextSymbol = new TextSymbol(fitString(item.name));
-					itemTextMarker.xoffset = placeMaker.xoffset;
-					itemTextMarker.yoffset = placeMaker.yoffset + 10;
-					itemTextMarker.textFormat = itemTextFormat;
-					
-					var placeCompositeSymbol:CompositeSymbol = new CompositeSymbol([placeMaker,itemTextMarker]);
-					var placeGraphic:Graphic = new Graphic(placeMapPoint, placeCompositeSymbol);
-					
-					
-					placeGraphic.name = i.toString();
-					placeGraphic.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {dataToPush.selectedIndex = parseInt(event.currentTarget.name); navigator.pushView(Detail, dataToPush);});
-					
-					myGraphicsLayer.add(placeGraphic);
-					
+				if (markers && markers.length > 0){
+					for (var i:int = 0; i < markers.length; i++){
+						var place:Place = markers.getItemAt(i).place;
+						var item:Item = markers.getItemAt(i).item;
+						
+						var placeMapPoint:WebMercatorMapPoint = new WebMercatorMapPoint(place.lon,place.lat);
+						
+						
+						var itemTextMarker:TextSymbol = new TextSymbol(fitString(item.name));
+						itemTextMarker.xoffset = placeMaker.xoffset;
+						itemTextMarker.yoffset = placeMaker.yoffset + 10;
+						itemTextMarker.textFormat = itemTextFormat;
+						
+						var placeCompositeSymbol:CompositeSymbol = new CompositeSymbol([placeMaker,itemTextMarker]);
+						var placeGraphic:Graphic = new Graphic(placeMapPoint, placeCompositeSymbol);
+						
+						
+						placeGraphic.name = i.toString();
+						placeGraphic.addEventListener(MouseEvent.CLICK, function(event:MouseEvent):void {dataToPush.selectedIndex = parseInt(event.currentTarget.name); parentApplication.navigator.pushView(Detail, dataToPush);});
+						
+						myGraphicsLayer.add(placeGraphic);
+						
+					}
 				}
 			}
 			
@@ -122,7 +124,7 @@
 			protected function addButton_clickHandler(event:MouseEvent):void
 			{
 				dataToPush.selectedIndex = -1;
-				navigator.pushView(Edit, dataToPush);
+				parentApplication.navigator.pushView(Edit, dataToPush);
 				
 			}
 			

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="false" creationComplete="init(event)"
-		xmlns:s="library://ns.adobe.com/flex/spark" title="CurrentLocation" xmlns:components="components.*">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" creationComplete="init(event)"
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Current Location" xmlns:components="components.*">
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
@@ -42,15 +42,24 @@
 				navigator.pushView(CurrentLocationEdit, dataToPush);
 			}
 			
+			public function getTopPadding():int{
+				if (data.softControls){
+					return 10;
+				}
+				else{
+					return 50;
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<components:Notice id="notice" text="Location Saved." verticalCenter="0" horizontalCenter="0" />
 	</fx:Declarations>	
 	
-	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Current Location"/>
+	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Current Location" visible="{!data.softControls}"/>
 	
-	<s:HGroup top="180">
+	<s:HGroup top="{getTopPadding()}">
 		<s:VGroup id="addressInfo" maxWidth="280" paddingLeft="50" >
 			
 			<s:Label id="storeAddress"   horizontalCenter="0" text="{home.address}" width="280"/>
@@ -59,12 +68,19 @@
 			<s:Label id="storeLon" horizontalCenter="0" text="{home.lon}" width="280"/>
 		</s:VGroup>
 		
-		<components:ChangeLocationButton id="changeLocationBtn" data="{dataToPush}" updated="changeLocationBtn_updatedHandler(event)"   />	
+		<components:ChangeLocationButton id="changeLocationBtn"  
+				data="{dataToPush}" updated="changeLocationBtn_updatedHandler(event)"   />	
 		
 	</s:HGroup>
 	
-	<s:Button id="setLocationButton" label="Manually Set Location" top="480" horizontalCenter="0" click="setLocationButton_clickHandler(event)"  />
+	<s:Button id="setLocationButton" visible="{!data.softControls}" label="Manually Set Location" top="480" horizontalCenter="0" click="setLocationButton_clickHandler(event)"  />
 	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popView()" />
+	</s:navigationContent>
 	
+	<s:actionContent>
+		<s:Button id="editButton" label="Edit" click="setLocationButton_clickHandler(event)" />
+	</s:actionContent>
 	
 </s:View>

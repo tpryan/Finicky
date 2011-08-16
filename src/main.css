@@ -295,6 +295,8 @@ components|LocationSelector #cancelButton{
 	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
 }
 
+
+
 /**********************************************
 	Device Specific Skinning
 ***********************************************/
@@ -302,3 +304,55 @@ components|LocationSelector #cancelButton{
 @media (os-platform: "AND"){
 }
 
+
+@media(os-platform:"IOS")
+{
+	s|ActionBar
+	{
+		defaultButtonAppearance:beveled;
+		titleAlign:"center";
+		chromeColor:"0x0E96A9";
+		accentColor:"0x000000";
+	}
+	
+	s|ActionBar #titleDisplay
+	{
+		fontFamily: "Spoleto";
+		fontWeight: normal;
+		fontSize: 50px;
+		left: 0;
+		right: 0;
+		dropShadowVisible: true;
+		shadowAlpha: .9;
+		shadowColor: "0x000000";
+		shadowAngle: 120;
+		shadowDistance: 1;
+	}
+	
+	s|ActionBar s|Button{
+		fontFamily: "Lions Den";
+	}
+	
+	s|TabbedViewNavigator #tabBar
+	{
+		chromeColor:"0x0E96A9";
+		accentColor:"0x000000";
+		color: #FFFFFF;
+		fontSize: 40;
+		fontWeight: normal;
+		fontFamily: "Lions Den";
+	}
+	
+	#deleteBtnIOS{
+		left: 5;
+		right: 5;
+		chromeColor: #FF0000;
+		color: #FFFFFF;
+		fontFamily: "Lions Den";
+	}
+
+	s|ActionBar #settingsBtnAB{
+		skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+	}
+	
+}

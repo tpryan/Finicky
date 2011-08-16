@@ -52,14 +52,19 @@ package skins
 			locationLabel = host.locationLabel;
 			super.layoutContents(unscaledWidth, unscaledHeight);
 			
+			locationLabel.autoSize = "left";
+			locationLabel.setStyle("fontFamily", "Spoleto");
+			
+			locationLabel.setStyle("fontSize", 60);
+			locationLabel.setStyle("color", 0xFFFFFF);
+			locationLabel.rotation = -12.5;
+			locationLabel.filters = [dropshadow];
+
+			
 			if (!bg){
 				bg = new Image();
 				bg.source = bgClass;
 				
-				bg.percentWidth = 100;
-				bg.height = 333;
-				bg.scaleMode = "stretch";
-				host.addElement(bg);
 				
 				bgFilter = new Image();
 				bgFilter.source = bgFilterClass;
@@ -67,19 +72,22 @@ package skins
 				bgFilter.height = 226;
 				bgFilter.x = host.width - bgFilter.width;
 				bgFilter.y = 89;
-				addChild(bgFilter);
+				bgFilter.z = 0;
+				host.addElement(bgFilter);
+				
+				//bg.percentWidth = 100;
+				bg.width = 640;
+				bg.height = 333;
+				bg.scaleMode = "stretch";
+				bg.z = 5;
+				host.addElement(bg);
+				
+				
 				
 			}
 			
 			
-			locationLabel.autoSize = "left";
-			locationLabel.setStyle("fontFamily", "Spoleto");
-			
-			locationLabel.setStyle("fontSize", 60);
-			locationLabel.setStyle("color", 0xFFFFFF);
-			locationLabel.rotation = -15.5;
-			locationLabel.filters = [dropshadow];
-			
+						
 			
 		}
 		

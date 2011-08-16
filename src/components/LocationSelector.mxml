@@ -61,7 +61,6 @@
 
 			protected function init(event:FlexEvent):void
 			{
-				
 				if (listScroller.height > 807){
 					cancelButton.y = 737;
 				}
