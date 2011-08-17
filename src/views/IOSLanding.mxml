@@ -19,7 +19,7 @@
 			
 		]]>
 	</fx:Script>
-	<s:TabbedViewNavigator height="100%" >
+	<s:TabbedViewNavigator  height="100%" >
 		<s:ViewNavigator id="list" firstView="views.Landing" firstViewData="{dataToPush}" label="List" width="100%" /> 
 		<s:ViewNavigator id="map" firstView="views.MapView" firstViewData="{dataToPush}" label="Map" height="100%" /> 
 	</s:TabbedViewNavigator>

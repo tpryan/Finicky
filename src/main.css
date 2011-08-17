@@ -331,6 +331,7 @@ components|LocationSelector #cancelButton{
 	
 	s|ActionBar s|Button{
 		fontFamily: "Lions Den";
+		fontWeight: normal;
 	}
 	
 	s|TabbedViewNavigator #tabBar
@@ -349,6 +350,7 @@ components|LocationSelector #cancelButton{
 		chromeColor: #FF0000;
 		color: #FFFFFF;
 		fontFamily: "Lions Den";
+		fontWeight: normal;
 	}
 
 	s|ActionBar #settingsBtnAB{

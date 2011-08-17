@@ -70,18 +70,10 @@
 		<echo message="Creating Device Folder"/>
 		<mkdir dir="${device.build}"/>
 		<echo message="Compiling swf for devices"/>
-		<mxmlc file="${projectFile}" output="${device.swf}" debug="false"> 
-	        <load-config filename="${FLEX_HOME}/frameworks/airmobile-config.xml"/> 
-	        <source-path path-element="${FLEX_HOME}/frameworks"/>
+		<mxmlc file="${projectFile}" output="${device.swf}" debug="false" configname="airmobile">
+			
 			<static-link-runtime-shared-libraries />
 			
-			<compiler.library-path dir="${FLEX_HOME}/frameworks/libs" append="true">
-				<include name="core.swc" />
-				<include name="framework.swc" />
-				<include name="spark.swc" />
-				<include name="mobile" />
-				
-            </compiler.library-path>
 			
 			<compiler.library-path dir="libs" append="true">
                 <include name="*" />
