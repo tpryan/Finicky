@@ -65,8 +65,8 @@
 		]]>
 	</fx:Script>
 	
-	<!--<s:Image y="89" right="0" source="@Embed('/assets/bg/bg_location_filter.png')"/>-->
-	<!--<s:Image top="0" horizontalCenter="0" source="@Embed('/assets/bg/bg_location.png')" width="100%" scaleMode="stretch" />-->
+	<!--<s:BitmapImage y="89" right="0" source="@Embed('/assets/bg/bg_location_filter.png')"/>-->
+	<!--<s:BitmapImage top="0" horizontalCenter="0" source="@Embed('/assets/bg/bg_location.png')" width="100%" scaleMode="stretch" />-->
 	
 	
 	

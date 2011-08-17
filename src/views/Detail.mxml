@@ -190,7 +190,7 @@
 		<s:GlowFilter id="textShadow" alpha=".4" color="0x13C7E1" strength="1" />
 	</fx:Declarations>
 	
-	<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
+	<s:BitmapImage id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 	
 	<s:Scroller left="0" right="0" top="0" bottom="0" horizontalScrollPolicy="off" >
 		
@@ -212,7 +212,7 @@
 			</s:HGroup>
 			
 			<components:PictureDisplay id="pictureDisplay" alpha="0" source="{itemAtPlace.picturepath}" rotationSeed="{itemAtPlace.item.name}" />
-			<s:Image id="rule" source="@Embed('/assets/bg/rule2.png')" horizontalCenter="0" width="100%" />
+			<s:BitmapImage id="rule" source="@Embed('/assets/bg/rule2.png')" horizontalCenter="0" width="100%" />
 			<s:Label id="matchNotes" width="100%" text="{itemAtPlace.notes}"/>
 		</s:VGroup>
 	</s:Scroller>

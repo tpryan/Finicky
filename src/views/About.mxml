@@ -21,7 +21,7 @@
 	</fx:Declarations>
 	
 	
-	<s:Image id="logo" source="@Embed('/assets/icons/aboutLogo.png')" horizontalCenter="0" y="20" depth="0"  />
+	<s:BitmapImage id="logo" source="@Embed('/assets/icons/aboutLogo.png')" horizontalCenter="0" y="20" depth="0"  />
 	
 	<s:Label id="labelDev" horizontalCenter="0" y="350" text="Development" />
 	<s:Label id="textDev" horizontalCenter="0" y="380" text="Terry Ryan"/>

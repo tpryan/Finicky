@@ -128,7 +128,7 @@
 	
 	<s:Scroller id="listScroller" left="30" right="30" top="10" bottom="30" verticalScrollPolicy="off" horizontalScrollPolicy="off" visible="false">
 		<s:Group clipAndEnableScrolling="true" >
-			<s:Image id="listBG" source="@Embed('/assets/bg/bg_modal_long.png')" />
+			<s:BitmapImage id="listBG" source="@Embed('/assets/bg/bg_modal_long.png')" />
 		</s:Group>
 	</s:Scroller>
 	

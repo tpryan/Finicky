@@ -62,8 +62,8 @@
 	
 	
 	<s:BitmapImage id="bmimage" source="{photo}" width="0" height="0" visible="false" />
-	<s:Image id="bg" source="{up}" />
-	<s:Image id="cameraIcon" source="{camera}" blendMode="multiply" x="8" y="21" />
+	<s:BitmapImage id="bg" source="{up}" />
+	<s:BitmapImage id="cameraIcon" source="{camera}" blendMode="multiply" x="8" y="21" />
 	<s:SpriteVisualElement id="photoSprite" x="0" y="0" height="200" width="200"  />
 	
 	

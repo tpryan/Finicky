@@ -100,8 +100,8 @@
 			<s:DropShadowFilter color="0x000000" angle="125" distance="6" alpha=".8" />
 		</s:filters>
 	</s:Rect>
-	<s:Image id="itemPicture" preliminaryWidth="450" preliminaryHeight="300" smooth="true"  maxWidth="450" maxHeight="300" scaleMode="letterbox"  horizontalCenter="0" source="{_source}" />
-	<s:Image id="paperclip" source="@Embed('/assets/icons/paperclip.png')"/>
+	<s:BitmapImage id="itemPicture" preliminaryWidth="450" preliminaryHeight="300" smooth="true"  maxWidth="450" maxHeight="300" scaleMode="letterbox"  horizontalCenter="0" source="{_source}" />
+	<s:BitmapImage id="paperclip" source="@Embed('/assets/icons/paperclip.png')"/>
 	
 	
 </s:View>

@@ -2,8 +2,10 @@ package skins
 {
 	import flash.system.Capabilities;
 	
+	import spark.components.Group;
 	import spark.components.Image;
 	import spark.components.ViewNavigator;
+	import spark.primitives.BitmapImage;
 	import spark.skins.mobile.ViewNavigatorApplicationSkin;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 	
@@ -14,16 +16,24 @@ package skins
 		[Embed(source="/assets/bg/bg_main.jpg")]
 		private var bgClass:Class;
 		
-		private var bg:Image = new Image();
+		private var bg:BitmapImage = new BitmapImage();
+		private var holder:Group = new Group;
+		
+		
+		//private var bg:Image = new Image();
 		
 		public function AppSkin()
 		{
+			
 			super();
+			holder.horizontalCenter = 0;
+			addChild(holder);
 			bg.source = bgClass;
-			bg.horizontalCenter = 0;
+			
 			bg.width = 640;
 			bg.height = 1608;
-			addChild(bg);
+			holder.addElement(bg);
+			
 			
 		}
 		

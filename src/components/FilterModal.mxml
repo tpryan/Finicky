@@ -97,7 +97,7 @@
 	</s:Rect>
 	
 	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
-		<s:Image id="bg" width="95%" maxWidth="554"  x="10" source="@Embed('/assets/bg/bg_modal.png')" verticalCenter="0"/>
+		<s:BitmapImage id="bg" width="95%" maxWidth="554"  x="10" source="@Embed('/assets/bg/bg_modal.png')" verticalCenter="0"/>
 		<s:Label id="modalItemLabel" horizontalCenter="-140" text="ITEM" verticalCenter="-50"/>
 		<s:Label id="modalPlaceLabel" horizontalCenter="140" text="PLACE" verticalCenter="-50"/>
 		

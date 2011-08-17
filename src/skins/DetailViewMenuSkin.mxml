@@ -151,7 +151,7 @@ in accordance with the terms of the license agreement accompanying it.
 		
 		<!-- Background -->
 		<s:Group verticalCenter="0" horizontalCenter="0" clipAndEnableScrolling="true" top="0" bottom="0" right="0" left="0">
-			<s:Image id="background" horizontalCenter="0" verticalCenter="0" source="@Embed('/assets/bg/bg_menu.png')"/>	
+			<s:BitmapImage id="background" horizontalCenter="0" verticalCenter="0" source="@Embed('/assets/bg/bg_menu.png')"/>	
 		</s:Group>
 		
 		

@@ -74,7 +74,7 @@
 	</fx:Script>
 	
 	
-	<s:Image source="@Embed('/assets/bg/bg_tabmenu.png')" width="100%" height="100" scaleMode="stretch" />
+	<s:BitmapImage source="@Embed('/assets/bg/bg_tabmenu.png')" width="100%" height="100" scaleMode="stretch" />
 	
 	<s:HGroup id="persistentTabMenu" width="100%" horizontalCenter="0" horizontalAlign="center" gap="50" >
 		<s:Button id="leftButton" label="{leftButtonText}" click="leftButton_clickHandler(event)" />

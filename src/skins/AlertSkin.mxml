@@ -84,7 +84,7 @@
     <!--- Defines the background and content group used by this skin. -->
     <s:Group id="chrome" left="0" right="0" top="0" bottom="0" visible.closedGroup="false">
 
-		<s:Image source="@Embed('/assets/bg/bg_modal_long.png')" width="60%" horizontalCenter="0"  />	
+		<s:BitmapImage source="@Embed('/assets/bg/bg_modal_long.png')" width="60%" horizontalCenter="0"  />	
         
         <!--
         Note: Setting the minimum size to 0 here so that changes to the host component's

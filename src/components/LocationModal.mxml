@@ -120,13 +120,13 @@
 		
 		<s:Scroller id="scroller" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="95%" height="300" horizontalCenter="0" verticalCenter="-100">
 			<s:Group clipAndEnableScrolling="true" >
-				<s:Image id="bg" width="554" height="807"  source="@Embed('/assets/bg/bg_modal_long.png')" />
+				<s:BitmapImage id="bg" width="554" height="807"  source="@Embed('/assets/bg/bg_modal_long.png')" />
 				
 				
 				
 			
-				<s:Image id="iconNew" name="iconNew"  source="{newPlaceUp}" horizontalCenter="0" top="{10}"  click="clickHandler(event)"  />
-				<s:Image id="iconPick" depth="2" name="iconPick" source="{pickPlaceUp}" horizontalCenter="0" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
+				<s:BitmapImage id="iconNew" name="iconNew"  source="{newPlaceUp}" horizontalCenter="0" top="{10}"  click="clickHandler(event)"  />
+				<s:BitmapImage id="iconPick" depth="2" name="iconPick" source="{pickPlaceUp}" horizontalCenter="0" top="{iconNew.top + BUTTON_PADDING}"  click="clickHandler(event)"  />
 				
 				
 				<s:List id="placeList" depth="1" visible="false" top="{iconPick.top + BUTTON_PADDING}" horizontalCenter="0" width="90%" bottom="0" 

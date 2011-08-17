@@ -61,7 +61,7 @@
 		<s:Rotate id="spinEffect" duration="1000" angleFrom="0" angleTo="360" target="{spinner}" repeatCount="0" easer="{null}"   /> 
 	</fx:Declarations>
 	
-	<s:Image id="buttonText" visible="false" source="@Embed('/assets/icons/changelocationinProgress.png')"  />
-	<s:Image id="spinner" x="{icon.x}" y="{icon.y}" visible="false" transformX="12" transformY="12"  source="@Embed('/assets/icons/locationIndicator.png')"  />
+	<s:BitmapImage id="buttonText" visible="false" source="@Embed('/assets/icons/changelocationinProgress.png')"  />
+	<s:BitmapImage id="spinner" x="{icon.x}" y="{icon.y}" visible="false" transformX="12" transformY="12"  source="@Embed('/assets/icons/locationIndicator.png')"  />
 	<s:Button id="icon" top="0" right="0" label="{label}" click="icon_clickHandler()" />
 </s:Group>

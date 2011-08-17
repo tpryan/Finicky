@@ -242,8 +242,8 @@
 	<s:Scroller id="pageScroller" width="100%" height="100%" horizontalScrollPolicy="off" >
 		<s:Group id="scrollerContent" clipAndEnableScrolling="true">
 			
-			<s:Image id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
-			<s:Image id="tape" source="@Embed('/assets/bg/editTape.png')"  y="450" />
+			<s:BitmapImage id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
+			<s:BitmapImage id="tape" source="@Embed('/assets/bg/editTape.png')"  y="450" />
 			
 			<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0"
 					 text="WHAT DID YOU FIND?" textAlign="center" filters="{[textShadow]}" />
