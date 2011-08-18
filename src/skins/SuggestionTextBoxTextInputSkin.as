@@ -3,8 +3,10 @@ package skins
 	
 	import flash.events.FocusEvent;
 	
+	import spark.components.Group;
 	import spark.components.Image;
 	import spark.components.supportClasses.StyleableTextField;
+	import spark.primitives.BitmapImage;
 	import spark.skins.mobile.TextInputSkin;
 	
 	public class SuggestionTextBoxTextInputSkin extends TextInputSkin
@@ -19,7 +21,8 @@ package skins
 		[Embed(source="/assets/bg/bg_whitebrush.png")]
 		protected var whitebrush:Class;
 		
-		protected var whiteBG:Image = new Image;
+		protected var whiteBG:BitmapImage = new BitmapImage();
+		protected var whiteBGHolder:Group = new Group();
 		
 		public function SuggestionTextBoxTextInputSkin()
 		{
@@ -42,8 +45,11 @@ package skins
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
 			whiteBG.source = whitebrush;
-			addChildAt(whiteBG,0);
-			setElementPosition(whiteBG, 0, 0);
+			
+			addChildAt(whiteBGHolder,0);
+			whiteBGHolder.addElement(whiteBG);
+			
+			setElementPosition(whiteBGHolder, 0, 0);
 			setElementSize(whiteBG, border.width,border.height);
 			
 			textDisplay.setStyle("fontFamily", "Lions Den");

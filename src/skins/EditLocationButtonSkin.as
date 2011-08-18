@@ -4,7 +4,9 @@ package skins
 	
 	import mx.events.FlexEvent;
 	
+	import spark.components.Group;
 	import spark.components.Image;
+	import spark.primitives.BitmapImage;
 	import spark.skins.mobile.ButtonSkin;
 	
 	
@@ -22,7 +24,8 @@ package skins
 		[Embed(source="/assets/icons/edithighlight.png")]
 		private var highlight:Class;
 		
-		protected var hl:Image = new Image();
+		protected var hl:BitmapImage = new BitmapImage();
+		protected var hlHolder:Group = new Group();
 		
 		public function EditLocationButtonSkin()
 		{
@@ -30,13 +33,15 @@ package skins
 			width = 383;
 			height = 158;
 			
+			addChild(hlHolder);
+			
 			hl.source = highlight;
 			hl.width = 383;
 			hl.height = 158;
 			hl.x = 0;
 			hl.y = 0;
 			hl.visible = false;
-			addChild(hl);
+			hlHolder.addElement(hl);
 			
 		}
 		

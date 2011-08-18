@@ -4,8 +4,10 @@ package renderers
 	
 	import flash.events.MouseEvent;
 	
+	import spark.components.Group;
 	import spark.components.IconItemRenderer;
 	import spark.components.Image;
+	import spark.primitives.BitmapImage;
 	
 	public class ItemListRenderer extends IconItemRenderer
 	{
@@ -31,9 +33,13 @@ package renderers
 		[Embed(source='/assets/bg/rule3.png')]
 		private static var rule3:Class;
 		
-		public var bg:Image = new Image();
-		public var decoratorCover:Image = new Image();
-		public var ruleImg:Image = new Image();
+		public var bgHolder:Group = new Group;
+		public var decoratorCoverHolder:Group = new Group;
+		public var ruleImgHolder:Group = new Group;
+		
+		public var bg:BitmapImage = new BitmapImage();
+		public var decoratorCover:BitmapImage = new BitmapImage();
+		public var ruleImg:BitmapImage = new BitmapImage();
 		public var size:String;
 		
 		
@@ -62,22 +68,24 @@ package renderers
 			highlightWidth = 150;
 			
 			
+			addChildAt(decoratorCoverHolder, 0);
 			decoratorCover.source= decoratorCoverClass;
 			decoratorCover.width = decoratorWidth;
 			decoratorCover.height = decoratorHeight;
 			decoratorCover.visible = false;
-			addChildAt(decoratorCover, 0);
+			decoratorCoverHolder.addElement(decoratorCover);
 			
-			
+			addChildAt(bgHolder, 0);
 			bg.source = highlightClass;
 			bg.width = highlightHeight;
 			bg.height = highlightWidth;
 			bg.y = 18;
 			bg.visible = false;
-			addChildAt(bg, 0);
+			bgHolder.addElement(bg);
 			
+			addChildAt(ruleImgHolder, 0);
 			ruleImg.source = rule;
-			addChildAt(ruleImg,0);
+			ruleImgHolder.addElement(ruleImg);
 			
 			this.addEventListener(MouseEvent.CLICK, toggleHighlight);
 			
