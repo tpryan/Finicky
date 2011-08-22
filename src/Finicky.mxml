@@ -55,8 +55,10 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				this.actionBar.visible = false;
-				navigator.showActionBar(false);
+				navigator.hideActionBar(false);
+				
+				
+				
 				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, onActivate);
 				getFonts();
@@ -158,6 +160,7 @@
 				var myFont13:Font = new TradeGothicLTStdCnTLF as Font;
 				
 				var fonts:Array = Font.enumerateFonts();
+				
 				for each (var key:Font in fonts)
 				{
 					trace(key.fontName + " - " + key.fontStyle + " - " + key.fontType);

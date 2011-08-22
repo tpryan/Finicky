@@ -36,11 +36,10 @@ s|IconItemRenderer{
 }
 
 #storeName{
-	fontFamily: "Trade Gothic LT BC";
-	fontWeight: bold; 
+	fontFamily: "Trade Gothic LT Std Cn - bold";
 	fontSize: 22;
 	color: #000000;
-	fontWeight: bold;
+	
 }
 
 #storeAddress, #storeCityStateZip, #storeLat, #storeLon{
