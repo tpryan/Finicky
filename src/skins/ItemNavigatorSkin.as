@@ -2,7 +2,8 @@ package skins
 {
 	import components.ItemNavigator;
 	
-	import spark.components.Image;
+	import spark.components.Group;
+	import spark.primitives.BitmapImage;
 	import spark.skins.mobile.SkinnableContainerSkin;
 	
 	public class ItemNavigatorSkin extends SkinnableContainerSkin
@@ -12,7 +13,8 @@ package skins
 		[Embed(source="/assets/bg/detailBanner.png")]
 		private var bgClass:Class;
 		
-		protected var bg:Image;
+		protected var bg:BitmapImage;
+		protected var bgHolder:Group;
 		
 		public function ItemNavigatorSkin()
 		{
@@ -29,7 +31,7 @@ package skins
 			var host:ItemNavigator = hostComponent as ItemNavigator;
 			
 			if (!bg){
-				bg = new Image();
+				bg = new BitmapImage();
 				bg.source = bgClass;
 				bg.scaleMode = "stretch";
 				bg.width = host.width - 50;
