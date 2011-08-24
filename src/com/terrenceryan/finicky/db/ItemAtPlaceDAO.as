@@ -83,14 +83,14 @@ package com.terrenceryan.finicky.db
 		}
 		
 		
-		public function list(orderby:String="item.name",otherPlace:Place = null):ArrayCollection{
+		public function list(orderby:String="item.name",otherPlace:Place = null, tolerance:int = 1):ArrayCollection{
 			var query:String = "";
 			
 			if (otherPlace){
-				var latmin:Number = otherPlace.lat - 1; 
-				var latmax:Number = otherPlace.lat + 1; 
-				var lonmin:Number = otherPlace.lon - 1; 
-				var lonmax:Number = otherPlace.lon + 1; 
+				var latmin:Number = otherPlace.lat - tolerance; 
+				var latmax:Number = otherPlace.lat + tolerance; 
+				var lonmin:Number = otherPlace.lon - tolerance; 
+				var lonmax:Number = otherPlace.lon + tolerance; 
 				
 				
 				query = "SELECT 	ip.* " +

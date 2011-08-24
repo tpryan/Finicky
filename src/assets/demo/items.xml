@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+	<item>
+		<itemid>1</itemid>
+		<name>Cloves</name>
+	</item>
+	<item>
+		<itemid>2</itemid>
+		<name>Cigars</name>
+	</item>
+	<item>
+		<itemid>3</itemid>
+		<name>Coke Zero</name>
+	</item>
+	<item>
+		<itemid>4</itemid>
+		<name>Prawn and Glazed Walnuts</name>
+	</item>
+	<item>
+		<itemid>5</itemid>
+		<name>Kick Ass Indian</name>
+	</item>
+	<item>
+		<itemid>6</itemid>
+		<name>Crab Cake Sandwich</name>
+	</item>
+	<item>
+		<itemid>7</itemid>
+		<name>Kick Ass Sandwiches</name>
+	</item>
+	<item>
+		<itemid>8</itemid>
+		<name>Hookah</name>
+	</item>
+	<item>
+		<itemid>9</itemid>
+		<name>Diet Vanilla Coke</name>
+	</item>
+	<item>
+		<itemid>10</itemid>
+		<name>Kick Ass Software</name>
+	</item>
+	<item>
+		<itemid>11</itemid>
+		<name>Kick Ass Thai</name>
+	</item>
+	<item>
+		<itemid>12</itemid>
+		<name>Diet Vanilla Coke</name>
+	</item>
+	<item>
+		<itemid>13</itemid>
+		<name>Argentine Beef</name>
+	</item>
+</items>

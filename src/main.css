@@ -159,7 +159,7 @@ components|LocationModal #textCurrent, components|LocationModal #textNew, compon
 	
 }
 
-components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel{
+components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel, #demoModeLabel{
 	fontFamily: "Liberator";
 	fontSize: 54;
 	color: #383539;

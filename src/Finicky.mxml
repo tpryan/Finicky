@@ -53,6 +53,7 @@
 			public var closeTimer:Timer;
 			public var stringUtils:StringUtil = new StringUtil();
 			
+			
 			protected function init(event:FlexEvent):void
 			{
 				navigator.hideActionBar(false);
@@ -62,7 +63,7 @@
 				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, onActivate);
 				getFonts();
-				var dbFile:File = File.applicationDirectory.resolvePath("finicky.db");
+				var dbFile:File = File.applicationStorageDirectory.resolvePath("finicky.db");
 				dbManager = new DBManager(dbFile);
 				home = dbManager.currentLocationDBO.get();
 				locationReconciler.reconcile();
@@ -70,6 +71,8 @@
 				onLoaded();
 				
 			}
+			
+			
 			
 			protected function getLocation():void{
 				

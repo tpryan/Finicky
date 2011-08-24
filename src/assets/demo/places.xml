@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<places>
+	<place>
+		<placeid>1</placeid>
+		<name>Holts Cigar Co</name>
+		<address>1522 Walnut Street</address>
+		<city>Philadelphia</city>
+		<state>PA</state>
+		<mailingCode>19102</mailingCode>
+		<lat>39.9496402</lat>
+		<lon>-75.1670608</lon>
+	</place>
+	<place>
+		<placeid>2</placeid>
+		<name>Avril 50</name>
+		<address>3406 Sansom Street</address>
+		<city>Philadelphia</city>
+		<state>PA</state>
+		<mailingCode>19104</mailingCode>
+		<lat>39.953457</lat>
+		<lon>-75.1925459</lon>
+	</place>
+	<place>
+		<placeid>3</placeid>
+		<name>Deans Fine Cigars</name>
+		<address>715 Market Street</address>
+		<city>San Francisco</city>
+		<state>CA</state>
+		<mailingCode>94103</mailingCode>
+		<lat>37.787136</lat>
+		<lon>-122.4040474</lon>
+	</place>
+	<place>
+		<placeid>4</placeid>
+		<name>St Clair News Stand </name>
+		<address>311 South 1st Street</address>
+		<city>San Jose</city>
+		<state>CA</state>
+		<mailingCode>95113</mailingCode>
+		<lat>37.3312617</lat>
+		<lon>-121.8869509</lon>
+	</place>
+	<place>
+		<placeid>5</placeid>
+		<name>Port Deli</name>
+		<address>681 8th Avenue</address>
+		<city>New York</city>
+		<state>NY</state>
+		<mailingCode>10036</mailingCode>
+		<lat>40.75819</lat>
+		<lon>-73.989502</lon>
+	</place>
+	<place>
+		<placeid>6</placeid>
+		<name>Clay's Market</name>
+		<address>815 Pike Street</address>
+		<city>Seattle</city>
+		<state>WA</state>
+		<mailingCode>98101</mailingCode>
+		<lat>47.6121225</lat>
+		<lon>-122.3320394</lon>
+	</place>
+	<place>
+		<placeid>7</placeid>
+		<name>Oat Willie's South</name>
+		<address>1931 E Oltorf St # C</address>
+		<city>Austin</city>
+		<state>TX</state>
+		<mailingCode>78741</mailingCode>
+		<lat>30.23071</lat>
+		<lon>-97.734795</lon>
+	</place>
+	<place>
+		<placeid>8</placeid>
+		<name>President Cigars</name>
+		<address>50 Massachusetts Ave NE</address>
+		<city>Washington</city>
+		<state>DC</state>
+		<mailingCode>20002</mailingCode>
+		<lat>38.8971015</lat>
+		<lon>-77.0063554</lon>
+	</place>
+	<place>
+		<placeid>9</placeid>
+		<name>Oriental Pearl</name>
+		<address>760 Clay Street</address>
+		<city>San Francisco</city>
+		<state>CA</state>
+		<mailingCode>94108</mailingCode>
+		<lat>37.7943579</lat>
+		<lon>-122.4056661</lon>
+	</place>
+	<place>
+		<placeid>10</placeid>
+		<name>Shalimar Restaurant</name>
+		<address>532 Jones Street</address>
+		<city>San Francisco</city>
+		<state>CA</state>
+		<mailingCode>94102</mailingCode>
+		<lat>37.786256</lat>
+		<lon>-122.412952</lon>
+	</place>
+	<place>
+		<placeid>11</placeid>
+		<name>Karma Restaurant & Bar</name>
+		<address>114 Chestnut Street</address>
+		<city>Philadelphia</city>
+		<state>PA</state>
+		<mailingCode>19106</mailingCode>
+		<lat>39.948031</lat>
+		<lon>-75.1431549</lon>
+	</place>
+	<place>
+		<placeid>12</placeid>
+		<name>Harry's' Smoke Shop</name>
+		<address>14 North 3rd Street</address>
+		<city>Philadelphia</city>
+		<state>PA</state>
+		<mailingCode>19106</mailingCode>
+		<lat>39.9506288</lat>
+		<lon>-75.1456593</lon>
+	</place>
+	<place>
+		<placeid>13</placeid>
+		<name>New Deck Tavern</name>
+		<address>3408 Sansom Street</address>
+		<city>Philadelphia</city>
+		<state>PA</state>
+		<mailingCode>19104</mailingCode>
+		<lat>39.9536071</lat>
+		<lon>-75.1926036</lon>
+	</place>
+	<place>
+		<placeid>14</placeid>
+		<name>Rybread</name>
+		<address>2319 Fairmount Avenue</address>
+		<city>Philadelphia</city>
+		<state>PA</state>
+		<mailingCode>19130</mailingCode>
+		<lat>39.967541</lat>
+		<lon>-75.175991</lon>
+	</place>
+	<place>
+		<placeid>15</placeid>
+		<name>The Swinging Hookah</name>
+		<address>386 South First Street</address>
+		<city>San Jose</city>
+		<state>CA</state>
+		<mailingCode>95113</mailingCode>
+		<lat>37.330438</lat>
+		<lon>-121.885875</lon>
+	</place>
+	<place>
+		<placeid>16</placeid>
+		<name>Pizza My Heart</name>
+		<address>117 East San Carlos Street</address>
+		<city>San Jose</city>
+		<state>CA</state>
+		<mailingCode>95112</mailingCode>
+		<lat>37.333296</lat>
+		<lon>-121.884727</lon>
+	</place>
+	<place>
+		<placeid>17</placeid>
+		<name>Adobe</name>
+		<address>345 Park Avenue</address>
+		<city>San Jose</city>
+		<state>CA</state>
+		<mailingCode>95110</mailingCode>
+		<lat>37.3306701</lat>
+		<lon>-121.8931264</lon>
+	</place>
+	<place>
+		<placeid>18</placeid>
+		<name>Adobe</name>
+		<address>601 Townsend Street</address>
+		<city>San Francisco</city>
+		<state>CA</state>
+		<mailingCode>94103</mailingCode>
+		<lat>37.7713737</lat>
+		<lon>-122.4019538</lon>
+	</place>
+	<place>
+		<placeid>19</placeid>
+		<name>Adobe</name>
+		<address>1540 Broadway</address>
+		<city>New York</city>
+		<state>NY</state>
+		<mailingCode>10036</mailingCode>
+		<lat>40.7578105</lat>
+		<lon>-73.9849819</lon>
+	</place>
+	<place>
+		<placeid>20</placeid>
+		<name>Adobe</name>
+		<address>801 N 34th St</address>
+		<city>Seattle</city>
+		<state>WA</state>
+		<mailingCode>98103</mailingCode>
+		<lat>47.648293</lat>
+		<lon>-122.347907</lon>
+	</place>
+	<place>
+		<placeid>21</placeid>
+		<name>Adobe</name>
+		<address>21 Hickory Drive</address>
+		<city>Waltham</city>
+		<state>MA</state>
+		<mailingCode>02451</mailingCode>
+		<lat>42.385887</lat>
+		<lon>-71.2635616</lon>
+	</place>
+	<place>
+		<placeid>22</placeid>
+		<name>Stanley Pappas Cigar </name>
+		<address>9648 E Arapahoe Rd</address>
+		<city>Greenwood Village</city>
+		<state>CO</state>
+		<mailingCode>80112</mailingCode>
+		<lat>39.594921</lat>
+		<lon>-104.8771715</lon>
+	</place>
+	<place>
+		<placeid>23</placeid>
+		<name>Smoker Friendly </name>
+		<address>6650 W 120th Ave # A11</address>
+		<city>Broomfield</city>
+		<state>CO</state>
+		<mailingCode>80020</mailingCode>
+		<lat>39.913161</lat>
+		<lon>-105.07111</lon>
+	</place>
+	<place>
+		<placeid>24</placeid>
+		<name>Downtown Grocery</name>
+		<address>310 Southwest 4th Avenue</address>
+		<city>Portland</city>
+		<state>OR</state>
+		<mailingCode>97204</mailingCode>
+		<lat>45.5209185</lat>
+		<lon>-122.6751166</lon>
+	</place>
+	<place>
+		<placeid>25</placeid>
+		<name>Hudson Bar And Books</name>
+		<address>636 Hudson Street</address>
+		<city>New York</city>
+		<state>NY</state>
+		<mailingCode>10014</mailingCode>
+		<lat>40.7387084</lat>
+		<lon>-74.0054832</lon>
+	</place>
+	<place>
+		<placeid>26</placeid>
+		<name>Bangkok Gardens</name>
+		<address>811 Cherry Street</address>
+		<city>Columbia</city>
+		<state>MO</state>
+		<mailingCode>65201</mailingCode>
+		<lat>38.9505558</lat>
+		<lon>-92.3280799</lon>
+	</place>
+	<place>
+		<placeid>27</placeid>
+		<name>7-Eleven </name>
+		<address>5880 West Manchester Avenue</address>
+		<city>Los Angeles</city>
+		<state>CA</state>
+		<mailingCode>90045</mailingCode>
+		<lat>33.959566</lat>
+		<lon>-118.385161</lon>
+	</place>
+	<place>
+		<placeid>28</placeid>
+		<name>The Strand Arcade</name>
+		<address>412-414 George Street</address>
+		<city>Sydney</city>
+		<state>NSW</state>
+		<country>Australia</country>
+		<mailingCode>2000</mailingCode>
+		<lat>-33.869418</lat>
+		<lon>151.20713</lon>
+	</place>
+	<place>
+		<placeid>29</placeid>
+		<name>7-Eleven</name>
+		<address>288-290 Flinders Street</address>
+		<city>Melbourne</city>
+		<state>VIC</state>
+		<country>Australia</country>
+		<mailingCode>3000</mailingCode>
+		<lat>-37.818097</lat>
+		<lon>144.9646142</lon>
+	</place>
+	<place>
+		<placeid>30</placeid>
+		<name>Black Dog</name>
+		<address>26 Rue des Lombards</address>
+		<city>Paris</city>
+		<state></state>
+		<country>France</country>
+		<mailingCode>75004</mailingCode>
+		<lat>48.8593863</lat>
+		<lon>2.3492357</lon>
+	</place>
+	<place>
+		<placeid>31</placeid>
+		<name>Casa Del Habano</name>
+		<address>100 Wardour Street</address>
+		<city>London</city>
+		<state></state>
+		<country>United Kingdom</country>
+		<mailingCode>W1F 0TN</mailingCode>
+		<lat>51.5137502</lat>
+		<lon>-0.134189</lon>
+	</place>
+</places>

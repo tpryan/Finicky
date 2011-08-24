@@ -9,6 +9,7 @@
 			
 			import mx.events.FlexEvent;
 			
+			[Bindable]
 			protected var dataToPush:DataSingleton;
 			
 			protected function init(event:FlexEvent):void
@@ -44,6 +45,9 @@
 						navigator.pushView(About, dataToPush);
 					}
 					
+					if (settingsList.selectedItem.name =="Demo Mode"){
+						navigator.pushView(DemoMode, dataToPush);
+					}
 				}
 			}
 			
@@ -66,7 +70,7 @@
 			<fx:Object name="Location" details="View and refresh details about current location" />
 			<fx:Object name="Matches" details="Remove links between Items and Places" />
 			<fx:Object name="Places" details="Add/Edit/Remove Places" />
-			
+			<fx:Object name="Demo Mode" details="Loads a bunch of Sample data" />
 			
 		</s:ArrayCollection>
 		
