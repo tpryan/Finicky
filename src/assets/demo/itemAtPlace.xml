@@ -136,4 +136,12 @@
 		<itemid>2</itemid>
 		<placeid>31</placeid>
 	</itemAtPlace>
+	<itemAtPlace>
+		<itemid>2</itemid>
+		<placeid>32</placeid>
+	</itemAtPlace>
+	<itemAtPlace>
+		<itemid>14</itemid>
+		<placeid>33</placeid>
+	</itemAtPlace>
 </itemAtPlaces>

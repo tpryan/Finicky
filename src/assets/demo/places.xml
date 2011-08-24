@@ -314,4 +314,24 @@
 		<lat>51.5137502</lat>
 		<lon>-0.134189</lon>
 	</place>
+	<place>
+		<placeid>32</placeid>
+		<name>Habana La De Casa La </name>
+		<address>1502 Randolph St</address>
+		<city>Detroit</city>
+		<state>MI</state>
+		<mailingCode>48226</mailingCode>
+		<lat>42.3365747</lat>
+		<lon>-83.0461472</lon>
+	</place>
+	<place>
+		<placeid>33</placeid>
+		<name>Sabra</name>
+		<address>419 Grant Avenue</address>
+		<city>San Francisco</city>
+		<state>CA</state>
+		<mailingCode>94108</mailingCode>
+		<lat>37.790892</lat>
+		<lon>-122.405669</lon>
+	</place>
 </places>
