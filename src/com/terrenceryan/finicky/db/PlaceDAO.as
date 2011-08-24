@@ -14,7 +14,7 @@ package com.terrenceryan.finicky.db
 	public class PlaceDAO
 	{
 		
-		private var _conn:SQLConnection = new SQLConnection();
+		private var _conn:SQLConnection;
 		
 		public function PlaceDAO(conn:SQLConnection)
 		{
@@ -178,7 +178,7 @@ package com.terrenceryan.finicky.db
 		}
 		
 		public function insert(place:Place):void{
-			var query:String = "INSERT INTO place (" + 
+			var query:String = "INSERT INTO main.place (" + 
 				"name," +
 				"address," +
 				"city," +

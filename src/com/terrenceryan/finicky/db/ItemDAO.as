@@ -13,7 +13,7 @@ package com.terrenceryan.finicky.db
 	{
 		private var _table:String = "item";
 		
-		private var _conn:SQLConnection = new SQLConnection();
+		private var _conn:SQLConnection;
 		
 		
 		public function ItemDAO(conn:SQLConnection)
@@ -138,7 +138,7 @@ package com.terrenceryan.finicky.db
 		}
 		
 		public function insert(item:Item):void {
-			var query:String = "INSERT INTO item (" + 
+			var query:String = "INSERT INTO main.item (" + 
 				"name," + 
 				"description)" + 
 				"VALUES ( " + 

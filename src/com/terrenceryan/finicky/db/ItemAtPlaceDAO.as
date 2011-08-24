@@ -19,7 +19,7 @@ package com.terrenceryan.finicky.db
 	public class ItemAtPlaceDAO
 	{
 		
-		private var _conn:SQLConnection = new SQLConnection();
+		private var _conn:SQLConnection;
 		private var _dbmanager:DBManager;
 		private var dateUtil:SQLiteASDateHelper = new SQLiteASDateHelper();
 		
@@ -233,7 +233,7 @@ package com.terrenceryan.finicky.db
 			
 			
 			
-			var query:String = "INSERT INTO itemAtPlace (" + 
+			var query:String = "INSERT INTO main.itemAtPlace (" + 
 				"itemid, " + 
 				"placeid, " +
 				"notes, " +

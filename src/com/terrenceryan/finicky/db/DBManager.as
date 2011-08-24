@@ -104,6 +104,8 @@ package com.terrenceryan.finicky.db
 			var placeXML:XML = convertFileToXML(File.applicationDirectory.resolvePath("assets/demo/places.xml"));
 			var itemAtPlaceXML:XML = convertFileToXML(File.applicationDirectory.resolvePath("assets/demo/itemAtPlace.xml"));
 			
+			_conn.begin();
+			
 			for (id in itemXML.item){
 				var item:Item = new Item();
 				item.name = itemXML.item.name[id];
@@ -131,6 +133,8 @@ package com.terrenceryan.finicky.db
 				itemAtPlace.date = new Date();
 				_itemAtPlaceDAO.save(itemAtPlace);
 			}
+			
+			_conn.commit();
 			
 		}
 		

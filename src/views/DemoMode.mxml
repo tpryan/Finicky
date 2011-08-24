@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}"  render="onRender()"
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Toggle Demo Mode" dataChange="dataChangeHandler(event)">
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Toggle Demo Mode" dataChange="dataChangeHandler(event)" xmlns:components="components.*">
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
@@ -28,6 +28,7 @@
 				
 			}
 			
+			
 			protected function dataChangeHandler(event:FlexEvent):void
 			{
 				dataToPush = data as DataSingleton;
@@ -52,6 +53,7 @@
 				toggleUI();
 				
 			}
+			
 			
 		]]>
 	</fx:Script>

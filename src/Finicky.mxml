@@ -29,6 +29,7 @@
 			import com.terrenceryan.finicky.util.StringUtil;
 			import com.terrenceryan.finicky.vo.Place;
 			
+			
 			import events.GeoResultEvent;
 			
 			import flash.sensors.Geolocation;
@@ -57,6 +58,7 @@
 			protected function init(event:FlexEvent):void
 			{
 				navigator.hideActionBar(false);
+				
 				
 				
 				
