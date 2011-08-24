@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="{data.softControls}" creationComplete="init(event)"
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"  actionBarVisible="{data.softControls}" creationComplete="init(event)" dataChange="dataChangeHandler(event)"
 		xmlns:s="library://ns.adobe.com/flex/spark" title="Delete Match" xmlns:components="components.*">
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
+			import com.terrenceryan.finicky.vo.Place;
 			
 			import mx.events.FlexEvent;
 			[Bindable]
 			protected var itemAtPlace:ItemAtPlace;
 			protected var dbManager:DBManager;
+			protected var place:Place
 			
 			protected function init(event:FlexEvent):void
 			{
-				itemAtPlace = data.itemAtPlace;	
-				dbManager = data.dbManager;
+				
 			}
 			
 			protected function deleteButton_clickHandler(event:Event):void
@@ -31,6 +32,16 @@
 				navigator.popView();
 			}
 			
+			
+			protected function dataChangeHandler(event:FlexEvent):void
+			{
+				itemAtPlace = data.itemAtPlace;	
+				dbManager = data.dbManager;
+				place = itemAtPlace.place;
+				place.otherPlace = data.home;
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -38,13 +49,16 @@
 	</fx:Declarations>
 	
 	
-	<s:VGroup top="5" left="5" right="5" bottom="50">
-		<s:Label id="titleLabel" horizontalCenter="0" text="Delete Match" visible="{!data.softControls}"/>
-		<s:Label width="100%" styleName="userInputtedInfo" text="{itemAtPlace.item.name}" />
-		<s:Label width="100%" styleName="appProvidedText" text="at" textAlign="left"/>
-		<s:Label id="storeName" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"/>
-		<s:Label id="storeAddress"  width="440" horizontalCenter="0" text="{itemAtPlace.place.address}"/>
-		<s:Label id="storeCityStateZip"  width="440" horizontalCenter="0" text="{itemAtPlace.place.toCityStateZipString()}"/>
+	
+	
+	<s:VGroup top="0" left="0" right="0" bottom="50" width="100%" >		
+		<components:ItemNavigator id="itemNav" width="100%" currentItem="{itemAtPlace.item.name}" visibleLeft="false" visibleRight="false" />
+		<s:VGroup width="100%" paddingLeft="50" >		
+			<s:Label id="storeName"   horizontalCenter="0" text="{place.name}" width="100%" />
+			<s:Label id="storeAddress"     horizontalCenter="0" text="{place.address}" width="100%" />
+			<s:Label id="storeCityStateZip"     horizontalCenter="0" text="{place.toCityStateZipString()}" width="100%" />
+			<s:Label id="distance" horizontalCenter="0" text="{place.getDistanceInHumanForm()}" width="100%" />
+		</s:VGroup>
 	</s:VGroup>
 	
 	<s:Button id="deleteBtnIOS" visible="{data.softControls}" styleName="iosDelete" label="Delete" click="deleteButton_clickHandler(event)" bottom="5" /> 

@@ -47,7 +47,7 @@
 					return 10;
 				}
 				else{
-					return 50;
+					return 70;
 				}
 			}
 			
