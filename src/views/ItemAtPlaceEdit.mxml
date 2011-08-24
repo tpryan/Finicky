@@ -11,6 +11,7 @@
 			[Bindable]
 			protected var itemAtPlace:ItemAtPlace;
 			protected var dbManager:DBManager;
+			[Bindable]
 			protected var place:Place
 			
 			protected function init(event:FlexEvent):void
