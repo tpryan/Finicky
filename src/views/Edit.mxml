@@ -55,7 +55,7 @@
 				alternatives = dataToPush.homeAlternatives;
 				
 				if (data.itemToPlaceInProgress){
-					locationSelector.place = dataToPush.place.clone();
+					locationSelector.place = dataToPush.place as Place;
 					itemTextInput.text = dataToPush.itemName;
 					placeTextInput.text = dataToPush.placeName;
 					data.itemToPlaceInProgress = null;
@@ -115,10 +115,17 @@
 					item.name = itemTextInput.text;
 				}
 				
+				var place:Place = locationSelector.place;
+				
+				if (!place || !place.placeid || place.placeid == 0){
+					place.name = stringUtils.toTitleCase(placeTextInput.text);
+					dbManager.placeDAO.save(place);
+					place.placeid = dbManager.placeDAO.getLastRecordID();
+				}
+				
 				
 				var itemAtPlace:ItemAtPlace = new ItemAtPlace();
-				itemAtPlace.place = locationSelector.place;
-				itemAtPlace.place.name = stringUtils.toTitleCase(placeTextInput.text);
+				itemAtPlace.place = place;
 				itemAtPlace.item = item;
 				itemAtPlace.date = new Date();
 				itemAtPlace.picturepath = cameraButton.photo;
@@ -128,7 +135,7 @@
 
 				if (itemAtPlace.place.lat == 0){ 
 					var geoCodeService:GeoCode = new GeoCode();
-					geoCodeService.placeid = dbManager.placeDAO.getLastRecordID();
+					geoCodeService.placeid = place.placeid;
 					geoCodeService.addEventListener("result", processResult);
 					
 					geoCodeService.fromAddressToLatLon(itemAtPlace.place);

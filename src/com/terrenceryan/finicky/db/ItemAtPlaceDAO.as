@@ -219,6 +219,10 @@ package com.terrenceryan.finicky.db
 		
 		public function save(itemAtPlace:ItemAtPlace):void{
 			
+			
+			if (!_conn.inTransaction){
+				_conn.begin();
+			}
 			destroy(itemAtPlace);
 			
 			if (!itemAtPlace.item.itemid || itemAtPlace.item.itemid == 0){
@@ -262,6 +266,9 @@ package com.terrenceryan.finicky.db
 				
 				sqlInsert.execute();		
 				
+				if (!_conn.inTransaction){
+					_conn.commit();
+				}
 				
 		}
 		

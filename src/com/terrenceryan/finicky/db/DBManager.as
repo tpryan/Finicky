@@ -35,12 +35,18 @@ package com.terrenceryan.finicky.db
 		
 		public function DBManager(dbFile:File) 
 		{
+			var preload:Boolean = false;
+			
 			_dbFile = dbFile;
-			_demoFile = _dbFile.parent.resolvePath('finickyDemo.db');
+			/*_demoFile = _dbFile.parent.resolvePath('finickyDemo.db');
 			
 			if (_demoFile.exists){
 				_dbFile = _demoFile;
 				_demoMode = true;
+			}*/
+			
+			if (!_dbFile.exists){
+				preload = true;
 			}
 			
 			
@@ -51,6 +57,10 @@ package com.terrenceryan.finicky.db
 				_placeDAO = new PlaceDAO(_conn);
 				_itemAtPlaceDAO = new ItemAtPlaceDAO(_conn,this);
 				_currentLocationDBO = new CurrentLocationDBO(_conn);
+				
+				if (preload){
+					loadDemoData();
+				}
 				onLoadComplete();
 				
 				

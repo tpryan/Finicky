@@ -41,9 +41,6 @@
 			protected function saveButton_clickHandler(event:Event):void
 			{
 				
-				
-
-				
 				if (place.lat == 0){ 
 					geoCodeService = data.geoCodeService;
 					geoCodeService.addEventListener("result", processResult);
@@ -82,7 +79,7 @@
 				place.lon = event.result.lon;
 				place.placeid = placeid;
 				data.place = place;
-				dbManager.placeDAO.save(place);
+				//dbManager.placeDAO.save(place);
 				
 			}
 			

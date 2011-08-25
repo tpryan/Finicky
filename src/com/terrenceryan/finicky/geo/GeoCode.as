@@ -84,7 +84,7 @@ package com.terrenceryan.finicky.geo
 				var candidate:AddressCandidate = event.addressCandidates[i] as AddressCandidate;
 				
 				if (candidate.score >= 0){
-					var place:Place = convertAddressCandidateToPlace(candidate);
+					var place:Place = convertAddressCandidateToPlace(candidate, "y");
 					ac.addItem(place);
 				}
 			
@@ -94,7 +94,7 @@ package com.terrenceryan.finicky.geo
 			dispatchEvent(eventToReport);
 		}
 		
-		private function convertAddressCandidateToPlace(addressCandidate:AddressCandidate):Place{
+		private function convertAddressCandidateToPlace(addressCandidate:AddressCandidate, latField:String="x"):Place{
 			var place:Place = new Place();
 			
 			if (addressCandidate.attributes.House && addressCandidate.attributes.House.length > 0){
@@ -152,9 +152,15 @@ package com.terrenceryan.finicky.geo
 				place.mailingCode = addressCandidate.attributes.LeftZIP;
 			}
 			
-			place.lat = addressCandidate.attributes.X;
-			place.lon = addressCandidate.attributes.Y;
-			
+			//dealing with a bug in ESRI's code
+			if (latField == "x"){
+				place.lat = addressCandidate.attributes.X;
+				place.lon = addressCandidate.attributes.Y;
+			}
+			else{
+				place.lat = addressCandidate.attributes.Y;
+				place.lon = addressCandidate.attributes.X;
+			}
 			
 			//correcting for tendency to over cap addresses
 			place.address = stringUtil.toTitleCase(place.address);
