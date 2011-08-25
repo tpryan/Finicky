@@ -58,10 +58,6 @@
 			protected function init(event:FlexEvent):void
 			{
 				navigator.hideActionBar(false);
-				
-				
-				
-				
 				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, onActivate);
 				getFonts();

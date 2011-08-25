@@ -11,12 +11,11 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.fonts.TradeGothicLTBC;
+			import com.terrenceryan.finicky.fonts.TradeGothicLTBCTLF;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			import com.terrenceryan.finicky.vo.Place;
-			
-			import com.terrenceryan.finicky.fonts.TradeGothicLTBC;
-			import com.terrenceryan.finicky.fonts.TradeGothicLTBCTLF;
 			
 			import flash.net.navigateToURL;
 			
@@ -166,9 +165,17 @@
 				var source:String = "&source=s_d";
 				var dest:String = "&daddr=" + store.toAddressString();
 				var start:String = "&saddr=" + data.home.toAddressString();
+				var dirtype:String = "&dirflg=d";
+				
+				store.otherPlace = data.home;
+				
+				if (store.distance < 7920){
+					dirtype = "&dirflg=w";
+				}
+				
 				
 				var urlReq:URLRequest = new URLRequest();
-				navigateToURL(new URLRequest(url + source + start + dest));
+				navigateToURL(new URLRequest(url + source + start + dest + dirtype));
 			}
 			
 			protected function hard_menu_addButton_clickHandler(event:MouseEvent):void
