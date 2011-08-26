@@ -29,7 +29,7 @@ package com.terrenceryan.finicky.geo
 		public function fromAddressToLatLon(place:Place):void{
 			var params:Object = new Object;
 			params["address"] = place.toAddressString();
-			params["sensor"] = false;
+			params["sensor"] = true;
 			
 			svc.addEventListener(ResultEvent.RESULT, processGeoCode);
 			svc.send(params);
@@ -48,7 +48,7 @@ package com.terrenceryan.finicky.geo
 		public function fromLatLonToAddress(lat:Number, lon:Number):void{
 			var params:Object = new Object;
 			params["latlng"] = lat + "," + lon;
-			params["sensor"] = false;	
+			params["sensor"] = true;	
 			
 			svc.addEventListener(ResultEvent.RESULT, processReverseGeoCode);
 			svc.send(params);

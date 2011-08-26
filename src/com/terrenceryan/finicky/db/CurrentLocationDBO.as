@@ -18,11 +18,11 @@ package com.terrenceryan.finicky.db
 		public function CurrentLocationDBO(conn:SQLConnection)
 		{
 			_conn = conn;
-			_defaultCurrentLocation.city = "Philadelphia";
-			_defaultCurrentLocation.state = "PA";
-			_defaultCurrentLocation.country = "USA";
-			_defaultCurrentLocation.lat = 39.949579;
-			_defaultCurrentLocation.lon = -75.166913;
+			_defaultCurrentLocation.city = "Getting Location";
+			_defaultCurrentLocation.state = "";
+			_defaultCurrentLocation.country = "";
+			_defaultCurrentLocation.lat = 0;
+			_defaultCurrentLocation.lon = 0;
 			createTable();
 			
 			

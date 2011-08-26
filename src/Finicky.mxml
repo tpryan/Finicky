@@ -83,7 +83,7 @@
 					dataToPush.geo = geo;
 					if(! dataToPush.geo.muted){
 						trace("Geolocation is not muted");
-						dataToPush.geo.setRequestedUpdateInterval(100);
+						dataToPush.geo.setRequestedUpdateInterval(1000);
 						//Register to receive location updates.
 						dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
 					}
@@ -101,7 +101,7 @@
 					//home.lat = 40.758306;
 					//home.lon = -73.985642;
 						
-					geoCodeService.addEventListener("reverseGeoCodeResult", geoCodeResultHandler);
+					geoCodeService.addEventListener("reverseGeoCodeResult", reverseGeoCodeResultHandler);
 					geoCodeService.fromLatLonToAddress(home.lat, home.lon);
 				}
 				
@@ -172,12 +172,12 @@
 				geo.setRequestedUpdateInterval(300000);
 				home.lat = event.latitude;
 				home.lon = event.longitude;
-				geoCodeService.addEventListener("result", geoCodeResultHandler);
+				geoCodeService.addEventListener("reverseGeoCodeResult", reverseGeoCodeResultHandler);
 				geoCodeService.fromLatLonToAddress(home.lat, home.lon);
 				
 			}
 			
-			protected function geoCodeResultHandler(event:GeoResultEvent):void
+			protected function reverseGeoCodeResultHandler(event:GeoResultEvent):void
 			{
 				trace("Google Calls returned");
 				trace(event.result.address);
@@ -185,17 +185,21 @@
 				trace(event.result.state);
 				trace(event.result.mailingCode);
 				
+				geoCodeService.removeEventListener("reverseGeoCodeResult", reverseGeoCodeResultHandler);
+
+				var place:Place = new Place();
+				place.address = stringUtils.toTitleCase(event.result.address);
+				place.city = event.result.city;
+				place.state = event.result.state;
+				place.mailingCode = event.result.mailingCode;
+				place.country = event.result.country;
+				place.lat = event.result.lat;
+				place.lon = event.result.lon;
+				dataToPush.home = place;
 				
-				
-				geoCodeService.removeEventListener("reverseGeoCodeResult", geoCodeResultHandler);
-				dataToPush.home.address = stringUtils.toTitleCase(event.result.address);
-				dataToPush.home.city = event.result.city;
-				dataToPush.home.state = event.result.state;
-				dataToPush.home.mailingCode = event.result.mailingCode;
-				dataToPush.home.country = event.result.country;
-				dbManager.currentLocationDBO.save(home);
+				dbManager.currentLocationDBO.save(place);
 				geoCodeService.addEventListener("alternativesResult", processAlternatives);
-				geoCodeService.getAlternativeLocations(home);
+				geoCodeService.getAlternativeLocations(place);
 			}
 			
 			protected function processAlternatives(event:GeoResultEvent):void

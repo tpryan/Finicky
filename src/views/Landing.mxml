@@ -7,10 +7,9 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.geo.GeoResultEvent;
 			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.vo.Place;
-			
-			import com.terrenceryan.finicky.geo.GeoResultEvent;
 			
 			import flash.sensors.Geolocation;
 			
@@ -53,6 +52,8 @@
 				}
 				
 				home = dataToPush.home;
+				home.addEventListener("dataChanged", handlePlaceChange);
+				dataToPush.addEventListener("homeUpdated", handlePlaceChange);
 				
 				
 				dbManager = dataToPush.dbManager;
@@ -83,7 +84,6 @@
 				if (itemAtPlaceList.length == 0){
 					mapButton.visible = false;
 					noItemsLabel.visible = true;
-					noItemsButton.visible = true;
 					filterBtn.visible = false;
 					dataToPush.locationReconciler.reconcile();
 					dataToPush.locationReconciler.addEventListener("reconciled", getListData);
@@ -178,7 +178,16 @@
 				
 			}
 			
-			protected function setLocationBanner(event:Event):void
+			
+			protected function handlePlaceChange(event:Event):void{
+				home.removeEventListener("dataChanged", handlePlaceChange);
+				home.addEventListener("dataChanged", handlePlaceChange);
+				dataToPush.removeEventListener("homeUpdated", handlePlaceChange);
+				dataToPush.addEventListener("homeUpdated", handlePlaceChange);
+				setLocationBanner();
+			}
+			
+			protected function setLocationBanner():void
 			{
 				locationInterface.location = dataToPush.home.getRendererLabel();
 				
@@ -268,6 +277,16 @@
 				itemList.height = getListHeight();
 			}
 			
+			protected function itemList_updateCompleteHandler(event:FlexEvent):void
+			{
+				if (itemList.dataProvider.length > 0){
+					noItemsLabel.visible = false;
+					alert.close();
+					filterBtn.visible = true;
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -282,7 +301,9 @@ How's about you add some?</fx:String>
 	</fx:Declarations>
 	<s:BitmapImage id="logo" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" y="0" depth="0"  />
 	
-	<s:List id="itemList" left="0" right="0" top="{getTopPadding()}" height="{getListHeight()}" dataProvider="{itemAtPlaceList}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
+	<s:List id="itemList" left="0" right="0" top="{getTopPadding()}" height="{getListHeight()}"
+		updateComplete="itemList_updateCompleteHandler(event)"
+			dataProvider="{itemAtPlaceList}" contentBackgroundAlpha="0" click="itemList_clickHandler(event)">
 		<s:itemRenderer>
 			<fx:Component>
 				<renderers:ItemListRenderer  styleName="itemName" messageStyleName="locationName" labelFunction="getItemName"
@@ -310,7 +331,6 @@ How's about you add some?</fx:String>
 	</s:List>
 
 	<s:Label id="noItemsLabel" visible="false" text="No items yet." top="{getTopPadding() + 90}" horizontalCenter="0" />
-	<s:Button id="noItemsButton" visible="false" label="Need a little help?" top="{getTopPadding() + 170}" horizontalCenter="0" click="noItemsButton_clickHandler(event)" />
 	
 	<components:Location id="locationInterface" locationChanged="locationInterface_locationChangedHandler(event)" 
 						 visible="{!dataToPush.softControls}"

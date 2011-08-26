@@ -6,16 +6,18 @@ package com.terrenceryan.finicky
 	import com.terrenceryan.finicky.vo.ItemAtPlace;
 	import com.terrenceryan.finicky.vo.Place;
 	
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import flash.sensors.Geolocation;
 	
 	import mx.collections.ArrayCollection;
 	
+	[Event(name="homeUpdated", type="flash.events.Event")]
+	
 	public class DataSingleton extends EventDispatcher
 	{
-		[Bindable]
-		public var home:Place;
+		private var _home:Place;
 		[Bindable]
 		public var homeAlternatives:ArrayCollection;
 		public var dbManager:DBManager;
@@ -43,5 +45,18 @@ package com.terrenceryan.finicky
 		{
 			super();	
 		}
+
+		[Bindable]
+		public function get home():Place
+		{
+			return _home;
+		}
+
+		public function set home(value:Place):void
+		{
+			_home = value;
+			dispatchEvent(new Event("homeUpdated"));
+		}
+
 	}
 }
