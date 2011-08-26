@@ -80,6 +80,8 @@ package skins
 				bg.height = 333;
 				bg.scaleMode = "stretch";
 				bg.z = 5;
+				bg.x= -2;
+				bg.y= -2;
 				host.addElement(bg);
 				
 				

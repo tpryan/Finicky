@@ -1,7 +1,7 @@
 package com.terrenceryan.finicky
 {
 	import com.terrenceryan.finicky.db.DBManager;
-	import com.terrenceryan.finicky.geo.GeoCode;
+	import com.terrenceryan.finicky.geo.GoogleGeoCode;
 	import com.terrenceryan.finicky.vo.Item;
 	import com.terrenceryan.finicky.vo.ItemAtPlace;
 	import com.terrenceryan.finicky.vo.Place;
@@ -20,7 +20,7 @@ package com.terrenceryan.finicky
 		public var homeAlternatives:ArrayCollection;
 		public var dbManager:DBManager;
 		public var geo:Geolocation;
-		public var geoCodeService:GeoCode;
+		public var geoCodeService:GoogleGeoCode;
 		public var os:String;
 		[Bindable]
 		public var softControls:Boolean;

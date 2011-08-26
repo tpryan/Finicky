@@ -9,17 +9,17 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
-			import com.terrenceryan.finicky.geo.GeoCode;
+			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.vo.Place;
 			
-			import events.GeoResultEvent;
+			import com.terrenceryan.finicky.geo.GeoResultEvent;
 			
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
 			import spark.events.TextOperationEvent;
 			protected var dbManager:DBManager;
-			protected var geoCodeService:GeoCode;
+			protected var geoCodeService:GoogleGeoCode;
 			protected var placeid:int;
 			[Bindable]
 			protected var place:Place;
@@ -43,7 +43,7 @@
 				
 				if (place.lat == 0){ 
 					geoCodeService = data.geoCodeService;
-					geoCodeService.addEventListener("result", processResult);
+					geoCodeService.addEventListener("geoCodeResult", processResult);
 					geoCodeService.fromAddressToLatLon(place);
 					trace("Place without a geocode.")
 				}

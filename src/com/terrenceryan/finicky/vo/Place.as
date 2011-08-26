@@ -213,7 +213,8 @@ package com.terrenceryan.finicky.vo
 		{
 			var result:String = "";
 			
-			if (_country && _country.indexOf("USA") < 0){
+			if ((_country && _country.indexOf("United States") < 0) &&
+				(_country && _country.indexOf("USA") < 0)){
 				result = getCityCountryString();
 			}
 			else if (_city && _state ){

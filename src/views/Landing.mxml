@@ -7,10 +7,10 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
-			import com.terrenceryan.finicky.geo.GeoCode;
+			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.vo.Place;
 			
-			import events.GeoResultEvent;
+			import com.terrenceryan.finicky.geo.GeoResultEvent;
 			
 			import flash.sensors.Geolocation;
 			
@@ -26,7 +26,7 @@
 			protected var dataToPush:DataSingleton;
 			public var i:int = 0;
 			protected var dbManager:DBManager;
-			protected var geoCodeService:GeoCode;
+			protected var geoCodeService:GoogleGeoCode;
 			protected var geo:Geolocation;
 			
 			[Bindable]
@@ -59,7 +59,7 @@
 				getListData();
 				geoCodeService = dataToPush.geoCodeService;
 				
-				geoCodeService.addEventListener("result", setLocationBanner);
+				geoCodeService.addEventListener("reverseGeoCodeResult", setLocationBanner);
 				
 				if (dataToPush.geo){
 					dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, setLocationBanner);
@@ -204,7 +204,7 @@
 			
 			protected function aboutButton_clickHandler(event:MouseEvent):void
 			{
-				navigator.pushView(About);
+				navigator.pushView(About, dataToPush);
 				
 			}
 			

@@ -8,13 +8,12 @@
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.LocationReconciler;
 			import com.terrenceryan.finicky.db.DBManager;
-			import com.terrenceryan.finicky.geo.GeoCode;
+			import com.terrenceryan.finicky.geo.GeoResultEvent;
+			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.util.StringUtil;
 			import com.terrenceryan.finicky.vo.Item;
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			import com.terrenceryan.finicky.vo.Place;
-			
-			import events.GeoResultEvent;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
@@ -134,9 +133,9 @@
 				dbManager.itemAtPlaceDAO.save(itemAtPlace);
 
 				if (itemAtPlace.place.lat == 0){ 
-					var geoCodeService:GeoCode = new GeoCode();
+					var geoCodeService:GoogleGeoCode = new GoogleGeoCode();
 					geoCodeService.placeid = place.placeid;
-					geoCodeService.addEventListener("result", processResult);
+					geoCodeService.addEventListener("geoCodeResult", processResult);
 					
 					geoCodeService.fromAddressToLatLon(itemAtPlace.place);
 					trace("Place without a geocode.");

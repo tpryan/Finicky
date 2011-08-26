@@ -9,17 +9,16 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
-			import com.terrenceryan.finicky.geo.GeoCode;
+			import com.terrenceryan.finicky.geo.GeoResultEvent;
+			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.vo.Place;
-			
-			import events.GeoResultEvent;
 			
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
 			import spark.events.TextOperationEvent;
 			protected var dbManager:DBManager;
-			protected var geoCodeService:GeoCode;
+			protected var geoCodeService:GoogleGeoCode;
 			protected var placeid:int;
 			[Bindable]
 			protected var place:Place;
