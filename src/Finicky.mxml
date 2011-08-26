@@ -209,7 +209,7 @@
 			protected function onDeactivate(event:Event):void
 			{
 				if (dataToPush.allowToClose){
-					closeTimer = new Timer(30000,1);
+					closeTimer = new Timer(10000,1);
 					closeTimer.addEventListener(TimerEvent.TIMER_COMPLETE, closeApp);
 					closeTimer.start();
 					dataToPush.geo = null;
