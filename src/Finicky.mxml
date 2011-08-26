@@ -25,11 +25,10 @@
 			import com.terrenceryan.finicky.fonts.tradegothicbold;
 			import com.terrenceryan.finicky.fonts.tradegothictlf;
 			import com.terrenceryan.finicky.fonts.tradegothictlfbold;
+			import com.terrenceryan.finicky.geo.GeoResultEvent;
 			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.util.StringUtil;
 			import com.terrenceryan.finicky.vo.Place;
-			
-			import com.terrenceryan.finicky.geo.GeoResultEvent;
 			
 			import flash.sensors.Geolocation;
 			
@@ -81,11 +80,12 @@
 					trace((new Date().time - count) + "ms");
 					//Initialize the location sensor.
 					geo = new Geolocation();
-					if(! geo.muted){
+					dataToPush.geo = geo;
+					if(! dataToPush.geo.muted){
 						trace("Geolocation is not muted");
-						geo.setRequestedUpdateInterval(100);
+						dataToPush.geo.setRequestedUpdateInterval(100);
 						//Register to receive location updates.
-						geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
+						dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
 					}
 				}
 				else{
@@ -116,7 +116,6 @@
 			{
 				dataToPush.dbManager = dbManager;
 				dataToPush.geoCodeService = geoCodeService;
-				dataToPush.geo = geo;
 				dataToPush.os = Capabilities.version;
 				dataToPush.locationReconciler = locationReconciler;
 				
@@ -210,9 +209,10 @@
 			protected function onDeactivate(event:Event):void
 			{
 				if (dataToPush.allowToClose){
-					closeTimer = new Timer(60000,1);
+					closeTimer = new Timer(30000,1);
 					closeTimer.addEventListener(TimerEvent.TIMER_COMPLETE, closeApp);
 					closeTimer.start();
+					dataToPush.geo = null;
 				}
 			}
 			
@@ -221,10 +221,11 @@
 			}
 			
 			
-			protected function onActivate(event:Event):void
-			{
+			protected function onActivate(event:Event):void{
 				closeTimer = null;
-				
+				dataToPush.geo = new Geolocation();
+				dataToPush.geo.setRequestedUpdateInterval(100);
+				dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, geolocationUpdateHandler);
 			}
 			
 			

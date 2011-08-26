@@ -65,7 +65,7 @@
 	<fx:Declarations>
 		<s:ArrayCollection id="settings">
 			<fx:Object name="About" details="Find out about creators of Finicky" />
-			<fx:Object name="Demo" details="View video demo of Finicky" />
+			<!--<fx:Object name="Demo" details="View video demo of Finicky" />-->
 			<fx:Object name="Items" details="Add/Edit/Remove Items" />
 			<fx:Object name="Location" details="View and refresh details about current location" />
 			<fx:Object name="Matches" details="Remove links between Items and Places" />
