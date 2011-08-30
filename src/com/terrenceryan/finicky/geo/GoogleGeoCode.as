@@ -110,9 +110,15 @@ package com.terrenceryan.finicky.geo
 			if (geoCodeResponse.result is ArrayCollection){
 				eventResult = geoCodeResponse.result[0];
 			}
-			else{
+			else if (geoCodeResponse.result){
 				eventResult = geoCodeResponse.result;
 			}
+			else{
+				eventResult = new Object();
+				eventResult.address_component = new ArrayCollection();
+				
+			}
+			
 			
 			addressAC = eventResult.address_component;
 			
@@ -159,8 +165,14 @@ package com.terrenceryan.finicky.geo
 			place.state = result.state;
 			place.mailingCode = result.mailingCode;
 			place.country = result.country;
-			place.lat = eventResult.geometry.location.lat;
-			place.lon = eventResult.geometry.location.lng;
+			if (eventResult.geometry){
+				place.lat = eventResult.geometry.location.lat;
+				place.lon = eventResult.geometry.location.lng;
+			}
+			
+			if (!place.city){
+				place.city = "Unknown Location";	
+			}
 			
 			return place;
 		}

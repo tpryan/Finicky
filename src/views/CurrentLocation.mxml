@@ -54,6 +54,7 @@
 			
 			protected function updateForm(event:Event):void
 			{
+				home = dataToPush.home;
 				storeAddress.text = home.address;
 				storeCityStateZip.text = home.toCityStateZipString();
 				storeLat.text = home.lat.toString();

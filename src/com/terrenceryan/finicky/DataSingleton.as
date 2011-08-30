@@ -76,9 +76,6 @@ package com.terrenceryan.finicky
 				saveChange = false;
 			}
 			
-			if (value && (value.lat != 0 || value.lon != 0)){
-				saveChange = false;
-			}
 			
 			
 			if (makeChange = true){

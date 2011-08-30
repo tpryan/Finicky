@@ -270,6 +270,12 @@
 					filterBtn.visible = true;
 					mapButton.visible = true;
 				}
+				else{
+					noItemsLabel.visible = true;
+					
+					filterBtn.visible = false;
+					mapButton.visible = false;
+				}
 				
 			}
 			
@@ -316,7 +322,7 @@ How's about you add some?</fx:String>
 		</s:itemRenderer>
 	</s:List>
 
-	<s:Label id="noItemsLabel" visible="false" text="No items yet." top="{getTopPadding() + 90}" horizontalCenter="0" />
+	<s:Label id="noItemsLabel" visible="false" text="No items here." top="{getTopPadding() + 90}" horizontalCenter="0" />
 	
 	<components:Location id="locationInterface" locationChanged="locationInterface_locationChangedHandler(event)" 
 						 visible="{!dataToPush.softControls}"

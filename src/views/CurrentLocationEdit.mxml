@@ -46,6 +46,7 @@
 			
 			protected function processGeoCode(event:GeoResultEvent):void
 			{
+				place = place.clone();
 				place.lat = event.result.lat;
 				place.lon = event.result.lon;
 				dataToPush.home = place;
