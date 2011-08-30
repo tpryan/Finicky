@@ -46,10 +46,25 @@
 			protected function picLoaded(event:Event):void
 			{
 				var bmpData:BitmapData = bmimage.bitmapData;
+				
+				var shortside:int = bmpData.width;
+				
+				if (bmpData.width > bmpData.height){
+					shortside = bmpData.height;
+				}
+				
+				var scale:Number = 196/shortside;
+				
+				//var smallBmp:BitmapData = new BitmapData(bmpData.width*scale, bmpData.height * scale, true, 0x000000);
+				//smallBmp.draw(bmpData, new Matrix(), null, null, null, true);
+				
+				
 				var matrix:Matrix = new Matrix();
 				
-				matrix.tx = (bmpData.width/2) + (98/2); 
-				matrix.ty = (bmpData.height/2) + (98/2);
+				//matrix.tx = (smallBmp.width/2) + (98/2); 
+				//matrix.ty = (smallBmp.height/2) + (98/2);
+				
+				matrix.scale(scale, scale);
 				
 				photoSprite.graphics.beginBitmapFill(bmpData,matrix);
 				photoSprite.graphics.drawCircle(98,98,90);
