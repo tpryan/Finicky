@@ -19,6 +19,7 @@
 			{
 				dataToPush = data as DataSingleton;
 				home = data.home;
+				dataToPush.addEventListener("homeUpdated", updateForm);
 				
 				if (dataToPush.displayNotice){
 					notice.open(this, false);
@@ -49,6 +50,15 @@
 				else{
 					return 70;
 				}
+			}
+			
+			protected function updateForm(event:Event):void
+			{
+				storeAddress.text = home.address;
+				storeCityStateZip.text = home.toCityStateZipString();
+				storeLat.text = home.lat.toString();
+				storeLon.text = home.lon.toString();
+				
 			}
 			
 		]]>

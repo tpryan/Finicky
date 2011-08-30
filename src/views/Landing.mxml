@@ -42,17 +42,7 @@
 				
 				dataToPush = data as DataSingleton;
 				dataToPush.lastView = "Landing";
-				dataToPush.geoCodeService.addEventListener("result", resetheader);
-				
-				dataToPush.home.addEventListener("dataChanged", setLocationBanner);
-				
-				if ( (dataToPush.home) && ((dataToPush.home.lat == 0) && (dataToPush.home.lon == 0)) && (dataToPush.geo) ){
-					geo = dataToPush.geo;
-					geo.addEventListener(GeolocationEvent.UPDATE, resetList);
-				}
-				
 				home = dataToPush.home;
-				home.addEventListener("dataChanged", handlePlaceChange);
 				dataToPush.addEventListener("homeUpdated", handlePlaceChange);
 				
 				
@@ -60,12 +50,7 @@
 				getListData();
 				geoCodeService = dataToPush.geoCodeService;
 				
-				geoCodeService.addEventListener("reverseGeoCodeResult", setLocationBanner);
 				
-				if (dataToPush.geo){
-					dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, setLocationBanner);
-					dataToPush.geo.addEventListener(GeolocationEvent.UPDATE, filterModal_changedHandler);
-				}
 				
 			
 				if (!dataToPush.noticeShown){
@@ -179,15 +164,15 @@
 			}
 			
 			
-			protected function handlePlaceChange(event:Event):void{
-				home.removeEventListener("dataChanged", handlePlaceChange);
-				home.addEventListener("dataChanged", handlePlaceChange);
+			protected function handlePlaceChange(event:Event=null):void{
 				dataToPush.removeEventListener("homeUpdated", handlePlaceChange);
 				dataToPush.addEventListener("homeUpdated", handlePlaceChange);
+				getListData();
 				setLocationBanner();
+				
 			}
 			
-			protected function setLocationBanner():void
+			protected function setLocationBanner(event:Event=null):void
 			{
 				locationInterface.location = dataToPush.home.getRendererLabel();
 				
@@ -226,7 +211,7 @@
 			
 			protected function resetheader(event:GeoResultEvent):void
 			{
-				locationInterface.location = dataToPush.home.getRendererLabel();
+				handlePlaceChange(null);
 				
 			}
 			
@@ -279,10 +264,11 @@
 			
 			protected function itemList_updateCompleteHandler(event:FlexEvent):void
 			{
-				if (itemList.dataProvider.length > 0){
+				if (itemList.dataProvider && itemList.dataProvider.length > 0){
 					noItemsLabel.visible = false;
 					alert.close();
 					filterBtn.visible = true;
+					mapButton.visible = true;
 				}
 				
 			}

@@ -161,6 +161,8 @@
 			
 			protected function directionsBtn_clickHandler(event:MouseEvent):void
 			{
+				dataToPush.allowToClose = false;
+				
 				var url:String = "http://maps.google.com/maps?f=d";
 				var source:String = "&source=s_d";
 				var dest:String = "&daddr=" + store.toAddressString();

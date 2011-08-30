@@ -27,7 +27,11 @@
 			public function set location(value:String):void
 			{
 				_location = value;
-				locationLabel.text = value;
+				if (value.length == 0){
+					_location = "Getting Location";
+				}
+				
+				locationLabel.text = _location;
 				
 				if (locationLabel.text.length < 20){
 					locationLabel.setStyle("fontSize", 60);

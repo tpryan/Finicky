@@ -54,8 +54,44 @@ package com.terrenceryan.finicky
 
 		public function set home(value:Place):void
 		{
-			_home = value;
-			dispatchEvent(new Event("homeUpdated"));
+			
+			var latDiff:int = 1;
+			var lonDiff:int = 1;
+			var makeChange:Boolean = true;
+			var saveChange:Boolean = true;
+			
+			
+			//new home value has to be as specfic 
+			// as old value if nearby.
+			if (_home){
+				latDiff = Math.abs(value.lat - _home.lat); 
+				lonDiff = Math.abs(value.lon - _home.lon); 
+			}
+			
+			if ((latDiff < .005) && (lonDiff < .005) && (value.address.length == 0 )){
+				makeChange = false;
+			}
+			
+			if (value.lat == 0 && value.lon == 0){
+				saveChange = false;
+			}
+			
+			if (value && (value.lat != 0 || value.lon != 0)){
+				saveChange = false;
+			}
+			
+			
+			if (makeChange = true){
+				if (saveChange){
+					dbManager.currentLocationDBO.save(value);
+				}
+				
+				_home = value;
+				dispatchEvent(new Event("homeUpdated"));
+			
+				
+			}
+			
 		}
 
 	}

@@ -89,9 +89,19 @@ package com.terrenceryan.finicky.db
 			sqlInsert.parameters[":lat"] = place.lat;
 			sqlInsert.parameters[":lon"] = place.lon;
 			
+			sqlInsert.addEventListener(SQLErrorEvent.ERROR, handleError);
+			
+			trace("recording lat ")
+			trace("lat" )
+			
 			sqlInsert.execute();	
 		}
 		
+		protected function handleError(event:SQLErrorEvent):void
+		{
+			trace(event.error.message);
+			
+		}		
 		
 		public function get():Place{
 			var query:String = "";

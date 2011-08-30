@@ -5,6 +5,8 @@
 		<![CDATA[
 			import com.terrenceryan.finicky.DataSingleton;
 			import com.terrenceryan.finicky.db.DBManager;
+			import com.terrenceryan.finicky.geo.GeoResultEvent;
+			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.vo.Place;
 			
 			import mx.events.FlexEvent;
@@ -25,10 +27,13 @@
 			protected function saveButton_clickHandler(event:Event):void
 			{
 				
-				dbManager.currentLocationDBO.save(place);
 				dataToPush.home = place;
 				dataToPush.place = null;
 				dataToPush.displayNotice = true;
+				var geoService:GoogleGeoCode = new GoogleGeoCode();
+				geoService.addEventListener("geoCodeResult", processGeoCode);
+				geoService.fromAddressToLatLon(place);
+				
 				navigator.popView();
 				
 			}
@@ -37,6 +42,14 @@
 			{
 				// TODO Auto-generated method stub
 				navigator.popView();
+			}
+			
+			protected function processGeoCode(event:GeoResultEvent):void
+			{
+				place.lat = event.result.lat;
+				place.lon = event.result.lon;
+				dataToPush.home = place;
+				
 			}
 			
 		]]>

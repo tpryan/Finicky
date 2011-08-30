@@ -98,6 +98,11 @@
 			
 			protected function addNewItemOptionToList(event:FlexEvent):void
 			{
+				
+				if (!places){
+					places = new ArrayCollection();
+				}
+				
 				if (places){
 					if (places.getItemAt(places.length-1).address != "[Add location by hand]"){
 						var place:Place = new Place();

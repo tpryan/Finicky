@@ -47,7 +47,7 @@
 			public var geoCodeService:GoogleGeoCode = new GoogleGeoCode();
 			public var dataToPush:DataSingleton = new DataSingleton();
 			public var geo:Geolocation;
-			public var home:Place = new Place();
+			public var home:Place;
 			public var locationReconciler:LocationReconciler = new LocationReconciler();
 			public var closeTimer:Timer;
 			public var stringUtils:StringUtil = new StringUtil();
@@ -55,15 +55,18 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				getLocation();
 				navigator.hideActionBar(false);
 				NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, onDeactivate);
 				NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, onActivate);
 				getFonts();
 				var dbFile:File = File.applicationStorageDirectory.resolvePath("finicky.db");
+				trace(dbFile.nativePath)
 				dbManager = new DBManager(dbFile);
-				home = dbManager.currentLocationDBO.get();
+				dataToPush.dbManager = dbManager;
+				home = dataToPush.dbManager.currentLocationDBO.get();
 				locationReconciler.reconcile();
-				getLocation();
+				
 				onLoaded();
 				
 			}
@@ -89,17 +92,6 @@
 					}
 				}
 				else{
-					//Philadelphia
-					//home.lat = 39.962199;
-					//home.lon = -75.170639;
-					
-					//London
-					//home.lat = 51.512911;
-					//home.lon = -0.158020;
-				
-					//New York	
-					//home.lat = 40.758306;
-					//home.lon = -73.985642;
 						
 					geoCodeService.addEventListener("reverseGeoCodeResult", reverseGeoCodeResultHandler);
 					geoCodeService.fromLatLonToAddress(home.lat, home.lon);
@@ -114,7 +106,7 @@
 			
 			protected function onLoaded():void
 			{
-				dataToPush.dbManager = dbManager;
+				
 				dataToPush.geoCodeService = geoCodeService;
 				dataToPush.os = Capabilities.version;
 				dataToPush.locationReconciler = locationReconciler;
@@ -197,7 +189,6 @@
 				place.lon = event.result.lon;
 				dataToPush.home = place;
 				
-				dbManager.currentLocationDBO.save(place);
 				geoCodeService.addEventListener("alternativesResult", processAlternatives);
 				geoCodeService.getAlternativeLocations(place);
 			}
@@ -218,6 +209,12 @@
 					closeTimer.start();
 					dataToPush.geo = null;
 				}
+				else{
+					closeTimer = new Timer(600000,1);
+					closeTimer.addEventListener(TimerEvent.TIMER_COMPLETE, closeApp);
+					closeTimer.start();
+					dataToPush.geo = null;
+				}
 			}
 			
 			protected function closeApp(event:Event):void{
@@ -226,6 +223,7 @@
 			
 			
 			protected function onActivate(event:Event):void{
+				dataToPush.allowToClose = true;
 				closeTimer = null;
 				dataToPush.geo = new Geolocation();
 				dataToPush.geo.setRequestedUpdateInterval(100);
