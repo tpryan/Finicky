@@ -13,7 +13,7 @@ package com.terrenceryan.finicky.db
 	
 	public class PlaceDAO
 	{
-		
+		public var measure:String = "US";
 		private var _conn:SQLConnection;
 		
 		public function PlaceDAO(conn:SQLConnection)
@@ -165,6 +165,7 @@ package com.terrenceryan.finicky.db
 			place.lat = obj.lat;
 			place.lon = obj.lon;
 			place.notes = obj.notes;
+			place.measure = measure;
 			return place;
 		}		
 		

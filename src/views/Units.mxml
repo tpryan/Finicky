@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" creationComplete="init(event)" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Units">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.terrenceryan.finicky.DataSingleton;
+			
+			import mx.events.FlexEvent;
+			[Bindable]
+			[Embed(source="/assets/icons/modalCheckOff.png")]
+			private var off:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/modalCheckOn.png")]
+			private var on:Class;
+			
+			public var dataToPush:DataSingleton;
+			
+			protected function init(event:FlexEvent):void
+			{
+				dataToPush = data as DataSingleton;
+				
+				if (dataToPush.measure == "US"){
+					usIcon.source = on;
+				}
+				else{
+					metricIcon.source = on;
+				}
+				
+			}
+			
+			protected function metric_clickHandler(event:MouseEvent):void
+			{
+				if (dataToPush.measure == "US"){
+					dataToPush.measure = "metric";
+					dataToPush.dbManager.measureDBO.save("metric");
+					usIcon.source = off;
+					metricIcon.source = on;
+				}
+			}
+			
+			protected function us_clickHandler(event:MouseEvent):void
+			{
+				if (dataToPush.measure == "metric"){
+					dataToPush.measure = "US";
+					dataToPush.dbManager.measureDBO.save("US");
+					usIcon.source = on;
+					metricIcon.source = off;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Units" visible="{!data.softControls}"/>
+	
+	
+	
+	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
+		<s:Label id="usLabel" horizontalCenter="-140" text="US" verticalCenter="-50" click="us_clickHandler(event)"/>
+		<s:Label id="metricLabel" horizontalCenter="140" text="METRIC" verticalCenter="-50" click="metric_clickHandler(event)"/>
+		
+		
+		<s:Image id="usIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="us_clickHandler(event)" />
+		<s:Image id="metricIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="metric_clickHandler(event)"  />
+	</s:Group>
+	
+</s:View>

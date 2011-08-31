@@ -20,7 +20,7 @@ package com.terrenceryan.finicky
 		private var _home:Place;
 		[Bindable]
 		public var homeAlternatives:ArrayCollection;
-		public var dbManager:DBManager;
+		private var _dbManager:DBManager;
 		public var geo:Geolocation;
 		public var geoCodeService:GoogleGeoCode;
 		public var os:String;
@@ -40,10 +40,36 @@ package com.terrenceryan.finicky
 		public var locationReconciler:LocationReconciler;
 		public var placeName:String;
 		public var displayNotice:Boolean;
+		private var _measure:String = "US";
 		
 		public function DataSingleton()
 		{
 			super();	
+		}
+
+		public function get dbManager():DBManager
+		{
+			return _dbManager;
+		}
+
+		public function set dbManager(value:DBManager):void
+		{
+			_dbManager = value;
+			measure = value.measure;
+		}
+
+		public function get measure():String
+		{
+			return _measure;
+		}
+
+		public function set measure(value:String):void
+		{
+			
+			if (_measure != value){
+				_measure = value;
+				dbManager.measure = value;
+			}
 		}
 
 		[Bindable]

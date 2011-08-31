@@ -28,6 +28,8 @@ package com.terrenceryan.finicky.db
 		private var _placeDAO:PlaceDAO = null;
 		private var _itemAtPlaceDAO:ItemAtPlaceDAO = null;
 		private var _currentLocationDBO:CurrentLocationDBO = null;
+		private var _measureDBO:MeasureDBO = null;
+		private var _measure:String = "US";
 		
 		
 		[Event(name="loaded", type="flash.events.Event")]
@@ -53,10 +55,14 @@ package com.terrenceryan.finicky.db
 			try
 			{
 				_conn.open(_dbFile);
+				_measureDBO = new MeasureDBO(_conn);
 				_itemDAO = new ItemDAO(_conn);
 				_placeDAO = new PlaceDAO(_conn);
 				_itemAtPlaceDAO = new ItemAtPlaceDAO(_conn,this);
 				_currentLocationDBO = new CurrentLocationDBO(_conn);
+				
+				_placeDAO.measure = _measureDBO.get();
+				
 				
 				if (preload){
 					loadDemoData();
@@ -77,6 +83,27 @@ package com.terrenceryan.finicky.db
 			
 		}
 		
+		public function get measure():String
+		{
+			return _measure;
+		}
+
+		public function set measure(value:String):void
+		{
+			_measure = value;
+			_placeDAO.measure = value;
+		}
+
+		public function get measureDBO():MeasureDBO
+		{
+			return _measureDBO;
+		}
+
+		public function set measureDBO(value:MeasureDBO):void
+		{
+			_measureDBO = value;
+		}
+
 		[Bindable]
 		public function get demoMode():Boolean
 		{
@@ -205,6 +232,7 @@ package com.terrenceryan.finicky.db
 		
 		public function set placeDAO(value:PlaceDAO):void
 		{
+			value.measure = measure;
 			_placeDAO = value;
 		}
 		

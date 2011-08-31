@@ -9,6 +9,12 @@ package com.terrenceryan.finicky.vo
 	{
 		
 		private const FEET_IN_MILE:int = 5280;
+		private const M_IN_KM:int  = 1000; //yes I know this is stupid.
+		private const RADIUS_OF_EARTH_IN_MILES:int = 3963;
+		private const RADIUS_OF_EARTH_IN_FEET:int =20925525;
+		private const RADIUS_OF_EARTH_IN_KM:int =6378;
+		private const RADIUS_OF_EARTH_IN_M:int =6378000;
+		
 		private var _placeid:int = 0;
 		private var _name:String = "";
 		private var _address:String = "";
@@ -21,9 +27,21 @@ package com.terrenceryan.finicky.vo
 		private var _notes:String = "";
 		private var _distance:Number = 0;
 		private var _otherPlace:Place;
+		private var _measure:String = "US";
+		
 		
 		public function Place()
 		{
+		}
+
+		public function get measure():String
+		{
+			return _measure;
+		}
+
+		public function set measure(value:String):void
+		{
+			_measure = value;
 		}
 
 		[Bindable]
@@ -232,14 +250,28 @@ package com.terrenceryan.finicky.vo
 		public function getDistanceInHumanForm():String{
 			var result:String = "";
 			var digits:String;
-			if (_distance < 500){
+			
+			var smallUnit:String = "ft";
+			var largeUnit:String = "mi";
+			var threshold:int = 500;
+			var divider:int = FEET_IN_MILE;
+			
+			if (measure == "metric"){
+				smallUnit = "m";
+				largeUnit = "km";
+				threshold = 150;
+				divider = M_IN_KM;
+				
+			}
+			
+			if (_distance < threshold){
 				digits = _distance.toFixed(0);
-				result = digits.toString() + "ft";
+				result = digits.toString() + smallUnit;
 			}
 			else{
-				var temp:Number = _distance / FEET_IN_MILE;
+				var temp:Number = _distance / divider;
 				digits = temp.toFixed(2);
-				result =  digits + "mi";
+				result =  digits + largeUnit;
 			}	
 			
 			return result;
@@ -247,7 +279,13 @@ package com.terrenceryan.finicky.vo
 		
 		
 		public function distanceFromPlace(place:Place):Number{
-			var d:Number = distanceBetweenCoordinates(_lat,_lon,place.lat,place.lon, "feet");
+			
+			var unit:String = "feet";
+			if (measure == "metric"){
+				unit = "meters";
+			}
+			
+			var d:Number = distanceBetweenCoordinates(_lat,_lon,place.lat,place.lon, unit);
 			return d;
 		}
 		
@@ -255,12 +293,15 @@ package com.terrenceryan.finicky.vo
 													lat2:Number,lon2:Number,
 													units:String="miles"):Number{
 		
-			var R:int = 6371;
-			if (units == "miles"){
-				R = 3963;
+			var R:int = RADIUS_OF_EARTH_IN_MILES;
+			if (units == "km"){
+				R = RADIUS_OF_EARTH_IN_KM;
+			}
+			if (units == "meters"){
+				R = RADIUS_OF_EARTH_IN_M;
 			}
 			if (units =="feet"){
-				R= 20925525;
+				R= RADIUS_OF_EARTH_IN_FEET;
 			}
 			
 			var dLat:Number = (lat2-lat1) * Math.PI/180;

@@ -151,6 +151,7 @@ components|AcceptPopUp #okLabel, components|AcceptPopUp #cancelLabel{
 	textAlign: center;
 }
 
+
 components|LocationModal #textCurrent, components|LocationModal #textNew, components|LocationModal #textExisting{
 	fontFamily:"Liberator";
 	fontSize:40;
@@ -159,7 +160,7 @@ components|LocationModal #textCurrent, components|LocationModal #textNew, compon
 	
 }
 
-components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel, #demoModeLabel{
+components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel, #demoModeLabel, #usLabel, #metricLabel{
 	fontFamily: "Liberator";
 	fontSize: 54;
 	color: #383539;
