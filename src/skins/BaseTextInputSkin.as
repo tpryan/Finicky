@@ -1,15 +1,14 @@
 package skins
 {
-	
 	import flash.events.FocusEvent;
 	
-	import spark.components.Image;
+	import spark.components.Group;
 	import spark.components.supportClasses.StyleableTextField;
+	import spark.primitives.BitmapImage;
 	import spark.skins.mobile.TextInputSkin;
 	
-	public class FormTexInputSkin extends TextInputSkin
+	public class BaseTextInputSkin extends TextInputSkin
 	{
-		
 		
 		[Bindable]
 		[Embed(source="/assets/bg/bg_editField.png")]
@@ -19,19 +18,16 @@ package skins
 		[Embed(source="/assets/bg/bg_whitebrush.png")]
 		protected var whitebrush:Class;
 		
-		protected var whiteBG:Image = new Image;
+		protected var whiteBG:BitmapImage = new BitmapImage;
+		protected var whiteHolder:Group = new Group();
 		
-		public function FormTexInputSkin()
+		
+		public function BaseTextInputSkin()
 		{
 			super();
 			borderClass = borderClassTemp;
 			height = 90;
-			this.cacheAsBitmap = true;			
-			
 		}
-		
-		
-		
 		
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void{
 			border.blendMode = "multiply";
@@ -42,13 +38,11 @@ package skins
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
 			whiteBG.source = whitebrush;
-			addChildAt(whiteBG,0);
+			
+			whiteHolder.addElement(whiteBG);
+			addChildAt(whiteHolder,0);
 			setElementPosition(whiteBG, 0, 0);
 			setElementSize(whiteBG, border.width,border.height);
-			
-			textDisplay.setStyle("fontFamily", "Trade Gothic LT Std");
-			textDisplay.setStyle("fontSize", 36);
-			textDisplay.setStyle("color", 0x22221b);
 			
 			
 			
@@ -68,8 +62,6 @@ package skins
 			
 			
 			
-			textDisplay.addEventListener(FocusEvent.FOCUS_IN, drawBGRect);
-			textDisplay.addEventListener(FocusEvent.FOCUS_OUT, removeBGRect);
 			
 		}
 		
@@ -96,19 +88,15 @@ package skins
 		override protected function createPromptDisplay():StyleableTextField
 		{
 			var prompt:StyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
+			prompt.setStyle("color", 0x66664d);
 			prompt.styleName = this;
 			prompt.editable = false;
 			prompt.mouseEnabled = false;
 			
-			prompt.setStyle("fontFamily", "Trade Gothic LT Std");
-			prompt.setStyle("fontSize", 36);
-			prompt.setStyle("color", 0x999999);
 			
 			
 			return prompt;
 		}
-		
-		
 		
 	}
 }

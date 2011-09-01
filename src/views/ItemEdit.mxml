@@ -82,7 +82,7 @@
 	
 	<s:VGroup left="5" right="5" top="5" bottom="5">
 		<s:Label id="titleLabel" text="Add/Edit Item" visible="{!data.softControls}"/>
-		<s:TextInput id="nameText" width="100%" text="@{item.name}" focusThickness="0" prompt="Item"/>
+		<s:TextInput id="nameText" width="100%" text="@{item.name}" focusThickness="0" prompt="Item" />
 		
 		
 	</s:VGroup>

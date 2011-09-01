@@ -203,11 +203,6 @@
 			}
 			
 			
-			protected function locationInterface_locationChangedHandler(event:Event):void
-			{
-				// TODO Auto-generated method stub
-				
-			}
 			
 			protected function resetheader(event:GeoResultEvent):void
 			{
@@ -267,11 +262,14 @@
 				if (itemList.dataProvider && itemList.dataProvider.length > 0){
 					noItemsLabel.visible = false;
 					alert.close();
-					filterBtn.visible = true;
+					if (!data.softControls){
+						filterBtn.visible = true;
+					}
 					mapButton.visible = true;
 				}
 				else{
 					noItemsLabel.visible = true;
+					
 					
 					filterBtn.visible = false;
 					mapButton.visible = false;
@@ -324,9 +322,10 @@ How's about you add some?</fx:String>
 
 	<s:Label id="noItemsLabel" visible="false" text="No items here." top="{getTopPadding() + 90}" horizontalCenter="0" />
 	
-	<components:Location id="locationInterface" locationChanged="locationInterface_locationChangedHandler(event)" 
+	<components:Location id="locationInterface" 
 						 visible="{!dataToPush.softControls}"
 						 location="{dataToPush.home.getRendererLabel()}"  />
+	
 	<s:Button id="filterBtn" label="Sort" right="10" top="165" visible="{!dataToPush.softControls}"  click="locationInterface_filterClickedHandler(event)" enabled="true"/>
 	
 	<components:ChangeLocationButton id="changeLocationBtn"  visible="{!dataToPush.softControls}" top="15" right="5" z="5" data="{dataToPush}" />	

@@ -140,6 +140,7 @@ views|PlaceEdit #mailingcodeLabel, views|PlaceEdit #countryLabel{
 
 
 
+
 /**********************************************
 	Component Specific style
 ***********************************************/
@@ -179,10 +180,7 @@ components|StartingNotice #startText{
 	
 }
 
-components|SuggestionTextBox #suggestionList, components|SuggestionTextBox #ti {
-	fontFamily: "Lions Den";
-	fontSize: 36;
-}
+
 
 components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel{
 	fontFamily: "Liberator";
@@ -224,15 +222,16 @@ s|ViewMenu{
 s|ViewMenuItem{
 	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
 }
+
 s|TextInput{
-	skinClass: ClassReference("skins.FormTexInputSkin");
+	skinClass: ClassReference("skins.BaseTextInputSkin");
 }
 
 views|MapView #filterString{
-	skinClass: ClassReference("skins.SuggestionTextBoxTextInputSkin")
+	skinClass: ClassReference("skins.BaseTextInputSkin")
 }
 components|SuggestionTextBox s|TextInput{
-	skinClass: ClassReference("skins.SuggestionTextBoxTextInputSkin")
+	skinClass: ClassReference("skins.BaseTextInputSkin")
 }
 
 #persistentTabMenu s|Button{
@@ -295,18 +294,48 @@ components|LocationSelector #cancelButton{
 	skinClass: ClassReference("skins.DetailsViewMenuItemSkin");
 }
 
-
+s|TextInput{
+	color: #22221b;
+}
+#promptDisplay{
+	color: #22221b;
+}
 
 /**********************************************
 	Device Specific Skinning
 ***********************************************/
 
-@media (os-platform: "AND"){
+
+@media (os-platform: "Android"){
+	s|TextInput{
+		fontFamily: "Trade Gothic LT Std";
+	}
+	#promptDisplay{
+		fontFamily: "Trade Gothic LT Std";
+		
+	}
+	
+	views|MapView #filterString, components|SuggestionTextBox #suggestionList, components|SuggestionTextBox #ti {
+		fontFamily: "Lions Den";
+		fontSize: 36;
+	}
+	
 }
 
 
 @media(os-platform:"IOS")
 {
+	s|TextInput{
+		fontFamily: "Thonburi";
+	}
+	#promptDisplay{
+		fontFamily: "Thonburi";
+	}
+	
+	views|MapView #filterString, components|SuggestionTextBox #suggestionList, components|SuggestionTextBox #ti {
+		fontFamily: "MarkerFelt-Thin";
+	}
+	
 	s|ActionBar
 	{
 		defaultButtonAppearance:beveled;
