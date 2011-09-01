@@ -10,6 +10,8 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import spark.components.Label;
+			
 			protected var dataToPush:DataSingleton;
 			protected var dbManager:DBManager;
 			
@@ -25,6 +27,16 @@
 				if (dataToPush.displayNotice){
 					notice.open(this, false);
 					dataToPush.displayNotice = false;
+				}
+				
+				if (!dataToPush.softControls){
+					var titleLabel:Label = new Label();
+					titleLabel.styleName = "titleLabel";
+					titleLabel.text = this.title;
+					titleLabel.top = 5;
+					titleLabel.percentWidth = 100;
+					this.addElementAt(titleLabel, 0);
+					
 				}
 				
 			}
@@ -48,7 +60,7 @@
 					return 0;
 				}
 				else{
-					return 70;
+					return 55;
 				}
 			}
 			
@@ -78,7 +90,6 @@
 	
 	
 	</s:List>
-	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Places" visible="{!data.softControls}"/>
 	
 	<s:navigationContent>
 		<s:Button id="backBtn" label="Back" click="navigator.popView()" />

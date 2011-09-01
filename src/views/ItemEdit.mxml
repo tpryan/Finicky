@@ -7,7 +7,11 @@
 			import com.terrenceryan.finicky.db.DBManager;
 			import com.terrenceryan.finicky.vo.Item;
 			
+			import components.TabMenu;
+			
 			import mx.events.FlexEvent;
+			
+			import spark.components.Label;
 			
 			protected var dbManager:DBManager;
 			protected var itemid:int;
@@ -22,16 +26,20 @@
 				
 				dbManager = data.dbManager;
 				
+				
 				if (data.item){
 					item = data.item;
-					titleLabel.text = "Edit Item";
 					this.title = "Edit Item";
 				}
 				else{
 					item = new Item();
-					titleLabel.text = "New Item";
 					this.title = "New Item";
 					deleteButton.visible = false;
+				}
+				
+				if (!dataToPush.softControls){
+					addTitleLabel();
+					addTabMenu();
 				}
 				
 			}
@@ -72,6 +80,25 @@
 				navigator.popView()
 			}
 			
+			protected function addTitleLabel():void{
+				var titleLabel:Label = new Label();
+				titleLabel.styleName = "titleLabel";
+				titleLabel.percentWidth = 100;
+				titleLabel.text = this.title;
+				editGroup.addElementAt(titleLabel, 0);
+			}
+			
+			protected function addTabMenu():void{
+				var tabMenu:TabMenu = new TabMenu();
+				tabMenu.active=true; 
+				tabMenu.bottom=0; 
+				tabMenu.leftButtonText="SAVE"; 
+				tabMenu.rightButtonText="CANCEL";
+				tabMenu.addEventListener("leftClick", saveButton_clickHandler);
+				tabMenu.addEventListener("rightClick", cancelButton_clickHandler);
+				this.addElement(tabMenu);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -80,18 +107,12 @@
 	</fx:Declarations>
 	
 	
-	<s:VGroup left="5" right="5" top="5" bottom="5">
-		<s:Label id="titleLabel" text="Add/Edit Item" visible="{!data.softControls}"/>
+	<s:VGroup left="5" right="5" top="5" bottom="5" id="editGroup">
 		<s:TextInput id="nameText" width="100%" text="@{item.name}" focusThickness="0" prompt="Item" />
 		
 		
 	</s:VGroup>
 	<s:Button id="deleteBtnIOS" visible="{data.softControls}" styleName="iosDelete" label="Delete" click="deleteButton_clickHandler(event)" bottom="5" /> 
-	
-	<components:TabMenu id="tabMenu" active="true" bottom="0" 
-						leftButtonText="SAVE" rightButtonText="CANCEL"
-						visible="{!data.softControls}"
-						leftClick="saveButton_clickHandler(event)" rightClick="cancelButton_clickHandler(event)" />
 	
 	
 	<s:viewMenuItems>

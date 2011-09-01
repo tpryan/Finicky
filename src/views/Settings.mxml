@@ -10,12 +10,25 @@
 			
 			import mx.events.FlexEvent;
 			
+			import spark.components.Label;
+			
 			[Bindable]
 			protected var dataToPush:DataSingleton;
 			
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data as DataSingleton;	
+				
+				if (!dataToPush.softControls){
+					var titleLabel:Label = new Label();
+					titleLabel.styleName = "titleLabel";
+					titleLabel.percentWidth = 100;
+					titleLabel.top = 5;
+					titleLabel.text = this.title;
+					this.addElementAt(titleLabel, 0);
+					
+				}
+				
 			}
 			
 			protected function settingsList_clickHandler(event:MouseEvent):void
@@ -61,7 +74,7 @@
 					return 0;
 				}
 				else{
-					return 70;
+					return 55;
 				}
 			}
 			
@@ -86,7 +99,6 @@
 	<s:VGroup>
 		
 	</s:VGroup>
-	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Settings" visible="{!data.softControls}"/>
 	
 	<s:List id="settingsList" left="0" right="0" top="{getTopPadding()}" bottom="0" contentBackgroundAlpha="0" dataProvider="{settings}" click="settingsList_clickHandler(event)">
 		<s:itemRenderer>

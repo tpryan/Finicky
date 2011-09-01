@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" dataChange="dataChangeHandler(event)" actionBarVisible="{data.softControls}" 
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" dataChange="dataChangeHandler(event)" creationComplete="init(event)" 
+		actionBarVisible="{data.softControls}" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="Edit Current Location" xmlns:components="components.*">
 	<fx:Script>
 		<![CDATA[
@@ -10,6 +11,8 @@
 			import com.terrenceryan.finicky.vo.Place;
 			
 			import mx.events.FlexEvent;
+			
+			import spark.components.Label;
 			
 			[Bindable]
 			public var place:Place = new Place();
@@ -53,15 +56,37 @@
 				
 			}
 			
+			protected function init(event:FlexEvent):void
+			{
+				if (!dataToPush.softControls){
+					var titleLabel:Label = new Label();
+					titleLabel.styleName = "titleLabel";
+					titleLabel.percentWidth = 100;
+					titleLabel.text = this.title;
+					titleLabel.top = 5;
+					this.addElementAt(titleLabel, 0);
+					
+				}
+				
+			}
+			
+			public function getTopPadding():int{
+				if (data.softControls){
+					return 0;
+				}
+				else{
+					return 55;
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	
 	
 	
 	
-	<s:Scroller width="100%" height="100%" left="5" right="5" top="5" bottom="5">
-		<s:VGroup clipAndEnableScrolling="true">
-				<s:Label id="titleLabel" text="Edit Current Location" visible="{!data.softControls}"/>
+	<s:Scroller width="100%" height="100%" left="5" right="5" top="{getTopPadding()}" bottom="5">
+		<s:VGroup clipAndEnableScrolling="true" id="editGroup">
 				<s:TextInput id="addressText" width="100%"  text="@{place.address}" prompt="[Address]" />
 				<s:TextInput id="cityText" width="100%"  text="@{place.city}" prompt="[City]"  />
 				<s:TextInput id="stateText" width="100%"  text="@{place.state}" prompt="[State]"  />

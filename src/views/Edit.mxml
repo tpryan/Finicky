@@ -15,6 +15,8 @@
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			import com.terrenceryan.finicky.vo.Place;
 			
+			import components.TabMenu;
+			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
@@ -40,6 +42,7 @@
 			protected var alternatives:ArrayCollection;
 			
 			protected var stringUtils:StringUtil = new StringUtil();
+			protected var tabMenu:TabMenu;
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -74,6 +77,10 @@
 				if (dataToPush.displayNotice){
 					notice.open(this, false);
 					dataToPush.displayNotice = false;
+				}
+				
+				if (!dataToPush.softControls){
+					addTabMenu();
 				}
 				
 			}
@@ -209,20 +216,33 @@
 			
 			protected function locationSelector_activeOnHandler(event:Event):void
 			{
-				tabMenu.visible = false;
-				
+				if (tabMenu){
+					tabMenu.visible = false;
+				}
 			}
 			
 			protected function locationSelector_activeOffHandler(event:Event):void
 			{
-				tabMenu.visible = true;
-				
+				if (tabMenu){
+					tabMenu.visible = true;
+				}
 			}
 			
 			protected function locationButton_clickHandler(event:MouseEvent):void
 			{
 				locationSelector.active = true;
 				
+			}
+			
+			protected function addTabMenu():void{
+				var tabMenu:TabMenu = new TabMenu();
+				tabMenu.active=true; 
+				tabMenu.bottom=0; 
+				tabMenu.leftButtonText="SAVE"; 
+				tabMenu.rightButtonText="CANCEL";
+				tabMenu.addEventListener("leftClick", saveButton_clickHandler);
+				tabMenu.addEventListener("rightClick", tabMenu_rightClickHandler);
+				this.addElement(tabMenu);
 			}
 			
 		]]>
@@ -288,9 +308,9 @@
 								 activeOn="locationSelector_activeOnHandler(event)" activeOff="locationSelector_activeOffHandler(event)"
 								 newItemRequested="locationSelector_newItemRequestedHandler(event)" />
 	
-	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="CANCEL"
+	<!--<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="CANCEL"
 						visible="{!data.softControls}"
-						leftClick="saveButton_clickHandler(event)" rightClick="tabMenu_rightClickHandler(event)" />
+						leftClick="saveButton_clickHandler(event)" rightClick="tabMenu_rightClickHandler(event)" />-->
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="saveButton" label="SAVE" click="saveButton_clickHandler(event)"  />

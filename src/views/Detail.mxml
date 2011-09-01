@@ -17,6 +17,8 @@
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			import com.terrenceryan.finicky.vo.Place;
 			
+			import components.PictureDisplay;
+			
 			import flash.net.navigateToURL;
 			
 			import mx.collections.ArrayCollection;
@@ -36,6 +38,8 @@
 			protected var store:Place = new Place();
 			
 			protected var dbManager:DBManager;
+			
+			protected var pictureDisplay:PictureDisplay;
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -59,21 +63,24 @@
 				
 				toggleBannerControls();
 				
-				//directionsBtn.y = itemNav.y + itemNav.height + 20;
 				
 				if (itemAtPlace.picturepath && itemAtPlace.picturepath.length > 0){
+					pictureDisplay = new PictureDisplay();
+					pictureDisplay.alpha = 0;
+					pictureDisplay.source = itemAtPlace.picturepath;
+					content.addElementAt(pictureDisplay, content.getElementIndex(textGroup) + 1);
+				
+					
+					
 					pictureDisplay.rotationSeed = item.name;
 					pictureDisplay.placePicture();
-					
 					addEventListener(ViewNavigatorEvent.VIEW_ACTIVATE, onViewActivate);
-					
-					
 				}
 				
 				if (!itemAtPlace.picturepath || itemAtPlace.picturepath.length < 1 || itemAtPlace.picturepath == "/assets/items/-1.jpg"){
-					pictureDisplay.height = 0;
-					pictureDisplay.visible = false;
-					
+					if (pictureDisplay){
+						content.removeElement(pictureDisplay);
+					}
 				}
 				
 				if (dataToPush.displayNotice){
@@ -190,7 +197,7 @@
 			protected function onViewActivate(event:ViewNavigatorEvent):void
 			{
 				pictureFade.stop();
-				pictureFade.play();
+				pictureFade.play([pictureDisplay]);
 				
 			}
 			
@@ -200,32 +207,30 @@
 	
 	<fx:Declarations>
 		<components:Notice id="notice" text="Match Saved." verticalCenter="0" horizontalCenter="0" />
-		<s:Fade id="pictureFade" alphaFrom="0" alphaTo="1" duration="100" target="{pictureDisplay}" />
-		<s:GlowFilter id="textShadow" alpha=".4" color="0x13C7E1" strength="1" />
+		<s:Fade id="pictureFade" alphaFrom="0" alphaTo="1" duration="100"  />
 	</fx:Declarations>
 	
 	<s:BitmapImage id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 	
 	<s:Scroller left="0" right="0" top="0" bottom="0" horizontalScrollPolicy="off" >
 		
-		<s:VGroup id="content" gap="10" paddingTop="0" clipAndEnableScrolling="true" width="100%">
+		<s:VGroup id="content" gap="0" paddingTop="0" clipAndEnableScrolling="true" width="100%" >
 			<components:ItemNavigator id="itemNav" width="100%" currentItem="{item.name}" 
 										clickLeft="itemNav_clickLeftHandler(event)" 
 										clickRight="itemNav_clickRightHandler(event)" />
 			
-			<s:HGroup>
-				<s:VGroup id="addressInfo" maxWidth="280" paddingLeft="50">
+			<s:HGroup id="textGroup">
+				<s:VGroup id="addressInfo" maxWidth="{width - 230}" paddingLeft="50">
 					
-					<s:Label id="storeName"   horizontalCenter="0" text="{store.name}" width="280"/>
-					<s:Label id="storeAddress"     horizontalCenter="0" text="{store.address}" width="280"/>
-					<s:Label id="storeCityStateZip"     horizontalCenter="0" text="{store.toCityStateZipString()}" width="280"/>
+					<s:Label id="storeName"   horizontalCenter="0" text="{store.name}" width="{width - 230}"/>
+					<s:Label id="storeAddress"     horizontalCenter="0" text="{store.address}" width="{width - 230}"/>
+					<s:Label id="storeCityStateZip"     horizontalCenter="0" text="{store.toCityStateZipString()}" width="{width - 230}"/>
 				</s:VGroup>
 				
-				<s:Button id="directionsBtn" label="DIRECTIONS" z="0" y="{itemNav.y + itemNav.height + 20}"  click="directionsBtn_clickHandler(event)" />	
+				<s:Button id="directionsBtn" label="DIRECTIONS" z="0" click="directionsBtn_clickHandler(event)" />	
 				
 			</s:HGroup>
 			
-			<components:PictureDisplay id="pictureDisplay" alpha="0" source="{itemAtPlace.picturepath}" rotationSeed="{itemAtPlace.item.name}" />
 			<s:BitmapImage id="rule" source="@Embed('/assets/bg/rule2.png')" horizontalCenter="0" width="100%" />
 			<s:Label id="matchNotes" width="100%" text="{itemAtPlace.notes}"/>
 		</s:VGroup>

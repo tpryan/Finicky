@@ -11,6 +11,10 @@
 			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.vo.Place;
 			
+			import components.ChangeLocationButton;
+			import components.FilterModal;
+			import components.Location;
+			
 			import flash.sensors.Geolocation;
 			
 			import mx.collections.ArrayCollection;
@@ -36,6 +40,10 @@
 			
 			protected var settingTransition:SlideViewTransition = new SlideViewTransition;
 			
+			protected var locationInterface:Location;
+			protected var filterBtn:Button;
+			protected var changeLocationBtn:ChangeLocationButton;
+			protected var filterModal:FilterModal;
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -50,6 +58,39 @@
 				getListData();
 				geoCodeService = dataToPush.geoCodeService;
 				
+				if (!dataToPush.softControls){
+					locationInterface = new Location();
+					locationInterface.location = dataToPush.home.getRendererLabel();
+					locationInterface.styleName = "locationInterface";
+					locationInterface.visible = true;
+					locationInterface.percentWidth = 100;
+					addElement(locationInterface);
+					
+					changeLocationBtn = new ChangeLocationButton();
+					changeLocationBtn.top= 15;
+					changeLocationBtn.right= 5; 
+					changeLocationBtn.z= 5; 
+					changeLocationBtn.data= dataToPush;
+					addElement(changeLocationBtn);
+					
+					filterBtn = new Button();
+					filterBtn.label = "Sort";
+					filterBtn.right = 10;
+					filterBtn.top = 165;
+					filterBtn.styleName = "filterBtn";
+					filterBtn.addEventListener(MouseEvent.CLICK, locationInterface_filterClickedHandler);
+					addElement(filterBtn);
+					
+					filterModal = new FilterModal();
+					filterModal.visible = false;
+					filterModal.percentWidth = 100;
+					filterModal.addEventListener("changed", filterModal_changedHandler);
+					addElement(filterModal);
+					/*
+					<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
+					*/
+					
+				}
 				
 				
 			
@@ -116,7 +157,7 @@
 				if (event.keyCode == Keyboard.BACK){
 					
 					
-					if (filterModal.active){
+					if (filterModal && filterModal.active){
 						event.preventDefault();
 						filterModal.active = false;
 						filterModal.visible = false;
@@ -129,9 +170,10 @@
 			
 			protected function locationInterface_filterClickedHandler(event:Event):void
 			{
-				filterModal.active = true;
-				filterModal.visible = true;
-				
+				if (filterModal){ 
+					filterModal.active = true;
+					filterModal.visible = true;
+				}
 			}
 			
 			
@@ -145,14 +187,16 @@
 			
 			protected function filterModal_changedHandler(event:Event):void
 			{
-				if (filterModal.filterType == "place"){
-					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",dataToPush.home);
-				}
-				else{
-					itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name",dataToPush.home);
-				}
-				filterModal.close();
+				if (filterModal){
 				
+					if (filterModal.filterType == "place"){
+						itemAtPlaceList = dbManager.itemAtPlaceDAO.list("distance",dataToPush.home);
+					}
+					else{
+						itemAtPlaceList = dbManager.itemAtPlaceDAO.list("item.name",dataToPush.home);
+					}
+					filterModal.close();
+				}
 			}
 			
 			protected function mapButton_clickHandler(event:MouseEvent):void
@@ -174,7 +218,10 @@
 			
 			protected function setLocationBanner(event:Event=null):void
 			{
-				locationInterface.location = dataToPush.home.getRendererLabel();
+				this.title = dataToPush.home.getRendererLabel();
+				if (locationInterface){
+					locationInterface.location = dataToPush.home.getRendererLabel();
+				}
 				
 			}
 			
@@ -215,10 +262,6 @@
 				parentApplication.navigator.pushView(Demo, dataToPush);
 			}
 			
-			protected function changeLocationBtnAB_clickHandler(event:MouseEvent):void
-			{
-				changeLocationBtn.icon_clickHandler();
-			}
 			
 			protected function getTopPadding():int{
 				if (data.softControls){
@@ -270,9 +313,10 @@
 				else{
 					noItemsLabel.visible = true;
 					
-					
-					filterBtn.visible = false;
-					mapButton.visible = false;
+					if (filterBtn){
+						filterBtn.visible = false;
+						mapButton.visible = false;
+					}
 				}
 				
 			}
@@ -322,17 +366,6 @@ How's about you add some?</fx:String>
 
 	<s:Label id="noItemsLabel" visible="false" text="No items here." top="{getTopPadding() + 90}" horizontalCenter="0" />
 	
-	<components:Location id="locationInterface" 
-						 visible="{!dataToPush.softControls}"
-						 location="{dataToPush.home.getRendererLabel()}"  />
-	
-	<s:Button id="filterBtn" label="Sort" right="10" top="165" visible="{!dataToPush.softControls}"  click="locationInterface_filterClickedHandler(event)" enabled="true"/>
-	
-	<components:ChangeLocationButton id="changeLocationBtn"  visible="{!dataToPush.softControls}" top="15" right="5" z="5" data="{dataToPush}" />	
-	
-	
-	
-	<components:FilterModal id="filterModal" visible="false" width="100%" changed="filterModal_changedHandler(event)" />
 	
 	<components:StartingNotice id="startingNotice" width="100%" height="100%" />
 	

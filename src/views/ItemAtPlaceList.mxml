@@ -9,6 +9,8 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import spark.components.Label;
+			
 			protected var dataToPush:DataSingleton;
 			protected var dbManager:DBManager;
 			
@@ -20,6 +22,18 @@
 				dataToPush = data as DataSingleton;
 				dbManager = data.dbManager;
 				itemAtPlaces = dbManager.itemAtPlaceDAO.list("item.name");
+				
+				
+				if (!dataToPush.softControls){
+					var titleLabel:Label = new Label();
+					titleLabel.styleName = "titleLabel";
+					titleLabel.text = this.title;
+					titleLabel.top = 5;
+					titleLabel.percentWidth = 100;
+					this.addElementAt(titleLabel, 0);
+					
+				}
+				
 			}
 			
 			protected function placeList_clickHandler(event:MouseEvent):void
@@ -74,7 +88,6 @@
 		
 		
 	</s:List>
-	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Matches" visible="{!data.softControls}"/>
 	
 	
 	<s:navigationContent>

@@ -28,6 +28,16 @@
 					metricIcon.source = on;
 				}
 				
+				if (!dataToPush.softControls){
+					var titleLabel:Label = new Label();
+					titleLabel.styleName = "titleLabel";
+					titleLabel.text = "Units";
+					titleLabel.top = 5;
+					titleLabel.percentWidth = 100;
+					this.addElementAt(titleLabel, 0);
+					
+				}
+				
 			}
 			
 			protected function metric_clickHandler(event:MouseEvent):void
@@ -54,7 +64,6 @@
 	</fx:Script>
 	
 	
-	<s:Label id="titleLabel"  top="20" horizontalCenter="0" text="Units" visible="{!data.softControls}"/>
 	
 	
 	
@@ -66,5 +75,9 @@
 		<s:Image id="usIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="us_clickHandler(event)" />
 		<s:Image id="metricIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="metric_clickHandler(event)"  />
 	</s:Group>
+	
+	<s:navigationContent>
+		<s:Button id="backBtn" label="Back" click="navigator.popView()" />
+	</s:navigationContent>
 	
 </s:View>

@@ -9,6 +9,8 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import spark.components.Label;
+			
 			protected var dataToPush:DataSingleton;
 			protected var dbManager:DBManager;
 			
@@ -24,6 +26,16 @@
 				if (dataToPush.displayNotice){
 					notice.open(this, false);
 					dataToPush.displayNotice = false;
+				}
+				
+				if (!dataToPush.softControls){
+					var titleLabel:Label = new Label();
+					titleLabel.styleName = "titleLabel";
+					titleLabel.text = this.title;
+					titleLabel.top = 5;
+					titleLabel.percentWidth = 100;
+					this.addElementAt(titleLabel, 0);
+					
 				}
 				
 				
@@ -49,7 +61,7 @@
 					return 0;
 				}
 				else{
-					return 70;
+					return 55;
 				}
 			}
 			
@@ -60,7 +72,6 @@
 		<components:Notice id="notice" text="Item Saved." verticalCenter="0" horizontalCenter="0" />
 	</fx:Declarations>
 	
-	<s:Label id="titleLabel" top="20" horizontalCenter="0" text="Items" visible="{!data.softControls}"/>
 	<s:List id="itemList" left="0" right="0" top="{getTopPadding()}" bottom="0" contentBackgroundAlpha="0" dataProvider="{items}" click="itemList_clickHandler(event)" >
 		<s:itemRenderer>
 			<fx:Component>

@@ -58,7 +58,7 @@ s|IconItemRenderer{
 
 
 
-#titleLabel{
+#titleLabel, .titleLabel{
 	fontFamily:"Liberator";
 	fontSize:40;
 	fontWeight:"normal";
@@ -205,7 +205,7 @@ skins|AlertSkin #messageText{
 	SKINS
 ***********************************************/
 
-#filterBtn{
+#filterBtn, .filterBtn{
 	skinClass: ClassReference("skins.FilterButtonSkin")
 }
 
@@ -286,7 +286,7 @@ components|WriteButton {
 	skinClass: ClassReference("skins.EditButtonSkin");
 }
 
-components|Location {
+components|Location, .locationInterface {
 	skinClass: ClassReference("skins.LocationSkin");
 }
 

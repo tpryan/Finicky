@@ -13,9 +13,12 @@
 			import com.terrenceryan.finicky.geo.GoogleGeoCode;
 			import com.terrenceryan.finicky.vo.Place;
 			
+			import components.TabMenu;
+			
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
+			import spark.components.Label;
 			import spark.events.TextOperationEvent;
 			protected var dbManager:DBManager;
 			protected var geoCodeService:GoogleGeoCode;
@@ -65,17 +68,25 @@
 				
 				if (data.place){
 					place = data.place.clone();
-					titleLabel.text = "Edit Place";
 					this.title = "Edit Place";	
 				}
 				else{
 					place = new Place();
-					titleLabel.text = "New Place";
 					this.title = "New Place";
 					deleteButton.visible = false;
 				}
 				
+				if (!dataToPush.softControls){
+					addTitleLabel();
+					addTabMenu();
+					
+				}
+				
+				
+				
+				
 			}
+			
 			
 			protected function processResult(event:GeoResultEvent):void
 			{
@@ -131,6 +142,25 @@
 				
 			}
 			
+			protected function addTitleLabel():void{
+				var titleLabel:Label = new Label();
+				titleLabel.styleName = "titleLabel";
+				titleLabel.percentWidth = 100;
+				titleLabel.text = this.title;
+				editGroup.addElementAt(titleLabel, 0);
+			}
+			
+			protected function addTabMenu():void{
+				var tabMenu:TabMenu = new TabMenu();
+				tabMenu.active=true; 
+				tabMenu.bottom=0; 
+				tabMenu.leftButtonText="SAVE"; 
+				tabMenu.rightButtonText="CANCEL";
+				tabMenu.addEventListener("leftClick", saveButton_clickHandler);
+				tabMenu.addEventListener("rightClick", cancelButton_clickHandler);
+				this.addElement(tabMenu);
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -141,10 +171,8 @@
 	
 	<s:Scroller width="100%" height="100%" left="5" right="5" top="5" bottom="5">
 		<s:Group clipAndEnableScrolling="true">
-		
-			<s:VGroup width="100%" >
-				
-				<s:Label id="titleLabel" text="Add/Edit Place" visible="{!data.softControls}"/>
+			<s:VGroup width="100%" id="editGroup" >
+				<!-- Title Label now added in init-->
 				<s:TextInput id="nameText" width="100%" text="@{place.name}" prompt="[Name]" />
 				<s:TextInput id="addressText" width="100%"  text="@{place.address}" prompt="[Address]" change="resetPlace()"/>
 				<s:TextInput id="cityText" width="100%"  text="@{place.city}" prompt="[City]"  change="resetPlace()"/>
@@ -157,9 +185,6 @@
 	</s:Scroller>
 
 	<s:Button id="deleteBtnIOS" visible="{data.softControls}" styleName="iosDelete" label="Delete" click="deleteButton_clickHandler(event)" bottom="5" /> 
-	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="CANCEL" 
-						visible="{!data.softControls}"
-						leftClick="saveButton_clickHandler(event)" rightClick="cancelButton_clickHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="menuSaveButton" label="SAVE" click="saveButton_clickHandler(event)"  />

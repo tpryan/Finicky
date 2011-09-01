@@ -7,6 +7,9 @@
 			import com.terrenceryan.finicky.vo.ItemAtPlace;
 			import com.terrenceryan.finicky.vo.Place;
 			
+			import components.TabMenu;
+			
+			
 			import mx.events.FlexEvent;
 			[Bindable]
 			protected var itemAtPlace:ItemAtPlace;
@@ -16,6 +19,7 @@
 			
 			protected function init(event:FlexEvent):void
 			{
+				
 				
 			}
 			
@@ -43,6 +47,14 @@
 				
 			}
 			
+			
+			
+			protected function saveButton_clickHandler(event:Event):void
+			{
+				navigator.popView();
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -65,10 +77,6 @@
 	<s:Button id="deleteBtnIOS" visible="{data.softControls}" styleName="iosDelete" label="Delete" click="deleteButton_clickHandler(event)" bottom="5" /> 
 			  
 	
-	<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="DELETE"
-						visible="{!data.softControls}"
-						leftClick="navigator.popView()" 
-						rightClick="deleteButton_clickHandler(event)" />
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="deleteButton" label="DELETE" click="deleteButton_clickHandler(event)" />
