@@ -29,8 +29,14 @@ package skins
 		{
 			super();
 			
-			width = 110;
-			height= 181;
+			if (applicationDPI == 160){
+				width = 55;
+				height= 90;
+			}
+			else{
+				width = 110;
+				height= 181;
+			}
 		}
 		
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void{

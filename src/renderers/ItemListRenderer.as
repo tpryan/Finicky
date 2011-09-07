@@ -23,6 +23,15 @@ package renderers
 		[Embed(source='/assets/icons/itemListButtonUp.png')]
 		private static var itemUp:Class;
 		
+		[Embed(source='/assets/bg/bg_itemSelected160.png')]
+		private static var itemSelected160:Class;
+		
+		[Embed(source='/assets/icons/itemListButtonDown160.png')]
+		private static var itemDown160:Class;
+		
+		[Embed(source='/assets/icons/itemListButtonUp160.png')]
+		private static var itemUp160:Class;
+		
 		
 		[Embed(source='/assets/bg/rule.png')]
 		private static var rule:Class;
@@ -52,20 +61,40 @@ package renderers
 		protected var highlightWidth:int;
 		protected var highlightHeight:int;
 		
+		protected var decoratorX:int;
+		protected var labelDisplayY:int;
+		
 		
 		public function ItemListRenderer()
 		{
 			super();
 			
-			decoratorClass = itemUp;
-			decoratorCoverClass = itemDown;
 			
-			decoratorHeight = 125;
-			decoratorWidth = 123;
+			if (applicationDPI == 160){
+				decoratorClass = itemUp160;
+				decoratorCoverClass = itemDown160;
+				highlightClass = itemSelected160;
+				
+				
+				decoratorHeight = 63;
+				decoratorWidth = 61;
+				highlightHeight = 243;
+				highlightWidth = 75;
+				bg.y = 9;
+			}
+			else{
+				decoratorClass = itemUp;
+				decoratorCoverClass = itemDown;
+				highlightClass = itemSelected;
+				
+				decoratorHeight = 125;
+				decoratorWidth = 123;
+				highlightHeight = 585;
+				highlightWidth = 150;
+				bg.y = 18;
+			}
 			
-			highlightClass = itemSelected;
-			highlightHeight = 585;
-			highlightWidth = 150;
+		
 			
 			
 			addChildAt(decoratorCoverHolder, 0);
@@ -79,7 +108,7 @@ package renderers
 			bg.source = highlightClass;
 			bg.width = highlightHeight;
 			bg.height = highlightWidth;
-			bg.y = 18;
+			
 			bg.visible = false;
 			bgHolder.addElement(bg);
 			
@@ -128,15 +157,27 @@ package renderers
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
 			
-			decoratorDisplay.source = itemUp;
-			setElementSize(decoratorDisplay, decoratorWidth, decoratorHeight);
 			
+			if (applicationDPI == 160){
+				decoratorDisplay.source = itemUp160;
+				decoratorX = decoratorDisplay.x+ 10;
+				height = 65;
+				labelDisplayY = 15;
+			}
+			else{
+				decoratorDisplay.source = itemUp;
+				decoratorX = decoratorDisplay.x;
+				height = 130;
+				labelDisplayY = 30;
+			}
+			
+			setElementSize(decoratorDisplay, decoratorWidth, decoratorHeight);
 			setElementPosition(bg, bg.x, -20);
 			
-			setElementPosition(decoratorDisplay, decoratorDisplay.x, 5);
+			setElementPosition(decoratorDisplay, decoratorX, 5);
 			setElementPosition(decoratorCover, decoratorDisplay.x, decoratorDisplay.y);
 			
-			setElementPosition(labelDisplay, labelDisplay.x, 30);
+			setElementPosition(labelDisplay, labelDisplay.x, labelDisplayY);
 			if (messageDisplay){
 				setElementPosition(messageDisplay, messageDisplay.x, labelDisplay.y + labelDisplay.height - 5);
 			}
@@ -167,7 +208,7 @@ package renderers
 				}
 			}
 			
-			height = 130;
+			
 		}
 	}
 }

@@ -46,10 +46,29 @@
 				dispatchEvent( new Event("clickRight"));
 			}
 			
+			protected function getButtonY():int{
+				if (parentApplication.applicationDPI == 160){
+					return 13;
+				}
+				else{
+					return 27;
+				}
+			}
+			
+			protected function getButtonX():int{
+				if (parentApplication.applicationDPI == 160){
+					return 15;
+				}
+				else{
+					return 0;
+				}
+			}
+			
+			
 		]]>
 	</fx:Script>
 	
-	<s:Button id="leftBtn" label="&lt;" visible="{visibleLeft}" left="0" y="27" click="leftBtn_clickHandler(event)" />
-	<s:Button id="rightBtn" label="&gt;" visible="{visibleRight}" right="0"  y="27" click="rightBtn_clickHandler(event)" />
+	<s:Button id="leftBtn" label="&lt;" visible="{visibleLeft}" left="{getButtonX()}" y="{getButtonY()}" click="leftBtn_clickHandler(event)" />
+	<s:Button id="rightBtn" label="&gt;" visible="{visibleRight}" right="{getButtonX()}"  y="{getButtonY()}" click="rightBtn_clickHandler(event)" />
 	<s:Label id="itemLabel" horizontalCenter="0" verticalCenter="0" width="380" text="{_currentItem}" textAlign="center"  />
 </s:SkinnableContainer>

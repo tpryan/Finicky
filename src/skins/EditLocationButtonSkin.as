@@ -27,17 +27,27 @@ package skins
 		protected var hl:BitmapImage = new BitmapImage();
 		protected var hlHolder:Group = new Group();
 		
+		protected var itemHeight:int = 158;
+		protected var fontSize:int = 40;
+		
 		public function EditLocationButtonSkin()
 		{
 			super();
+			
+			if (applicationDPI == 160){
+				itemHeight = 79;
+				fontSize = 20;
+			}
+			
+			
 			width = 383;
-			height = 158;
+			height = itemHeight;
 			
 			addChild(hlHolder);
 			
 			hl.source = highlight;
 			hl.width = 383;
-			hl.height = 158;
+			hl.height = itemHeight;
 			hl.x = 0;
 			hl.y = 0;
 			hl.visible = false;
@@ -54,11 +64,11 @@ package skins
 			
 			
 			labelDisplay.setStyle("fontFamily","Lions Den");
-			labelDisplay.setStyle("fontSize",30);
+			labelDisplay.setStyle("fontSize",fontSize);
 			labelDisplay.setStyle("fontWeight","normal");
 			labelDisplay.setStyle("color",0x48250A);
 			labelDisplayShadow.setStyle("fontFamily","Lions Den");
-			labelDisplayShadow.setStyle("fontSize",30);
+			labelDisplayShadow.setStyle("fontSize",fontSize);
 			labelDisplayShadow.setStyle("fontWeight","normal");
 			
 			
@@ -89,13 +99,18 @@ package skins
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
-			setElementPosition(labelDisplay, 40, 55);
+			
+			if (applicationDPI == 160){
+				setElementPosition(labelDisplay, 20, 23);
+			}
+			else{
+				setElementPosition(labelDisplay, 40, 55);
+			}
+			
+			
 			setElementPosition(labelDisplayShadow, labelDisplay.x, labelDisplay.y + 1);
-			//border.blendMode = "multiply";
 			hl.width = hostComponent.width;
 			hl.y = border.y -1 ;
-			//setElementSize(hl, hostComponent.height, hostComponent.width);
-			//setElementPosition(hl, 0, 0);
 		}
 		
 		

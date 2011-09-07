@@ -16,6 +16,9 @@
 			[Bindable]
 			public var message:String = "";
 			
+			[Bindable]
+			protected var padding:int = 40;
+			
 			protected function okButton_clickHandler(event:MouseEvent):void
 			{
 				dispatchEvent(new Event("ok"));
@@ -37,6 +40,10 @@
 				height = parent.height;
 				width = parent.width;
 				
+				if (parentApplication.applicationDPI == 160){
+					padding = 20;
+				}
+				
 			}
 			
 		]]>
@@ -46,11 +53,11 @@
 		<s:Label id="messageText" text="{message}" horizontalCenter="0" textAlign="center" width="80%"  />
 		<s:HGroup >
 			<s:Button id="okButton" label=""  click="okButton_clickHandler(event)" />
-			<s:Label id="okLabel" text="OK" paddingTop="40" />
+			<s:Label id="okLabel" text="OK" paddingTop="{padding}" click="okButton_clickHandler(event)" />
 		</s:HGroup>
 		<s:HGroup>
 			<s:Button id="cancelButton" label=""  click="cancelButton_clickHandler(event)"  />
-			<s:Label id="cancelLabel" text="Cancel" paddingTop="40" />
+			<s:Label id="cancelLabel" text="Cancel" paddingTop="{padding}" click="cancelButton_clickHandler(event)" />
 		</s:HGroup>
 	</s:VGroup>
 		

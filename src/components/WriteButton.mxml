@@ -22,24 +22,82 @@
 			[Embed(source="/assets/icons/pencil.png")]
 			protected var pencil:Class;
 			
+			[Bindable]
+			[Embed(source="/assets/icons/writeButtonUp160.png")]
+			protected var up160:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/writeButtonDown160.png")]
+			protected var down160:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/pencil160.png")]
+			protected var pencil160:Class;
+			
 			protected function init(event:FlexEvent):void
 			{
-				bg.source = up;
+				bg.source = getUpClass();
 			}
 
 			protected function showDown():void
 			{
-				bg.source = down;
+				bg.source = getDownClass();
 			}
 
 			protected function showUp():void
 			{
-				bg.source = up;
+				bg.source = getUpClass();
 			}
+			
+			protected function getIconClass():Class{
+				if (parentApplication.applicationDPI == 160){
+					return pencil160;
+				}
+				else{
+					return pencil;
+				}
+			}
+			
+			protected function getUpClass():Class{
+				if (parentApplication.applicationDPI == 160){
+					return up160;
+				}
+				else{
+					return up;
+				}
+			}
+			
+			protected function getDownClass():Class{
+				if (parentApplication.applicationDPI == 160){
+					return down160;
+				}
+				else{
+					return down;
+				}
+			}
+			
+			protected function getButtonX():int{
+				if (parentApplication.applicationDPI == 160){
+					return 11;
+				}
+				else{
+					return 23;
+				}
+			}
+			
+			protected function getButtonY():int{
+				if (parentApplication.applicationDPI == 160){
+					return 10;
+				}
+				else{
+					return 21;
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	
-	<s:BitmapImage id="bg" source="{up}" />
-	<s:BitmapImage id="cameraIcon" source="{pencil}" blendMode="multiply" x="23" y="21" />
+	<s:BitmapImage id="bg" source="{getUpClass()}" />
+	<s:BitmapImage id="cameraIcon" source="{getIconClass()}" blendMode="multiply" x="{getButtonX()}" y="{getButtonY()}" />
 	
 </s:SkinnableContainer>

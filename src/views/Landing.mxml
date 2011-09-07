@@ -280,17 +280,14 @@
 					usableArea = this.stage.stageHeight - 310;
 				}
 				else{
+					//hold off on this while not doing maps on IOS
 					//actual screen size - actobarheight - heighoftabs
-					usableArea = this.stage.stageHeight - this.parentApplication.actionBar.height -  102;
+					//usableArea = this.stage.stageHeight - this.parentApplication.actionBar.height -  102;
+					
+					//actual screen size - actobarheight
+					usableArea = this.stage.stageHeight - this.parentApplication.actionBar.height;
 				}
 				
-				trace("Dimensions:");
-				trace("Height: " + this.height);
-				trace("Stage.height: " + this.stage.height);
-				trace("Stage.stageheight: " + this.stage.stageHeight);
-				trace("actionbar.height: " + this.parentApplication.actionBar.height);
-				trace("tabbar.height: " + this.parentDocument.height);
-				trace("usable area: " + usableArea);
 				
 				return usableArea;
 			}

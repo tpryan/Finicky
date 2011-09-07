@@ -29,12 +29,19 @@ package skins
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void{
 			
 			var host:ItemNavigator = hostComponent as ItemNavigator;
+			var bgHeight:int = 211;
+			
+			
+			if (applicationDPI == 160){
+				bgHeight = 105;
+			}
 			
 			if (!bg){
 				bg = new BitmapImage();
 				bg.source = bgClass;
 				bg.scaleMode = "stretch";
 				bg.width = host.width - 50;
+				bg.height = bgHeight;
 				host.addElement(bg);
 				host.itemLabel.depth = 2;
 				host.leftBtn.depth = 0;
@@ -44,10 +51,13 @@ package skins
 				bg.depth = 1;
 			}
 			
+			
+		
+			
 			super.layoutContents(unscaledWidth, unscaledHeight);
-			setElementSize(bg,hostComponent.width - 50, 211);
+			setElementSize(bg,hostComponent.width - 50, bgHeight);
 			setElementPosition(bg,hostComponent.width/2 - bg.width/2, 0);
-			setActualSize(hostComponent.width, 211);
+			setActualSize(hostComponent.width, bgHeight);
 			
 		}
 	}

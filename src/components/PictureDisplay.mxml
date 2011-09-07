@@ -13,6 +13,12 @@
 			private var actualRotation:Number = 0;
 			private var actualTopPadding:int = 0;
 			
+			[Bindable]
+			public var displayHeight:int = 310;
+				
+			[Bindable]
+			public var displayWidth:int = 460;	
+			
 			private var originaly:int;
 
 			public function get source():String
@@ -28,7 +34,13 @@
 			public function placePicture():void
 			{
 				
-				
+				var paperclipy:int = 100;
+				if (parentApplication.applicationDPI ==160){
+					
+					displayWidth = 230;
+					displayHeight = 150;
+					paperclipy = 50;
+				}
 				
 				calculateRotation();
 				calculateTopPadding();
@@ -37,14 +49,21 @@
 				pictureBG.rotation = actualRotation;
 				itemPicture.y = originaly + actualTopPadding;
 				paperclip.right = 0;
-				paperclip.y = pictureBG.y + 100 + (2 * actualRotation);
+				paperclip.y = pictureBG.y + paperclipy + (2 * actualRotation);
 				
 			}
 			
 			private function calculateTopPadding():void{
 				var topPadding:int = 0;
 				var holder:Number = 0;
-				holder = (actualRotation * 6) ;
+				var mod:int = 6;
+				
+				if (parentApplication.applicationDPI ==160){
+					mod = 3;
+				}
+				
+				
+				holder = (actualRotation * mod) ;
 				
 				if (holder < 0){
 					holder = 0 - holder; 
@@ -89,7 +108,7 @@
 	
 	
 	
-	<s:Rect id="pictureBG" x="{itemPicture.x -5}" y="{itemPicture.y-5}" width="460" height="310">
+	<s:Rect id="pictureBG" x="{itemPicture.x -5}" y="{itemPicture.y-5}" width="{displayWidth}" height="{displayHeight}">
 		<s:stroke>
 			<s:SolidColorStroke color="0xFFFFFF" weight="5" />
 		</s:stroke>
@@ -100,7 +119,7 @@
 			<s:DropShadowFilter color="0x000000" angle="125" distance="6" alpha=".8" />
 		</s:filters>
 	</s:Rect>
-	<s:BitmapImage id="itemPicture" preliminaryWidth="450" preliminaryHeight="300" smooth="true"  maxWidth="450" maxHeight="300" scaleMode="letterbox"  horizontalCenter="0" source="{_source}" />
+	<s:BitmapImage id="itemPicture" preliminaryWidth="{displayWidth -10}" preliminaryHeight="{displayHeight-10}" smooth="true"  maxWidth="{displayWidth -10}" maxHeight="{displayHeight-10}" scaleMode="letterbox"  horizontalCenter="0" source="{_source}" />
 	<s:BitmapImage id="paperclip" source="@Embed('/assets/icons/paperclip.png')"/>
 	
 	

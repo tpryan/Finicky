@@ -25,26 +25,56 @@
 			[Embed(source="/assets/icons/cameraIcon.png")]
 			protected var camera:Class;
 			
+			[Bindable]
+			[Embed(source="/assets/icons/photoButtonUp160.png")]
+			protected var up160:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/photoButtonDown160.png")]
+			protected var down160:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/cameraIcon160.png")]
+			protected var camera160:Class;
+			
+			[Bindable]
+			protected var buttonSize:int = 200;
+			
+			[Bindable]
+			protected var pictureSize:int = 196;
+			
+			[Bindable]
+			protected var pictureCO:int = 98;
+			
+			[Bindable]
+			protected var pictureRadius:int = 90;
+			
 			
 			protected function init(event:FlexEvent):void
 			{
-				trace(photo)
+				if (parentApplication.applicationDPI == 160){
+					buttonSize = 100;
+					pictureSize = 98;
+					pictureCO = 49;
+					pictureRadius = 45;
+				}
 				bmimage.addEventListener(FlexEvent.READY, picLoaded);
-				bg.source = up;
+				bg.source = getUpClass();
 			}
 
 			protected function showDown():void
 			{
-				bg.source = down;
+				bg.source = getDownClass();
 			}
 
 			protected function showUp():void
 			{
-				bg.source = up;
+				bg.source = getUpClass();
 			}
 			
 			protected function picLoaded(event:Event):void
 			{
+				
 				var bmpData:BitmapData = bmimage.bitmapData;
 				
 				var shortside:int = bmpData.width;
@@ -53,23 +83,59 @@
 					shortside = bmpData.height;
 				}
 				
-				var scale:Number = 196/shortside;
-				
-				//var smallBmp:BitmapData = new BitmapData(bmpData.width*scale, bmpData.height * scale, true, 0x000000);
-				//smallBmp.draw(bmpData, new Matrix(), null, null, null, true);
-				
-				
+				var scale:Number = pictureSize/shortside;
 				var matrix:Matrix = new Matrix();
-				
-				//matrix.tx = (smallBmp.width/2) + (98/2); 
-				//matrix.ty = (smallBmp.height/2) + (98/2);
-				
 				matrix.scale(scale, scale);
 				
 				photoSprite.graphics.beginBitmapFill(bmpData,matrix);
-				photoSprite.graphics.drawCircle(98,98,90);
+				photoSprite.graphics.drawCircle(pictureCO,pictureCO,pictureRadius);
 				photoSprite.graphics.endFill();
 				
+			}
+			
+			protected function getIconClass():Class{
+				if (parentApplication.applicationDPI == 160){
+					return camera160;
+				}
+				else{
+					return camera;
+				}
+			}
+			
+			protected function getUpClass():Class{
+				if (parentApplication.applicationDPI == 160){
+					return up160;
+				}
+				else{
+					return up;
+				}
+			}
+			
+			protected function getDownClass():Class{
+				if (parentApplication.applicationDPI == 160){
+					return down160;
+				}
+				else{
+					return down;
+				}
+			}
+			
+			protected function getButtonX():int{
+				if (parentApplication.applicationDPI == 160){
+					return 4;
+				}
+				else{
+					return 8;
+				}
+			}
+			
+			protected function getButtonY():int{
+				if (parentApplication.applicationDPI == 160){
+					return 10;
+				}
+				else{
+					return 21;
+				}
 			}
 			
 		]]>
@@ -77,9 +143,9 @@
 	
 	
 	<s:BitmapImage id="bmimage" source="{photo}" width="0" height="0" visible="false" />
-	<s:BitmapImage id="bg" source="{up}" />
-	<s:BitmapImage id="cameraIcon" source="{camera}" blendMode="multiply" x="8" y="21" />
-	<s:SpriteVisualElement id="photoSprite" x="0" y="0" height="200" width="200"  />
+	<s:BitmapImage id="bg" source="{getUpClass()}" />
+	<s:BitmapImage id="cameraIcon" source="{getIconClass()}" blendMode="multiply" x="{getButtonX()}" y="{getButtonY()}" />
+	<s:SpriteVisualElement id="photoSprite" x="0" y="0" height="{buttonSize}" width="{buttonSize}"  />
 	
 	
 </s:SkinnableContainer>

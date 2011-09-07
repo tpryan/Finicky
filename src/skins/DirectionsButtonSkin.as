@@ -21,12 +21,25 @@ package skins
 		public function DirectionsButtonSkin()
 		{
 			super();
-			width = 200;
-			height = 147;
+			
+			if (applicationDPI == 160){
+				width = 100;
+				height = 78;
+				hl.width = 100;
+				hl.height = 78;
+			}
+			else{
+				width = 200;
+				height = 147;
+				hl.width = 200;
+				hl.height = 147;
+			}
+			
+			
+			
 			
 			hl.source = highlight;
-			hl.width = 200;
-			hl.height = 147;
+			
 			hl.x = 0;
 			hl.y = 0;
 			hl.visible = false;
@@ -35,15 +48,20 @@ package skins
 		
 		override protected function labelDisplay_valueCommitHandler(event:FlexEvent):void 
 		{
+			var fontSize:int = 20;
+			if (applicationDPI == 160){
+				fontSize= 10;
+			}
+			
 			super.labelDisplay_valueCommitHandler(event);
 			labelDisplayShadow.text = labelDisplay.text;
 			
 			labelDisplay.setStyle("fontFamily","Lions Den");
-			labelDisplay.setStyle("fontSize",20);
+			labelDisplay.setStyle("fontSize",fontSize);
 			labelDisplay.setStyle("fontWeight","normal");
 			labelDisplay.setStyle("color",0x48250A);
 			labelDisplayShadow.setStyle("fontFamily","Lions Den");
-			labelDisplayShadow.setStyle("fontSize",20);
+			labelDisplayShadow.setStyle("fontSize",fontSize);
 			labelDisplayShadow.setStyle("fontWeight","normal");
 			
 			
@@ -69,8 +87,16 @@ package skins
 		
 		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 		{
+			var ldx:int = 50;
+			var ldy:int = 55;
+			
+			if (applicationDPI == 160){
+				ldx = 25;
+				ldy = 27;
+			}
+			
 			super.layoutContents(unscaledWidth, unscaledHeight);
-			setElementPosition(labelDisplay, 50, 55);
+			setElementPosition(labelDisplay, ldx, ldy);
 			setElementPosition(labelDisplayShadow, labelDisplay.x, labelDisplay.y + 1);
 			//border.blendMode = "multiply";	
 		}

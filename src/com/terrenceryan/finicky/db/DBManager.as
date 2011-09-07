@@ -62,7 +62,7 @@ package com.terrenceryan.finicky.db
 				_currentLocationDBO = new CurrentLocationDBO(_conn);
 				
 				_placeDAO.measure = _measureDBO.get();
-				
+				_measure = _measureDBO.get();
 				
 				if (preload){
 					loadDemoData();

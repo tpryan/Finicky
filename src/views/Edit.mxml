@@ -44,10 +44,45 @@
 			protected var stringUtils:StringUtil = new StringUtil();
 			protected var tabMenu:TabMenu;
 			
+			
+			[Bindable]
+			protected var editItemLabelY:int = 10;
+			[Bindable]
+			protected var itemTextInputY:int = 61;
+			[Bindable]
+			protected var editLocationLabelY:int = 170;
+			[Bindable]
+			protected var placeTextInputY:int = 210;
+			[Bindable]
+			protected var locationButtonY:int = 300;
+			
+			
+			[Bindable]
+			protected var buttonY:int = 450;
+			[Bindable]
+			protected var buttonHC:int = 122;
+			[Bindable]
+			protected var noteY:int = 750;
+			[Bindable]
+			protected var noteTextY:int = 700;
+			
 			protected function init(event:FlexEvent):void
 			{
 				
-				
+				if (parentApplication.applicationDPI == 160){
+					editItemLabelY = 5;
+					itemTextInputY = 30;
+					
+					editLocationLabelY = 85;
+					placeTextInputY = 105;
+					
+					locationButtonY = 150;
+					
+					buttonY = 225;
+					buttonHC = 61;
+					noteY = 375;
+					noteTextY = 375;
+				}
 				
 				dataToPush = data as DataSingleton;
 				dbManager = data.dbManager;
@@ -182,14 +217,7 @@
 					}
 				}
 				
-				
-				
 			}
-			
-			
-			
-			
-			
 			
 			protected function locationSelector_newItemRequestedHandler(event:Event):void
 			{
@@ -252,7 +280,7 @@
 	<fx:Declarations>
 		<components:Notice id="notice" text="Address Set." verticalCenter="0" horizontalCenter="0" />
 		<s:Animate id="animateDown" target="{scrollerContent}">
-			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="700" />
+			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="{noteTextY}" />
 		</s:Animate>
 		
 		<s:Animate id="animateUp" target="{scrollerContent}">
@@ -271,33 +299,33 @@
 			<s:BitmapImage id="bg" source="@Embed('/assets/bg/bg_detail.jpg')" horizontalCenter="0" />
 			<s:BitmapImage id="tape" source="@Embed('/assets/bg/editTape.png')"  y="450" />
 			
-			<s:Label id="editItemLabel" top="10" width="100%" horizontalCenter="0"
+			<s:Label id="editItemLabel" top="{editItemLabelY}" width="100%" horizontalCenter="0"
 					 text="WHAT DID YOU FIND?" textAlign="center" filters="{[textShadow]}" />
 			
-			<s:Label id="editLocationLabel" top="170" width="100%" horizontalCenter="0"
+			<s:Label id="editLocationLabel" top="{editLocationLabelY}" width="100%" horizontalCenter="0"
 					 text="WHERE DID YOU FIND IT?" textAlign="center" filters="{[textShadow]}" />
 			
-			<s:Button id="locationButton" top="300" horizontalCenter="-0" label="{locationSelector.place.address}" width="100%"
+			<s:Button id="locationButton" top="{locationButtonY}" horizontalCenter="-0" label="{locationSelector.place.address}" width="100%"
 					  click="locationButton_clickHandler(event)" />
 			
 			
 			
 			<components:SuggestionTextBox id="placeTextInput" suggestionPool="{places}" depth="20" itemSelected="placeTextInput_itemSelectedHandler(event)"
-										  top="210" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"
+										  top="{placeTextInputY}" width="100%" horizontalCenter="0" text="{itemAtPlace.place.name}"
 										  textAlign="center" focusThickness="0"
 										  />
 			
 			<components:SuggestionTextBox id="itemTextInput" suggestionPool="{items}" depth="20"
-										  top="61" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
+										  top="{itemTextInputY}" width="100%" horizontalCenter="0" text="{itemAtPlace.item.name}"
 										  textAlign="center" focusThickness="0"
 										  />
 			
 			
-			<components:PhotoButton id="cameraButton" top="450" horizontalCenter="-122" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
-			<components:WriteButton id="writeButton" top="450" horizontalCenter="122" click="writeButton_clickHandler(event)" />
+			<components:PhotoButton id="cameraButton" top="{buttonY}" horizontalCenter="{-buttonHC}" photo="{itemAtPlace.picturepath}" click="cameraButton_clickHandler(event)"  />
+			<components:WriteButton id="writeButton" top="{buttonY}" horizontalCenter="{buttonHC}" click="writeButton_clickHandler(event)" />
 			
 			
-			<components:NotePad id="notepad" text="{itemAtPlace.notes}" top="750" height="{height}" width="100%"  />
+			<components:NotePad id="notepad" text="{itemAtPlace.notes}" top="{noteY}" height="{height}" width="100%"  />
 			
 		</s:Group>
 	</s:Scroller>
@@ -308,9 +336,6 @@
 								 activeOn="locationSelector_activeOnHandler(event)" activeOff="locationSelector_activeOffHandler(event)"
 								 newItemRequested="locationSelector_newItemRequestedHandler(event)" />
 	
-	<!--<components:TabMenu id="tabMenu" active="true" bottom="0" leftButtonText="SAVE" rightButtonText="CANCEL"
-						visible="{!data.softControls}"
-						leftClick="saveButton_clickHandler(event)" rightClick="tabMenu_rightClickHandler(event)" />-->
 	
 	<s:viewMenuItems>
 		<s:ViewMenuItem id="saveButton" label="SAVE" click="saveButton_clickHandler(event)"  />

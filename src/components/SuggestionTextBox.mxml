@@ -31,13 +31,18 @@
 			[Bindable]
 			public var selectedItem:Object;
 			
-			
+			[Bindable]
+			public var tiy:Number = 80;
 			
 			
 			
 			protected function init(event:FlexEvent):void
 			{
 				suggestions = suggestionPool;
+				
+				if (parentApplication.applicationDPI == 160){
+					tiy = 40;
+				}
 				
 			}
 			
@@ -119,7 +124,7 @@
 				 focusThickness="{focusThickness}" />
 	<s:List id="suggestionList" name="suggestionList" 
 				visible="false" contentBackgroundAlpha="0" depth="10"
-				width="100%" left="13" right="18" y="{ti.y + 80}"  
+				width="100%" left="13" right="18" y="{ti.y + tiy}"  
 				dataProvider="{suggestions}" labelField="name"
 				click="suggesttionList_clickHandler(event)" 
 				>

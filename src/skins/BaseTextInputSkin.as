@@ -18,6 +18,10 @@ package skins
 		[Embed(source="/assets/bg/bg_whitebrush.png")]
 		protected var whitebrush:Class;
 		
+		[Bindable]
+		[Embed(source="/assets/bg/bg_whitebrush160.png")]
+		protected var whitebrush160:Class;
+		
 		protected var whiteBG:BitmapImage = new BitmapImage;
 		protected var whiteHolder:Group = new Group();
 		
@@ -26,7 +30,14 @@ package skins
 		{
 			super();
 			borderClass = borderClassTemp;
-			height = 90;
+			
+			if (applicationDPI == 160){
+				height = 45;
+			}
+			else{
+				height = 90;
+			}
+			
 		}
 		
 		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void{
@@ -37,20 +48,39 @@ package skins
 												   unscaledHeight:Number):void
 		{
 			super.layoutContents(unscaledWidth, unscaledHeight);
-			whiteBG.source = whitebrush;
 			
-			whiteHolder.addElement(whiteBG);
+			
+			
+			setElementPosition(whiteHolder, 0, 0);
+			
+			if (applicationDPI == 160){
+				trace('applicationDPI = ' + applicationDPI);
+				setElementSize(whiteBG, width,45);
+				setElementSize(whiteHolder, border.width,45);
+				whiteBG.source = whitebrush160;
+			}
+			else{
+				setElementSize(whiteBG, border.width,border.height);
+				whiteBG.source = whitebrush;
+			}
+			
 			addChildAt(whiteHolder,0);
-			setElementPosition(whiteBG, 0, 0);
-			setElementSize(whiteBG, border.width,border.height);
-			
+			whiteHolder.addElement(whiteBG);
 			
 			
 			if (hostComponent.getStyle("textAlign")){
 				textDisplay.setStyle("textAlign", hostComponent.getStyle("textAlign"));
 				textDisplay.x = 15;
 				if (promptDisplay){
-					promptDisplay.x = 15;
+					
+					
+					if (parentApplication.applicationDPI == 160){
+						promptDisplay.x = 7;
+					}
+					else{
+						promptDisplay.x = 15;
+					}
+					
 				}
 			}
 			else{

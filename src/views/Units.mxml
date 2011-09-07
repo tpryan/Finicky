@@ -7,13 +7,8 @@
 			import com.terrenceryan.finicky.DataSingleton;
 			
 			import mx.events.FlexEvent;
-			[Bindable]
-			[Embed(source="/assets/icons/modalCheckOff.png")]
-			private var off:Class;
 			
-			[Bindable]
-			[Embed(source="/assets/icons/modalCheckOn.png")]
-			private var on:Class;
+			import spark.components.Label;
 			
 			public var dataToPush:DataSingleton;
 			
@@ -21,11 +16,15 @@
 			{
 				dataToPush = data as DataSingleton;
 				
+				trace(dataToPush.measure)
+				
 				if (dataToPush.measure == "US"){
-					usIcon.source = on;
+					us.selected = true;
+					metric.selected = false;
 				}
 				else{
-					metricIcon.source = on;
+					us.selected = false;
+					metric.selected = true;
 				}
 				
 				if (!dataToPush.softControls){
@@ -35,46 +34,35 @@
 					titleLabel.top = 5;
 					titleLabel.percentWidth = 100;
 					this.addElementAt(titleLabel, 0);
-					
-				}
+				} 
 				
+			}
+			
+			
+			protected function us_clickHandler(event:MouseEvent):void
+			{
+				if (dataToPush.measure != "US"){
+					dataToPush.measure = "US";
+					dataToPush.dbManager.measureDBO.save("US");
+				}
 			}
 			
 			protected function metric_clickHandler(event:MouseEvent):void
 			{
-				if (dataToPush.measure == "US"){
+				if (dataToPush.measure != "metric"){
 					dataToPush.measure = "metric";
 					dataToPush.dbManager.measureDBO.save("metric");
-					usIcon.source = off;
-					metricIcon.source = on;
 				}
-			}
-			
-			protected function us_clickHandler(event:MouseEvent):void
-			{
-				if (dataToPush.measure == "metric"){
-					dataToPush.measure = "US";
-					dataToPush.dbManager.measureDBO.save("US");
-					usIcon.source = on;
-					metricIcon.source = off;
-				}
+				
 			}
 			
 		]]>
 	</fx:Script>
 	
-	
-	
-	
-	
-	<s:Group id="mainInterface" left="0" right="0" horizontalCenter="0" verticalCenter="0">
-		<s:Label id="usLabel" horizontalCenter="-140" text="US" verticalCenter="-50" click="us_clickHandler(event)"/>
-		<s:Label id="metricLabel" horizontalCenter="140" text="METRIC" verticalCenter="-50" click="metric_clickHandler(event)"/>
-		
-		
-		<s:Image id="usIcon" source="{off}" horizontalCenter="-140"  verticalCenter="50" click="us_clickHandler(event)" />
-		<s:Image id="metricIcon" source="{off}" horizontalCenter="140" verticalCenter="50" click="metric_clickHandler(event)"  />
-	</s:Group>
+	<s:HGroup id="mainInterface"  gap="20" textAlign="center"  horizontalCenter="0" verticalCenter="0">
+		<s:RadioButton id="us" groupName="measure" label="US" click="us_clickHandler(event)"  />
+		<s:RadioButton id="metric" groupName="measure" label="METRIC" click="metric_clickHandler(event)"  />
+	</s:HGroup>
 	
 	<s:navigationContent>
 		<s:Button id="backBtn" label="Back" click="navigator.popView()" />

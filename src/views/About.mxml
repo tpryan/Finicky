@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" 
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" actionBarVisible="{data.softControls}" creationComplete="init(event)" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="About">
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			
+			[Bindable]
+			[Embed(source="/assets/icons/aboutLogo.png")]
+			private var about:Class;
+			
+			[Bindable]
+			[Embed(source="/assets/icons/aboutLogo160.png")]
+			private var about160:Class;
+			
+			[Bindable]
+			protected var aboutLogo:Class;
+			
+			[Bindable]
+			protected var logoY:int = 20;
+			[Bindable]
+			protected var labelDevY:int = 350;
+			[Bindable]
+			protected var textDevY:int = 380;
+			[Bindable]
+			protected var labelDesY:int = 450;
+			[Bindable]
+			protected var textDesY:int = 480;
+			[Bindable]
+			protected var labelThanksY:int = 550;
+			[Bindable]
+			protected var textThanksY:int = 580;
+			[Bindable]
+			protected var emailButtonY:int = 650;
+			
+			
+			
 			protected function emailButton_clickHandler(event:MouseEvent):void
 			{
 				var urlString:String = "mailto:";
@@ -13,6 +46,28 @@
 				navigateToURL(new URLRequest(urlString));
 				
 			}
+			
+			protected function init(event:FlexEvent):void
+			{
+				if (parentApplication.applicationDPI == 160){
+					aboutLogo = about160;
+					
+					logoY = 10;
+					labelDevY = 175;
+					textDevY = 190;
+					labelDesY = 225;
+					textDesY = 240;
+					labelThanksY = 275;
+					textThanksY = 290;
+					emailButtonY = 325;
+					
+				}
+				else{
+					aboutLogo = about;
+				}
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -21,18 +76,18 @@
 	</fx:Declarations>
 	
 	
-	<s:BitmapImage id="logo" source="@Embed('/assets/icons/aboutLogo.png')" horizontalCenter="0" y="20" depth="0"  />
+	<s:BitmapImage id="logo" source="{aboutLogo}" horizontalCenter="0" y="{logoY}" depth="0"  />
 	
-	<s:Label id="labelDev" horizontalCenter="0" y="350" text="Development" />
-	<s:Label id="textDev" horizontalCenter="0" y="380" text="Terry Ryan"/>
+	<s:Label id="labelDev" horizontalCenter="0" y="{labelDevY}" text="Development" />
+	<s:Label id="textDev" horizontalCenter="0" y="{textDevY}" text="Terry Ryan"/>
 	
-	<s:Label id="labelDes" horizontalCenter="0" y="450" text="Design"/>
-	<s:Label id="textDes" horizontalCenter="0" y="480" text="The1stMovement"/>
+	<s:Label id="labelDes" horizontalCenter="0" y="{labelDesY}" text="Design"/>
+	<s:Label id="textDes" horizontalCenter="0" y="{textDesY}" text="The1stMovement"/>
 	
-	<s:Label id="labelThanks" horizontalCenter="0" y="550" text="Special Thanks"/>
-	<s:Label id="textThanks" horizontalCenter="0" y="580" text="Adobe, ESRI, Google"/>
+	<s:Label id="labelThanks" horizontalCenter="0" y="{labelThanksY}" text="Special Thanks"/>
+	<s:Label id="textThanks" horizontalCenter="0" y="{textThanksY}" text="Adobe, ESRI, Google"/>
 	
-	<s:Button id="emailButton"  horizontalCenter="0" y="650" label="CONTACT" click="emailButton_clickHandler(event)"  />
+	<s:Button id="emailButton"  horizontalCenter="0" y="{emailButtonY}" label="CONTACT" click="emailButton_clickHandler(event)"  />
 	
 	<s:navigationContent>
 		<s:Button id="backBtn" label="Back" click="navigator.popView()" />

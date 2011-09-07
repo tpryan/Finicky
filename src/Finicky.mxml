@@ -131,12 +131,15 @@
 				}
 				
 				
-				if (dataToPush.os.indexOf("IOS") >= 0){
+				navigator.pushView(views.Landing, dataToPush);
+				
+				/* Will need later if I can get mapping to work on IOS.  */
+				/* if (dataToPush.os.indexOf("IOS") >= 0){
 					navigator.pushView(views.IOSLanding, dataToPush);
 				}
 				else{
 					navigator.pushView(views.Landing, dataToPush);
-				}
+				} */
 				
 			}
 			

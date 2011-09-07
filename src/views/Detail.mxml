@@ -40,6 +40,8 @@
 			protected var dbManager:DBManager;
 			
 			protected var pictureDisplay:PictureDisplay;
+			[Bindable]
+			protected var directionButtonWidth:int = 230;
 			
 			protected function init(event:FlexEvent):void
 			{
@@ -86,6 +88,10 @@
 				if (dataToPush.displayNotice){
 					notice.open(this, false);
 					dataToPush.displayNotice = false;
+				}
+				
+				if (parentApplication.applicationDPI == 160){
+					directionButtonWidth = 115;
 				}
 				
 				
@@ -220,11 +226,11 @@
 										clickRight="itemNav_clickRightHandler(event)" />
 			
 			<s:HGroup id="textGroup">
-				<s:VGroup id="addressInfo" maxWidth="{width - 230}" paddingLeft="50">
+				<s:VGroup id="addressInfo" maxWidth="{width - directionButtonWidth}" paddingLeft="50">
 					
-					<s:Label id="storeName"   horizontalCenter="0" text="{store.name}" width="{width - 230}"/>
-					<s:Label id="storeAddress"     horizontalCenter="0" text="{store.address}" width="{width - 230}"/>
-					<s:Label id="storeCityStateZip"     horizontalCenter="0" text="{store.toCityStateZipString()}" width="{width - 230}"/>
+					<s:Label id="storeName"   horizontalCenter="0" text="{store.name}" width="{width - directionButtonWidth}"/>
+					<s:Label id="storeAddress"     horizontalCenter="0" text="{store.address}" width="{width - directionButtonWidth}"/>
+					<s:Label id="storeCityStateZip"     horizontalCenter="0" text="{store.toCityStateZipString()}" width="{width - directionButtonWidth}"/>
 				</s:VGroup>
 				
 				<s:Button id="directionsBtn" label="DIRECTIONS" z="0" click="directionsBtn_clickHandler(event)" />	

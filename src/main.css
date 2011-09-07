@@ -161,10 +161,12 @@ components|LocationModal #textCurrent, components|LocationModal #textNew, compon
 	
 }
 
-components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel, #demoModeLabel, #usLabel, #metricLabel{
+components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel, #demoModeLabel, 
+#usLabel, #metricLabel, skins|CheckRadioButtonSkin #labelDisplay, .radioCheck{
 	fontFamily: "Liberator";
 	fontSize: 54;
 	color: #383539;
+	
 }
 
 components|Notice #messageText{
@@ -300,6 +302,9 @@ s|TextInput{
 #promptDisplay{
 	color: #22221b;
 }
+views|Units s|RadioButton{
+	skinClass: ClassReference("skins.CheckRadioButtonSkin");
+}
 
 /**********************************************
 	Device Specific Skinning
@@ -344,6 +349,7 @@ s|TextInput{
 		accentColor:"0x000000";
 	}
 	
+	
 	s|ActionBar #titleDisplay
 	{
 		fontFamily: "Spoleto";
@@ -357,6 +363,9 @@ s|TextInput{
 		shadowAngle: 120;
 		shadowDistance: 1;
 	}
+	
+	
+	
 	
 	s|ActionBar s|Button{
 		fontFamily: "Lions Den";
@@ -385,5 +394,86 @@ s|TextInput{
 	s|ActionBar #settingsBtnAB{
 		skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
 	}
+	
+}
+
+@media(application-dpi:160){
+	s|ActionBar #titleDisplay
+	{
+		fontSize: 25px;
+	}
+	
+	.itemName{
+		fontSize: 15;
+		paddingLeft:29;
+		paddingTop: 21;
+		
+	}
+	
+	
+	.locationName{
+		fontWeight: bold;
+		fontSize: 9;
+		
+	}
+	
+	#itemLabel {
+		fontSize: 20;
+	}
+	
+	
+	#storeName{
+		fontSize: 11;
+		
+	}
+	
+	#storeAddress, #storeCityStateZip, #storeLat, #storeLon{
+		fontSize: 10;
+	}
+	
+	#matchNotes{
+		fontSize: 17;
+		paddingLeft:25;
+		paddingRight:10;
+	}
+	
+	#titleLabel, .titleLabel{
+		fontSize:20;
+		fontWeight:"normal";
+		textAlign: center;
+		
+	}
+	
+	views|Edit #editItemLabel, views|Edit #editLocationLabel{
+		fontSize: 20;
+	}
+	
+	components|AcceptPopUp #okLabel, components|AcceptPopUp #cancelLabel{
+		fontSize:20;
+	}
+	
+	
+	components|LocationModal #textCurrent, components|LocationModal #textNew, components|LocationModal #textExisting{
+		fontSize:20;
+		
+	}
+	
+	skins|AlertSkin #messageText{
+		fontSize: 15;
+	}
+	
+	components|FilterModal #modalPlaceLabel, components|FilterModal #modalItemLabel, #demoModeLabel, 
+		#usLabel, #metricLabel, skins|CheckRadioButtonSkin #labelDisplay, .radioCheck{
+		fontSize: 27;
+	}
+	
+	views|About #labelDev, views|About #labelDes, views|About #labelThanks {
+		fontSize: 11;
+	}
+	
+	views|About #textDev, views|About #textDes, views|About #textThanks{
+		fontSize: 17;
+	}
+
 	
 }

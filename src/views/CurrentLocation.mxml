@@ -15,6 +15,13 @@
 			[Bindable]
 			private var dataToPush:DataSingleton;
 			
+			[Bindable]
+			protected var addressWidth:int = 280;
+			
+			[Bindable]
+			protected var addressPad:int = 50;
+			
+			
 			protected function init(event:FlexEvent):void
 			{
 				dataToPush = data as DataSingleton;
@@ -34,6 +41,11 @@
 					titleLabel.text = this.title;
 					this.addElementAt(titleLabel, 0);
 					
+				}
+				
+				if (parentApplication.applicationDPI == 160){
+					addressWidth = 140;
+					addressPad = 25;
 				}
 				
 			}
@@ -80,12 +92,12 @@
 	
 	
 	<s:HGroup top="{getTopPadding()}">
-		<s:VGroup id="addressInfo" maxWidth="280" paddingLeft="50" >
+		<s:VGroup id="addressInfo" maxWidth="{addressWidth}" paddingLeft="{addressPad}" >
 			
-			<s:Label id="storeAddress"   horizontalCenter="0" text="{home.address}" width="280"/>
-			<s:Label id="storeCityStateZip"  horizontalCenter="0" text="{home.toCityStateZipString()}" width="280"/>
-			<s:Label id="storeLat" horizontalCenter="0" text="{home.lat}" width="280"/>
-			<s:Label id="storeLon" horizontalCenter="0" text="{home.lon}" width="280"/>
+			<s:Label id="storeAddress"   horizontalCenter="0" text="{home.address}" width="{addressWidth}"/>
+			<s:Label id="storeCityStateZip"  horizontalCenter="0" text="{home.toCityStateZipString()}" width="{addressWidth}"/>
+			<s:Label id="storeLat" horizontalCenter="0" text="{home.lat}" width="{addressWidth}"/>
+			<s:Label id="storeLon" horizontalCenter="0" text="{home.lon}" width="{addressWidth}"/>
 		</s:VGroup>
 		
 		<components:ChangeLocationButton id="changeLocationBtn"  
