@@ -83,7 +83,7 @@
 	</s:List>
 	
 	<s:actionContent>
-		<s:Button id="addButtonAB" click="addButton_clickHandler(event)" label="+" />	
+		<s:Button id="addButtonAB" click="addButton_clickHandler(event)" label="ADD" />	
 	</s:actionContent>
 	
 	<s:navigationContent>

@@ -2,6 +2,10 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="init(event)" cacheAsBitmap="true" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="PictureDisplay">
 	
+	<fx:Metadata>
+		[Event(name="picturePlaced", type="flash.events.Event")]
+	</fx:Metadata>
+	
 	<fx:Script>
 		<![CDATA[
 			import com.terrenceryan.finicky.util.AppStorageBitmapImage;
@@ -16,7 +20,7 @@
 			[Bindable]
 			public var rotationSeed:String = "Rotation Seed";
 			private var actualRotation:Number = 0;
-			private var actualTopPadding:int = 0;
+			public var actualTopPadding:int = 0;
 			
 			[Bindable]
 			public var displayHeight:int = 310;
@@ -62,6 +66,9 @@
 				
 				itemPicture.x = pictureBG.x + 5;
 				itemPicture.y = pictureBG.y + 5;
+				dispatchEvent( new Event("picturePlaced"));
+			
+				
 			}
 			
 			private function calculateTopPadding():void{
@@ -117,7 +124,7 @@
 			
 			protected function createPicture():void
 			{
-				if (Capabilities.version.indexOf("IOS")){
+				if (Capabilities.version.indexOf("IOS") >= 0){
 					itemPicture = new AppStorageBitmapImage();
 				}
 				else{

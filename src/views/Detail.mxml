@@ -24,6 +24,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import spark.components.Group;
 			import spark.components.supportClasses.StyleableTextField;
 			import spark.events.ViewNavigatorEvent;
 			import spark.transitions.SlideViewTransition;
@@ -68,6 +69,7 @@
 				
 				if (itemAtPlace.picturepath && itemAtPlace.picturepath.length > 0){
 					pictureDisplay = new PictureDisplay();
+					pictureDisplay.addEventListener("picturePlaced", setPicturePosition);
 					pictureDisplay.alpha = 0;
 					pictureDisplay.source = itemAtPlace.picturepath;
 					content.addElementAt(pictureDisplay, content.getElementIndex(textGroup) + 1);
@@ -202,11 +204,25 @@
 			
 			protected function onViewActivate(event:ViewNavigatorEvent):void
 			{
-				pictureFade.stop();
-				pictureFade.play([pictureDisplay]);
-				
+				if(pictureDisplay){
+					pictureFade.stop();
+					pictureFade.play([pictureDisplay]);
+				}
 			}
 			
+			
+			
+			protected function setPicturePosition(event:Event):void
+			{
+				
+				var group:Group = content.getElementIndex(textGroup) as Group;
+				
+				if (group){
+					var targetY:int = group.y + group.height - pictureDisplay.actualTopPadding;
+					pictureDisplay.y = targetY ;
+				}
+				
+			}
 			
 		]]>
 	</fx:Script>

@@ -144,7 +144,6 @@
 			{
 				if (dataToPush.os.indexOf("IOS") >= 0){
 					var cameraUI:CameraUI = event.target as CameraUI;
-					cameraUI.removeEventListener(MediaEvent.COMPLETE, onCameraReturn);
 					
 					var mediaPromise:MediaPromise = event.data;
 					
@@ -169,7 +168,6 @@
 				
 				trace("Media Promise Loaded");
 				var mpLoaderInfo:LoaderInfo = e.target as LoaderInfo;
-				mpLoaderInfo.removeEventListener(Event.COMPLETE, onMediaPromiseLoaded);
 				
 				var bitMap:BitmapData = new BitmapData(loaderInfo.width,loaderInfo.height);
 				bitMap.draw( mpLoaderInfo.content);
