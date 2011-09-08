@@ -36,9 +36,7 @@
 			import mx.events.FlexEvent;
 			
 			import views.Demo;
-			import views.IOSLanding;
 			import views.Landing;
-			import views.TestView;
 			
 			//deleteme
 			private var count:Number = new Date().time;
