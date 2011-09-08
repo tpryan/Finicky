@@ -4,7 +4,12 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.terrenceryan.finicky.util.AppStorageBitmapImage;
+			
 			import mx.events.FlexEvent;
+			
+			import spark.components.Group;
+			
 			[Bindable]
 			private var _source:String = "";
 			
@@ -20,6 +25,8 @@
 			public var displayWidth:int = 460;	
 			
 			private var originaly:int;
+			
+			public var itemPicture:BitmapImage = new BitmapImage();
 
 			public function get source():String
 			{
@@ -30,6 +37,8 @@
 			{
 				_source = value;
 			}
+			
+			
 			
 			public function placePicture():void
 			{
@@ -47,10 +56,12 @@
 				
 				itemPicture.rotation = actualRotation;
 				pictureBG.rotation = actualRotation;
-				itemPicture.y = originaly + actualTopPadding;
+				pictureBG.y = originaly + actualTopPadding;
 				paperclip.right = 0;
 				paperclip.y = pictureBG.y + paperclipy + (2 * actualRotation);
 				
+				itemPicture.x = pictureBG.x + 5;
+				itemPicture.y = pictureBG.y + 5;
 			}
 			
 			private function calculateTopPadding():void{
@@ -96,11 +107,36 @@
 			
 			protected function init(event:FlexEvent):void
 			{
-				originaly = itemPicture.y;
+				createPicture();
+				originaly = pictureBG.y;
 				placePicture();
 				this.width = parent.width;
 				
 				
+			}
+			
+			protected function createPicture():void
+			{
+				if (Capabilities.version.indexOf("IOS")){
+					itemPicture = new AppStorageBitmapImage();
+				}
+				else{
+					itemPicture = new BitmapImage();
+				}
+				
+				var position:int = getElementIndex(pictureBG);
+				
+				itemPicture.preliminaryWidth = displayWidth -10;
+				itemPicture.preliminaryHeight = displayHeight -10;
+				itemPicture.smooth = true;	
+				itemPicture.maxWidth=displayWidth -10;
+				itemPicture.maxHeight=displayHeight-10; 
+				itemPicture.scaleMode="stretch";  
+				itemPicture.horizontalCenter=0; 
+				itemPicture.source=_source;
+				itemPicture.x = pictureBG.x + 5;
+				itemPicture.y = pictureBG.y + 5;
+				addElementAt(itemPicture,position+1);
 			}
 			
 		]]>
@@ -108,7 +144,7 @@
 	
 	
 	
-	<s:Rect id="pictureBG" x="{itemPicture.x -5}" y="{itemPicture.y-5}" width="{displayWidth}" height="{displayHeight}">
+	<s:Rect id="pictureBG" width="{displayWidth}" height="{displayHeight}" horizontalCenter="0">
 		<s:stroke>
 			<s:SolidColorStroke color="0xFFFFFF" weight="5" />
 		</s:stroke>
@@ -119,7 +155,6 @@
 			<s:DropShadowFilter color="0x000000" angle="125" distance="6" alpha=".8" />
 		</s:filters>
 	</s:Rect>
-	<s:BitmapImage id="itemPicture" preliminaryWidth="{displayWidth -10}" preliminaryHeight="{displayHeight-10}" smooth="true"  maxWidth="{displayWidth -10}" maxHeight="{displayHeight-10}" scaleMode="letterbox"  horizontalCenter="0" source="{_source}" />
 	<s:BitmapImage id="paperclip" source="@Embed('/assets/icons/paperclip.png')"/>
 	
 	

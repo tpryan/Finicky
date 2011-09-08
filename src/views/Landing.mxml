@@ -110,7 +110,9 @@
 				if (itemAtPlaceList.length == 0){
 					mapButton.visible = false;
 					noItemsLabel.visible = true;
-					filterBtn.visible = false;
+					if (filterBtn){
+						filterBtn.visible = false;
+					}
 					dataToPush.locationReconciler.reconcile();
 					dataToPush.locationReconciler.addEventListener("reconciled", getListData);
 				}
@@ -301,7 +303,7 @@
 			{
 				if (itemList.dataProvider && itemList.dataProvider.length > 0){
 					noItemsLabel.visible = false;
-					alert.close();
+					//alert.close();
 					if (!data.softControls){
 						filterBtn.visible = true;
 					}

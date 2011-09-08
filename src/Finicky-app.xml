@@ -198,7 +198,11 @@
 			<key>UIDeviceFamily</key>
 			<array>
 				<string>1</string>
-				<string>2</string>
+			</array>
+			<key>UIRequiredDeviceCapabilities</key>
+			<array>
+		          <string>location-services</string>
+		          <string>still-camera</string>
 			</array>
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>

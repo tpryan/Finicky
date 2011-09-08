@@ -19,6 +19,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
+			import mx.graphics.codec.JPEGEncoder;
 			
 			import spark.transitions.SlideViewTransition;
 			
@@ -66,6 +67,9 @@
 			[Bindable]
 			protected var noteTextY:int = 700;
 			
+			[Bindable]
+			protected var mpLoader:Loader;
+			
 			protected function init(event:FlexEvent):void
 			{
 				
@@ -110,7 +114,7 @@
 				
 				
 				if (dataToPush.displayNotice){
-					notice.open(this, false);
+					//notice.open(this, false);
 					dataToPush.displayNotice = false;
 				}
 				
@@ -138,10 +142,70 @@
 			
 			protected function onCameraReturn(event:MediaEvent):void
 			{
-				cameraButton.photo = event.data.file.url;
+				if (dataToPush.os.indexOf("IOS") >= 0){
+					var cameraUI:CameraUI = event.target as CameraUI;
+					cameraUI.removeEventListener(MediaEvent.COMPLETE, onCameraReturn);
+					
+					var mediaPromise:MediaPromise = event.data;
+					
+					this.mpLoader = new Loader();
+					this.mpLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onMediaPromiseLoaded);
+					this.mpLoader.loadFilePromise(mediaPromise);
+				}
+				else{
+					cameraButton.photo = event.data.file.url;
+				}
+				
 				dataToPush.allowToClose = true;
 				
+				
+				
+				trace("Camera Returned");
+				
 			}
+			
+			protected function onMediaPromiseLoaded(e:Event):void
+			{
+				
+				trace("Media Promise Loaded");
+				var mpLoaderInfo:LoaderInfo = e.target as LoaderInfo;
+				mpLoaderInfo.removeEventListener(Event.COMPLETE, onMediaPromiseLoaded);
+				
+				var bitMap:BitmapData = new BitmapData(loaderInfo.width,loaderInfo.height);
+				bitMap.draw( mpLoaderInfo.content);
+				
+				
+				var pictureName:String = itemTextInput.text + "_" + placeTextInput.text + ".jpg";
+				trace("Start Encoding:" +  new Date());
+				
+				var imgByteArray:ByteArray = mpLoaderInfo.bytes;
+				var fl:File = File.applicationStorageDirectory.resolvePath(pictureName);
+				var fs:FileStream = new FileStream();
+				trace("Finish Encoding:" +  new Date());
+				
+				try{
+					trace("Start Write:" +  new Date());
+					//open file in write mode
+					fs.open(fl,FileMode.WRITE);
+					//write bytes from the byte array
+					fs.writeBytes(imgByteArray);
+					//close the file
+					fs.close();
+					trace("Finish Write:" +  new Date());
+				}catch(e:Error){
+					trace("Error");
+				}
+				trace(new Date());
+				cameraButton.rawBitmapData = bitMap;
+				cameraButton.photo = "file://" + fl.nativePath;
+				trace(fl.nativePath);
+				trace(fl.url);
+				trace("file://" + fl.nativePath);
+				trace(fl.size);
+				
+			}
+			
+			
 			
 			
 			protected function saveButton_clickHandler(event:Event):void
@@ -273,12 +337,14 @@
 				this.addElement(tabMenu);
 			}
 			
+			
+			
 		]]>
 	</fx:Script>
 	
 	
 	<fx:Declarations>
-		<components:Notice id="notice" text="Address Set." verticalCenter="0" horizontalCenter="0" />
+		<!--<components:Notice id="notice" text="Address Set." verticalCenter="0" horizontalCenter="0" />-->
 		<s:Animate id="animateDown" target="{scrollerContent}">
 			<s:SimpleMotionPath property="verticalScrollPosition" valueTo="{noteTextY}" />
 		</s:Animate>

@@ -9,9 +9,9 @@
 			
 			import spark.primitives.BitmapImage;
 			
-			[Bindable]
-			public var photo:String = "";
+			private var _photo:String = "";
 			protected var loader:Loader;
+			public var rawBitmapData:BitmapData;
 			
 			[Bindable]
 			[Embed(source="/assets/icons/photoButtonUp.png")]
@@ -50,6 +50,24 @@
 			protected var pictureRadius:int = 90;
 			
 			
+			[Bindable]
+			public function get photo():String
+			{
+				return _photo;
+			}
+
+			public function set photo(value:String):void
+			{
+				_photo = value;
+				 
+				if (value.length > 0){
+					picLoaded(new FlexEvent("ready"));
+				}
+				
+				
+				
+			}
+
 			protected function init(event:FlexEvent):void
 			{
 				if (parentApplication.applicationDPI == 160){
@@ -58,7 +76,16 @@
 					pictureCO = 49;
 					pictureRadius = 45;
 				}
-				bmimage.addEventListener(FlexEvent.READY, picLoaded);
+				
+				if (Capabilities.version.indexOf("IOS") >= 0){
+					bmimage.source = null;
+					removeElement(bmimage);
+				}
+				else{
+					bmimage.addEventListener(FlexEvent.READY, picLoaded);
+				}
+				
+				
 				bg.source = getUpClass();
 			}
 
@@ -74,22 +101,35 @@
 			
 			protected function picLoaded(event:Event):void
 			{
+				trace("Picloaded");
+				var bmpData:BitmapData;
 				
-				var bmpData:BitmapData = bmimage.bitmapData;
-				
-				var shortside:int = bmpData.width;
-				
-				if (bmpData.width > bmpData.height){
-					shortside = bmpData.height;
+				if (rawBitmapData){
+					bmpData = rawBitmapData;
+				}
+				else{
+					bmpData = bmimage.bitmapData;
 				}
 				
-				var scale:Number = pictureSize/shortside;
-				var matrix:Matrix = new Matrix();
-				matrix.scale(scale, scale);
 				
-				photoSprite.graphics.beginBitmapFill(bmpData,matrix);
-				photoSprite.graphics.drawCircle(pictureCO,pictureCO,pictureRadius);
-				photoSprite.graphics.endFill();
+				if (bmpData){
+					var shortside:int = bmpData.width;
+					
+					if (bmpData.width > bmpData.height){
+						shortside = bmpData.height;
+					}
+					trace("Scaling started");
+					var scale:Number = pictureSize/shortside;
+					var matrix:Matrix = new Matrix();
+					matrix.scale(scale, scale);
+					
+					photoSprite.graphics.beginBitmapFill(bmpData,matrix);
+					trace("Scaling ended");
+					trace("Drawing started");
+					photoSprite.graphics.drawCircle(pictureCO,pictureCO,pictureRadius);
+					photoSprite.graphics.endFill();
+					trace("Drawing ended");
+				}
 				
 			}
 			
